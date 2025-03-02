@@ -1,9 +1,9 @@
 package fitrack.workout.repository;
 
 
-import fitrack.facility.entity.SportFacility;
+import fitrack.workout.entity.WorkoutPlan;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface SportFacilityRepository extends JpaRepository<SportFacility, Integer> {
+public interface WorkoutPlanRepository extends JpaRepository<WorkoutPlan, Integer> {
 
 }

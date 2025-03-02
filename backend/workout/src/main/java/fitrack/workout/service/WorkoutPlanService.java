@@ -1,12 +1,15 @@
 package fitrack.workout.service;
 
 
-import fitrack.facility.repository.SportFacilityRepository;
+import fitrack.workout.repository.WorkoutPlanRepository;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
-public class SportFacilityService {
-    private final SportFacilityRepository repository;
+@AllArgsConstructor
+public class WorkoutPlanService {
+    private WorkoutPlanRepository repository;
+
 }

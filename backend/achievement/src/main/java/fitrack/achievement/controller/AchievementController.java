@@ -1,13 +1,14 @@
-package fitrack.user.controller;
+package fitrack.achievement.controller;
 
-import fitrack.user.service.UserService;
+import fitrack.achievement.service.AchievementService;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/users")
-@RequiredArgsConstructor
-public class UserController {
-    private final UserService service;
+@RequestMapping("/api/v1/achievements")
+@AllArgsConstructor
+public class AchievementController {
+    private AchievementService service;
 }

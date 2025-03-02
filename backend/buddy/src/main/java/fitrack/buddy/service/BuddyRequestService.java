@@ -1,11 +1,13 @@
-package fitrack.achievement.service;
+package fitrack.buddy.service;
 
-import fitrack.achievement.repository.AchievementRepository;
+
+import fitrack.buddy.repository.BuddyRequestRepository;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
-public class AchievementService {
-    private final AchievementRepository repository;
+@AllArgsConstructor
+public class BuddyRequestService {
+    private BuddyRequestRepository repository;
 }

@@ -1,13 +1,14 @@
-package fitrack.achievement.controller;
+package fitrack.buddy.controller;
 
-import fitrack.achievement.service.AchievementService;
+import fitrack.buddy.service.BuddyRequestService;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/achievements")
-@RequiredArgsConstructor
-public class AchievementController {
-    private final AchievementService service;
+@RequestMapping("/api/v1/buddies/request")
+@AllArgsConstructor
+public class BuddyRequestController {
+    private BuddyRequestService service;
 }

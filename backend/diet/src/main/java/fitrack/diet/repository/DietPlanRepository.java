@@ -1,9 +1,9 @@
 package fitrack.diet.repository;
 
 
-import fitrack.buddy.entity.BuddyRequest;
+import fitrack.diet.entity.DietPlan;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface BuddyRequestRepository extends JpaRepository<BuddyRequest, Integer> {
+public interface DietPlanRepository extends JpaRepository<DietPlan, Integer> {
 
 }

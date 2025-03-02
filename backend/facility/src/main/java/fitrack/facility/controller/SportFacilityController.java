@@ -1,13 +1,15 @@
-package fitrack.diet.controller;
+package fitrack.facility.controller;
 
-import fitrack.diet.service.DietPlanService;
+
+import fitrack.facility.service.SportFacilityService;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/v1/diets/plan")
-@RequiredArgsConstructor
-public class DietPlanController {
-    private final DietPlanService service;
+@RequestMapping("/api/v1/facility")
+@AllArgsConstructor
+public class SportFacilityController {
+    private SportFacilityService service;
 }

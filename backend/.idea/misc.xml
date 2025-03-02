@@ -5,6 +5,15 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/fitrack-website/pom.xml" />
+        <option value="$PROJECT_DIR$/config-server/pom.xml" />
+        <option value="$PROJECT_DIR$/discovery/pom.xml" />
+        <option value="$PROJECT_DIR$/gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/user/pom.xml" />
+        <option value="$PROJECT_DIR$/achievement/pom.xml" />
+        <option value="$PROJECT_DIR$/buddy/pom.xml" />
+        <option value="$PROJECT_DIR$/diet/pom.xml" />
+        <option value="$PROJECT_DIR$/facility/pom.xml" />
+        <option value="$PROJECT_DIR$/workout/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
@@ -13,7 +22,7 @@
       </set>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="openjdk-23" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_21" project-jdk-name="17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

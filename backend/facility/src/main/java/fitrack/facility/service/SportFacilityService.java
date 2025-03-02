@@ -1,12 +1,13 @@
-package fitrack.diet.service;
+package fitrack.facility.service;
 
 
-import fitrack.diet.repository.DietPlanRepository;
+import fitrack.facility.repository.SportFacilityRepository;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
-public class DietPlanService {
-    private final DietPlanRepository repository;
+@AllArgsConstructor
+public class SportFacilityService {
+    private SportFacilityRepository repository;
 }

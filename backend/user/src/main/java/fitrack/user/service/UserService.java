@@ -1,10 +1,12 @@
-package fitrack.user;
+package fitrack.user.service;
 
+import fitrack.user.repository.UserRepository;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import java.util.List;
+
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class UserService {
-    private final UserRepository repository;
+    private UserRepository repository;
 }

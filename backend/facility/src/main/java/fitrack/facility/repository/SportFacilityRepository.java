@@ -1,9 +1,9 @@
-package fitrack.diet.repository;
+package fitrack.facility.repository;
 
 
-import fitrack.diet.entity.DietPlan;
+import fitrack.facility.entity.SportFacility;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface DietPlanRepository extends JpaRepository<DietPlan, Integer> {
+public interface SportFacilityRepository extends JpaRepository<SportFacility, Integer> {
 
 }

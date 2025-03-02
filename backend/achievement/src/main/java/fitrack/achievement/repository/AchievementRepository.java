@@ -1,8 +1,8 @@
-package fitrack.user.repository;
+package fitrack.achievement.repository;
 
-import fitrack.user.entity.User;
+import fitrack.achievement.entity.Achievement;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface AchievementRepository extends JpaRepository<Achievement, Integer> {
 
 }

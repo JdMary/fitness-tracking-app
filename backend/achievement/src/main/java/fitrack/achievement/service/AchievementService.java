@@ -1,11 +1,12 @@
-package fitrack.user.service;
+package fitrack.achievement.service;
 
-import fitrack.user.repository.UserRepository;
+import fitrack.achievement.repository.AchievementRepository;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
-public class UserService {
-    private final UserRepository repository;
+@AllArgsConstructor
+public class AchievementService {
+    private AchievementRepository repository;
 }
