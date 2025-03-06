@@ -1,14 +1,24 @@
 package fitrack.buddy.controller;
 
-import fitrack.buddy.service.BuddyRequestService;
+import fitrack.buddy.entity.BuddyRequest;
+import fitrack.buddy.service.IBuddyRequestService;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/buddies/request")
 @AllArgsConstructor
 public class BuddyRequestController {
-    private BuddyRequestService service;
+    private IBuddyRequestService buddyRequestService;
+    @PostMapping("/add")
+    public BuddyRequest addBuddyRequest(@RequestBody BuddyRequest buddyRequest) {
+        return buddyRequestService.addBuddyRequest(buddyRequest);
+    }
+    @GetMapping("retrieve")
+    public List<BuddyRequest> retrieveBuddyRequests() {
+        return buddyRequestService.retrieveBuddyRequests();
+    }
+
 }
