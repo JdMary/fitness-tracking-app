@@ -2,8 +2,6 @@ package fitrack.buddy.service;
 
 
 import fitrack.buddy.entity.BuddyRequest;
-import fitrack.buddy.entity.Goals;
-import fitrack.buddy.entity.Status;
 import fitrack.buddy.repository.BuddyRequestRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,4 +21,13 @@ public class BuddyRequestService implements IBuddyRequestService {
         return repository.save(buddyRequest);
     }
 
+    @Override
+    public List<BuddyRequest> findAllByUserEmail(String email) {
+        return repository.findAllByUserEmail(email);
+    }
+
+    @Override
+    public void removeBuddyRequest(Long id) {
+        repository.deleteById(id);
+    }
 }

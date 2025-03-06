@@ -10,4 +10,7 @@ public interface IBuddyRequestService {
 
     BuddyRequest addBuddyRequest(BuddyRequest buddyRequest);
 
+    List<BuddyRequest> findAllByUserEmail(String email);
+
+    void removeBuddyRequest(Long id);
 }
