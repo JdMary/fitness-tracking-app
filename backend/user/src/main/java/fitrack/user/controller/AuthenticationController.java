@@ -6,6 +6,7 @@ import fitrack.user.entity.dtos.RegisterDTO;
 import fitrack.user.entity.User;
 import fitrack.user.security.TokenService;
 import fitrack.user.repository.UserRepository;
+import fitrack.user.service.IUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +16,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/v1/auth")
@@ -27,11 +27,13 @@ public class AuthenticationController {
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
     private final TokenService tokenService;
+    private final IUserService userService;
 
-    public AuthenticationController(AuthenticationManager authenticationManager, UserRepository userRepository, TokenService tokenService) {
+    public AuthenticationController(AuthenticationManager authenticationManager, UserRepository userRepository, TokenService tokenService, IUserService userService) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.tokenService = tokenService;
+        this.userService = userService;
     }
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> login(@RequestBody AuthenticationDTO data) {
@@ -62,5 +64,28 @@ public class AuthenticationController {
         this.userRepository.save(user);
 
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/extract-username")
+    public ResponseEntity<String> extractUsername(@RequestHeader("Authorization") String bearerToken) {
+        try {
+            String token = bearerToken.substring(7); // Remove "Bearer " prefix
+            String username = tokenService.extractUsername(token);
+            return ResponseEntity.ok(username);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid token");
+        }
+    }
+
+    @GetMapping("/extract-user-details")
+    public ResponseEntity<?> extractUserDetails(@RequestHeader("Authorization") String bearerToken) {
+        try {
+            String token = bearerToken.substring(7); // Remove "Bearer " prefix
+            String username = tokenService.extractUsername(token);
+            Optional<User> user = userRepository.findByEmail(username);
+            return ResponseEntity.ok(user);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid token or user not found");
+        }
     }
 }

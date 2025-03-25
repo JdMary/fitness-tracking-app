@@ -33,3 +33,9 @@ api:
   security:
     token:
       secret: H4DoS3xt0gQD91lU3iNg1WTx8ab00+LMmh8cQWXekM523vrJu7ZrlAv5M59L3v2qcX5efMK8AXCiMqnQLQyVeA==
+
+paypal:
+  mode: sandbox
+  client:
+    id: AeNLyFQhxhKlI03YMTtg4HzuKups6ERg4D-2VLFfKOHGM4VFz-6CNh8rKZSaamkFzN0HriUEbx6XwoaJ
+    secret: EBw9uahLHNM-O0ClPalx6m7WJEHXFhPcDoGj6uNyCTq_QNijKM0QjYiAiGWKQHw1SFkLfgoiVuDATalz
