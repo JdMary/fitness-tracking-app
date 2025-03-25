@@ -2,6 +2,8 @@ eureka:
   instance:
     hostname: localhost
   client:
+    register-with-eureka: true
+    fetch-registry: true
     service-url:
       defaultZone: http://localhost:8761/eureka
 
@@ -26,3 +28,8 @@ management:
   tracing:
     sampling:
       probability: 1.0
+
+api:
+  security:
+    token:
+      secret: H4DoS3xt0gQD91lU3iNg1WTx8ab00+LMmh8cQWXekM523vrJu7ZrlAv5M59L3v2qcX5efMK8AXCiMqnQLQyVeA==
