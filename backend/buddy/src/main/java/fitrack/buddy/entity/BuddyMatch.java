@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -23,4 +24,7 @@ public class BuddyMatch {
     @CreationTimestamp
     @Column(updatable = false, nullable = false)
     private LocalDateTime creationDate;
+
+    @OneToMany(mappedBy = "buddy_request", cascade = CascadeType.ALL)
+    private List<BuddyRequest> requests;
 }

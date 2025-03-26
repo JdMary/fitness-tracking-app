@@ -1,9 +1,9 @@
 package fitrack.buddy.service;
 
 import fitrack.buddy.entity.BuddyMatch;
-import fitrack.buddy.entity.BuddyRequest;
 import fitrack.buddy.repository.BuddyMatchRepository;
 import lombok.AllArgsConstructor;
+import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,7 +26,7 @@ public class BuddyMatchService implements IBuddyMatchService{
 
     @Override
     public List<BuddyMatch> findAllByUserEmail(String email) {
-        return repository.findAllByUserEmail(email);
+        return repository.findAllByUser1Email(email);
     }
 
     @Override
