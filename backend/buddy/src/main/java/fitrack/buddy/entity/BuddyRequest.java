@@ -21,6 +21,7 @@ public class BuddyRequest {
     private Long id;
 
     private String userEmail;
+    private Long potentialMatch;
 
     @Enumerated(EnumType.STRING)
     private Status status;

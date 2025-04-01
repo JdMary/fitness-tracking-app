@@ -18,13 +18,15 @@ public class BuddyMatch {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String user1Email;
-    private String user2Email;
+    private Long requestId1;
+    private Long requestId2;
+    private String email1;
+    private String email2;
 
     @CreationTimestamp
     @Column(updatable = false, nullable = false)
     private LocalDateTime creationDate;
 
-    @OneToMany(mappedBy = "buddy_request", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "match", cascade = CascadeType.ALL)
     private List<BuddyRequest> requests;
 }

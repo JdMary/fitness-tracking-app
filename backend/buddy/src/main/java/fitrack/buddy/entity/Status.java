@@ -6,7 +6,8 @@ import lombok.Getter;
 public enum Status {
 
     PENDING("Pending"),
-    APPROVED("Approved"),
+    WAITING("Waiting"),
+    ACCEPTED("Accepted"),
     REJECTED("Rejected");
     private final String value;
 
