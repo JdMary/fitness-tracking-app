@@ -1544,6 +1544,27 @@ export class DataService {
           ],
         },
         {
+          menuValue: 'User',
+          hasSubRoute: true,
+          showSubRoute: false,
+          route: routes.service, //badl 7asb l route mte3k
+          icon: 'icon-briefcase',
+          subMenus: [
+            {
+              menuValue: 'Add Service',
+              route: routes. addServices, //badl 7asb l route mte3k
+            },
+            {
+              menuValue: 'Services',
+              route: routes.service, //badl 7asb l route mte3k
+            },
+            {
+              menuValue: 'Service Settings',
+              route: routes.serviceSettings, //badl 7asb l route mte3k
+            },
+          ],
+        },
+        {
           menuValue: 'Services',
           hasSubRoute: true,
           showSubRoute: false,
