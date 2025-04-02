@@ -1,0 +1,109 @@
+{
+    "data" : [
+        {
+            "id": "1",
+            "service": "Computer Repair",
+            "provider": "John Smith",
+            "paymentType": "Wallet",
+            "amount": "$80",
+            "commissionRate": "$7.5",
+            "status": "Completed",
+            "earnedAmount": "$38.25",
+            "date": "07 Oct 2022",
+            "img1": "assets/admin/img/services/service-03.jpg",
+            "img2": "assets/admin/img/customer/user-01.jpg"
+        },
+        {
+            "id": "2",
+            "service": "Car Repair Services",
+            "provider": "Johnny",
+            "paymentType": "COD",
+            "amount": "$50",
+            "commissionRate": "$0",
+            "status": "Completed",
+            "earnedAmount": "$20",
+            "date": "07 Oct 2022",
+            "img1": "assets/admin/img/services/service-02.jpg",
+            "img2": "assets/admin/img/customer/user-04.jpg"
+        },
+        {
+            "id": "3",
+            "service": "Steam Car Wash",
+            "provider": "Amanda",
+            "paymentType": "Wallet",
+            "amount": "$14",
+            "commissionRate": "$6.5",
+            "status": "Completed",
+            "earnedAmount": "$10",
+            "date": "17 Oct 2022 ",
+            "img1": "assets/admin/img/services/service-04.jpg",
+            "img2": "assets/admin/img/customer/user-02.jpg"
+        },
+        {
+            "id": "4",
+            "service": "House Cleaning",
+            "provider": "James",
+            "paymentType": "COD",
+            "amount": "$100",
+            "commissionRate": "$0.00",
+            "status": "Completed",
+            "earnedAmount": "$90",
+            "date": "17 Oct 2022 ",
+            "img1": "assets/admin/img/services/service-09.jpg",
+            "img2": "assets/admin/img/customer/user-01.jpg"
+        },
+        {
+            "id": "5",
+            "service": "Computer Repair",
+            "provider": "John Smith",
+            "paymentType": "Wallet",
+            "amount": "$80",
+            "commissionRate": "$7.5",
+            "status": "Completed",
+            "earnedAmount": "$38.25",
+            "date": "07 Oct 2022",
+            "img1": "assets/admin/img/services/service-03.jpg",
+            "img2": "assets/admin/img/customer/user-05.jpg"
+        },
+        {
+            "id": "6",
+            "service": "Car Repair Services",
+            "provider": "Johnny",
+            "paymentType": "COD",
+            "amount": "$50",
+            "commissionRate": "$0",
+            "status": "Completed",
+            "earnedAmount": "$20",
+            "date": "07 Oct 2022",
+            "img1": "assets/admin/img/services/service-02.jpg",
+            "img2": "assets/admin/img/customer/user-04.jpg"
+        },
+        {
+            "id": "7",
+            "service": "Steam Car Wash",
+            "provider": "Amanda",
+            "paymentType": "Wallet",
+            "amount": "$14",
+            "commissionRate": "$6.5",
+            "status": "Completed",
+            "earnedAmount": "$10",
+            "date": "17 Oct 2022 ",
+            "img1": "assets/admin/img/services/service-04.jpg",
+            "img2": "assets/admin/img/customer/user-02.jpg"
+        },
+        {
+            "id": "8",
+            "service": "House Cleaning",
+            "provider": "James",
+            "paymentType": "COD",
+            "amount": "$100",
+            "commissionRate": "$0.00",
+            "status": "Completed",
+            "earnedAmount": "$90",
+            "date": "17 Oct 2022 ",
+            "img1": "assets/admin/img/services/service-09.jpg",
+            "img2": "assets/admin/img/customer/user-01.jpg"
+        }
+    ],
+    "totalData": 8
+}

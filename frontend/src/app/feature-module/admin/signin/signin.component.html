@@ -1,0 +1,54 @@
+<div class="login-pages">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-lg-12">
+                <div class="login-logo">
+                    <img src="assets/admin/img/logo-login.png" alt="img">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="login-images">
+                    <img src="assets/admin/img/login-banner.png" alt="img">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="login-content">
+                    <div class="login-contenthead">
+                        <h5>Login</h5>
+                        <h6>We'll send a confirmation code to your email.</h6>
+                    </div>
+                    <div class="login-input">
+                        <div class="form-group">
+                            <label for="">E-mail</label>
+                            <input type="text" class="form-control" placeholder="example@email.com">
+                        </div>
+                        <div class="form-group">
+                            <div class="d-flex justify-content-between">
+                                <label for="">Password</label>
+                                <a class="forgetpassword-link" [routerLink]="routes.forgetPassword">Forgot password?</a>
+                            </div>
+                            <div class="pass-group">
+                                <input [type]="passwordClass ? 'text' : 'password'" class="form-control pass-input" placeholder="********">
+                                <span (click)="togglePassword()" (keydown.enter)="togglePassword()" tabindex="0" [ngClass] = "passwordClass ? 'toggle-password feather icon-eye' : 'toggle-password feather icon-eye-off'"></span>
+                            </div>
+                        </div>
+                        <div class="filter-checkbox m-0">
+                            <ul class="d-flex justify-content-between">
+                                <li>
+                                    <label class="checkboxs">
+                                        <input type="checkbox">
+                                        <span><i></i></span>
+                                        <b class="check-content">Remember Me</b>
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="login-button">
+                        <a [routerLink]="routes.dashboard" class="btn btn-login">Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

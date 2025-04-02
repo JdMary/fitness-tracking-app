@@ -1,0 +1,69 @@
+{
+    "data" : [
+	{
+		"id": "1",
+		"service": "Computer Repair",
+        "provider": "John Smith",
+		"amount": "$38.25",
+        "status":"Completed",
+        "img": "assets/admin/img/services/service-03.jpg",
+		"date":"07 Oct 2023"
+	},
+	{
+		"id": "2",
+		"service": "Car Repair Services",
+        "provider": "Johnny",
+		"amount": "$20",
+        "status":"Completed",
+        "img": "assets/admin/img/services/service-02.jpg",
+		"date":"07 Oct 2023"
+	},
+	{
+		"id": "3",
+		"service": "Steam Car Wash",
+        "provider": "Amenda",
+		"amount": "$10",
+        "status":"Inprogress",
+        "img": "assets/admin/img/services/service-04.jpg",
+		"date":"17 Oct 2023"
+	},
+	{
+		"id": "4",
+		"service": "House Cleaning ",
+        "provider": "James",
+		"amount": "$90",
+        "status":"Inprogress",
+        "img": "assets/admin/img/services/service-09.jpg",
+		"date":"17 Oct 2023"
+	},
+    {
+		"id": "5",
+		"service": "Computer Repair",
+        "provider": "John Smith",
+		"amount": "$38.25",
+        "status":"Completed",
+        "img": "assets/admin/img/services/service-03.jpg",
+		"date":"17 Oct 2023"
+	},
+	{
+		"id": "6",
+		"service": "Car Repair Services",
+        "provider": "Johnny",
+		"amount": "$20",
+        "status":"Completed",
+        "img": "assets/admin/img/services/service-02.jpg",
+		"date":"17 Oct 2023"
+	},
+	{
+		"id": "7",
+		"service": "Steam Car Wash",
+        "provider": "Amenda",
+		"amount": "$10",
+        "status":"Inprogress",
+        "img": "assets/admin/img/services/service-04.jpg",
+		"date":"17 Oct 2023"
+	}
+	
+],
+"totalData": 4
+}
