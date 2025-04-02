@@ -1,9 +1,6 @@
 package fitrack.diet.service;
 
 import fitrack.diet.entity.Preference;
-import org.springframework.http.ResponseEntity;
-
-import java.util.List;
 
 public interface IPreferenceService {
 //    Preference savePreference(Preference preference);
@@ -15,6 +12,6 @@ public interface IPreferenceService {
 //    Preference getPreferenceByUserIdAndTimeFrame(String userId, String timeFrame);
 //    void deletePreference(Long preferenceId);
 //    ResponseEntity<String> getMealPlan(String userId);
-    Preference addPreference(Preference preference);
+    Preference addPreference(Preference preference,String token);
 
 }

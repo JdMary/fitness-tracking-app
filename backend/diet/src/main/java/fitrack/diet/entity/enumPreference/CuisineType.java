@@ -2,7 +2,6 @@ package fitrack.diet.entity.enumPreference;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
-import fitrack.diet.util.EdamamParamConverter;
 
 public enum CuisineType implements ApiEnum<CuisineType> {
     AMERICAN("American"),

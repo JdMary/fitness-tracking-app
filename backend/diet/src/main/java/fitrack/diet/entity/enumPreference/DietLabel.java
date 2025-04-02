@@ -1,7 +1,6 @@
 package fitrack.diet.entity.enumPreference;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import fitrack.diet.util.EdamamParamConverter;
 
 public enum DietLabel implements ApiEnum<DietLabel> {
     BALANCED("balanced"),

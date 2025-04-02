@@ -5,7 +5,6 @@ import fitrack.diet.service.PreferenceService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,10 +15,10 @@ public class PreferenceController {
     private PreferenceService preferenceService;
 
     @PostMapping("/add")
-    public ResponseEntity<Preference> createPreference(@RequestBody Preference preference) {
-        System.out.println("Received Preference: " + preference); // Debugging
+    public ResponseEntity<Preference> createPreference(@RequestBody Preference preference,@RequestHeader("Authorization") String token) {
+        System.out.println("Received Preference: " + preference);
 
-        Preference savedPreference = preferenceService.addPreference(preference);
+        Preference savedPreference = preferenceService.addPreference(preference, token);
 
         System.out.println("Saved Preference: " + savedPreference);
         return ResponseEntity.ok(savedPreference);

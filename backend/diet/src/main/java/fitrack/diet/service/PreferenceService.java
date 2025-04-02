@@ -20,16 +20,16 @@ public  class PreferenceService implements IPreferenceService {
     @Autowired
     private AuthClient authClient;
     @Override
-    public Preference addPreference(Preference preference) {
+    public Preference addPreference(Preference preference ,String token) {
         Preference savedPreference = preferenceRepository.save(preference);
-        authClient.extractUsername("Authorization");
+       String username = String.valueOf(authClient.extractUsername(token).getBody());
+        savedPreference.setUsername(username);
         savedPreference.setMealTypes(preference.getMealTypes());
         return preferenceRepository.save(savedPreference);
 
     }
 
-//    @Autowired
-//    private final RestTemplate restTemplate;
+;
 
    // @Transactional
 
