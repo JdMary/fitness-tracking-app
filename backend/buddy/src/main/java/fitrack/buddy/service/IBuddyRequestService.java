@@ -1,5 +1,6 @@
 package fitrack.buddy.service;
 
+import fitrack.buddy.entity.BuddyMatch;
 import fitrack.buddy.entity.BuddyRequest;
 import fitrack.buddy.entity.BuddyRequestResponseDTO;
 
@@ -18,4 +19,5 @@ public interface IBuddyRequestService {
     BuddyRequest changeWorkoutStartTime(Long id, LocalDateTime workoutStartTime);
     BuddyRequestResponseDTO addPotentialMatch(Long id, Long requestId);
     BuddyRequest displayPotentialMatch(Long id);
+    BuddyMatch acceptPotentialMatch(Long id);
 }

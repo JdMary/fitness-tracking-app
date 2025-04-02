@@ -1,9 +1,11 @@
 package fitrack.buddy.service;
 
 
+import fitrack.buddy.entity.BuddyMatch;
 import fitrack.buddy.entity.BuddyRequest;
 import fitrack.buddy.entity.BuddyRequestResponseDTO;
 import fitrack.buddy.entity.Status;
+import fitrack.buddy.repository.BuddyMatchRepository;
 import fitrack.buddy.repository.BuddyRequestRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,7 @@ import java.util.List;
 public class BuddyRequestService implements IBuddyRequestService {
 
     private BuddyRequestRepository repository;
+    private BuddyMatchRepository matchRepository;
     private AuthClient authClient;
     private static final String BUDDY_REQUEST_NOT_FOUND = "BuddyRequest not found";
     private static final String POTENTIAL_MATCH_NOT_FOUND = "Potential match not found";
@@ -80,5 +83,22 @@ public class BuddyRequestService implements IBuddyRequestService {
                 .orElseThrow(() -> new RuntimeException(BUDDY_REQUEST_NOT_FOUND));
         return repository.findById(buddyRequest.getPotentialMatch())
                 .orElseThrow(() -> new RuntimeException(POTENTIAL_MATCH_NOT_FOUND));
+    }
+
+    @Override
+    public BuddyMatch acceptPotentialMatch(Long id) {
+        BuddyRequest buddyRequest = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException(BUDDY_REQUEST_NOT_FOUND));
+        BuddyRequest buddyRequest1 = repository.findById(buddyRequest.getPotentialMatch())
+                .orElseThrow(() -> new RuntimeException(BUDDY_REQUEST_NOT_FOUND));
+        buddyRequest.setStatus(Status.ACCEPTED);
+        buddyRequest1.setStatus(Status.ACCEPTED);
+        //BuddyMatch buddyMatch = new BuddyMatch(buddyRequest.getId(),buddyRequest1.getId(),buddyRequest.getUserEmail(),buddyRequest1.getUserEmail());
+        BuddyMatch buddyMatch = new BuddyMatch();
+        buddyMatch.setRequestId1(buddyRequest.getId());
+        buddyMatch.setRequestId2(buddyRequest1.getId());
+        buddyMatch.setEmail1(buddyRequest.getUserEmail());
+        buddyMatch.setEmail2(buddyRequest1.getUserEmail());
+        return matchRepository.save(buddyMatch);
     }
 }

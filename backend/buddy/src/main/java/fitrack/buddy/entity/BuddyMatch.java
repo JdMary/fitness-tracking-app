@@ -29,4 +29,5 @@ public class BuddyMatch {
 
     @OneToMany(mappedBy = "match", cascade = CascadeType.ALL)
     private List<BuddyRequest> requests;
+
 }

@@ -1,5 +1,6 @@
 package fitrack.buddy.controller;
 
+import fitrack.buddy.entity.BuddyMatch;
 import fitrack.buddy.entity.BuddyRequest;
 import fitrack.buddy.entity.BuddyRequestResponseDTO;
 import fitrack.buddy.service.BuddyRequestService;
@@ -42,5 +43,9 @@ public class BuddyRequestController {
     @GetMapping("display/{id}")
     public BuddyRequest displayPotentialMatch(@PathVariable Long id) {
         return buddyRequestService.displayPotentialMatch(id);
+    }
+    @PostMapping("/addMatch/{id}")
+    public BuddyMatch addBuddyMatch(@PathVariable Long id) {
+        return buddyRequestService.acceptPotentialMatch(id);
     }
 }
