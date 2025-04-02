@@ -1,0 +1,640 @@
+<!-- Breadcrumb -->
+<div class="breadcrumb-bar text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-12">
+                <h2 class="breadcrumb-title mb-2">Provider Detail</h2>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center mb-0">
+                        <li class="breadcrumb-item"><a [routerLink]="routes.home"><i class="ti ti-home-2"></i></a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Provider Detail</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="breadcrumb-bg">
+            <img src="assets/img/bg/breadcrumb-bg-01.png" class="breadcrumb-bg-1" alt="Img">
+            <img src="assets/img/bg/breadcrumb-bg-02.png" class="breadcrumb-bg-2" alt="Img">
+        </div>
+    </div>
+</div>
+<!-- /Breadcrumb -->
+
+<div class="page-wrapper">
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row gy-3">
+                                <div class="col-xl-5">
+                                    <div class="provider-detail d-flex align-items-center flex-wrap row-gap-2">
+                                        <span class="avatar provider-pic flex-shrink-0 me-3">
+                                            <img src="assets/img/profiles/avatar-20.jpg" alt="Img">
+                                        </span>
+                                        <div>
+                                            <div class="rating mb-2">
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fas fa-star filled"></i>
+                                                <i class="fa-solid fa-star-half-stroke filled me-1"></i> 4.9<span class="ms-2 d-inline-block">(255 reviews)</span>
+                                            </div>
+                                            <h5 class="d-flex align-items-center mb-1"><a [routerLink]="routes.providerDetails">Thomas Herzberg</a><span class="text-success ms-2"><i class="fa fa-check-circle fs-14"></i></span></h5>
+                                            <p class="mb-2">We connect top talents with top companies</p>
+                                            <div class="d-flex align-items-center flex-wrap row-gap-2">
+                                                <p class="mb-0 fs-14 me-2"><i class="feather feather-grid me-1"></i>Electrician</p>
+                                                <p class="mb-0 fs-14"><i class="ti ti-calendar me-1"></i>Member Since 19 Aug 2023</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-7">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="provider-bio-info mb-3">
+                                                <h6><i></i>Email</h6>
+                                                <p>thomasxxxxxx&#64;example.com</p>
+                                            </div>
+                                            <div class="provider-bio-info">
+                                                <h6><i></i>Phone Number</h6>
+                                                <p>+1 888 8XX XXXX</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="provider-bio-info mb-3">
+                                                <h6><i></i>Language Known</h6>
+                                                <p>English, Arabic <a href="#" class="text-primary">+4 More</a></p>
+                                            </div>
+                                            <div class="provider-bio-info">
+                                                <h6><i></i>Address</h6>
+                                                <p>Hanover, Maryland</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div>
+                                                <a [routerLink]="routes.booking" class="btn btn-primary w-100 mb-3"><i class="feather-calendar me-2"></i>Book Service</a>
+                                                <h6 class="fw-medium mb-2">Social Profiles</h6>
+                                                <ul class="social-icon flex-wrap row-gap-2 mb-3">
+                                                    <li>
+                                                        <a href="javascript:void(0);"><img src="assets/img/icons/fb.svg" class="img" alt="icon"></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="javascript:void(0);"><img src="assets/img/icons/instagram.svg" class="img" alt="icon"></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="javascript:void(0);"><img src="assets/img/icons/twitter.svg" class="img" alt="icon"></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="javascript:void(0);"><img src="assets/img/icons/whatsapp.svg" class="img" alt="icon"></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="javascript:void(0);"><img src="assets/img/icons/youtube.svg" class="img" alt="icon"></a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="javascript:void(0);"><img src="assets/img/icons/linkedin.svg" class="img" alt="icon"></a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="accordion" id="accordionPanelsStayOpenExample">
+                                <div class="accordion-item mb-3">
+                                    <div class="accordion-header" id="accordion-headingOne">
+                                        <div class="accordion-button p-0" data-bs-toggle="collapse" data-bs-target="#accordion-collapseOne" aria-expanded="true" aria-controls="accordion-collapseOne" role="button">
+                                            Overview
+                                        </div>
+                                    </div>
+                                    <div id="accordion-collapseOne" class="accordion-collapse collapse show" aria-labelledby="accordion-headingOne">
+                                    <div class="accordion-body p-0 mt-3 pb-1">
+                                        <div class="more-text" [ngClass]="{'expanded': isCollapsed }">
+                                            <p class="mb-4">We bring over 20 years of expertise to your doorstep, offering a full range of electrical
+                                                services tailored to meet the needs of homeowners, businesses, and industrial clients. Our
+                                                commitment to safety, reliability, and customer satisfaction has
+                                                made us a trusted name in the industry. Whether you're in need of
+                                                a simple repair or a complex installation, our team of certified electricians is here to help.
+                                            </p>
+                                            <p>we bring over 20 years of expertise to your doorstep, offering a full range of electrical services tailored to meet the needs of homeowners, businesses, and industrial clients. </p>
+                                        </div>
+                                        <a href="javascript:void(0);" (click)="toggleCollapse()" class="text-primary d-inline-block more-btn mb-2">{{ !isCollapsed ? 'Read More' : 'Read less' }}</a>
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item mb-3">
+                                    <div class="accordion-header" id="accordion-headingTwo">
+                                        <div class="accordion-button p-0" data-bs-toggle="collapse" data-bs-target="#accordion-collapseTwo" aria-expanded="true" aria-controls="accordion-collapseTwo" role="button">
+                                            Area Of Expertise
+                                        </div>
+                                    </div>
+                                    <div id="accordion-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="accordion-headingTwo">
+                                    <div class="accordion-body p-0 mt-3 pb-1">
+                                        <P>From small residential repairs to large-scale commercial and industrial projects,
+                                            is your go-to provider for all electrical needs. Contact us today to schedule a
+                                            consultation or to learn more about how we can assist with your next project.
+                                        </P>
+                                        <div>
+                                            <div class="row g-3">
+                                                <div class="col-xl-12">
+                                                  <div class="mb-3">
+                                                    <owl-carousel-o [options]="viewServicesOwl" class="area-expert-slider nav-center">
+                                                        <ng-template carouselSlide>
+                                                          <div class="text-center area-expert">
+                                                            <span class="d-block mb-2"><img src="assets/img/icons/consultation-icon-01.svg" class="w-auto m-auto" alt="Img"></span>
+                                                            <p class="fw-medium fs-14">Construction</p>
+                                                        </div>
+                                                        </ng-template>
+                                                        <ng-template carouselSlide>
+                                                          <div class="text-center area-expert">
+                                                            <span class="d-block mb-2"><img src="assets/img/icons/consultation-icon-02.svg" class="w-auto m-auto" alt="Img"></span>
+                                                            <p class="fw-medium fs-14">Car Wash</p>
+                                                        </div>
+                                                        </ng-template>
+                                                        <ng-template carouselSlide>
+                                                          <div class="text-center area-expert">
+                                                            <span class="d-block mb-2"><img src="assets/img/icons/consultation-icon-03.svg" class="w-auto m-auto" alt="Img"></span>
+                                                            <p class="fw-medium fs-14">Electrical</p>
+                                                        </div>
+                                                        </ng-template>
+                                                        <ng-template carouselSlide>
+                                                          <div class="text-center area-expert">
+                                                            <span class="d-block mb-2"><img src="assets/img/icons/consultation-icon-04.svg" class="w-auto m-auto" alt="Img"></span>
+                                                            <p class="fw-medium fs-14">Cleaning</p>
+                                                        </div>
+                                                        </ng-template>
+                                                        <ng-template carouselSlide>
+                                                          <div class="text-center area-expert">
+                                                            <span class="d-block mb-2"><img src="assets/img/icons/consultation-icon-05.svg" class="w-auto m-auto" alt="Img"></span>
+                                                            <p class="fw-medium fs-14">Carpentry</p>
+                                                        </div>
+                                                        </ng-template>
+                                                        <ng-template carouselSlide>
+                                                          <div class="text-center area-expert">
+                                                            <span class="d-block mb-2"><img src="assets/img/icons/consultation-icon-06.svg" class="w-auto m-auto" alt="Img"></span>
+                                                            <p class="fw-medium fs-14">Plumbing</p>
+                                                        </div>
+                                                        </ng-template>
+                                                    </owl-carousel-o>
+                                                  </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item mb-3">
+                                    <div class="accordion-header" id="accordion-headingThree">
+                                        <div class="accordion-button p-0" data-bs-toggle="collapse" data-bs-target="#accordion-collapseThree" aria-expanded="true" aria-controls="accordion-collapseThree" role="button">
+                                            Our Team
+                                        </div>
+                                    </div>
+                                    <div id="accordion-collapseThree" class="accordion-collapse collapse show" aria-labelledby="accordion-headingThree">
+                                    <div class="accordion-body p-0 mt-3 pb-1">
+                                        <div class="row gx-3">
+                                            <div class="col-xxl-3 col-lg-6 col-md-4 col-sm-6">
+                                                <div class="d-flex align-items-center team-member mb-3">
+                                                    <span class="avatar avatar-lg flex-shrink-0 me-2">
+                                                        <img src="assets/img/team/team-01.jpg" class="img-fluid" alt="Img">
+                                                    </span>
+                                                    <div>
+                                                        <h6 class="fs-16 fw-medium mb-1">Jeff Fitch</h6>
+                                                        <p class="fs-14">Team Lead</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xxl-3 col-lg-6 col-md-4 col-sm-6">
+                                                <div class="d-flex align-items-center team-member mb-3">
+                                                    <span class="avatar avatar-lg flex-shrink-0 me-2">
+                                                        <img src="assets/img/team/team-02.jpg" class="img-fluid" alt="Img">
+                                                    </span>
+                                                    <div>
+                                                        <h6 class="fs-16 fw-medium mb-1">Gary Berger</h6>
+                                                        <p class="fs-14">Senior Electrician</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xxl-3 col-lg-6 col-md-4 col-sm-6">
+                                                <div class="d-flex align-items-center team-member mb-3">
+                                                    <span class="avatar avatar-lg flex-shrink-0 me-2">
+                                                        <img src="assets/img/team/team-03.jpg" class="img-fluid" alt="Img">
+                                                    </span>
+                                                    <div>
+                                                        <h6 class="fs-16 fw-medium mb-1">Derrick Bishop</h6>
+                                                        <p class="fs-14">Electrical Engineer</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xxl-3 col-lg-6 col-md-4 col-sm-6">
+                                                <div class="d-flex align-items-center team-member mb-3">
+                                                    <span class="avatar avatar-lg flex-shrink-0 me-2">
+                                                        <img src="assets/img/team/team-04.jpg" class="img-fluid" alt="Img">
+                                                    </span>
+                                                    <div>
+                                                        <h6 class="fs-16 fw-medium mb-1">John Reyna</h6>
+                                                        <p class="fs-14">Electrician</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xxl-3 col-lg-6 col-md-4 col-sm-6">
+                                                <div class="d-flex align-items-center team-member mb-3">
+                                                    <span class="avatar avatar-lg flex-shrink-0 me-2">
+                                                        <img src="assets/img/team/team-05.jpg" class="img-fluid" alt="Img">
+                                                    </span>
+                                                    <div>
+                                                        <h6 class="fs-16 fw-medium mb-1">Michael Britt</h6>
+                                                        <p class="fs-14">Cable Technician</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xxl-3 col-lg-6 col-md-4 col-sm-6">
+                                                <div class="d-flex align-items-center team-member mb-3">
+                                                    <span class="avatar avatar-lg flex-shrink-0 me-2">
+                                                        <img src="assets/img/team/team-06.jpg" class="img-fluid" alt="Img">
+                                                    </span>
+                                                    <div>
+                                                        <h6 class="fs-16 fw-medium mb-1">Homer Ricks</h6>
+                                                        <p class="fs-14">Safety Officer</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xxl-3 col-lg-6 col-md-4 col-sm-6">
+                                                <div class="d-flex align-items-center team-member mb-3">
+                                                    <span class="avatar avatar-lg flex-shrink-0 me-2">
+                                                        <img src="assets/img/team/team-07.jpg" class="img-fluid" alt="Img">
+                                                    </span>
+                                                    <div>
+                                                        <h6 class="fs-16 fw-medium mb-1">Chris Frankel</h6>
+                                                        <p class="fs-14">Project Manager</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xxl-3 col-lg-6 col-md-4 col-sm-6">
+                                                <div class="d-flex align-items-center team-member mb-3">
+                                                    <span class="avatar avatar-lg flex-shrink-0 me-2">
+                                                        <img src="assets/img/team/team-08.jpg" class="img-fluid" alt="Img">
+                                                    </span>
+                                                    <div>
+                                                        <h6 class="fs-16 fw-medium mb-1">Gary Nunez</h6>
+                                                        <p class="fs-14">Estimator</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item mb-3">
+                                    <div class="accordion-header" id="accordion-headingFour">
+                                        <div class="accordion-button p-0" data-bs-toggle="collapse" data-bs-target="#accordion-collapseFour" aria-expanded="true" aria-controls="accordion-collapseFour" role="button">
+                                            Our Services
+                                        </div>
+                                    </div>
+                                    <div id="accordion-collapseFour" class="accordion-collapse collapse show" aria-labelledby="accordion-headingFour">
+                                    <div class="accordion-body p-0 mt-3 pb-1">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                              <owl-carousel-o class="our-services-slider custom-owl-dot" [options]="viewServicesOwl2">
+                                                <ng-template carouselSlide>
+                                                  <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="img-sec w-100 mb-3">
+                                                            <a [routerLink]="routes.providerDetails"><img src="assets/img/services/service-22.jpg" class="img-fluid rounded w-100" alt="img"></a>
+                                                        </div>
+                                                        <div>
+                                                            <h5 class="mb-2 text-truncate">
+                                                                <a [routerLink]="routes.providerDetails">Electric Panel Repairing</a>
+                                                            </h5>
+                                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                                <p class="fs-14 mb-0"><i class="ti ti-map-pin me-2"></i>Texas, USA</p>
+                                                                <span class="rating text-gray fs-14"><i class="fa fa-star filled me-1"></i>4.9</span>
+                                                            </div>
+                                                            <div>
+                                                                <span>Starts From</span>
+                                                                <h6 class="text-primary fs-16 mt-1">$25.00
+                                                                    <small class="text-decoration-linethrow fs-14 fw-normal text-gray">$30.00 </small>
+                                                                    <span class="fs-14 fw-normal text-gray"> /hr</span>
+                                                                </h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                </ng-template>
+                                                <ng-template carouselSlide>
+                                                  <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="img-sec w-100 mb-3">
+                                                            <a [routerLink]="routes.providerDetails"><img src="assets/img/services/service-23.jpg" class="img-fluid rounded w-100" alt="img"></a>
+                                                        </div>
+                                                        <div>
+                                                            <h5 class="mb-2 text-truncate">
+                                                                <a [routerLink]="routes.providerDetails">Machinery Wiring</a>
+                                                            </h5>
+                                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                                <p class="fs-14 mb-0"><i class="ti ti-map-pin me-2"></i>Maryland, USA</p>
+                                                                <span class="rating text-gray fs-14"><i class="fa fa-star filled me-1"></i>4.7</span>
+                                                            </div>
+                                                            <div>
+                                                                <span>Starts From</span>
+                                                                <h6 class="text-primary fs-16 mt-1">$20.00
+                                                                    <small class="text-decoration-linethrow fs-14 fw-normal text-gray">$25.00 </small>
+                                                                    <span class="fs-14 fw-normal text-gray"> /hr</span>
+                                                                </h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                </ng-template>
+                                                <ng-template carouselSlide>
+                                                  <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="img-sec w-100 mb-3">
+                                                            <a [routerLink]="routes.providerDetails"><img src="assets/img/services/service-24.jpg" class="img-fluid rounded w-100" alt="img"></a>
+                                                        </div>
+                                                        <div>
+                                                            <h5 class="mb-2 text-truncate">
+                                                                <a [routerLink]="routes.providerDetails">Smart Home Integration</a>
+                                                            </h5>
+                                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                                <p class="fs-14 mb-0"><i class="ti ti-map-pin me-2"></i>New Jersey, USA</p>
+                                                                <span class="rating text-gray fs-14"><i class="fa fa-star filled me-1"></i>4.5</span>
+                                                            </div>
+                                                            <div>
+                                                                <span>Starts From</span>
+                                                                <h6 class="text-primary fs-16 mt-1">$30.00
+                                                                    <small class="text-decoration-linethrow fs-14 fw-normal text-gray">$40.00 </small>
+                                                                    <span class="fs-14 fw-normal text-gray"> /hr</span>
+                                                                </h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                </ng-template>
+                                                <ng-template carouselSlide>
+                                                  <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="img-sec w-100 mb-3">
+                                                            <a [routerLink]="routes.providerDetails"><img src="assets/img/services/service-23.jpg" class="img-fluid rounded w-100" alt="img"></a>
+                                                        </div>
+                                                        <div>
+                                                            <h5 class="mb-2 text-truncate">
+                                                                <a [routerLink]="routes.providerDetails">Machinery Wiring</a>
+                                                            </h5>
+                                                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                                                <p class="fs-14 mb-0"><i class="ti ti-map-pin me-2"></i>Maryland, USA</p>
+                                                                <span class="rating text-gray fs-14"><i class="fa fa-star filled me-1"></i>4.7</span>
+                                                            </div>
+                                                            <div>
+                                                                <span>Starts From</span>
+                                                                <h6 class="text-primary fs-16 mt-1">$20.00
+                                                                    <small class="text-decoration-linethrow fs-14 fw-normal text-gray">$25.00 </small>
+                                                                    <span class="fs-14 fw-normal text-gray"> /hr</span>
+                                                                </h6>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                </ng-template>
+                                              </owl-carousel-o>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item mb-3">
+                                    <div class="accordion-header" id="accordion-headingFive">
+                                        <div class="accordion-button p-0" data-bs-toggle="collapse" data-bs-target="#accordion-collapseFive" aria-expanded="true" aria-controls="accordion-collapseFive" role="button">
+                                            Benefits
+                                        </div>
+                                    </div>
+                                    <div id="accordion-collapseFive" class="accordion-collapse collapse show" aria-labelledby="accordion-headingFive">
+                                    <div class="accordion-body p-0 mt-3 pb-1">
+                                        <div class="row gx-3">
+                                            <div class="col-xl-4 col-sm-6">
+                                                <div class="d-flex align-items-center benifits-item">
+                                                    <span class="text-dark me-2"><i class="fa fa-check-circle"></i></span>
+                                                    <p>Warranty and Support</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4 col-sm-6">
+                                                <div class="d-flex align-items-center benifits-item">
+                                                    <span class="text-dark me-2"><i class="fa fa-check-circle"></i></span>
+                                                    <p>Workmanship Guarantee</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4 col-sm-6">
+                                                <div class="d-flex align-items-center benifits-item">
+                                                    <span class="text-dark me-2"><i class="fa fa-check-circle"></i></span>
+                                                    <p>Energy-Efficient Solutions</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4 col-sm-6">
+                                                <div class="d-flex align-items-center benifits-item">
+                                                    <span class="text-dark me-2"><i class="fa fa-check-circle"></i></span>
+                                                    <p>End-to-End Solutions</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4 col-sm-6">
+                                                <div class="d-flex align-items-center benifits-item">
+                                                    <span class="text-dark me-2"><i class="fa fa-check-circle"></i></span>
+                                                    <p>Personalized Solution</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4 col-sm-6">
+                                                <div class="d-flex align-items-center benifits-item">
+                                                    <span class="text-dark me-2"><i class="fa fa-check-circle"></i></span>
+                                                    <p>Transparent Communication</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4 col-sm-6">
+                                                <div class="d-flex align-items-center benifits-item">
+                                                    <span class="text-dark me-2"><i class="fa fa-check-circle"></i></span>
+                                                    <p>Attention to Detail</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4 col-sm-6">
+                                                <div class="d-flex align-items-center benifits-item">
+                                                    <span class="text-dark me-2"><i class="fa fa-check-circle"></i></span>
+                                                    <p>Top-Notch Materials</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4 col-sm-6">
+                                                <div class="d-flex align-items-center benifits-item">
+                                                    <span class="text-dark me-2"><i class="fa fa-check-circle"></i></span>
+                                                    <p>Strict Safety Protocols</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4 col-sm-6">
+                                                <div class="d-flex align-items-center benifits-item">
+                                                    <span class="text-dark me-2"><i class="fa fa-check-circle"></i></span>
+                                                    <p>Regular Training</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4 col-sm-6">
+                                                <div class="d-flex align-items-center benifits-item">
+                                                    <span class="text-dark me-2"><i class="fa fa-check-circle"></i></span>
+                                                    <p>Comprehensive Knowledge</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4 col-sm-6">
+                                                <div class="d-flex align-items-center benifits-item">
+                                                    <span class="text-dark me-2"><i class="fa fa-check-circle"></i></span>
+                                                    <p>Qualified Professionals</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item mb-3">
+                                    <div class="accordion-header" id="accordion-headingSix">
+                                        <div class="accordion-button p-0" data-bs-toggle="collapse" data-bs-target="#accordion-collapseSix" aria-expanded="true" aria-controls="accordion-collapseSix" role="button">
+                                            Our Branches
+                                        </div>
+                                    </div>
+                                    <div id="accordion-collapseSix" class="accordion-collapse collapse show" aria-labelledby="accordion-headingSix">
+                                    <div class="accordion-body p-0 mt-3 pb-1">
+                                      <owl-carousel-o class="our-branches-slider custom-owl-dot" [options]="viewServicesOwl3">
+                                        <ng-template carouselSlide>
+                                          <div class="card shadow-none rounded">
+                                            <div class="card-body text-center px-2">
+                                                <span class="d-block mb-2"><img src="assets/img/icons/branch-icon-01.svg" class="w-auto m-auto" alt="Img"></span>
+                                                <h6 class="mb-2">Lighting Services -Texas Shop</h6>
+                                                <p class="d-flex align-items-center justify-content-center fs-14"><i class="ti ti-map-pin me-1"></i>1214 Rich land Avenue</p>
+                                            </div>
+                                        </div>
+                                        </ng-template>
+                                        <ng-template carouselSlide>
+                                          <div class="card shadow-none rounded">
+                                            <div class="card-body text-center px-2">
+                                                <span class="d-block mb-2"><img src="assets/img/icons/branch-icon-02.svg" class="w-auto m-auto" alt="Img"></span>
+                                                <h6 class="mb-2">Lighting Services -New York Shop</h6>
+                                                <p class="d-flex align-items-center justify-content-center fs-14"><i class="ti ti-map-pin me-1"></i>4127 Small Street</p>
+                                            </div>
+                                        </div>
+                                        </ng-template>
+                                        <ng-template carouselSlide>
+                                          <div class="card shadow-none rounded">
+                                            <div class="card-body text-center px-2">
+                                                <span class="d-block mb-2"><img src="assets/img/icons/branch-icon-03.svg" class="w-auto m-auto" alt="Img"></span>
+                                                <h6 class="mb-2">Lighting Services - New Jersy Shop</h6>
+                                                <p class="d-flex align-items-center justify-content-center fs-14"><i class="ti ti-map-pin me-1"></i>3527 Saint James Drive</p>
+                                            </div>
+                                        </div>
+                                        </ng-template>
+                                        <ng-template carouselSlide>
+                                          <div class="card shadow-none rounded">
+                                            <div class="card-body text-center px-2">
+                                                <span class="d-block mb-2"><img src="assets/img/icons/branch-icon-04.svg" class="w-auto m-auto" alt="Img"></span>
+                                                <h6 class="mb-2">Lighting Services -California Shop</h6>
+                                                <p class="d-flex align-items-center justify-content-center fs-14"><i class="ti ti-map-pin me-1"></i>1052 Edsel Road LA</p>
+                                            </div>
+                                        </div>
+                                        </ng-template>
+                                        <ng-template carouselSlide>
+                                          <div class="card shadow-none rounded">
+                                            <div class="card-body text-center px-2">
+                                                <span class="d-block mb-2"><img src="assets/img/icons/branch-icon-02.svg" class="w-auto m-auto" alt="Img"></span>
+                                                <h6 class="mb-2">Lighting Services -New York Shop</h6>
+                                                <p class="d-flex align-items-center justify-content-center fs-14"><i class="ti ti-map-pin me-1"></i>4127 Small Street</p>
+                                            </div>
+                                        </div>
+                                        </ng-template>
+
+                                      </owl-carousel-o>
+
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item mb-0">
+                                    <div class="accordion-header" id="accordion-headingSeven">
+                                        <div class="accordion-button p-0" data-bs-toggle="collapse" data-bs-target="#accordion-collapseSeven" aria-expanded="true" aria-controls="accordion-collapseSeven" role="button">
+                                            Gallery
+                                        </div>
+                                    </div>
+                                    <div id="accordion-collapseSeven" class="accordion-collapse collapse show" aria-labelledby="accordion-headingSeven">
+                                    <div class="accordion-body p-0 border-0 mt-3 pb-1">
+                                      <owl-carousel-o class="provider-gallery-slider custom-owl-dot" [options]="viewServicesOwl3">
+                                        <ng-template carouselSlide>
+                                          <a href="assets/img/gallery/gallery-09.jpg" data-fancybox="gallery" class="gallery-item">
+                                            <img src="assets/img/gallery/gallery-thumb-01.jpg" class="rounded" alt="img">
+                                        </a>
+                                        </ng-template>
+                                        <ng-template carouselSlide>
+                                          <a href="assets/img/gallery/gallery-06.jpg" data-fancybox="gallery" class="gallery-item">
+                                            <img src="assets/img/gallery/gallery-thumb-02.jpg" class="rounded" alt="img">
+                                        </a>
+                                        </ng-template>
+                                        <ng-template carouselSlide>
+                                          <a href="assets/img/gallery/gallery-07.jpg" data-fancybox="gallery" class="gallery-item">
+                                            <img src="assets/img/gallery/gallery-thumb-03.jpg" class="rounded" alt="img">
+                                        </a>
+                                        </ng-template>
+                                        <ng-template carouselSlide>
+                                          <a href="assets/img/gallery/gallery-08.jpg" data-fancybox="gallery" class="gallery-item">
+                                            <img src="assets/img/gallery/gallery-thumb-04.jpg" class="rounded" alt="img">
+                                        </a>
+                                        </ng-template>
+                                        <ng-template carouselSlide>
+                                          <a href="assets/img/gallery/gallery-06.jpg" data-fancybox="gallery" class="gallery-item">
+                                            <img src="assets/img/gallery/gallery-thumb-02.jpg" class="rounded" alt="img">
+                                        </a>
+                                        </ng-template>
+                                        <ng-template carouselSlide>
+                                          <a href="assets/img/gallery/gallery-07.jpg" data-fancybox="gallery" class="gallery-item">
+                                            <img src="assets/img/gallery/gallery-thumb-03.jpg" class="rounded" alt="img">
+                                        </a>
+                                        </ng-template>
+                                      </owl-carousel-o>
+
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 theiaStickySidebar">
+                    <div class="card shadow-none">
+                        <div class="card-body">
+                            <h4 class="mb-3">Contact Provider</h4>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control border-end-0" placeholder="Name">
+                                <span class="input-group-text bg-white"><i class="ti ti-user"></i></span>
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control border-end-0" placeholder="Phone Number">
+                                <span class="input-group-text bg-white"><i class="ti ti-phone"></i></span>
+                            </div>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control border-end-0" placeholder="Email Address">
+                                <span class="input-group-text bg-white"><i class="ti ti-mail"></i></span>
+                            </div>
+                            <div class="mb-3">
+                                <textarea class="form-control" rows="3" placeholder="Write a Message"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-dark btn-lg w-100">Submit</button>
+                        </div>
+                    </div>
+                    <div class="card shadow-none">
+                        <div class="card-body lh-1">
+                            <h4 class="mb-3">Location</h4>
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6509170.989457427!2d-123.80081967108484!3d37.192957227641294!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fb9fe5f285e3d%3A0x8b5109a227086f55!2sCalifornia%2C%20USA!5e0!3m2!1sen!2sin!4v1669181581381!5m2!1sen!2sin" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" class="contact-map w-100"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,61 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "category": "Construction",
+      "categorySlug": "computer",
+      "date": "28Sep2022",
+      "img": "assets/admin/img/services/service-03.jpg"
+    },
+    {
+      "id": 2,
+      "category": "Carwash",
+      "categorySlug": "carwash",
+      "date": "17Sep2022",
+      "img": "assets/admin/img/services/service-02.jpg"
+    },
+    {
+      "id": 3,
+      "category": "Computer",
+      "categorySlug": "computer",
+      "date": "13Sep2022",
+      "img": "assets/admin/img/services/service-04.jpg"
+    },
+    {
+      "id": 4,
+      "category": "Electrical",
+      "categorySlug": "electrical",
+      "date": "07Sep2022",
+      "img": "assets/admin/img/services/service-09.jpg"
+    },
+    {
+      "id": 5,
+      "category": "Cleaning",
+      "categorySlug": "cleaning",
+      "date": "07Sep2022",
+      "img": "assets/admin/img/services/service-03.jpg"
+    },
+    {
+      "id": 6,
+      "category": "Interior",
+      "categorySlug": "interior",
+      "date": "07Sep2022",
+      "img": "assets/admin/img/services/service-07.jpg"
+    },
+    {
+      "id": 7,
+      "category": "Carpentry",
+      "categorySlug": "carpentry",
+      "date": "22Aug2022",
+      "img": "assets/admin/img/services/service-09.jpg"
+    },
+    {
+      "id": 8,
+      "category": "Plumbing",
+      "categorySlug": "plumbing",
+      "date": "15Aug2022",
+      "img": "assets/admin/img/services/service-12.jpg"
+    }
+  ],
+  "totalData": 8
+}

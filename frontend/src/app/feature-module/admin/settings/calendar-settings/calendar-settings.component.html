@@ -1,0 +1,42 @@
+<div class="content w-100 ps-0 pt-0">
+    <div class="row">
+        <div class="content-table">
+            <div class="col-lg-12">
+                <div class="content-page-header calendar-set-grp">
+                    <h5>Calendar</h5>
+                    <div class="filter-sorting">
+                        <ul>
+                            <li>
+                                <a href="javascript:void(0);" class="filter-sets"><i class=" feather icon-filter me-2"></i>Filter</a>
+                            </li>
+                            <li>
+                                <span><img src="assets/admin/img/icons/sort.svg" class="me-2" alt="img"></span>
+                                <div class="custom-select">
+                                    <mat-select [(ngModel)]="selectedValue" [ngModelOptions]="{standalone: true}" class="select"  placeholder="A - Z">
+                                        <mat-option *ngFor="let data of selectedList" [value]="data.value">
+                                        {{data.value}}
+                                        </mat-option>
+                                    </mat-select>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12">
+                <div class="card bg-white">
+                    <div class="card-body">
+                        <div id="calendar">
+                            <full-calendar *ngIf='calendarVisible' [options]='calendarOptions'>
+								<ng-template #eventContent let-arg>
+									<b>{{ arg.timeText }}</b>
+									<i>{{ arg.event.title }}</i>
+								</ng-template>
+							</full-calendar>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

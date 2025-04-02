@@ -1,0 +1,85 @@
+{
+    "data": [
+        {
+            "id": "1",
+            "providerName": "John Smith",
+            "subscription": "Enterprice",
+            "amount": "$650",
+            "subscriptionDurations": "One Year",
+            "startDate": "05 May 2022 12:47 PM",
+            "endDate": "05 May 2023 12:47 PM",
+            "img": "assets/admin/img/customer/user-01.jpg"
+        },
+        {
+            "id": "2",
+            "providerName": "Johnny",
+            "subscription": "Standard",
+            "amount": "$350",
+            "subscriptionDurations": "6 Month",
+            "startDate": "10 May 2022 12:47 PM",
+            "endDate": "15 May 2023 12:47 PM",
+            "img": "assets/admin/img/customer/user-04.jpg"
+        },
+        {
+            "id": "3",
+            "providerName": "Amanda",
+            "subscription": "Basic",
+            "amount": "$100",
+            "subscriptionDurations": "1 Month",
+            "startDate": "05 May 2022 12:47 PM",
+            "endDate": "15 May 2023 12:47 PM",
+            "img": "assets/admin/img/customer/user-02.jpg"
+        },
+        {
+            "id": "4",
+            "providerName": "James",
+            "subscription": "Enterprice",
+            "amount": "$150",
+            "subscriptionDurations": "1 Month",
+            "startDate": "05 May 2022 12:47 PM",
+            "endDate": "15 May 2023 12:47 PM",
+            "img": "assets/admin/img/customer/user-01.jpg"
+        },
+        {
+            "id": "5",
+            "providerName": "Jerry",
+            "subscription": "Enterprice",
+            "amount": "$650",
+            "subscriptionDurations": "One Year",
+            "startDate": "05 May 2022 12:47 PM",
+            "endDate": "05 May 2023 12:47 PM",
+            "img": "assets/admin/img/customer/user-01.jpg"
+        },
+        {
+            "id": "6",
+            "providerName": "Pauline",
+            "subscription": "Standard",
+            "amount": "$350",
+            "subscriptionDurations": "6 Month",
+            "startDate": "10 May 2022 12:47 PM",
+            "endDate": "15 May 2023 12:47 PM",
+            "img": "assets/admin/img/customer/user-04.jpg"
+        },
+        {
+            "id": "7",
+            "providerName": "Kim",
+            "subscription": "Basic",
+            "amount": "$100",
+            "subscriptionDurations": "1 Month",
+            "startDate": "05 May 2022 12:47 PM",
+            "endDate": "15 May 2023 12:47 PM",
+            "img": "assets/admin/img/customer/user-02.jpg"
+        },
+        {
+            "id": "8",
+            "providerName": "Robert",
+            "subscription": "Enterprice",
+            "amount": "$150",
+            "subscriptionDurations": "1 Month",
+            "startDate": "05 May 2022 12:47 PM",
+            "endDate": "15 May 2023 12:47 PM",
+            "img": "assets/admin/img/customer/user-01.jpg"
+        }
+    ],
+    "totalData": 8
+}

@@ -1,0 +1,35 @@
+{
+    "data" : [
+        {
+            "id": "1",
+            "customerName": "Admin",
+            "mobile": "+1 888 888 8888",
+            "regDate": "30 Sep 2022",
+            "lastActivity": "2 mins ago",
+            "status": "Active",
+            "email": "admin@gmail.com",
+            "img" : "assets/admin/img/customer/user-01.jpg"
+        },
+        {
+            "id": "2",
+            "customerName": "John Smith",
+            "mobile": "518-837-9258",
+            "regDate": "27 Sep 2022",
+            "lastActivity": "10 mins ago",
+            "status": "Active",
+            "email": "johnsmith@gmail.com",
+            "img" : "assets/admin/img/customer/user-03.jpg"
+        },
+        {
+            "id": "3",
+            "customerName": "Robert",
+            "mobile": "302-372-7812",
+            "regDate": "25 Sep 2022",
+            "status": "Active",
+            "email": "robert@gmail.com",
+            "img" : "assets/admin/img/customer/user-09.jpg",
+            "lastActivity": "Online"
+        }
+    ],
+    "totalData": 3
+}

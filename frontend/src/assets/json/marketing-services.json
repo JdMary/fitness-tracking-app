@@ -1,0 +1,109 @@
+{
+    "data" : [
+        {
+            "id": "1",
+            "service": "Computer Repair",
+            "userName": "John Smith",
+            "amount": "$80",
+            "offer": "25%",
+            "offerPrice": "$20",
+            "date": "28 Sep 2022",
+            "endDate": "28 Sep 2022",
+            "email": "johnsmith@gmail.com",
+            "img1": "assets/admin/img/services/service-03.jpg",
+            "img2": "assets/admin/img/customer/user-01.jpg"
+        },
+        {
+            "id": "2",
+            "service": "Car Repair Services",
+            "userName": "Johnny johnny@gmail.com",
+            "amount": "$50",
+            "offer": "10%",
+            "offerPrice": "$5",
+            "date": "17 Sep 2022",
+            "endDate": "17 Sep 2022",
+            "email": "johnsmith@gmail.com",
+            "img1": "assets/admin/img/services/service-02.jpg",
+            "img2": "assets/admin/img/customer/user-04.jpg"
+        },
+        {
+            "id": "3",
+            "service": "Steam Car Wash",
+            "userName": "Robert robert@gmail.com",
+            "amount": "$50",
+            "offer": "10%",
+            "offerPrice": "$5",
+            "date": "17 Sep 2022",
+            "endDate": "17 Sep 2022",
+            "email": "johnsmith@gmail.com",
+            "img1": "assets/admin/img/services/service-04.jpg",
+            "img2": "assets/admin/img/customer/user-06.jpg"
+        },
+        {
+            "id": "4",
+            "service": "House Cleaning",
+            "userName": "Sharonda sharonda@gmail.com",
+            "amount": "$150",
+            "offer": "20%",
+            "offerPrice": "$15",
+            "date": "23 Sep 2022",
+            "endDate": "23 Sep 2022",
+            "email": "johnsmith@gmail.com",
+            "img1": "assets/admin/img/services/service-09.jpg",
+            "img2": "assets/admin/img/customer/user-09.jpg"
+        },
+        {
+            "id": "5",
+            "service": "Computer Repair",
+            "userName": "John Smith",
+            "amount": "$250",
+            "offer": "50%",
+            "offerPrice": "$15",
+            "date": "03 Sep 2022",
+            "endDate": "03 Sep 2022",
+            "email": "johnsmith@gmail.com",
+            "img1": "assets/admin/img/services/service-03.jpg",
+            "img2": "assets/admin/img/customer/user-01.jpg"
+        },
+        {
+            "id": "6",
+            "service": "Car Repair Services",
+            "userName": "Johnny johnny@gmail.com",
+            "amount": "$50",
+            "offer": "10%",
+            "offerPrice": "$5",
+            "date": "17 Sep 2022",
+            "endDate": "17 Sep 2022",
+            "email": "johnsmith@gmail.com",
+            "img1": "assets/admin/img/services/service-02.jpg",
+            "img2": "assets/admin/img/customer/user-04.jpg"
+        },
+        {
+            "id": "7",
+            "service": "Steam Car Wash",
+            "userName": "Robert robert@gmail.com",
+            "amount": "$50",
+            "offer": "10%",
+            "offerPrice": "$5",
+            "date": "17 Sep 2022",
+            "endDate": "17 Sep 2022",
+            "email": "johnsmith@gmail.com",
+            "img1": "assets/admin/img/services/service-04.jpg",
+            "img2": "assets/admin/img/customer/user-06.jpg"
+        },
+        {
+            "id": "8",
+            "service": "House Cleaning",
+            "userName": "Sharonda sharonda@gmail.com",
+            "amount": "$150",
+            "offer": "20%",
+            "offerPrice": "$15",
+            "date": "23 Sep 2022",
+            "endDate": "23 Sep 2022",
+            "email": "johnsmith@gmail.com",
+            "img1": "assets/admin/img/services/service-09.jpg",
+            "img2": "assets/admin/img/customer/user-09.jpg"
+        }
+    ],
+    "totalData": 8
+}
