@@ -29,12 +29,12 @@ public class OrderService implements IOrderService {
     }
 
     @Override
-    public Order retrieveOrder(String idOrder) {
+    public Order retrieveOrder(Long idOrder) {
         return orderRepository.findById(idOrder).orElse(null);
     }
 
     @Override
-    public void removeOrder(String idOrder) {
+    public void removeOrder(Long idOrder) {
         orderRepository.deleteById(idOrder);
     }
 
