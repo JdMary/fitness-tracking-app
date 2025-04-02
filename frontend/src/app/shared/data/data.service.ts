@@ -568,7 +568,7 @@ export class DataService {
       gallery: 'assets/admin/img/gallery/gallery-big-02.jpg',
     },
   ];
-  public header = [ //lahni tnajm tbad l header (front office)
+  public header = [
     {
       tittle: 'Facilities',
       showAsTab: false,
@@ -1418,7 +1418,7 @@ export class DataService {
       ],
     },
   ];
-  public adminSidebar = [ //lahni tnajem tbal side bar mta3 l admin (back office)
+  public adminSidebar = [
     {
       tittle: 'Home',
       showAsTab: false,
@@ -1438,132 +1438,6 @@ export class DataService {
       showAsTab: false,
       separateRoute: false,
       menu: [
-        {
-          menuValue: 'Facilities',
-          hasSubRoute: true,
-          showSubRoute: false,
-          route: routes.service, //badl 7asb l route mte3k
-          icon: 'icon-briefcase',
-          subMenus: [
-            {
-              menuValue: 'Add Service',
-              route: routes. addServices, //badl 7asb l route mte3k
-            },
-            {
-              menuValue: 'Services',
-              route: routes.service, //badl 7asb l route mte3k
-            },
-            {
-              menuValue: 'Service Settings',
-              route: routes.serviceSettings, //badl 7asb l route mte3k
-            },
-          ],
-        },
-        {
-          menuValue: 'Buddy',
-          hasSubRoute: true,
-          showSubRoute: false,
-          route: routes.service, //badl 7asb l route mte3k
-          icon: 'icon-briefcase',
-          subMenus: [
-            {
-              menuValue: 'Add Service',
-              route: routes. addServices, //badl 7asb l route mte3k
-            },
-            {
-              menuValue: 'Services',
-              route: routes.service, //badl 7asb l route mte3k
-            },
-            {
-              menuValue: 'Service Settings',
-              route: routes.serviceSettings, //badl 7asb l route mte3k
-            },
-          ],
-        },
-        {
-          menuValue: 'Workout',
-          hasSubRoute: true,
-          showSubRoute: false,
-          route: routes.service, //badl 7asb l route mte3k
-          icon: 'icon-briefcase',
-          subMenus: [
-            {
-              menuValue: 'Add Service',
-              route: routes. addServices, //badl 7asb l route mte3k
-            },
-            {
-              menuValue: 'Services',
-              route: routes.service, //badl 7asb l route mte3k
-            },
-            {
-              menuValue: 'Service Settings',
-              route: routes.serviceSettings, //badl 7asb l route mte3k
-            },
-          ],
-        },
-        {
-          menuValue: 'Healt & diet',
-          hasSubRoute: true,
-          showSubRoute: false,
-          route: routes.service, //badl 7asb l route mte3k
-          icon: 'icon-briefcase',
-          subMenus: [
-            {
-              menuValue: 'Add Service',
-              route: routes. addServices, //badl 7asb l route mte3k
-            },
-            {
-              menuValue: 'Services',
-              route: routes.service, //badl 7asb l route mte3k
-            },
-            {
-              menuValue: 'Service Settings',
-              route: routes.serviceSettings, //badl 7asb l route mte3k
-            },
-          ],
-        },
-        {
-          menuValue: 'Leaderboard',
-          hasSubRoute: true,
-          showSubRoute: false,
-          route: routes.service, //badl 7asb l route mte3k
-          icon: 'icon-briefcase',
-          subMenus: [
-            {
-              menuValue: 'Add Service',
-              route: routes. addServices, //badl 7asb l route mte3k
-            },
-            {
-              menuValue: 'Services',
-              route: routes.service, //badl 7asb l route mte3k
-            },
-            {
-              menuValue: 'Service Settings',
-              route: routes.serviceSettings, //badl 7asb l route mte3k
-            },
-          ],
-        },
-        {
-          menuValue: 'User',
-          hasSubRoute: true,
-          showSubRoute: false,
-          route: routes.service, //badl 7asb l route mte3k
-          icon: 'icon-briefcase',
-          subMenus: [
-            {
-              menuValue: 'Add Service',
-              route: routes. addServices, //badl 7asb l route mte3k
-            },
-            {
-              menuValue: 'Services',
-              route: routes.service, //badl 7asb l route mte3k
-            },
-            {
-              menuValue: 'Service Settings',
-              route: routes.serviceSettings, //badl 7asb l route mte3k
-            },
-          ],
-        },
         {
           menuValue: 'Services',
           hasSubRoute: true,
