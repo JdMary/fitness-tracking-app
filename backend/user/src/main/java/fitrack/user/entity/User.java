@@ -33,6 +33,8 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private UserRole role;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Order> orders;
     public User() {
     }
     public User(String name, String email, String password, UserRole role) {
