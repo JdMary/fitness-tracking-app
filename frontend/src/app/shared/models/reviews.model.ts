@@ -1,0 +1,30 @@
+export interface reviews{
+    reviewType ?: string;
+    dropdown ?:string;
+    menu ?:string;
+    menu1 ?:string;
+    menu2 ?:string;
+    reviewimg1 ?:string;
+    reviewername1 ?:string;
+    reviewedby ?:string;
+    month ?:string;
+    feedback ?:string;
+    reviewgallery ?:string;
+    gallery2 ?:string;
+    gallery3 ?:string;
+    gallery ?:string;
+    reviewimg2 ?:string;
+    reviewername2 ?:string;
+    month2 ?:string;
+    reviewedby1 ?:string;
+    feedback2 ?:string;
+    reviewimg3 ?:string;
+    reviewername3 ?:string;
+    month3 ?:string;
+    reviewedby2 ?:string;
+    feedback3 ?:string;
+    reviewgallery2 ?:string;
+    gallery4 ?:string;
+    gallery5 ?:string;
+    gallery6 ?:string;
+}
