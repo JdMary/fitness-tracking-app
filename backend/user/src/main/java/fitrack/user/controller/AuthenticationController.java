@@ -83,7 +83,8 @@ public class AuthenticationController {
             String token = bearerToken.substring(7); // Remove "Bearer " prefix
             String username = tokenService.extractUsername(token);
             Optional<User> user = userRepository.findByEmail(username);
-            return ResponseEntity.ok(user);
+            System.out.println(user.get().getName());
+            return ResponseEntity.ok(user.get());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid token or user not found");
         }
