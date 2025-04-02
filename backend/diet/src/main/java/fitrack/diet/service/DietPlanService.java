@@ -10,4 +10,5 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class DietPlanService {
     private DietPlanRepository repository;
+
 }
