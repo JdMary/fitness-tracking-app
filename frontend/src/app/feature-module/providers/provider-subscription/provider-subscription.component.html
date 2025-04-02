@@ -1,0 +1,116 @@
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        
+        <div class="row">	
+            <div class="col-md-6">	
+                <div class="widget-title">
+                    <h4>Subscription</h4>
+                </div>
+            </div>
+            <div class="col-md-6 text-md-end">	
+                <ul class="subs-list">
+                    <li>
+                        <a [routerLink]="routes.providerSubscription" class="active">Plan & Pricing</a>
+                    </li>
+                    <li>
+                        <a [routerLink]="routes.providerAddons">Addons</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+                            
+        <!-- Subscription -->
+        <div class="row provider-price">
+            <div class="col-md-12">
+                <div class="choose-title text-center">
+                    <h6>Choose Plan</h6>
+                    <div class="status-toggle status-tog d-inline-flex align-items-center">
+                        Yearly
+                        <input type="checkbox" id="status_1" class="check" checked>
+                        <label for="status_1" class="checktoggle">checkbox</label>
+                        Monthly
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Price List -->
+            <div class="col-md-4 d-flex">
+                <div class="price-card flex-fill">
+                    <div class="price-head">
+                        <div class="price-level">
+                            <h6>Basic</h6>
+                        </div>
+                        <h1>$50 <span>/ month</span></h1>
+                    </div>	
+                    <div class="price-body">
+                        <ul>
+                            <li class="active">10 Services</li>
+                            <li class="active">10 Stafff</li>
+                            <li class="active">100 Appointments</li>
+                            <li class="inactive">Gallery</li>
+                            <li class="inactive">Addition Services</li>
+                        </ul>
+                        <div class="text-center">
+                            <a href="javascript:void(0);" class="btn btn-choose">Choose Plan <i class="feather icon-arrow-right-circle"></i></a>
+                        </div>							
+                    </div>							
+                </div>							
+            </div>
+            <!-- /Price List -->
+            
+            <!-- Price List -->
+            <div class="col-md-4 d-flex">
+                <div class="price-card active flex-fill">
+                    <div class="price-head">
+                        <div class="price-level">
+                            <h6>Business</h6>
+                            <span class="badge-success">Active</span>
+                        </div>
+                        <h1>$200 <span>/ month</span></h1>
+                    </div>	
+                    <div class="price-body">
+                        <ul>
+                            <li class="active">20 Services</li>
+                            <li class="active">20 Stafff</li>
+                            <li class="active">Unlimited Appointments</li>
+                            <li class="active">Gallery</li>
+                            <li class="inactive">Addition Services</li>
+                        </ul>
+                        <div class="text-center">
+                            <a href="javascript:void(0);" class="btn btn-choose">Choose Plan <i class="feather icon-arrow-right-circle"></i></a>
+                        </div>							
+                    </div>							
+                </div>							
+            </div>
+            <!-- /Price List -->
+            
+            <!-- Price List -->
+            <div class="col-md-4 d-flex">
+                <div class="price-card flex-fill">
+                    <div class="price-head">
+                        <div class="price-level">
+                            <h6>Enterprise</h6>
+                        </div>
+                        <h1>$450 <span>/ month</span></h1>
+                    </div>	
+                    <div class="price-body">
+                        <ul>
+                            <li class="active">Unlimited Services</li>
+                            <li class="active">Unlimited Stafff</li>
+                            <li class="active">Unlimited Appointments</li>
+                            <li class="active">Gallery</li>
+                            <li class="active">Addition Services</li>
+                        </ul>
+                        <div class="text-center">
+                            <a href="javascript:void(0);" class="btn btn-choose">Choose Plan <i class="feather icon-arrow-right-circle"></i></a>
+                        </div>							
+                    </div>							
+                </div>							
+            </div>
+            <!-- /Price List -->
+        
+        </div>
+        <!-- /Subscription -->
+        
+    </div>
+</div>

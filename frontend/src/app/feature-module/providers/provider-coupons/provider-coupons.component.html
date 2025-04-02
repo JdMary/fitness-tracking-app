@@ -1,0 +1,619 @@
+<div class="page-wrapper">
+  <div class="content container-fluid">
+    <div
+      class="d-flex justify-content-between align-items-center flex-wrap mb-4"
+    >
+      <h5>Coupons</h5>
+      <div class="d-flex align-items-center">
+        <span class="fs-14 me-2">Sort</span>
+        <div class="dropdown me-2">
+          <a
+            href="javascript:void(0);"
+            class="dropdown-toggle bg-light-300"
+            data-bs-toggle="dropdown"
+          >
+            Newly Added
+          </a>
+          <div class="dropdown-menu">
+            <a href="javascript:void(0);" class="dropdown-item active"
+              >Recently Added</a
+            >
+          </div>
+        </div>
+        <a
+          href="javascript:void(0);"
+          class="tags d-flex justify-content-center align-items-center rounded me-2"
+          ><i class="ti ti-printer"></i
+        ></a>
+        <a
+          href="javascript:void(0);"
+          class="tags d-flex justify-content-center align-items-center border rounded me-2"
+          (click)="toggleFilterInputs()"
+          id="filter_search"
+          z
+        >
+          <i class="ti ti-sort-descending"></i>
+        </a>
+        <a
+          href="javascript:void(0);"
+          class="btn btn-dark d-flex align-items-center"
+          data-bs-toggle="modal"
+          data-bs-target="#add-coupons"
+          ><i class="ti ti-circle-plus me-2"></i>Add Coupon</a
+        >
+      </div>
+    </div>
+    <div id="filter_inputs"  [ngStyle]="{ display: isFilterInputsVisible ? 'block' : 'none' }">
+      <div class="row">
+        <div class="col-lg-3 col-md-6 col-xl">
+          <div class="mb-3">
+            <div class="sel-cal Calendar-icon">
+              <span><i class="ti ti-calendar-month"></i></span>
+              <input
+                class="form-control datetimepicker"
+                bsDatepicker
+                type="text"
+                placeholder="dd-mm-yyyy"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-xl">
+          <div class="mb-3 mat-select-box">
+            <mat-select
+            [(ngModel)]="selectedValue3"
+            [ngModelOptions]="{ standalone: true }"
+            class="select"
+            placeholder="Select"
+          >
+            <mat-option
+              *ngFor="let data of selectedList3"
+              [value]="data.value"
+            >
+              {{ data.value }}
+            </mat-option>
+          </mat-select>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-xl">
+          <div class="mb-3 mat-select-box">
+            <mat-select
+            [(ngModel)]="selectedValue4"
+            [ngModelOptions]="{ standalone: true }"
+            class="select"
+            placeholder="Select"
+          >
+            <mat-option
+              *ngFor="let data of selectedList4"
+              [value]="data.value"
+            >
+              {{ data.value }}
+            </mat-option>
+          </mat-select>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-xl">
+          <div class="mb-3 mat-select-box">
+            <mat-select
+              [(ngModel)]="selectedValue3"
+              [ngModelOptions]="{ standalone: true }"
+              class="select"
+              placeholder="Select"
+            >
+              <mat-option
+                *ngFor="let data of selectedList3"
+                [value]="data.value"
+              >
+                {{ data.value }}
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-xl">
+          <div class="mb-3  mat-select-box">
+            <mat-select
+            [(ngModel)]="selectedValue5"
+            [ngModelOptions]="{ standalone: true }"
+            class="select"
+            placeholder="Select"
+          >
+            <mat-option
+              *ngFor="let data of selectedList5"
+              [value]="data.value"
+            >
+              {{ data.value }}
+            </mat-option>
+          </mat-select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Coupons -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="provide-table manage-table">
+          <div class="table-responsive">
+            <table
+              matSort
+              (matSortChange)="sortData($event)"
+              class="table custom-table datatable mb-0"
+              id="data-table"
+            >
+              <thead class="thead-light">
+                <tr>
+                  <th mat-sort-header="name">Name</th>
+                  <th mat-sort-header="code">Code</th>
+                  <th mat-sort-header="type">Type</th>
+                  <th mat-sort-header="discount">Discount</th>
+                  <th mat-sort-header="limit">limit</th>
+                  <th mat-sort-header="used">Used</th>
+                  <th mat-sort-header="validDate">Valid Date</th>
+                  <th mat-sort-header="servicesName">Services Name</th>
+                  <th mat-sort-header="status">Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of providerCoupons">
+                  <td>{{ data.name }}</td>
+                  <td>{{ data.code }}</td>
+                  <td>{{ data.type }}</td>
+                  <td>{{ data.discount }}</td>
+                  <td>{{ data.limit }}</td>
+                  <td>{{ data.used }}</td>
+                  <td>
+                    {{ data.validDate }}
+                    <span class="d-block"> {{ data.text }}</span>
+                  </td>
+                  <td>{{ data.servicesName }}</td>
+                  <td>
+                    <span
+                      class="badge"
+                      [ngClass]="{
+                        'badge-success': data.status === 'Active',
+                        'badge-danger': data.status === 'InActive'
+                      }"
+                      >{{ data.status }}</span
+                    >
+                  </td>
+                  <td>
+                    <div class="user-icon d-inline-flex">
+                      <a
+                        href="#"
+                        class="me-2"
+                        data-bs-toggle="modal"
+                        data-bs-target="#edit-coupons"
+                      >
+                        <i class="ti ti-edit"></i>
+                      </a>
+                      <a
+                        href="#"
+                        data-bs-toggle="modal"
+                        data-bs-target="#del-coupons"
+                      >
+                        <i class="ti ti-trash"></i>
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="value d-flex align-items-center">
+                <span>Show</span>
+                <select>
+                    <option>7</option>
+                </select>
+                <span>entries</span>
+            </div>
+            <div class="d-flex align-items-center justify-content-center">
+                <span class="me-2 text-gray-9">1 - 07 of 10</span>
+                <nav aria-label="Page navigation">
+                    <ul class="paginations d-flex justify-content-center align-items-center">
+                        <li class="page-item me-2"><a
+                                class="page-link-1 active d-flex justify-content-center align-items-center "
+                                href="javascript:void(0);">1</a></li>
+                        <li class="page-item me-2"><a
+                                class="page-link-1 d-flex justify-content-center align-items-center "
+                                href="javascript:void(0);">2</a></li>
+                        <li class="page-item "><a
+                                class="page-link-1 d-flex justify-content-center align-items-center "
+                                href="javascript:void(0);">3</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        </div>
+        <div class="row">
+          <div class="col-md-3">
+            <div id="tablelength"></div>
+          </div>
+          <div class="col-md-9">
+            <div class="table-ingopage">
+              <div id="tableinfo"></div>
+              <div id="tablepagination"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /Coupons -->
+  </div>
+</div>
+<!-- Add coupons -->
+<div class="modal fade custom-modal" id="add-coupons">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header d-flex align-items-center justify-content-between  border-0">
+        <h5>Add Coupon</h5>
+        <a href="javascript:void(0);" data-bs-dismiss="modal" aria-label="Close"><i
+            class="ti ti-circle-x-filled fs-20"></i></a>
+      </div>
+      <form >
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="mb-3 mat-select-box">
+                <label class="form-label">Services</label>
+               
+                <mat-select
+              [(ngModel)]="selectedValue6"
+              [ngModelOptions]="{ standalone: true }"
+              class="select"
+              placeholder="Select"
+            >
+              <mat-option
+                *ngFor="let data of selectedList6"
+                [value]="data.value"
+              >
+                {{ data.value }}
+              </mat-option>
+            </mat-select>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Coupon Name</label>
+                    <input type="text" class="form-control">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Code</label>
+                    <input type="text" class="form-control">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3 mat-select-box">
+                    <label class="form-label">Coupon Type</label>
+                 
+                    <mat-select
+                    [(ngModel)]="selectedValue7"
+                    [ngModelOptions]="{ standalone: true }"
+                    class="select"
+                    placeholder="Select"
+                  >
+                    <mat-option
+                      *ngFor="let data of selectedList7"
+                      [value]="data.value"
+                    >
+                      {{ data.value }}
+                    </mat-option>
+                  </mat-select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Discount</label>
+                    <div class=" input-icon position-relative">
+                      <span class="input-icon-addon"><i
+                          class="ti ti-square-rounded-percentage"></i></span>
+                      <input type="text" class="form-control">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Start Date</label>
+                    <div class=" input-icon position-relative">
+                      <span class="input-icon-addon"><i class="ti ti-calendar"></i></span>
+                      <input type="text" class="form-control datetimepicker" bsDatepicker
+                        placeholder="dd-mm-yyyy">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">End Date</label>
+                    <div class=" input-icon position-relative">
+                      <span class="input-icon-addon"><i class="ti ti-calendar"></i></span>
+                      <input type="text" class="form-control datetimepicker" bsDatepicker
+                        placeholder="dd-mm-yyyy">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row align-items-center justify-content-center">
+                <div class="col-md-6">
+                  <div class="mb-3 mat-select-box">
+                    <label class="form-label">Company Name</label>
+                 
+                    <mat-select
+                    [(ngModel)]="selectedValue8"
+                    [ngModelOptions]="{ standalone: true }"
+                    class="select"
+                    placeholder="Select"
+                  >
+                    <mat-option
+                      *ngFor="let data of selectedList8"
+                      [value]="data.value"
+                    >
+                      {{ data.value }}
+                    </mat-option>
+                  </mat-select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="d-flex align-items-center justify-content-center">
+                    <div class="form-check form-switch d-flex align-items-center">
+                      <input class="form-check-input me-1" type="checkbox" role="switch" id="switch-sm" checked>
+                      <h6 class="fs-14">Once per Customer</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="d-flex  flex-column">
+                    <label class="form-label">End Date</label>
+                    <div class="d-flex">
+                      <div class="form-check me-2">
+                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                      <label class="form-check-label" for="flexRadioDefault1">
+                        Active
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                      <label class="form-check-label" for="flexRadioDefault2">
+                        Inactive
+                      </label>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="modal-footer">
+        <button type="button" class="btn bg-gray" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-dark">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Add coupons -->
+
+<!--Edit coupons -->
+<div class="modal fade custom-modal" id="edit-coupons">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header d-flex align-items-center justify-content-between  border-0">
+        <h5>Edit Coupon</h5>
+        <a href="javascript:void(0);" data-bs-dismiss="modal" aria-label="Close"><i
+            class="ti ti-circle-x-filled fs-20"></i></a>
+      </div>
+      <form >
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="mb-3 mat-select-box">
+                <label class="form-label">Services</label>
+               
+                <mat-select
+              [(ngModel)]="selectedValue6"
+              [ngModelOptions]="{ standalone: true }"
+              class="select"
+              placeholder="Select"
+            >
+              <mat-option
+                *ngFor="let data of selectedList6"
+                [value]="data.value"
+              >
+                {{ data.value }}
+              </mat-option>
+            </mat-select>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Coupon Name</label>
+                    <input type="text" class="form-control">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Code</label>
+                    <input type="text" class="form-control">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3 mat-select-box">
+                    <label class="form-label">Coupon Type</label>
+                 
+                    <mat-select
+                    [(ngModel)]="selectedValue7"
+                    [ngModelOptions]="{ standalone: true }"
+                    class="select"
+                    placeholder="Select"
+                  >
+                    <mat-option
+                      *ngFor="let data of selectedList7"
+                      [value]="data.value"
+                    >
+                      {{ data.value }}
+                    </mat-option>
+                  </mat-select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Discount</label>
+                    <div class=" input-icon position-relative">
+                      <span class="input-icon-addon"><i
+                          class="ti ti-square-rounded-percentage"></i></span>
+                      <input type="text" class="form-control">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">Start Date</label>
+                    <div class=" input-icon position-relative">
+                      <span class="input-icon-addon"><i class="ti ti-calendar"></i></span>
+                      <input type="text" class="form-control datetimepicker" bsDatepicker
+                        placeholder="dd-mm-yyyy">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="mb-3">
+                    <label class="form-label">End Date</label>
+                    <div class=" input-icon position-relative">
+                      <span class="input-icon-addon"><i class="ti ti-calendar"></i></span>
+                      <input type="text" class="form-control datetimepicker" bsDatepicker
+                        placeholder="dd-mm-yyyy">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row align-items-center justify-content-center">
+                <div class="col-md-6">
+                  <div class="mb-3 mat-select-box">
+                    <label class="form-label">Company Name</label>
+                 
+                    <mat-select
+                    [(ngModel)]="selectedValue8"
+                    [ngModelOptions]="{ standalone: true }"
+                    class="select"
+                    placeholder="Select"
+                  >
+                    <mat-option
+                      *ngFor="let data of selectedList8"
+                      [value]="data.value"
+                    >
+                      {{ data.value }}
+                    </mat-option>
+                  </mat-select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="d-flex align-items-center justify-content-center">
+                    <div class="form-check form-switch d-flex align-items-center">
+                      <input class="form-check-input me-1" type="checkbox" role="switch" id="switch-sm" checked>
+                      <h6 class="fs-14">Once per Customer</h6>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="d-flex  flex-column">
+                    <label class="form-label">End Date</label>
+                    <div class="d-flex">
+                      <div class="form-check me-2">
+                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                      <label class="form-check-label" for="flexRadioDefault1">
+                        Active
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                      <label class="form-check-label" for="flexRadioDefault2">
+                        Inactive
+                      </label>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="modal-footer">
+        <button type="button" class="btn bg-gray" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-dark">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Edit coupons -->
+
+<!-- Delete Staff -->
+<div class="modal fade custom-modal" id="del-coupons">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header d-flex align-items-center justify-content-between border-bottom">
+        <h5 class="modal-title">Delete coupons</h5>
+        <a href="#" data-bs-dismiss="modal" aria-label="Close"><i
+            class="ti ti-circle-x-filled fs-20"></i></a>
+      </div>
+      <div class="modal-body">
+        <div class="write-review">
+          <form >
+            <p>Are you sure want to delete this coupons?</p>
+            <div class="modal-submit text-end">
+              <a href="#" class="btn btn-light me-2" data-bs-dismiss="modal">Cancel</a>
+              <button type="submit" class="btn btn-dark">Yes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Delete Staff -->
+
+<!-- Delete Account -->
+<div class="modal fade custom-modal" id="del-account">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header d-flex align-items-center justify-content-between border-bottom">
+        <h5 class="modal-title">Delete Account</h5>
+        <a href="javascript:void(0);" data-bs-dismiss="modal" aria-label="Close"><i class="ti ti-circle-x-filled fs-20"></i></a>
+      </div>
+      <form action="#">
+        <div class="modal-body">
+          <p class="mb-3">Are you sure you want to delete This Account? To delete your account, Type your password.</p>
+          <div class="mb-0">
+            <label class="form-label">Password</label>
+            <div class="pass-group">
+              <input type="password" class="form-control pass-input" placeholder="*************">
+              <span class="toggle-password feather-eye-off"></span>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a href="javascript:void(0);" class="btn btn-light me-2" data-bs-dismiss="modal">Cancel</a>
+          <button type="submit" class="btn btn-dark">Delete Account</button>
+        </div>	
+      </form>
+    </div>
+  </div>
+</div>
+<!-- /Delete Account -->
