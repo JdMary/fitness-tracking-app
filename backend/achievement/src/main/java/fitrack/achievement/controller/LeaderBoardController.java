@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -49,8 +50,8 @@ public class LeaderBoardController {
     }
 
     @GetMapping("/name/{name}")
-    public ResponseEntity<LeaderBoard> findByName(@PathVariable("name") String name) {
-        return ResponseEntity.ok(service.findByName(name));
+    public ResponseEntity<Optional<LeaderBoard>> findByName(@PathVariable("name") String name) {
+        return ResponseEntity.ok(service.findByname(name));
     }
 
 

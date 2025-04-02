@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -23,9 +24,7 @@ public class LeaderBoardService {
         this.client = client;
     }
 
-    public void saveBoard(LeaderBoard board) {
-        repository.save(board);
-    }
+
 
     public List<LeaderBoard> findAllBoard() {
         return repository.findAll();
@@ -65,9 +64,8 @@ public class LeaderBoardService {
 
 
 
-    public LeaderBoard findByName(String name) {
-        return repository.findByName(name)
-                .orElseThrow(() -> new RuntimeException("Leaderboard not found: " + name));
+    public Optional<LeaderBoard> findByname(String name) {
+        return repository.findByName(name);
     }
 
 
