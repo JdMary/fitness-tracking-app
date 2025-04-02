@@ -33,23 +33,27 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private UserRole role;
 
-    public User() {
-    }
-    public User(String name, String email, String password, UserRole role) {
+    @Column(nullable = true)
+    private  int xpPoints;
+    public User(String name, String email, String password, UserRole role,int xpPoints) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.xpPoints=xpPoints;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<SimpleGrantedAuthority> roles = new ArrayList<>();
-        roles.add(new SimpleGrantedAuthority("ROLE_USER"));
+    public User() {
 
-        if (this.role == UserRole.ADMIN) roles.add(new SimpleGrantedAuthority("ROLES_ADMIN"));
+    }
 
-        return roles;
+
+    public int getXpPoints() {
+        return xpPoints;
+    }
+
+    public void setXpPoints(int xpPoints) {
+        this.xpPoints = xpPoints;
     }
 
     @Override
@@ -76,6 +80,11 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
     }
 
     @Override

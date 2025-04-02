@@ -13,7 +13,7 @@ import java.util.Date;
 public class Challenge {
 
     @Id
-    private String challengeId;
+    private long challengeId;
 
     private String title;
 
@@ -22,11 +22,11 @@ public class Challenge {
 
     private int xpPoints;
 
-    public String getChallengeId() {
+    public long getChallengeId() {
         return challengeId;
     }
 
-    public void setChallengeId(String challengeId) {
+    public void setChallengeId(long challengeId) {
         this.challengeId = challengeId;
     }
 
