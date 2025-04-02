@@ -1,0 +1,449 @@
+<div class="page-wrapper page-settings">
+  <div class="content">
+    <div class="content-page-header content-page-headersplit">
+      <h5>Testimonials</h5>
+      <div class="list-btn">
+        <ul>
+          <li>
+            <div class="filter-sorting">
+              <ul>
+                <li>
+                  <a href="javascript:void(0);" class="filter-sets"><i class="feather icon-filter me-2"></i>Filter</a>
+              </li>
+                <li>
+                  <span
+                    ><img
+                      src="assets/admin/img/icons/sort.svg"
+                      class="me-2"
+                      alt="img"
+                  /></span>
+                  <div class="custom-select">
+                    <mat-select
+                      [(ngModel)]="selectedValue"
+                      [ngModelOptions]="{ standalone: true }"
+                      class="select"
+                      placeholder="A - Z"
+                    >
+                      <mat-option
+                        *ngFor="let data of selectedList"
+                        [value]="data.value"
+                      >
+                        {{ data.value }}
+                      </mat-option>
+                    </mat-select>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <button
+              class="btn btn-primary"
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#add-testimonial"
+            >
+              <i class="fa fa-plus me-2"></i>Add Testimonial
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <div class="table-resposnive">
+          <table
+            matSort
+            (matSortChange)="sortData($event)"
+            class="table datatable"
+          >
+            <thead>
+              <tr>
+                <th mat-sort-header="id">#</th>
+                <th mat-sort-header="userName">User Name</th>
+                <th mat-sort-header="rating">Rating</th>
+                <th mat-sort-header="content">Content</th>
+                <th mat-sort-header="createAt">Create at</th>
+                <th mat-sort-header="status">Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of testimonials">
+                <td>{{ data.id }}</td>
+                <td class="table-namesplit">
+                  <a href="javascript:void(0);" class="table-profileimage">
+                    <img [src]="data.img" class="me-2" alt="img" />
+                  </a>
+                  <a href="javascript:void(0);" class="table-name">
+                    <span>{{ data.userName }}</span>
+                    <p>{{ data.userEmail }}</p>
+                  </a>
+                </td>
+                <td>
+                  <div class="rating">
+                    <i class="fas fa-star filled"></i>
+                    <i class="fas fa-star filled"></i>
+                    <i class="fas fa-star filled"></i>
+                    <i class="fas fa-star filled"></i>
+                    <i class="fas fa-star filled"></i>
+                  </div>
+                </td>
+                <td>{{ data.content }}</td>
+                <td>{{ data.createAt }}</td>
+                <td>
+                  <h6
+                    [ngClass]="{
+                      'badge-active': data.status === 'Active',
+                      'badge-inactive': data.status === 'Inactive'
+                    }"
+                  >
+                    {{ data.status }}
+                  </h6>
+                </td>
+                <td>
+                  <div class="table-actions d-flex">
+                    <button
+                      class="btn delete-table me-2"
+                      type="button"
+                      data-bs-toggle="modal"
+                      data-bs-target="#edit-testimonial"
+                    >
+                      <i class="feather icon-edit"></i>
+                    </button>
+                    <button
+                      class="btn delete-table"
+                      type="button"
+                      data-bs-toggle="modal"
+                      data-bs-target="#delete-testimonial"
+                    >
+                      <i class="feather icon-trash-2"></i>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          
+        </div>
+        <div class="pagination-main-class">
+          <div class="table_footer">
+            <div class="row">
+              <div class="col-sm-12 col-md-6">
+                <div class="dataTables_length">
+                  <label for="">
+                    <select
+                      [(ngModel)]="pageSize"
+                      (ngModelChange)="PageSize()"
+                      class="form-control form-control-sm"
+                    >
+                      <option value="10">10</option>
+                      <option value="25">25</option>
+                      <option value="50">50</option>
+                      <option value="100">100</option>
+                    </select>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="table_design">
+            <div>
+              <div class="dataTables_info">
+                {{ serialNumberArray[0] }} -
+                {{ serialNumberArray[serialNumberArray.length - 1] }} of
+                {{ totalData }} items
+              </div>
+            </div>
+            <div class="d-flex">
+              <div class="pagination_section">
+                <ul class="pagination">
+                  <ng-container
+                    *ngFor="let item of pageNumberArray; let i = index"
+                  >
+                    <li
+                      class="page-item"
+                      [class.active]="item === currentPage"
+                      [ngClass]="
+                        (pageNumberArray[currentPage - 2] > item &&
+                          item !== 1 &&
+                          pageNumberArray.length > 6) ||
+                        (pageNumberArray[currentPage] < item &&
+                          item !== 1 &&
+                          pageNumberArray.length > 6 &&
+                          pageNumberArray.length !== item)
+                          ? 'hide-page-no'
+                          : 'show-page-no'
+                      "
+                    >
+                      <a
+                        (click)="moveToPage(item)"
+                        class="page-link"
+                        href="javascript:void(0);"
+                      >
+                        {{ item }}
+                      </a>
+                    </li>
+                    <li
+                      class="page-item"
+                      *ngIf="
+                        i === 0 &&
+                        pageNumberArray.length > 6 &&
+                        currentPage > 2
+                      "
+                      [hidden]="currentPage === 1"
+                      (click)="moveToPage(currentPage - 2)"
+                      (keydown.enter)="moveToPage(currentPage - 2)"
+                      tabindex="0"
+                    >
+                      <a class="page-link" href="javascript:void(0);">
+                        ...
+                      </a>
+                    </li>
+                    <li
+                      *ngIf="
+                        i === pageNumberArray.length - 2 &&
+                        pageNumberArray.length > 6
+                      "
+                      [hidden]="
+                        currentPage >=
+                          pageNumberArray[pageNumberArray.length - 2] ||
+                        totalData <
+                          serialNumberArray[serialNumberArray.length - 1]
+                      "
+                      class="page-item"
+                      (click)="moveToPage(currentPage + 2)"
+                      (keydown.enter)="moveToPage(currentPage + 2)"
+                      tabindex="0"
+                    >
+                      <a class="page-link" href="javascript:void(0);">
+                        ...
+                      </a>
+                    </li>
+                  </ng-container>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Add Testimonial -->
+<div class="modal fade" id="add-testimonial">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Testimonial</h5>
+        <button
+          type="button"
+          class="btn-close close-modal"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        >
+          <i class="feather icon-x"></i>
+        </button>
+      </div>
+      <div class="modal-body pt-0">
+        <form>
+          <div class="profile-upload mb-3">
+            <div class="profile-upload-img">
+              <img src="assets/img/customer/user-01.jpg" alt="img" />
+            </div>
+            <div class="profile-upload-content">
+              <div class="profile-upload-btn">
+                <div class="profile-upload-file">
+                  <input type="file" id="imgInp" />
+                  <a href="javascript:void(0);" class="btn btn-upload"
+                    >Upload</a
+                  >
+                </div>
+                <a href="javascript:void(0);" class="btn btn-remove">Remove</a>
+              </div>
+              <div class="profile-upload-para">
+                <p>
+                  * Recommends a minimum size of 320 x 320 pixels. Allowed files
+                  .png and .jpg.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="" class="form-label">Name</label>
+            <input type="text" class="form-control" />
+          </div>
+          <div class="mb-3">
+            <label for="" class="form-label">Job Title</label>
+            <input type="text" class="form-control" />
+          </div>
+          <div class="mb-3">
+            <label for="" class="form-label">Ratings</label>
+            <div class="rating">
+              <i class="fas fa-star filled"></i>
+              <i class="fas fa-star filled"></i>
+              <i class="fas fa-star filled"></i>
+              <i class="fas fa-star filled"></i>
+              <i class="fas fa-star"></i>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="" class="form-label">Content</label>
+            <textarea class="form-control"></textarea>
+          </div>
+          <div
+            class="form-groupheads d-flex d-flex justify-content-between mb-4"
+          >
+            <h2>Status</h2>
+            <div class="active-switch">
+              <label class="switch">
+                <input type="checkbox" checked="" />
+                <span class="sliders round"></span>
+              </label>
+            </div>
+          </div>
+          <div class="text-end">
+            <button
+              type="button"
+              class="btn btn-secondary me-2"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-primary">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Add Testimonial -->
+
+<!-- Edit Testimonial -->
+<div class="modal fade" id="edit-testimonial">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Testimonial</h5>
+        <button
+          type="button"
+          class="btn-close close-modal"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        >
+          <i class="feather icon-x"></i>
+        </button>
+      </div>
+      <div class="modal-body pt-0">
+        <form>
+          <div class="profile-upload mb-3">
+            <div class="profile-upload-img">
+              <img src="assets/img/customer/user-01.jpg" alt="img" />
+            </div>
+            <div class="profile-upload-content">
+              <div class="profile-upload-btn">
+                <div class="profile-upload-file">
+                  <input type="file" id="imgInp" />
+                  <a href="javascript:void(0);" class="btn btn-upload"
+                    >Upload</a
+                  >
+                </div>
+                <a href="javascript:void(0);" class="btn btn-remove">Remove</a>
+              </div>
+              <div class="profile-upload-para">
+                <p>
+                  * Recommends a minimum size of 320 x 320 pixels. Allowed files
+                  .png and .jpg.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="" class="form-label">Name</label>
+            <input type="text" class="form-control" value="John Smith" />
+          </div>
+          <div class="mb-3">
+            <label for="" class="form-label">Job Title</label>
+            <input type="text" class="form-control" value="CEO" />
+          </div>
+          <div class="mb-3">
+            <label for="" class="form-label">Ratings</label>
+            <div class="rating">
+              <i class="fas fa-star filled"></i>
+              <i class="fas fa-star filled"></i>
+              <i class="fas fa-star filled"></i>
+              <i class="fas fa-star filled"></i>
+              <i class="fas fa-star"></i>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="" class="form-label">Content</label>
+            <textarea class="form-control">
+Good Experience for technologies</textarea
+            >
+          </div>
+          <div
+            class="form-groupheads d-flex d-flex justify-content-between mb-4"
+          >
+            <h2>Status</h2>
+            <div class="active-switch">
+              <label class="switch">
+                <input type="checkbox" checked="" />
+                <span class="sliders round"></span>
+              </label>
+            </div>
+          </div>
+          <div class="text-end">
+            <button
+              type="button"
+              class="btn btn-secondary me-2"
+              data-bs-dismiss="modal"
+            >
+              Cancel
+            </button>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Edit Testimonial -->
+
+<!-- Delete Testimonial -->
+<div class="modal fade" id="delete-testimonial">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body pt-0">
+        <div class="text-center">
+          <i class="feather icon-trash-2 text-danger fs-1"></i>
+          <div class="mt-4">
+            <h4>Delete Testimonial?</h4>
+            <p class="text-muted mb-0">Are you sure want to delete this?</p>
+          </div>
+        </div>
+        <div class="d-flex gap-2 justify-content-center mt-4">
+          <button
+            type="button"
+            class="btn w-sm btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button type="button" class="btn w-sm btn-danger">
+            Yes, Delete It!
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Delete Testimonial -->

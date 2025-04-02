@@ -1,0 +1,61 @@
+<div class="page-wrapper">
+    <div class="content">
+        <div class="row">
+            <div class="col-lg-7 col-sm-12 m-auto">
+                <div class="content-page-header">
+                    <h5>Add Sub Category</h5>
+                </div>
+                <form action="/">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="">Category</label>
+                                <mat-select [(ngModel)]="selectedValue" [ngModelOptions]="{standalone: true}" class="setting-select select"  placeholder="Select Category">
+                                    <mat-option *ngFor="let data of selectedList" [value]="data.value">
+                                    {{data.value}}
+                                    </mat-option>
+                                </mat-select>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="">Category Name <span>(English)</span></label>
+                                <input type="text" class="form-control" placeholder="Enter Category Name">
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <label for="">Category Slug <span>(Ex:test-slug)</span></label>
+                                <input type="text" class="form-control" placeholder="Enter Slug">
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="form-group mb-0">
+                                <label for="">Category Image</label>
+                            </div>
+                            <div class="form-uploads mb-4">
+                                <div class="form-uploads-path">
+                                    <img src="assets/admin/img/icons/upload.svg" alt="img">
+                                    <div class="file-browse">
+                                        <h6>Drag & drop image or </h6>
+                                        <div class="file-browse-path">
+                                            <input type="file">
+                                            <a href="javascript:void(0);"> Browse</a>
+                                        </div>
+                                    </div>
+                                    <h5>Supported formates: JPEG, PNG</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="btn-path">
+                                <a href="javascript:void(0);" class="btn btn-cancel me-3">Cancel</a>
+                                <button type="submit" class="btn btn-primary "> Add Sub Category</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div> 

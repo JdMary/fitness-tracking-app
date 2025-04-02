@@ -1,0 +1,337 @@
+<div class="row">
+  <div class="content-table">
+    <div class="content-page-header content-page-headersplit">
+      <h5>Currency</h5>
+      <div class="page-head-btn">
+        <a class="btn btn-linegrey" [routerLink]="routes.currencySettings"
+          ><i class="feather icon-settings"></i
+        ></a>
+        <a
+          class="btn btn-primary"
+          href="javascript:void(0);"
+          data-bs-toggle="modal"
+          data-bs-target="#add-currency"
+          ><i class="fa fa-plus me-2"></i>Add Currency</a
+        >
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="table-resposnive table-bottom">
+        <table
+          matSort
+          (matSortChange)="sortData($event)"
+          class="table datatable"
+        >
+          <thead>
+            <tr>
+              <th mat-sort-header="currencyName">Currency Name</th>
+              <th mat-sort-header="code">Code</th>
+              <th mat-sort-header="symbol">Symbol</th>
+              <th mat-sort-header="exchangeRate">Exchange Rate</th>
+              <th>Actions</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of currencies">
+              <td>{{ data.currencyName }}</td>
+              <td>{{ data.code }}</td>
+              <td>{{ data.symbol }}</td>
+              <td>{{ data.exchangeRate }}</td>
+              <td>
+                <h6 class="success-labels">Action</h6>
+              </td>
+              <td>
+                <div class="action-language">
+                  <ul>
+                    <li>
+                      <a
+                        href="javascript:void(0);"
+                        class="delete-table"
+                        data-bs-toggle="modal"
+                        data-bs-target="#edit-currency"
+                        ><i class="far fa-edit"></i
+                      ></a>
+                    </li>
+                    <li>
+                      <a
+                        class="delete-table"
+                        href="javascript:void(0);"
+                        data-bs-toggle="modal"
+                        data-bs-target="#delete-item"
+                        ><i class="far fa-trash-alt"></i
+                      ></a>
+                    </li>
+                  </ul>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination-main-class">
+        <div class="table_footer">
+          <div class="row">
+            <div class="col-sm-12 col-md-6">
+              <div class="dataTables_length">
+                <label>
+                  <select
+                    [(ngModel)]="pageSize"
+                    (ngModelChange)="PageSize()"
+                    class="form-control form-control-sm"
+                  >
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                  </select>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="table_design">
+          <div>
+            <div class="dataTables_info">
+              {{ serialNumberArray[0] }} -
+              {{ serialNumberArray[serialNumberArray.length - 1] }} of
+              {{ totalData }} items
+            </div>
+          </div>
+          <div class="d-flex">
+            <div class="pagination_section">
+              <ul class="pagination">
+                <ng-container
+                  *ngFor="let item of pageNumberArray; let i = index"
+                >
+                  <li
+                    class="page-item"
+                    [class.active]="item === currentPage"
+                    [ngClass]="
+                      (pageNumberArray[currentPage - 2] > item &&
+                        item !== 1 &&
+                        pageNumberArray.length > 6) ||
+                      (pageNumberArray[currentPage] < item &&
+                        item !== 1 &&
+                        pageNumberArray.length > 6 &&
+                        pageNumberArray.length !== item)
+                        ? 'hide-page-no'
+                        : 'show-page-no'
+                    "
+                  >
+                    <a
+                      (click)="moveToPage(item)"
+                      class="page-link"
+                      href="javascript:void(0);"
+                    >
+                      {{ item }}
+                    </a>
+                  </li>
+                  <li
+                    class="page-item"
+                    *ngIf="
+                      i === 0 && pageNumberArray.length > 6 && currentPage > 2
+                    "
+                    [hidden]="currentPage === 1"
+                    (click)="moveToPage(currentPage - 2)"
+                    (keydown.enter)="moveToPage(currentPage - 2)"
+                    tabindex="0"
+                  >
+                    <a class="page-link" href="javascript:void(0);"> ... </a>
+                  </li>
+                  <li
+                    *ngIf="
+                      i === pageNumberArray.length - 2 &&
+                      pageNumberArray.length > 6
+                    "
+                    [hidden]="
+                      currentPage >=
+                        pageNumberArray[pageNumberArray.length - 2] ||
+                      totalData <
+                        serialNumberArray[serialNumberArray.length - 1]
+                    "
+                    class="page-item"
+                    (click)="moveToPage(currentPage + 2)"
+                    (keydown.enter)="moveToPage(currentPage + 2)"
+                    tabindex="0"
+                  >
+                    <a class="page-link" href="javascript:void(0);"> ... </a>
+                  </li>
+                </ng-container>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--change email-modal -->
+<div
+  class="modal fade"
+  id="add-currency"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Currency</h5>
+        <button
+          type="button"
+          class="btn-close close-modal"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        >
+          <i class="feather icon-x"></i>
+        </button>
+      </div>
+      <div class="modal-body py-0">
+        <div class="row">
+          <div class="col-12">
+            <div class="form-group">
+              <label for="">Currency Name</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Currency Name"
+              />
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group">
+              <label for="">Currency Symbol</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Currency Symbol"
+              />
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group">
+              <label for="">Currency Code</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Currency Code"
+              />
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group">
+              <label for="">Currency Rate</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Currency Rate"
+              />
+            </div>
+          </div>
+          <div class="form-groupheads d-flex d-flex justify-content-between">
+            <h2>Status</h2>
+            <div class="active-switch">
+              <label class="switch">
+                <input type="checkbox" checked="" />
+                <span class="sliders round"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer pt-0">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary">Save Changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div
+  class="modal fade"
+  id="edit-currency"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Currency</h5>
+        <button
+          type="button"
+          class="btn-close close-modal"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        >
+          <i class="feather icon-x"></i>
+        </button>
+      </div>
+      <div class="modal-body py-0">
+        <div class="row">
+          <div class="col-12">
+            <div class="form-group">
+              <label for="">Currency Name</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Currency Name"
+                value="England Pound	"
+              />
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group">
+              <label for="">Currency Symbol</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Currency Symbol"
+                value="£"
+              />
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group">
+              <label for="">Currency Code</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Currency Code"
+                value="GBP"
+              />
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group">
+              <label for="">Currency Rate</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter Currency Rate"
+              />
+            </div>
+          </div>
+          <div class="form-groupheads d-flex d-flex justify-content-between">
+            <h2>Status</h2>
+            <div class="active-switch">
+              <label class="switch">
+                <input type="checkbox" checked="" />
+                <span class="sliders round"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer pt-0">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary">Save Changes</button>
+      </div>
+    </div>
+  </div>
+</div>

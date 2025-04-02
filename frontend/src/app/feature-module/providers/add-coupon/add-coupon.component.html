@@ -1,0 +1,108 @@
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        
+        <!-- Add Coupoun -->
+        <div class="row">
+            <div class="col-md-8 mx-auto">
+                <div class="login-back">
+                    <a [routerLink]="routes.providerCoupons"><i class="feather icon-arrow-left"></i> Back</a>
+                </div>
+                <div class="coupon-title">
+                    <h3>Add Coupon</h3>
+                </div>
+                <form action="/">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <div class="form-group mat-select-box">
+                                <label for="" class="col-form-label">Services</label>
+                                <mat-select [(ngModel)]="selectedValue1" [ngModelOptions]="{standalone: true}" class="select"  placeholder="Select Services">
+                                    <mat-option *ngFor="let data of selectedList1" [value]="data.value">
+                                    {{data.value}}
+                                    </mat-option>
+                                </mat-select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="" class="col-form-label">Coupon Name</label>
+                                <input type="text" class="form-control" placeholder="Enter Coupon Name">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="" class="col-form-label">Code</label>
+                                <input type="text" class="form-control" placeholder="Enter Code">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mat-select-box">
+                                <label for="" class="col-form-label">Coupon Type</label>
+                                <mat-select [(ngModel)]="selectedValue2" [ngModelOptions]="{standalone: true}" class="select"  placeholder="Fixed">
+                                    <mat-option *ngFor="let data of selectedList2" [value]="data.value">
+                                    {{data.value}}
+                                    </mat-option>
+                                </mat-select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="" class="col-form-label">Discount</label>
+                                <input type="text" class="form-control" placeholder="10">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="" class="col-form-label">Start Date</label>
+                                <input type="date" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="" class="col-form-label">End Date</label>
+                                <input type="date" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="" class="col-form-label">Company Name</label>
+                                <input type="text" class="form-control" placeholder="Enter Company Name">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="" class="col-form-label"></label>
+                                <div class="status-toggle blue-tog d-flex align-items-center text-dark fw-500">
+                                    <input type="checkbox" id="status" class="check" checked="">
+                                    <label for="status" class="checktoggle me-2">checkbox</label>
+                                    Once per customer
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label  for="" class="col-form-label">Status</label>
+                                <div class="form-group coupon-radio">
+                                    <label class="custom_radio d-inline-block me-3">
+                                        <input type="radio" name="status" checked="">
+                                        <span class="checkmark"></span> Active
+                                    </label> 
+                                    <label class="custom_radio d-inline-block">
+                                        <input type="radio" name="status">
+                                        <span class="checkmark"></span> Inactive
+                                    </label> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row float-end">
+                        <div class="col-md-5 coupon-submit">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /Add Coupoun -->
+        
+    </div>
+</div>

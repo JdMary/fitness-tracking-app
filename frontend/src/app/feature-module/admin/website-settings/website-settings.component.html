@@ -1,0 +1,209 @@
+<div class="page-wrapper">
+    <div class="content">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="content-page-header content-page-headersplit">
+                    <h5>Widgets</h5>
+                    <div class="list-btn">
+                        <ul>
+                            <li>
+                                <a href="javascript:void(0);" class="btn btn-primary">Manage with Live Preview</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8 col-sm-12">
+                        <div class="form-groupheads">
+                            <h2>Available Widgets</h2>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control bg-white" value="Text">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control bg-white" value="Categories">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control bg-white" value="Custom Menu">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control bg-white" value="Recent Post">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control bg-white" value="Pages">
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control bg-white" value="Calendar">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <input type="text" class="form-control bg-white" value="Search">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control bg-white" value="Image">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control bg-white" value="Recent Comments">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control bg-white" value="Archives">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control bg-white" value="Custom HTML">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control bg-white" value="Video">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control bg-white" value="Audio">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control bg-white" value="Meta">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control bg-white" value="Tag Cloud">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control bg-white" value="RSS">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-12">
+                        <div class="menu-set">
+                            <div class="menu-setheader">
+                                <a data-bs-toggle="collapse" href="#customs" role="button" aria-expanded="false" aria-controls="custom">Footer Widgets<i class="fa fa-angle-down float-end" aria-hidden="true"></i></a>
+                            </div>
+                            <div class="menu-setcontent collapse show" id="customs">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <mat-select [(ngModel)]="selectedValue1" [ngModelOptions]="{standalone: true}" class="form-control select"  placeholder="Search">
+                                            <mat-option *ngFor="let data of selectedList1" [value]="data.value">
+                                            {{data.value}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <mat-select [(ngModel)]="selectedValue2" [ngModelOptions]="{standalone: true}" class="form-control select"  placeholder="Recent Post">
+                                            <mat-option *ngFor="let data of selectedList2" [value]="data.value">
+                                            {{data.value}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <mat-select [(ngModel)]="selectedValue3" [ngModelOptions]="{standalone: true}" class="form-control select"  placeholder="Categories">
+                                            <mat-option *ngFor="let data of selectedList3" [value]="data.value">
+                                            {{data.value}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <mat-select [(ngModel)]="selectedValue4" [ngModelOptions]="{standalone: true}" class="form-control select"  placeholder="Services">
+                                            <mat-option *ngFor="let data of selectedList4" [value]="data.value">
+                                            {{data.value}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="menu-set">
+                            <div class="menu-setheader">
+                                <a data-bs-toggle="collapse" href="#widgets" role="button" aria-expanded="false" aria-controls="custom">Sidebar Widgets<i class="fa fa-angle-down float-end" aria-hidden="true"></i></a>
+                            </div>
+                            <div class="menu-setcontent collapse show" id="widgets">
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <mat-select [(ngModel)]="selectedValue5" [ngModelOptions]="{standalone: true}" class="form-control select"  placeholder="Video">
+                                            <mat-option *ngFor="let data of selectedList5" [value]="data.value">
+                                            {{data.value}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <mat-select [(ngModel)]="selectedValue6" [ngModelOptions]="{standalone: true}" class="form-control select"  placeholder="Pages">
+                                            <mat-option *ngFor="let data of selectedList6" [value]="data.value">
+                                            {{data.value}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <mat-select [(ngModel)]="selectedValue7" [ngModelOptions]="{standalone: true}" class="form-control select"  placeholder="Text">
+                                            <mat-option *ngFor="let data of selectedList7" [value]="data.value">
+                                            {{data.value}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <mat-select [(ngModel)]="selectedValue8" [ngModelOptions]="{standalone: true}" class="form-control select"  placeholder="Calendar">
+                                            <mat-option *ngFor="let data of selectedList8" [value]="data.value">
+                                            {{data.value}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+               </div>
+            </div>
+        </div>
+    </div>
+</div> 

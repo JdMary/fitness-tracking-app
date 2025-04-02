@@ -1,0 +1,128 @@
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        
+        <div class="row">	
+            <div class="col-md-6">	
+                <div class="widget-title">
+                    <h4>Subscription</h4>
+                </div>
+            </div>
+            <div class="col-md-6 text-md-end">	
+                <ul class="subs-list">
+                    <li>
+                        <a [routerLink]="routes.providerSubscription">Plan & Pricing</a>
+                    </li>
+                    <li>
+                        <a [routerLink]="routes.providerAddons" class="active">Addons</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+                            
+        <!-- Subscription -->
+        <div class="row provider-price">
+            <div class="col-md-12">
+                <div class="choose-title">
+                    <h6 class="me-0">Addons</h6>
+                </div>
+            </div>
+            
+            <div class="col-md-12">
+                <!-- Addon List -->
+                <div class="addon-box">
+                    <div class="addon-name">
+                        <label class="custom_check">
+                            <input type="checkbox" name="rememberme" class="rememberme">
+                            <span class="checkmark"></span>
+                        </label>
+                        <div>
+                            <h6>Services</h6>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+                        </div>
+                    </div>
+                    <div class="addon-info mat-select-box">
+                        <ul>
+                            <li>
+                                <mat-select [(ngModel)]="selectedValue1" [ngModelOptions]="{standalone: true}" class="select"  placeholder="10 Users">
+                                    <mat-option *ngFor="let data of selectedList1" [value]="data.value">
+                                    {{data.value}}
+                                    </mat-option>
+                                </mat-select>
+                            </li>
+                            <li>
+                                <h6>$20.00</h6>
+                            </li>
+                            <li>
+                                <a [routerLink]="routes.addSubscription" class="btn btn-primary">Buy</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="addon-box">
+                    <div class="addon-name">
+                        <label class="custom_check">
+                            <input type="checkbox" name="rememberme" class="rememberme">
+                            <span class="checkmark"></span>
+                        </label>
+                        <div>
+                            <h6>Appointments</h6>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+                        </div>
+                    </div>
+                    <div class="addon-info mat-select-box">
+                        <ul>
+                            <li>
+                                <mat-select [(ngModel)]="selectedValue2" [ngModelOptions]="{standalone: true}" class="select"  placeholder="10 Appointments">
+                                    <mat-option *ngFor="let data of selectedList2" [value]="data.value">
+                                    {{data.value}}
+                                    </mat-option>
+                                </mat-select>
+                            </li>
+                            <li>
+                                <h6>$20.00</h6>
+                            </li>
+                            <li>
+                                <a [routerLink]="routes.addSubscription" class="btn btn-primary">Buy</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="addon-box">
+                    <div class="addon-name">
+                        <label class="custom_check">
+                            <input type="checkbox" name="rememberme" class="rememberme">
+                            <span class="checkmark"></span>
+                        </label>
+                        <div>
+                            <h6>Staffs</h6>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing</p>
+                        </div>
+                    </div>
+                    <div class="addon-info mat-select-box">
+                        <ul>
+                            <li>
+                                <mat-select [(ngModel)]="selectedValue3" [ngModelOptions]="{standalone: true}" class="select"  placeholder="10 Services">
+                                    <mat-option *ngFor="let data of selectedList3" [value]="data.value">
+                                    {{data.value}}
+                                    </mat-option>
+                                </mat-select>
+                            </li>
+                            <li>
+                                <h6>$20.00</h6>
+                            </li>
+                            <li>
+                                <a [routerLink]="routes.addSubscription" class="btn btn-primary">Buy</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /Addon List -->
+        
+            </div>
+        </div>
+        <!-- /Subscription -->
+        
+    </div>
+</div>
