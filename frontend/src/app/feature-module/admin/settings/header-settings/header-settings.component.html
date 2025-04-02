@@ -1,0 +1,110 @@
+        <div class="content-page-header">
+            <h5>Header Setting</h5>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-groupheads">
+                            <h2>Nav Menus</h2>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="nav-menus">
+                                    <h4>Language</h4>
+                                    <div class="active-switch">
+                                        <label class="switch">
+                                            <input type="checkbox" checked>
+                                            <span class="sliders round"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="nav-menus">
+                                    <h4>Currency</h4>
+                                    <div class="active-switch">
+                                        <label class="switch">
+                                            <input type="checkbox" checked>
+                                            <span class="sliders round"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="nav-menus">
+                                    <h4>Stikcy header</h4>
+                                    <div class="active-switch">
+                                        <label class="switch">
+                                            <input type="checkbox" checked>
+                                            <span class="sliders round"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-groupheads d-flex d-flex justify-content-between">
+                            <h2>Header Menu</h2>
+                            <div class="active-switch">
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span class="sliders round"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row add-headers">
+                            <div class="col-12" *ngFor="let data of headerMenu; let i = index">
+                                <div class="form-group-set">
+                                    <div class="row align-items-center">
+                                        <div class="col-lg-3 col-sm-6">
+                                            <h4 class="mb-0">{{data.content}}</h4>
+                                        </div>
+                                        <div class="col-lg-8 col-sm-12">
+                                            <input type="text" class="form-control" value="{{data.link}}">
+                                        </div>
+                                        <div class="col-lg-1 col-sm-12">
+                                            <a href="javascript:void(0);" class="delete-links" (click)="delete(i)">
+                                                <i class="far fa-trash-alt "></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="col-12" *ngFor="let data of headerMenuArray; let i = index">
+                                    <div class="form-group-set">
+                                    <div class="row align-items-center">
+                                    <div class="col-lg-3 col-sm-6">
+                                    <input type="text" class="form-control" placeholder="Enter title">
+                                    </div>
+                                    <div class="col-lg-8 col-sm-12">
+                                    <input type="text" class="form-control" placeholder="Enter url">
+                                    </div>
+                                    <div class="col-lg-1 col-sm-12">
+                                    <a href="javascript:void(0);" class="delete-links" (click)="deleteUrl(i)">
+                                    <i class="far fa-trash-alt "></i>
+                                    </a>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                <a (click)="add()" href="javascript:void(0);" class="addnewheader link-sets"><i class="fa fa-plus-circle me-2" aria-hidden="true"></i>Add New</a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="btn-path">
+                        <a href="javascript:void(0);" class="btn btn-cancel me-3">Reset</a>
+                        <a href="javascript:void(0);" class="btn btn-primary">Save Changes</a>
+                    </div>
+                </div>
+            </div>
+        </div>

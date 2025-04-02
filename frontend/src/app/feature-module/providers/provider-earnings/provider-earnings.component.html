@@ -1,0 +1,337 @@
+<div class="page-wrapper">
+  <div class="content container-fluid">
+    <div
+      class="d-flex align-items-center justify-content-between flex-wrap row-gap-3 mb-4"
+    >
+      <h4>Earnings</h4>
+      <div class="d-flex align-items-center flex-wrap row-gap-3">
+        <span class="fs-14 me-2">Sort</span>
+        <div class="dropdown me-2">
+          <a
+            href="javascript:void(0);"
+            class="dropdown-toggle"
+            data-bs-toggle="dropdown"
+          >
+            Newly Added
+          </a>
+          <div class="dropdown-menu">
+            <a href="javascript:void(0);" class="dropdown-item active"
+              >Newly Added</a
+            >
+            <a href="javascript:void(0);" class="dropdown-item">Oldest</a>
+          </div>
+        </div>
+        <div class="dropdown me-2">
+          <a
+            href="javascript:void(0);"
+            class="dropdown-toggle"
+            data-bs-toggle="dropdown"
+          >
+            Export
+          </a>
+          <div class="dropdown-menu">
+            <a href="javascript:void(0);" class="dropdown-item active"
+              >Export</a
+            >
+            <a href="javascript:void(0);" class="dropdown-item">Import</a>
+          </div>
+        </div>
+        <a
+          href="javascript:void(0);"
+          class="tags d-flex justify-content-center align-items-center border rounded me-2"
+          ><i class="ti ti-printer"></i
+        ></a>
+        <a
+          href="javascript:void(0);"
+          class="tags d-flex justify-content-center align-items-center border rounded"
+          (click)="toggleFilterInputs()"
+          id="filter_search"
+          ><i class="ti ti-sort-descending"></i
+        ></a>
+      </div>
+    </div>
+    <div
+      id="filter_inputs"
+      [ngStyle]="{ display: isFilterInputsVisible ? 'block' : 'none' }"
+    >
+      <div class="row">
+        <div class="col-lg-3 col-md-6 col-xl">
+          <div class="mb-3">
+            <div class="sel-cal Calendar-icon">
+              <span><i class="ti ti-calendar-month"></i></span>
+              <input
+                class="form-control datetimepicker"
+                type="text"
+                bsDatepicker
+                placeholder="dd-mm-yyyy"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-xl">
+          <div class="mb-3 mat-select-box">
+            <mat-select
+              [(ngModel)]="selectedValue1"
+              [ngModelOptions]="{ standalone: true }"
+              class="select"
+              placeholder="Select"
+            >
+              <mat-option
+                *ngFor="let data of selectedList1"
+                [value]="data.value"
+              >
+                {{ data.value }}
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-xl">
+          <div class="mb-3 mat-select-box">
+            <mat-select
+              [(ngModel)]="selectedValue2"
+              [ngModelOptions]="{ standalone: true }"
+              class="select"
+              placeholder="Select"
+            >
+              <mat-option
+                *ngFor="let data of selectedList2"
+                [value]="data.value"
+              >
+                {{ data.value }}
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-xl">
+          <div class="mb-3 mat-select-box">
+            <mat-select
+              [(ngModel)]="selectedValue3"
+              [ngModelOptions]="{ standalone: true }"
+              class="select"
+              placeholder="Select"
+            >
+              <mat-option
+                *ngFor="let data of selectedList3"
+                [value]="data.value"
+              >
+                {{ data.value }}
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-6 col-xl">
+          <div class="mb-3 mat-select-box">
+            <mat-select
+              [(ngModel)]="selectedValue4"
+              [ngModelOptions]="{ standalone: true }"
+              class="select"
+              placeholder="Select"
+            >
+              <mat-option
+                *ngFor="let data of selectedList4"
+                [value]="data.value"
+              >
+                {{ data.value }}
+              </mat-option>
+            </mat-select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Coupons -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="provide-table manage-table">
+          <div class="table-responsive">
+            <table
+              matSort
+              (matSortChange)="sortData($event)"
+              class="table custom-table datatable mb-0"
+              id="data-table"
+            >
+              <thead class="thead-light">
+                <tr>
+                  <th mat-sort-header="service">Service</th>
+                  <th mat-sort-header="earnedAmount">Earned Amount</th>
+                  <th mat-sort-header="date">Date</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let data of providerEarnings">
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <span class="avatar avatar-lg me-2">
+                        <img [src]="data.img" class="rounded" alt="user" />
+                      </span>
+                      <h6 class="fs-14">{{ data.service }}</h6>
+                    </div>
+                  </td>
+                  <td>{{ data.earnedAmount }}</td>
+                  <td>{{ data.date }}</td>
+                  <td>
+                    <div class="user-icon d-inline-flex">
+                      <a
+                        href="#"
+                        class="me-2"
+                        data-bs-toggle="modal"
+                        data-bs-target="#"
+                        ><i class="ti ti-edit"></i
+                      ></a>
+                      <a
+                        href="#"
+                        class=""
+                        data-bs-toggle="modal"
+                        data-bs-target="#del-earning"
+                        ><i class="ti ti-trash"></i
+                      ></a>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div
+              class="table-paginate d-flex justify-content-between align-items-center flex-wrap row-gap-3"
+            >
+              <div class="value d-flex align-items-center">
+                <span> Show </span>
+                <select
+                  [(ngModel)]="pageSize"
+                  (ngModelChange)="PageSize()"
+                  class="form-control form-control-sm"
+                >
+                  <option value="10">10</option>
+                  <option value="25">25</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                </select>
+                <span> entries </span>
+              </div>
+              <div class="d-flex align-items-center justify-content-center">
+                <div>
+                  <div class="me-2 text-gray-9">
+                    {{ serialNumberArray[0] }} -
+                    {{ serialNumberArray[serialNumberArray.length - 1] }} of
+                    {{ totalData }}
+                  </div>
+                </div>
+
+                <nav class="Page navigation">
+                  <ul
+                    class="paginations d-flex justify-content-center align-items-center"
+                  >
+                    <ng-container
+                      *ngFor="let item of pageNumberArray; let i = index"
+                    >
+                      <li
+                        class="page-item me-2"
+                        [class.active]="item === currentPage"
+                        [ngClass]="
+                          (pageNumberArray[currentPage - 2] > item &&
+                            item !== 1 &&
+                            pageNumberArray.length > 6) ||
+                          (pageNumberArray[currentPage] < item &&
+                            item !== 1 &&
+                            pageNumberArray.length > 6 &&
+                            pageNumberArray.length !== item)
+                            ? 'hide-page-no'
+                            : 'show-page-no'
+                        "
+                      >
+                        <a
+                          (click)="moveToPage(item)"
+                          class="page-link"
+                          href="javascript:void(0);"
+                        >
+                          {{ item }}
+                        </a>
+                      </li>
+                      <li
+                        class="page-item me-2"
+                        *ngIf="
+                          i === 0 &&
+                          pageNumberArray.length > 6 &&
+                          currentPage > 2
+                        "
+                        [hidden]="currentPage === 1"
+                        (click)="moveToPage(currentPage - 2)"
+                        (keydown.enter)="moveToPage(currentPage - 2)"
+                        tabindex="0"
+                      >
+                        <a class="page-link" href="javascript:void(0);">
+                          ...
+                        </a>
+                      </li>
+                      <li
+                        *ngIf="
+                          i === pageNumberArray.length - 2 &&
+                          pageNumberArray.length > 6
+                        "
+                        [hidden]="
+                          currentPage >=
+                            pageNumberArray[pageNumberArray.length - 2] ||
+                          totalData <
+                            serialNumberArray[serialNumberArray.length - 1]
+                        "
+                        class="page-item me-2"
+                        (click)="moveToPage(currentPage + 2)"
+                        (keydown.enter)="moveToPage(currentPage + 2)"
+                        tabindex="0"
+                      >
+                        <a class="page-link" href="javascript:void(0);">
+                          ...
+                        </a>
+                      </li>
+                    </ng-container>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <!-- <div class="col-md-3">
+                        <div id="tablelength"></div>
+                    </div> -->
+          <div class="col-md-9">
+            <div class="table-ingopage">
+              <div id="tableinfo"></div>
+              <div id="tablepagination"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /Coupons -->
+  </div>
+</div>
+
+<!-- Delete Staff -->
+<div class="modal fade custom-modal" id="del-earning">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div
+        class="modal-header d-flex align-items-center justify-content-between border-bottom"
+      >
+        <h5 class="modal-title">Delete Earnings</h5>
+        <a href="#" data-bs-dismiss="modal" aria-label="Close"
+          ><i class="ti ti-circle-x-filled fs-20"></i
+        ></a>
+      </div>
+      <div class="modal-body">
+        <div class="write-review">
+          <form>
+            <p>Are you sure want to delete this Earning?</p>
+            <div class="modal-submit text-end">
+              <a href="#" class="btn btn-light me-2" data-bs-dismiss="modal"
+                >Cancel</a
+              >
+              <button type="submit" class="btn btn-dark">Yes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Delete Staff -->

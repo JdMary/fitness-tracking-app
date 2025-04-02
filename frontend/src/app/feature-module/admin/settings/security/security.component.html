@@ -1,0 +1,205 @@
+        <div class="content-page-header">
+            <h5>Security</h5>
+        </div>
+        <div class="row">
+            <div class="col-12">
+               <div class="connectetapps">
+                    <div class="connectetappsimg">
+                        <div class="connectet-img">
+                            <img src="assets/admin/img/icons/lock.svg" alt="img">
+                        </div>
+                        <div class="connectet-content">
+                            <h3>Password</h3>
+                            <p>Last Changed <span> 22 Sep 2022, 10:30:55 AM</span></p>
+                        </div>
+                    </div>
+                    <div class="connectetappscontent">
+                        <a [routerLink]="routes.changePassword" class="btn btn-linedark">Change Password</a>
+                    </div>
+               </div>
+               <div class="connectetapps">
+                    <div class="connectetappsimg">
+                        <div class="connectet-img">
+                            <img src="assets/admin/img/icons/scan.svg" alt="img">
+                        </div>
+                        <div class="connectet-content">
+                            <div class="d-flex align-items-center">
+                                <h3>Two Factor Authendication</h3>
+                                <h6 class="success-labels ms-3">Connect</h6>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur </p>
+                        </div>
+                    </div>
+                    <div class="connectetappscontent">
+                        <a href="javascript:void(0);" class="btn btn-linedark">Disable</a>
+                    </div>
+                </div>
+                <div class="connectetapps">
+                    <div class="connectetappsimg">
+                        <div class="connectet-img">
+                            <img src="assets/admin/img/icons/mobile.svg" alt="img">
+                        </div>
+                        <div class="connectet-content">
+                            <h3>Phone Number Verification </h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur </p>
+                        </div>
+                    </div>
+                    <div class="connectetappscontent">
+                        <ul>
+                            <li>
+                                <a href="javascript:void(0);" class="text-danger"><i class="fa fa-times-circle" aria-hidden="true"></i></a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" class="btn btn-change" data-bs-toggle="modal" data-bs-target="#change-no">Change</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" class="btn btn-removes">Remove</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="connectetapps">
+                    <div class="connectetappsimg">
+                        <div class="connectet-img">
+                            <img src="assets/admin/img/icons/email.svg" alt="img">
+                        </div>
+                        <div class="connectet-content">
+                            <h3>Email Verification</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur </p>
+                        </div>
+                    </div>
+                    <div class="connectetappscontent">
+                        <ul>
+                            <li>
+                                <a href="javascript:void(0);" class="text-success"><i class="fa fa-check-circle" aria-hidden="true"></i></a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" class="btn btn-change" data-bs-toggle="modal" data-bs-target="#change-email">Change</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" class="btn btn-removes">Remove</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="connectetapps">
+                    <div class="connectetappsimg">
+                        <div class="connectet-img">
+                            <img src="assets/admin/img/icons/monitor.svg" alt="img">
+                        </div>
+                        <div class="connectet-content">
+                            <h3>Device Management</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur </p>
+                        </div>
+                    </div>
+                    <div class="connectetappscontent">
+                        <a [routerLink]="routes.deviceManagement" class="btn btn-linedark">Manage</a>
+                    </div>
+                </div>
+                <div class="connectetapps">
+                    <div class="connectetappsimg">
+                        <div class="connectet-img">
+                            <img src="assets/admin/img/icons/user-edit.svg" alt="img">
+                        </div>
+                        <div class="connectet-content">
+                            <h3>Account Activity</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur </p>
+                        </div>
+                    </div>
+                    <div class="connectetappscontent">
+                        <a [routerLink]="routes.loginActivity" class="btn btn-linedark">View All</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="btn-path">
+                    <a href="javascript:void(0);" class="btn btn-cancel me-3">Cancel</a>
+                    <a href="javascript:void(0);" class="btn btn-primary">Save Changes</a>
+                </div>
+            </div>
+        </div>
+<!--change email-modal -->
+<div class="modal fade" id="change-email" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Change Email</h5>
+                <button type="button" class="btn-close close-modal" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="feather icon-x"></i>
+                </button>
+            </div>
+            <div class="modal-body py-0">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="">Current Email Address</label>
+                            <input type="text" class="form-control" placeholder="Enter Email Address">
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="">New Email Address<span class="manitory">*</span></label>
+                            <input type="text" class="form-control" placeholder="Enter Email Address">
+                            <p><i class="fa fa-info-circle me-2 ms-1"></i>New Email Address Only Updated Once You Verified </p>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="">Current Password</label>
+                            <div class="pass-group">
+                                <input type="password" class="form-control pass-input" placeholder="*************">
+                                <span class="fas toggle-password fa-eye-slash"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer pt-0">
+                <button type="button" class="btn btn-primary">Change Email</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--change email-no -->
+<div class="modal fade" id="change-no" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Change Phone Number</h5>
+                <button type="button" class="btn-close close-modal" data-bs-dismiss="modal" aria-label="Close">
+                    <i class="feather icon-x"></i>
+                </button>
+            </div>
+            <div class="modal-body pt-0">
+                <form>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Phone Number</label>
+                        <input class="form-control" type="text">
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">New Phone Number</label>
+                        <input class="form-control" type="text">
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Current Password</label>
+                        <div class="pass-group">
+                            <input type="password" class="form-control pass-inputs" placeholder="*************">
+                            <span class="fas toggle-passwords fa-eye-slash"></span>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <i class="fa fa-info-circle me-2 ms-1"></i>New Phone Number Only Updated Once You Verified
+                    </div>
+                    
+                    <div class="text-end">
+                        <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Change Number</button>
+                    </div>
+                </form>
+            </div>
+           
+        </div>
+    </div>
+</div>
