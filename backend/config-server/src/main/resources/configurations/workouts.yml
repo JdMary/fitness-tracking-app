@@ -25,7 +25,7 @@ spring:
 application:
   config:
     users-url: http://localhost:8090/api/v1/users
-
+    achievements-url: http://localhost:8073/api/v1/achievements
 management:
   tracing:
     sampling:

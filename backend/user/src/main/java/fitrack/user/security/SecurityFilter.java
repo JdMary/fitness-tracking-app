@@ -40,7 +40,7 @@ public class SecurityFilter extends OncePerRequestFilter {
                 throw new UsernameNotFoundException("User not found: " + subject);
             }
         }
-        filterChain.doFilter(request, response);
+
     }
 
     private String recoverToken(HttpServletRequest request) {
