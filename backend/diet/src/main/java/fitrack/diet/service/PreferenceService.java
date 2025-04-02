@@ -1,5 +1,6 @@
 package fitrack.diet.service;
 
+import fitrack.diet.client.AuthClient;
 import fitrack.diet.entity.Preference;
 import fitrack.diet.repository.PreferenceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,12 +10,24 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.HashSet;
 import java.util.List;
 
 @Service
 public  class PreferenceService implements IPreferenceService {
     @Autowired
     private PreferenceRepository preferenceRepository;
+    @Autowired
+    private AuthClient authClient;
+    @Override
+    public Preference addPreference(Preference preference) {
+        Preference savedPreference = preferenceRepository.save(preference);
+        authClient.extractUsername("Authorization");
+        savedPreference.setMealTypes(preference.getMealTypes());
+        return preferenceRepository.save(savedPreference);
+
+    }
+
 //    @Autowired
 //    private final RestTemplate restTemplate;
 
@@ -71,11 +84,7 @@ public  class PreferenceService implements IPreferenceService {
 //    public PreferenceService(RestTemplate restTemplate) {
 //        this.restTemplate = restTemplate;
 //    }
-@Override
-    public Preference addPreference(Preference preference) {
-        return preferenceRepository.save(preference);
 
-    }
 
 //    @Value("${user.service.url}")
 //    private String userServiceUrl;

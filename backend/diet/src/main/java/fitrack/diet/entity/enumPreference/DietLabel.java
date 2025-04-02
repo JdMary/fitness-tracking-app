@@ -1,8 +1,9 @@
 package fitrack.diet.entity.enumPreference;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import fitrack.diet.util.EdamamParamConverter;
 
-public enum DietLabel implements EdamamParamConverter.EdamamEnum{
+public enum DietLabel implements ApiEnum<DietLabel> {
     BALANCED("balanced"),
     HIGH_FIBER("high-fiber"),
     HIGH_PROTEIN("high-protein"),
@@ -16,7 +17,13 @@ public enum DietLabel implements EdamamParamConverter.EdamamEnum{
         this.apiValue = apiValue;
     }
 
+    @Override
     public String getApiValue() {
         return apiValue;
+    }
+
+    @JsonCreator
+    public static DietLabel fromLabel(String label) {
+        return ApiEnum.fromLabel(label, DietLabel.class); // Delegate to interface
     }
 }

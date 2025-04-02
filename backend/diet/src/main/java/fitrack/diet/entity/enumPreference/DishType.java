@@ -1,8 +1,10 @@
 package fitrack.diet.entity.enumPreference;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import fitrack.diet.util.EdamamParamConverter;
 
-public enum DishType implements EdamamParamConverter.EdamamEnum {
+public enum DishType implements ApiEnum<DishType> {
     BISCUITS_COOKIES("Biscuits and cookies"),
     BREAD("Bread"),
     CEREALS("Cereals"),
@@ -22,11 +24,13 @@ public enum DishType implements EdamamParamConverter.EdamamEnum {
 
     private final String apiValue;
 
-    DishType(String apiValue) {
-        this.apiValue = apiValue;
-    }
+    DishType(String apiValue) { this.apiValue = apiValue; }
 
-    public String getApiValue() {
-        return apiValue;
+    @Override
+    public String getApiValue() { return apiValue; }
+
+    @JsonCreator
+    public static DishType fromLabel(String label) {
+        return ApiEnum.fromLabel(label, DishType.class);
     }
 }

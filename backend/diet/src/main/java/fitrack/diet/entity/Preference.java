@@ -15,30 +15,34 @@ import java.util.Set;
 public class Preference {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "preference_id")
     private String preferenceId;
 
     //@Column(nullable = false)
     private String userId;
 
-    // Single selection
     //@Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private DietLabel dietLabel;
 
     // Multiple selections
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER) //list not separate entity
+    @CollectionTable(name = "preference_meal_types",joinColumns = @JoinColumn(name = "preference_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<MealType> mealTypes = new HashSet<>();
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "preference_health_labels", joinColumns = @JoinColumn(name = "preference_id"))
     @Enumerated(EnumType.STRING)
     private Set<HealthLabel> healthLabels = new HashSet<>();
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @Enumerated(EnumType.STRING)
-    private Set<MealType> mealTypes = new HashSet<>();
-
-    @ElementCollection
+    @CollectionTable(name = "preference_cuisine_types", joinColumns = @JoinColumn(name = "preference_id"))
     @Enumerated(EnumType.STRING)
     private Set<CuisineType> cuisineTypes = new HashSet<>();
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "preference_dish_types", joinColumns = @JoinColumn(name = "preference_id"))
     @Enumerated(EnumType.STRING)
     private Set<DishType> dishTypes = new HashSet<>();
 

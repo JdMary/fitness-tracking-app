@@ -1,8 +1,10 @@
 package fitrack.diet.entity.enumPreference;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import fitrack.diet.util.EdamamParamConverter;
 
-public enum CuisineType implements EdamamParamConverter.EdamamEnum {
+public enum CuisineType implements ApiEnum<CuisineType> {
     AMERICAN("American"),
     ASIAN("Asian"),
     BRITISH("British"),
@@ -24,11 +26,13 @@ public enum CuisineType implements EdamamParamConverter.EdamamEnum {
 
     private final String apiValue;
 
-    CuisineType(String apiValue) {
-        this.apiValue = apiValue;
-    }
+    CuisineType(String apiValue) { this.apiValue = apiValue; }
 
-    public String getApiValue() {
-        return apiValue;
+    @Override
+    public String getApiValue() { return apiValue; }
+
+    @JsonCreator
+    public static CuisineType fromLabel(String label) {
+        return ApiEnum.fromLabel(label, CuisineType.class);
     }
 }

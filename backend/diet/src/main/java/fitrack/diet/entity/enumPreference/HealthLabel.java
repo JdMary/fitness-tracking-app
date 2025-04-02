@@ -1,8 +1,10 @@
 package fitrack.diet.entity.enumPreference;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import fitrack.diet.util.EdamamParamConverter;
 
-public enum HealthLabel implements EdamamParamConverter.EdamamEnum {
+public enum HealthLabel implements ApiEnum<HealthLabel> {
     VEGETARIAN("vegetarian"),
     VEGAN("vegan"),
     ALCOHOL_FREE("alcohol-free"),
@@ -21,11 +23,13 @@ public enum HealthLabel implements EdamamParamConverter.EdamamEnum {
 
     private final String apiValue;
 
-    HealthLabel(String apiValue) {
-        this.apiValue = apiValue;
-    }
+    HealthLabel(String apiValue) { this.apiValue = apiValue; }
 
-    public String getApiValue() {
-        return apiValue;
+    @Override
+    public String getApiValue() { return apiValue; }
+
+    @JsonCreator
+    public static HealthLabel fromLabel(String label) {
+        return ApiEnum.fromLabel(label, HealthLabel.class);
     }
 }

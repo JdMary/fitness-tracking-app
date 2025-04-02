@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import fitrack.diet.util.EdamamParamConverter;
 
-public enum MealType implements EdamamParamConverter.EdamamEnum{
+public enum MealType  implements ApiEnum<MealType> {
     BREAKFAST("breakfast"),
     LUNCH("lunch"),
     DINNER("dinner"),
@@ -19,18 +19,12 @@ public enum MealType implements EdamamParamConverter.EdamamEnum{
     }
 
     @Override
-    @JsonValue
     public String getApiValue() {
-        return apiValue;  // Always return API-friendly value
+        return apiValue;
     }
 
     @JsonCreator
     public static MealType fromLabel(String label) {
-        for (MealType type : MealType.values()) {
-            if (type.apiValue.equalsIgnoreCase(label)) {
-                return type;
-            }
-        }
-        throw new IllegalArgumentException("Unknown meal type: " + label);
+        return ApiEnum.fromLabel(label, MealType.class); // Reuse shared logic
     }
 }
