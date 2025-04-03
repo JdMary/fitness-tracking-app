@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @RestController
 
-@RequestMapping("/api/v1/achievements/board")
+@RequestMapping("/api/v1/leaderBoard")
 public class LeaderBoardController {
 
 
@@ -51,7 +51,7 @@ public class LeaderBoardController {
 
     @GetMapping("/name/{name}")
     public ResponseEntity<Optional<LeaderBoard>> findByName(@PathVariable("name") String name) {
-        return ResponseEntity.ok(service.findByname(name));
+        return ResponseEntity.ok(service.findName(name));
     }
 
 

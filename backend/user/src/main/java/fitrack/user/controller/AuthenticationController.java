@@ -6,9 +6,7 @@ import fitrack.user.entity.dtos.RegisterDTO;
 import fitrack.user.entity.User;
 import fitrack.user.security.TokenService;
 import fitrack.user.repository.UserRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -52,7 +50,7 @@ public class AuthenticationController {
     }
 
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity register(@RequestBody RegisterDTO data) {
+    public ResponseEntity<User> register(@RequestBody RegisterDTO data) {
         System.out.println("Registering user");
         if (this.userRepository.findByEmail(data.email()).isPresent()) return ResponseEntity.badRequest().build();
 

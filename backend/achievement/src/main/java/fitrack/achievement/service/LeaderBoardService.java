@@ -30,25 +30,28 @@ public class LeaderBoardService {
         return repository.findAll();
     }
 
-    public FullBoardResponse findBoardWithUsers(String boardName) {
-        var optionalBoard = repository.findByName(boardName);
+    public FullBoardResponse findBoardWithUsers(String boardId) {
+        var optionalBoard = repository.findById(boardId);
 
         if (optionalBoard.isEmpty()) {
             FullBoardResponse response = new FullBoardResponse();
             response.setName("NOT_FOUND");
-            response.setDescription("No leaderboard with name: " + boardName);
+            response.setDescription("No leaderboard with id: " + boardId);
             response.setUsers(List.of());
             return response;
         }
 
         LeaderBoard board = optionalBoard.get();
         var users = client.findAllUsersByBoard(board.getBoardId());
-
+        if (users == null) {
+            users = List.of(); // Utilisez List.of() pour créer une liste vide
+        }
+else{
         // 🔽 Tri décroissant par xpPoints
         users.sort((u1, u2) -> Integer.compare(u2.getXpPoints(), u1.getXpPoints()));
         for (int i = 0; i < users.size(); i++) {
             users.get(i).setRank(i + 1);
-        }
+        }}
         FullBoardResponse response = new FullBoardResponse();
         response.setName(board.getName());
         response.setDescription(board.getDescription());
@@ -64,7 +67,7 @@ public class LeaderBoardService {
 
 
 
-    public Optional<LeaderBoard> findByname(String name) {
+    public Optional<LeaderBoard> findName(String name) {
         return repository.findByName(name);
     }
 

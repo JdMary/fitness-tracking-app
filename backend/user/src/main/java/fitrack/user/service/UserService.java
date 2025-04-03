@@ -21,12 +21,13 @@ public class UserService {
     private UserRegularRepository repository;
 
 
-    private  LeaderBoardClient leaderBoardClient;
+    private final LeaderBoardClient leaderBoardClient;
 
 
-    public UserService(UserRegularRepository repository) {
+    public UserService(UserRegularRepository repository, LeaderBoardClient leaderBoardClient) {
         this.repository = repository;
 
+        this.leaderBoardClient = leaderBoardClient;
     }
     public List<UserRegular> findAllUsers() {
         return repository.findAll();
@@ -50,7 +51,7 @@ public class UserService {
 
 
     public void saveUser(UserRegular user) {
-        // Vérifie si fitnessGoals contient "gain"
+
         if (user.getFitnessGoals() != null && user.getFitnessGoals().toLowerCase().contains("gain")) {
             try {
                 LeaderBoardDTO board = leaderBoardClient.findByName("Weight Loss Challenge");

@@ -13,7 +13,7 @@ spring:
     name: achievements
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/achievements?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/achievements?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Africa/Tunis
     username: root
     password:
   jpa:
@@ -30,3 +30,10 @@ management:
   tracing:
     sampling:
       probability: 1.0
+twilio:
+  account:
+    sid: ACafeb20f23fbac1262050285872977c84
+  auth:
+    token: 05f9dd09fa8148b2175ba5414654b767
+  phone:
+    number: "+18509205916"

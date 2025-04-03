@@ -22,6 +22,7 @@ public class User implements UserDetails {
     private String id;
 
     @Column(nullable = false)
+
     private String name;
 
     @Column(nullable = false, unique = true)

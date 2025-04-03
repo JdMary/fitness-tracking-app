@@ -25,6 +25,8 @@ public class AchievementController {
         this.service = service;
     }
 
+
+
     @PostMapping("/addAchievement")
     @ResponseStatus(HttpStatus.CREATED)
     public void save(@RequestBody AchievementRequest request) {
@@ -44,10 +46,6 @@ public class AchievementController {
         return ResponseEntity.ok(service.findAllAchivements());
     }
 
-    @GetMapping("/test")
-    public String test() {
-        return "Service Achievement fonctionne";
-    }
 
 
 
@@ -60,6 +58,9 @@ public class AchievementController {
         service.updateProgress(exerciseId, totalSets,difficulty);
         return ResponseEntity.ok("Progression mise à jour avec succès");
     }
+
+
+
 
 
 

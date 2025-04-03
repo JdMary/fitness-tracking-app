@@ -36,6 +36,14 @@ spring:
           uri: http://localhost:8073
           predicates:
             - Path=/api/v1/achievements/**
+        - id: challenges
+          uri: http://localhost:8073
+          predicates:
+            - Path=/api/v1/challenges/**
+        - id: leaderBoard
+          uri: http://localhost:8073
+          predicates:
+            - Path=/api/v1/leaderBoard/**
         - id: workouts
           uri: http://localhost:8074
           predicates:

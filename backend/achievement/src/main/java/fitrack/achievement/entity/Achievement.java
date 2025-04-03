@@ -1,5 +1,6 @@
 package fitrack.achievement.entity;
 
+import fitrack.achievement.repository.AchievementRepository;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -12,9 +13,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @Builder
 @ToString
 @EqualsAndHashCode(of = "achieveId")
-public class Achievement {
-    @Getter
-    @Setter
+@Getter
+@Setter
+public class Achievement  {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
 

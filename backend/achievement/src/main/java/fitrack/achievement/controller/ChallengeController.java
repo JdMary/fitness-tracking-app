@@ -2,6 +2,8 @@ package fitrack.achievement.controller;
 
 import fitrack.achievement.entity.Achievement;
 import fitrack.achievement.entity.Challenge;
+import fitrack.achievement.entity.LeaderBoard;
+import fitrack.achievement.scheduler.ChallengeScheduler;
 import fitrack.achievement.service.AchievementService;
 
 import fitrack.achievement.service.ChallengeService;
@@ -16,7 +18,7 @@ import java.util.Optional;
 
 @RestController
 
-@RequestMapping("/api/v1/achievements/challenge")
+@RequestMapping("/api/v1/challenges")
 
 public class ChallengeController {
 
@@ -26,16 +28,30 @@ public class ChallengeController {
     }
     @Autowired
     private  final ChallengeService service;
-
-    public ChallengeController(ChallengeService service) {
+    private final ChallengeScheduler challengeScheduler;
+    public ChallengeController(ChallengeService service, ChallengeScheduler challengeScheduler) {
         this.service = service;
+        this.challengeScheduler = challengeScheduler;
     }
 
     @PostMapping("/addChallenge")
     @ResponseStatus(HttpStatus.CREATED)
     public void save(@RequestBody Challenge challenge) {
         System.out.println("Received Challenge: " + challenge);
-        service.save(challenge);
+        service.addChallenge(challenge);
     }
+
+    @GetMapping("/liste")
+    public ResponseEntity<List<Challenge>> findAllChallenges() {
+        return ResponseEntity.ok(service.findAllChallenge());
+    }
+
+
+
+    //@GetMapping("/run-scheduler")
+   // public String runSchedulerNow() {
+     //   challengeScheduler.notifyChallenges();
+      //  return "⏱️ Scheduler exécuté manuellement !";
+  //  }
 
 }
