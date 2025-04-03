@@ -4,7 +4,7 @@ import fitrack.user.entity.dtos.AuthenticationDTO;
 import fitrack.user.entity.dtos.LoginResponseDTO;
 import fitrack.user.entity.dtos.RegisterDTO;
 import fitrack.user.entity.User;
-import fitrack.user.security.TokenService;
+
 import fitrack.user.repository.UserRepository;
 
 import org.springframework.http.HttpStatus;

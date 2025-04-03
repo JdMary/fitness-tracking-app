@@ -64,7 +64,7 @@ public class Challenge {
         return challengeId;
     }
 
-    public void setChallengeId(String challengeId) {
+    public void setChallengeId(long challengeId) {
         this.challengeId = challengeId;
     }
 
