@@ -1,0 +1,79 @@
+        <div class="row">
+            <div class="content-table">
+                <div class="content-page-header content-page-headersplit">
+                    <h5>Database Backup</h5>
+                    <div class="page-head-btn">
+                        <a class="btn btn-primary" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#add-tax"><i
+                                class="fa fa-plus me-2"></i>Generate Database Backup</a>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="table-resposnive table-bottom">
+                        <table matSort (matSortChange)="sortData($event)"  class="table datatable">
+                            <thead>
+                                <tr>
+                                    <th mat-sort-header="fileName">File Name</th>
+                                    <th mat-sort-header="date">Date</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let data of databaseBackup">
+                                    <td>{{data.fileName}}</td>
+                                    <td>{{data.date}} </td>
+                                    <td>
+                                        <div class="action-language">
+                                            <ul>
+                                                <li>
+                                                    <a href="javascript:void(0);" class="delete-table"><i
+                                                            class="fa fa-download "></i></a>
+                                                </li>
+                                                <li>
+                                                    <a class="delete-table" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#delete-item"><i
+                                                            class="far fa-trash-alt "></i></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!--change email-modal -->
+<div class="modal fade" id="add-tax" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered ">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Database  Backup</h5>
+            <button type="button" class="btn-close close-modal" data-bs-dismiss="modal" aria-label="Close">
+                <i class="feather icon-x"></i>
+            </button>
+        </div>
+        <form action="/">
+            <div class="modal-body py-0">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="">File name</label>
+                            <input type="text" class="form-control" placeholder="Enter file name">
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="">Date</label>
+                            <input type="text" class="form-control" placeholder="Enter Date">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer pt-0">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+</div>

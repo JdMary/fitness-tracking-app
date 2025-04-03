@@ -1,0 +1,84 @@
+{
+    "data": [
+        {
+            "payoutDate" : "07 Oct 2024",
+            "amount" : "$300.00",
+            "refunds" : "-$0.00",
+            "fees" : "-$10.00",
+            "total" : "$290.00",
+            "status" : "Paid",
+            "paymentProcessed" : "07 Oct 2024",
+            "paymentMethod": "paypal",
+            "color" : true
+        },
+        {
+            "payoutDate" : "10 Oct 2024",
+            "amount" : "$400.00",
+            "refunds" : "-$0.00",
+            "fees" : "-$10.00",
+            "total" : "$390.00",
+            "status" : "Pending",
+            "paymentProcessed" : "",
+            "paymentMethod": "Stripe",
+            "background" : true
+
+        },
+        {
+            "payoutDate" : "20 Oct 2024",
+            "amount" : "$200.00",
+            "refunds" : "-$0.00",
+            "fees" : "-$10.00",
+            "total" : "$180.00",
+            "status" : "Paid",
+            "paymentMethod": "paypal",
+            "paymentProcessed" : "20 Oct 2024"
+        },
+        {
+            "payoutDate" : "02 Nov 2024",
+            "amount" : "$100.00",
+            "refunds" : "-$0.00",
+            "fees" : "-$10.00",
+            "total" : "$80.00",
+            "status" : "Pending",
+            "paymentMethod": "Stripe",
+            "paymentProcessed" : ""
+        },
+        {
+            "payoutDate" : "15 Nov 2024",
+            "amount" : "$300.00",
+            "refunds" : "-$10.00",
+            "fees" : "-$10.00",
+            "total" : "$280.00",
+            "status" : "Paid",
+            "paymentProcessed" : "15 Nov 2024",
+            "paymentMethod": "paypal",
+            "background" : true,
+            "color" : true
+        },
+        {
+            "payoutDate" : "22 Nov 2024",
+            "amount" : "$350.00",
+            "refunds" : "-$10.00",
+            "fees" : "-$10.00",
+            "total" : "$330.00",
+            "status" : "Paid",
+            "paymentProcessed" : "22 Nov 2024",
+           "paymentMethod": "Stripe",
+            "background" : true,
+            "color" : true
+        },
+        {
+            "payoutDate" : "04 Dec 2024",
+            "amount" : "$280.00",
+            "refunds" : "-$10.00",
+            "fees" : "-$10.00",
+            "total" : "$260.00",
+            "status" : "Paid",
+            "paymentProcessed" : "04 Dec 2024",
+            "paymentMethod": "paypal",
+            "background" : true,
+            "color" : true
+        }
+    ],
+    "totalData":5
+}

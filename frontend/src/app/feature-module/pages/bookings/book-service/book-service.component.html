@@ -1,0 +1,771 @@
+	
+  <!-- Reschedule -->
+  <div class="modal custom-modal reshchedule-modal" data-bs-backdrop="static" id="service-select"  tabindex="-1" [class]="isServiceModalFade === true ? 'fade' : ''">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content service-profile doctor-profile">
+        <div class="modal-body">
+          <div class="hide-show" id="show-first"  [class.d-block]="selectedFieldSet[0] === 1" *ngIf="selectedFieldSet[0] === 1">
+            <div class="row">
+              <div class="col-lg-3 d-flex">
+                <div class="modal-active-dots text-center w-100">
+                  <ul>
+                    <li class="active-dot active" data-bs-toggle="tooltip" data-bs-placement="top" title="Select Date & Time"></li>
+                    <li class="active-dot"></li>
+                    <li class="active-dot"></li>
+                    <li class="active-dot"></li>
+                  </ul>
+                  <div class="calender-modal">
+                    <img src="assets/img/icons/select-service-icon.svg" alt="calender Icon">
+                    <h6>Select Service</h6>
+                    <p>Please select a service you want to schedule appointment for</p>
+                  </div>
+                  <div class="call-help">
+                    <h6>Questions?
+                      <span>Call 321 546 8764 for help</span>
+                    </h6>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-5 d-flex">
+                <div class="main-booking-form w-100">
+                  <div class="rechedule-calender service-wrap-content">
+                    <div class="book-title">	
+                      <h5>Select Service</h5>
+                    </div>
+                    <div class="computer-service d-flex align-items-center justify-content-between">
+                      <div class="comp-service-wrap d-flex align-items-center">
+                        <div class="comp-serv-img">
+                          <img src="./assets/img/booking-service.png" class="img-fluid" alt="Img">
+                        </div>
+                        <div class="comp-serv-header">
+                          <h5>Computer Services</h5>
+                          <p>Customers can schedule an appointment by filling out this form.</p>
+                        </div>
+                      </div>
+                      <div class="comp-service-amount">
+                        <h5>$40.00</h5>
+                      </div>
+                    </div>	
+                    <div class="additional-title">	
+                      <h5>Add Additional service</h5>
+                    </div>	
+                    <div class="save-later service-add-server d-flex align-items-center justify-content-between">
+                      <label class="custom_check">
+                        <input type="checkbox" name="rememberme" class="rememberme">
+                        <span class="checkmark service-check"></span>Changing Switch Boards
+                      </label>
+                      <div class="save-later-amount">
+                        <h5>$10.00</h5>
+                      </div>
+                    </div>	
+                    <div class="save-later service-add-server d-flex align-items-center justify-content-between">
+                      <label class="custom_check">
+                        <input type="checkbox" name="rememberme" class="rememberme">
+                        <span class="checkmark service-check"></span>Swapping of Lines & Circuits
+                      </label>
+                      <div class="save-later-amount">
+                        <h5>$10.00</h5>
+                      </div>
+                    </div>						
+                    <div class="save-later service-add-server d-flex align-items-center justify-content-between">
+                      <label class="custom_check">
+                        <input type="checkbox" name="rememberme" class="rememberme">
+                        <span class="checkmark service-check"></span>Changing Switch Boards
+                      </label>
+                      <div class="save-later-amount">
+                        <h5>$10.00</h5>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="field-bottom-btns select-timing justify-content-end">
+                   
+                    <div class="field-btns">
+                      <button class="btn btn-primary next_btnn" type="button" (click)="selectedFieldSet[0] = 2">Next <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>  
+                  </div> 
+                </div>
+              </div>
+              <div class="col-lg-4 d-flex">
+                <div class="card booking-summary-card">
+                  <div class="card-body">
+                    <div class="sub-title">	
+                      <h5>Booking Summary</h5>
+                    </div>
+                    <div class="appointment-details">
+                      <ul>												
+                        <li>
+                          <div class="detail-list">
+                            <h6>Computer Services</h6>
+                          </div>
+                          <span>$40.00</span>
+                        </li>
+                        <li>
+                          <div class="detail-list">
+                            <h5>Additional Service</h5>
+                            <h6>Changing Switch Boards</h6>
+                          </div>
+                          <span>$40.00</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="card-footer">
+                    <ul>
+                      <li>
+                        <h6>Sub Total</h6>
+                        <span>$257.00</span>
+                      </li>
+                      <li>
+                        <h6>Tax &#64; 12.5%</h6>
+                        <span>$5.36</span>
+                      </li>
+                      <li class="total-amount">
+                        <h6>Total</h6>
+                        <span>$251.36</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="hide-show"   [class.d-block]="selectedFieldSet[0] === 2" >
+            <div class="row">
+              <div class="col-lg-3 d-flex">
+                <div class="modal-active-dots text-center w-100">
+                  <ul>
+                    <li class="active-dot active" data-bs-toggle="tooltip" data-bs-placement="top" title="Select Date & Time"></li>
+                    <li class="active-dot"></li>
+                    <li class="active-dot"></li>
+                    <li class="active-dot"></li>
+                  </ul>
+                  <div class="calender-modal">
+                    <img src="assets/img/icons/modal-calender-icon.svg" alt="calender Icon">
+                    <h6>Date & time</h6>
+                    <p>Select date & time to schedule appointment</p>
+                  </div>
+                  <div class="call-help">
+                    <h6>Questions?
+                      <span>Call 321 546 8764 for help</span>
+                    </h6>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-5 d-flex">
+                <div class="main-booking-form w-100">
+                  <div class="rechedule-calender">
+                    <div class="book-title">	
+                      <h5>Select Date & Time</h5>
+                    </div>
+                    <mat-card class="demo-inline-calendar-card">
+                      <mat-calendar [(selected)]="selected"></mat-calendar>
+                    </mat-card>
+                    <div class="pick-slot">
+                      <h6>Pick a Slot for <span> July 18</span></h6>
+                      <div class="token-slot">
+                        <div class="form-check-inline visits me-0">
+                          <label class="visit-btns">
+                            <input type="radio" class="form-check-input" name="appintment">
+                            <span class="visit-rsn">08:00 am</span>
+                          </label>
+                        </div>
+                        <div class="form-check-inline visits me-0">
+                          <label class="visit-btns">
+                            <input type="radio" class="form-check-input" name="appintment">
+                            <span class="visit-rsn">08:30 am</span>
+                          </label>
+                        </div>
+                        <div class="form-check-inline visits me-0">
+                          <label class="visit-btns">
+                            <input type="radio" class="form-check-input" name="appintment">
+                            <span class="visit-rsn">09:00 am</span>
+                          </label>
+                        </div>
+                        <div class="form-check-inline visits me-0">
+                          <label class="visit-btns">
+                            <input type="radio" class="form-check-input" name="appintment">
+                            <span class="visit-rsn">09:30 am</span>
+                          </label>
+                        </div>
+                        <div class="form-check-inline visits me-0">
+                          <label class="visit-btns">
+                            <input type="radio" class="form-check-input" name="appintment">
+                            <span class="visit-rsn">10:00 am</span>
+                          </label>
+                        </div>
+                        <div class="form-check-inline visits me-0">
+                          <label class="visit-btns">
+                            <input type="radio" class="form-check-input" name="appintment">
+                            <span class="visit-rsn">10:30 am</span>
+                          </label>
+                        </div>
+                        <div class="form-check-inline visits me-0">
+                          <label class="visit-btns">
+                            <input type="radio" class="form-check-input" name="appintment">
+                            <span class="visit-rsn">11:00 am</span>
+                          </label>
+                        </div>
+                        <div class="form-check-inline visits me-0">
+                          <label class="visit-btns">
+                            <input type="radio" class="form-check-input" name="appintment" checked>
+                            <span class="visit-rsn">11:30 am</span>
+                          </label>
+                        </div>
+                        <div class="form-check-inline visits me-0">
+                          <label class="visit-btns">
+                            <input type="radio" class="form-check-input" name="appintment">
+                            <span class="visit-rsn">12:00 pm</span>
+                          </label>
+                        </div>
+                        <div class="form-check-inline visits me-0">
+                          <label class="visit-btns">
+                            <input type="radio" class="form-check-input" name="appintment">
+                            <span class="visit-rsn">12:30 pm</span>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="field-bottom-btns select-timing justify-content-between">
+                    <div class="field-btns">
+                      <button class="btn btn-primary prev_btnn disabled" type="button"><i class="fa-solid fa-arrow-left"></i>Prev</button>
+                    </div> 
+                    <div class="field-btns">
+                      <button class="btn btn-primary next_btnn" type="button" (click)="selectedFieldSet[0] = 3">Next <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>  
+                  </div> 
+                </div>
+              </div>
+              <div class="col-lg-4 d-flex">
+                <div class="card booking-summary-card">
+                  <div class="card-body">
+                    <div class="sub-title">	
+                      <h5>Booking Summary</h5>
+                    </div>
+                    <div class="appointment-details">
+                      <ul>
+                        <li>
+                          <div class="detail-list">
+                            <h5>Appointment date & time</h5>
+                            <h6 class="date-red">July 18, 11:30 am</h6>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="detail-list">
+                            <h5>Selected Service</h5>
+                            <h6>Computer Services</h6>
+                          </div>
+                          <span>$40.00</span>
+                        </li>
+                        <li>
+                          <div class="detail-list">
+                            <h5>Additional Service</h5>
+                            <h6>Changing Switch Boards</h6>
+                          </div>
+                          <span>$10.00</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="card-footer">
+                    <ul>
+                      <li>
+                        <h6>Sub Total</h6>
+                        <span>$257.00</span>
+                      </li>
+                      <li>
+                        <h6>Tax &#64; 12.5%</h6>
+                        <span>$5.36</span>
+                      </li>
+                      <li class="total-amount">
+                        <h6>Total</h6>
+                        <span>$251.36</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="hide-show" [class.d-block]="selectedFieldSet[0] === 3"  >
+            <div class="row">
+              <div class="col-lg-3">
+                <div class="modal-active-dots text-center">
+                  <ul>
+                    <li class="active-dot activated" data-bs-toggle="tooltip" data-bs-placement="top" title="Select Date & Time"></li>
+                    <li class="active-dot active" data-bs-toggle="tooltip" data-bs-placement="top" title="Enter Information"></li>
+                    <li class="active-dot"></li>
+                    <li class="active-dot"></li>
+                  </ul>
+                  <div class="calender-modal">
+                    <img src="assets/img/icons/booking-info-icon.svg" alt="calender Icon">
+                    <h6>Enter Information</h6>
+                    <p>Ad your information for the appointment Booking</p>
+                  </div>
+                  <div class="call-help">
+                    <h6>Questions?
+                      <span>Call 321 546 8764 for help</span>
+                    </h6>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-5 d-flex">
+                <div class="main-booking-form d-flex w-100">
+                  <div class="rechedule-calender h-100">
+                    <div class="book-title">	
+                      <h5>Enter Information</h5>
+                    </div>
+                    <div class="card booking-info-tab h-100">
+                      <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                          <button class="nav-link active" id="pills-guest-tab" data-bs-toggle="pill" data-bs-target="#pills-guest" type="button" role="tab" aria-controls="pills-guest" aria-selected="true">Book as Guest</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                          <button class="nav-link" id="pills-user-tab" data-bs-toggle="pill" data-bs-target="#pills-user" type="button" role="tab" aria-controls="pills-user" aria-selected="false">Already have an account?</button>
+                        </li>
+                      </ul>
+                      <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="pills-guest" role="tabpanel" aria-labelledby="pills-guest-tab">
+                          <form>
+                            <div class="row">
+                              <div class="col-md-12">
+                                <div class="form-group">
+                                  <input type="text" class="form-control" placeholder="Name">
+                                </div>
+                              </div>
+                              <div class="col-md-12">
+                                <div class="form-group">
+                                  <input type="email" class="form-control" placeholder="Email Address">
+                                </div>
+                              </div>
+                              <div class="col-md-12">
+                                <div class="form-group">
+                                  <input type="text" class="form-control" placeholder="Phone Number">
+                                </div>
+                              </div>
+                              <div class="col-md-12">
+                                <div class="form-group">
+                                  <input type="text" class="form-control" placeholder="Address">
+                                </div>
+                              </div>
+                              <div class="col-md-12">
+                                <div class="guest-address d-flex">
+                                  <div class="guest-country w-100 me-2">
+                                    <div class="form-group country-select">
+                                      <mat-select [(ngModel)]="selectedValue2" [ngModelOptions]="{standalone: true}" class="select"  placeholder="Country">
+                                        <mat-option *ngFor="let data of selectedList2" [value]="data.value">
+                                        {{data.value}}
+                                        </mat-option>
+                                    </mat-select>
+                                    </div>
+                                  </div>
+                                  <div class="guest-city w-100">
+                                    <div class="form-group">
+                                      <input type="text" class="form-control" placeholder="City">
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-12">
+                                <div class="guest-state-pin d-flex">
+                                  <div class="guest-state w-100 me-2">
+                                    <div class="form-group">
+                                      <input type="text" class="form-control" placeholder="State">
+                                    </div>
+                                  </div>
+                                  <div class="guest-pin w-100">
+                                    <div class="form-group">
+                                      <input type="text" class="form-control" placeholder="Zipcode">
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-12">
+                                <div class="form-group mb-0">
+                                  <textarea class="form-control" placeholder="Comments"></textarea>
+                                </div>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                        <div class="tab-pane fade guest-user-tab" id="pills-user" role="tabpanel" aria-labelledby="pills-user-tab">
+                          <form>
+                            <div class="sub-title">
+                              <h5>Login</h5>
+                            </div>
+                            <div class="row">
+                              <div class="col-md-12">
+                                <div class="form-group">
+                                  <input type="email" class="form-control" placeholder="Email Address">
+                                </div>
+                              </div>
+                              <div class="col-md-12">
+                                <div class="form-group">
+                                  <input type="password" class="form-control" placeholder="Password">
+                                </div>
+                              </div>
+                              <div class="get-new-password">
+                                <p>Forgot Password ? <a href="javascript:void(0);"> Click to Get Link</a></p>
+                              </div>
+                              <div class="form-group">
+                                <button class="btn btn-primary w-100">Login</button>
+                              </div>
+                            </div>
+                            <div class="join-user">
+                              <a href="javascript:void(0);"><i class="fa-solid fa-user me-2"></i>Join as a User</a>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="field-bottom-btns select-timing justify-content-between">
+                    <div class="field-btns">
+                      <button class="btn btn-primary prev_btnn" type="button" (click)="selectedFieldSet[0] = 2"><i class="fa-solid fa-arrow-left"></i>Prev</button>
+                    </div> 
+                    <div class="field-btns">
+                      <button class="btn btn-primary next_btnn" type="button" (click)="selectedFieldSet[0] = 4">Next <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>  
+                  </div> 
+                </div>
+              </div>
+              <div class="col-lg-4 d-flex">
+                <div class="card booking-summary-card">
+                  <div class="card-body">
+                    <div class="sub-title">	
+                      <h5>Booking Summary</h5>
+                    </div>
+                    <div class="appointment-details">
+                      <ul>
+                        <li>
+                          <div class="detail-list">
+                            <h5>Appointment date & time</h5>
+                            <h6 class="date-red">July 18, 11:30 am</h6>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="detail-list">
+                            <h5>Selected Service</h5>
+                            <h6>Computer Services</h6>
+                          </div>
+                          <span>$40.00</span>
+                        </li>
+                        <li>
+                          <div class="detail-list">
+                            <h5>Additional Service</h5>
+                            <h6>Changing Switch Boards</h6>
+                          </div>
+                          <span>$10.00</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="card-footer">
+                    <ul>
+                      <li>
+                        <h6>Sub Total</h6>
+                        <span>$257.00</span>
+                      </li>
+                      <li>
+                        <h6>Tax &#64; 12.5%</h6>
+                        <span>$5.36</span>
+                      </li>
+                      <li class="total-amount">
+                        <h6>Total</h6>
+                        <span>$251.36</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="hide-show" [class.d-block]="selectedFieldSet[0] === 4">
+            <div class="row">
+              <div class="col-lg-3">
+                <div class="modal-active-dots text-center">
+                  <ul>
+                    <li class="active-dot activated" data-bs-toggle="tooltip" data-bs-placement="top" title="Select Date & Time"></li>
+                    <li class="active-dot activated" data-bs-toggle="tooltip" data-bs-placement="top" title="Enter Information"></li>
+                    <li class="active-dot active" data-bs-toggle="tooltip" data-bs-placement="top" title="Payment Gateway"></li>
+                    <li class="active-dot"></li>
+                  </ul>
+                  <div class="calender-modal">
+                    <img src="assets/img/icons/payment-gateway-icon.svg" alt="calender Icon">
+                    <h6>Payment Gateway</h6>
+                    <p>Select your payment type to pay for appointment</p>
+                  </div>
+                  <div class="call-help">
+                    <h6>Questions?
+                      <span>Call 321 546 8764 for help</span>
+                    </h6>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-5 d-flex">
+                <div class="main-booking-form d-flex w-100">
+                  <div class="rechedule-calender h-100">
+                    <div class="book-title">	
+                      <h5>Payment Gateway</h5>
+                    </div>
+                    <div class="card booking-info-tab h-100">
+                      <div class="payment-card" [ngClass]="{ 'payment-bg': isTabActive(1) }" (click)="activateTab(1)" (keydown.enter)="activateTab(1)" tabindex="0">
+                        <div class="payment-head">
+                          <div class="payment-title">
+                            <label class="custom_radio">
+                              <input type="radio" name="payment"  class="card-payment" checked="">
+                              
+                            </label>
+                            <h6>Paypal</h6>									
+                          </div>
+                          <div class="card-icon">
+                            <img src="assets/img/icons/paypal-icon.svg" alt="image">
+                          </div>	
+                        </div>
+                      </div>
+                      <div class="payment-card" [ngClass]="{ 'payment-bg': isTabActive(2) }" (click)="activateTab(2)" (keydown.enter)="activateTab(2)" tabindex="0">
+                        <div class="payment-head">
+                          <div class="payment-title">
+                            <label class="custom_radio">
+                              <input type="radio" name="payment" class="card-payment">															
+                            </label>
+                            <h6>Credit / Debit Card</h6>											
+                          </div>
+                          <div class="card-icon">
+                            <img src="assets/img/card-icon-1.png" alt="image">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="payment-card" [ngClass]="{ 'payment-bg': isTabActive(3) }" (click)="activateTab(3)" (keydown.enter)="activateTab(3)" tabindex="0">
+                        <div class="payment-head">
+                          <div class="payment-title">
+                            <label class="custom_radio credit-card-option" >
+                              <input type="radio" name="payment" class="card-payment">
+                              
+                            </label>										
+                            <h6>Cash on Delivery</h6>																													
+                          </div>
+                          <div class="card-icon">
+                            <img src="assets/img/card-icon-2.png" alt="image">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="field-bottom-btns select-timing justify-content-between">
+                    <div class="field-btns">
+                      <button class="btn btn-primary prev_btnn" type="button" (click)="selectedFieldSet[0] = 2"><i class="fa-solid fa-arrow-left"></i>Prev</button>
+                    </div> 
+                    <div class="field-btns">
+                      <button class="btn btn-primary next_btnn submit-btn" type="button" (click)="selectedFieldSet[0] = 5">Submit <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>  
+                  </div> 
+                </div>
+              </div>
+              <div class="col-lg-4 d-flex">
+                <div class="card booking-summary-card">
+                  <div class="card-body">
+                    <div class="sub-title">	
+                      <h5>Booking Summary</h5>
+                    </div>
+                    <div class="appointment-details">
+                      <ul>
+                        <li class="droped-item">
+                          <div class="detail-list">
+                            <h5>Customer Details <i class="fa-solid fa-circle-info"></i></h5>
+                            <h6 class="date-red">Testuser</h6>
+                          </div>
+                          <ul class="customer-detail-list">
+                            <li>
+                              <h6>Email Address</h6>
+                              <p>john&#64;example.com</p>
+                            </li>
+                            <li>
+                              <h6>Phone Number</h6>
+                              <p>+1 63993 35556</p>
+                            </li>
+                            <li>
+                              <h6>Address</h6>
+                              <p>578 Fleming StreetMontgomery, AL 36104</p>
+                            </li>
+                            <li>
+                              <h6>Comments</h6>
+                              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+                            </li>
+                          </ul>
+                        </li>
+                        <li>
+                          <div class="detail-list">
+                            <h5>Appointment date & time</h5>
+                            <h6 class="date-red">July 18, 11:30 am</h6>
+                          </div>
+                        </li>
+                        <li>
+                          <div class="detail-list">
+                            <h5>Selected Service</h5>
+                            <h6>Computer Services</h6>
+                          </div>
+                          <span>$40.00</span>
+                        </li>
+                        <li>
+                          <div class="detail-list">
+                            <h5>Additional Service</h5>
+                            <h6>Changing Switch Boards</h6>
+                          </div>
+                          <span>$10.00</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="card-footer">
+                    <ul>
+                      <li>
+                        <h6>Sub Total</h6>
+                        <span>$257.00</span>
+                      </li>
+                      <li>
+                        <h6>Tax &#64; 12.5%</h6>
+                        <span>$5.36</span>
+                      </li>
+                      <li class="total-amount">
+                        <h6>Total</h6>
+                        <span>$251.36</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="hide-show booking-confirm-active-dots" [class.d-block]="selectedFieldSet[0] === 5">
+            <div class="row">
+              <div class="col-xl-4 col-lg-3">
+                <div class="modal-active-dots text-center">
+                  <div class="calender-modal">
+                    <img src="assets/img/icons/appointment-confirm-icon.svg" alt="calender Icon">
+                    <h6>Confirm Order</h6>
+                    <p>Handles different career a accordingly, after a of the for found customary feedback by happiness</p>
+                  </div>
+                  <div class="call-help">
+                    <h6>Questions?
+                      <span>Call 321 546 8764 for help</span>
+                    </h6>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-8 col-lg-9 d-flex">
+                <div class="main-booking-form d-flex w-100">
+                  <div class="rechedule-calender h-100">
+                    <div class="book-title">	
+                      <h5>Confirmation</h5>
+                    </div>
+                    <div class="card booking-confirmation-info h-100 mb-0">	
+                      <div class="card-body">
+                        <div class="appointment-details">
+                          <div class="details-head">
+                            <h6>Appointment Details</h6>
+                            <span>UBID-52</span>
+                          </div>
+                          <div class="add-calender">
+                            <a href="javascript:void(0);"><span><i class="fa-solid fa-calendar-days"></i></span>Add to Calender</a>
+                          </div>
+                        </div>	
+                        <div class="confirmation-product-card">
+                          <div class="row align-items-center">
+                            <div class="col-md-6">
+                              <div class="service-item">
+                                <span>
+                                  <img src="assets/img/product-confirm-img.jpg" class="img-fluid" alt="image">
+                                </span>
+                                <div class="product-info">
+                                  <h5>Computer Services</h5>
+                                  <span class="duration">Duration : 30 Min</span>
+                                  <span class="date-time">July 18, 11:30 am - 12:30 pm </span>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-4">
+                              <div class="product-info service-additional">
+                                <h6>Additional Service</h6>
+                                <span>Changing Switch Boards</span>
+                              </div>
+                            </div>
+                            <div class="col-md-2">
+                              <div class="product-info service-cost">
+                                <h6>Total Paid</h6>
+                                <span>$400</span>
+                              </div>
+                            </div>
+                          </div>																												
+                        </div>
+                        <div class="customer-provider">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="name-card">
+                                <h6>Customer</h6>
+                                <div class="profile-detail">
+                                  <span class="profile-pic"><img src="assets/img/profiles/avatar-21.jpg" class="img-fluid" alt="image"></span>
+                                  <div class="email-name">
+                                    <span>Adrian</span>
+                                    <p>testuser&#64;example.com</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="name-card">
+                                <h6>Provider</h6>
+                                <div class="profile-detail">
+                                  <span class="profile-pic"><img src="assets/img/profiles/avatar-22.jpg" class="img-fluid" alt="image"></span>
+                                  <div class="email-name">
+                                    <span>Harrris</span>
+                                    <a href="javascript:void(0);">Learn More</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="payed-method">
+                          <span>Payment Method : Debit card</span>
+                        </div>
+                        <div class="field-bottom-btns select-timing justify-content-end">
+                          <div class="field-btns">
+                            <button class="btn btn-primary next_btn submit-btn" (click)="openSuccessModal()" type="button" >Confirm Order <i class="fa-solid fa-arrow-right"></i></button>
+                          </div>  
+                        </div> 
+                      </div>																				
+                    </div>							
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /Reschedule -->
+
+  <!-- Modal Succss -->
+  <div class="modal fade add-service-modal" [ngClass]="{'d-block': successModalVisible}" data-bs-backdrop="static" id="successmodal"  tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+          <span>
+            <i class="fa-regular fa-circle-check"></i>
+          </span>
+          <h3>Success</h3>
+          <p>Booking has been successfully Confirmed on</p>
+          <div class="booking-date-time">
+            <i class="fa-regular fa-clock"> </i> 25 July 2023, 19:00 pm
+          </div>
+          <div class="popup-btn">
+            <a [routerLink] = "routes.customerDashboard" (click)="removeBackdrop()" class="btn btn-primary">Go to Dashboard <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal Succss -->

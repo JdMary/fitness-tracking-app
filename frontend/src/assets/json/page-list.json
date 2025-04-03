@@ -1,0 +1,45 @@
+{
+    "data" : [
+        {
+            "id": "1",
+            "pages": "About Us",
+            "pagesSlug": "about-us"
+        },
+        {
+            "id": "2",
+            "pages": "Home",
+            "pagesSlug": "home"
+        },
+        {
+            "id": "3",
+            "pages": "FAQ",
+            "pagesSlug": "faq"
+        },
+        {
+            "id": "4",
+            "pages": "Services",
+            "pagesSlug": "faq"
+        },
+        {
+            "id": "5",
+            "pages": "Categories",
+            "pagesSlug": "categories"
+        },
+        {
+            "id": "6",
+            "pages": "Contact Us",
+            "pagesSlug": "contact-us"
+        },
+        {
+            "id": "7",
+            "pages": "Privacy Policy",
+            "pagesSlug": "privacy-policy"
+        },
+        {
+            "id": "8",
+            "pages": "Terms Conditions",
+            "pagesSlug": "terms-conditions"
+        }
+    ],
+    "totalData": 8
+}

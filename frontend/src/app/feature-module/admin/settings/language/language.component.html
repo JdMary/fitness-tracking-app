@@ -1,0 +1,160 @@
+<div class="content-sidelink  float-start">
+    <div class="content-sidelinkheading">
+        <h6>Settings</h6>
+    </div>
+    <div class="content-sidelinkmenu">
+        <ul>
+            <li><h5>General Settings</h5></li>
+            <li><a routerLinkActive="active" [routerLink]="routes.localization">Localization </a></li>
+            <li><a routerLinkActive="active" [routerLink]="routes.accountSettings">Account Settings </a></li>
+            <li><a routerLinkActive="active" [routerLink]="routes.security">Security</a></li>
+            <li><a routerLinkActive="active" [routerLink]="routes.socialProfiles">Social Profiles </a></li>
+            <li><a routerLinkActive="active" [routerLink]="routes.notifications">Notifications</a></li>
+            <li><a routerLinkActive="active" [routerLink]="routes.adminConnectedApps">Connected Apps</a></li>
+            <li><a routerLinkActive="active" [routerLink]="routes.appointmentSettings">Appointment Settings</a></li>
+            <li><a routerLinkActive="active" [routerLink]="routes.typographySettings">Typography Settings</a></li>
+        </ul>
+        <ul>
+            <li><h5>Website Settings</h5></li>
+            <li><a routerLinkActive="active" [routerLink]="routes.siteInformation">Site Information</a></li>
+            <li><a routerLinkActive="active" [routerLink]="routes.seoSettings">Seo Settings</a></li>
+            <li><a routerLinkActive="active" [routerLink]="routes.preferenceSettings">Preference Settings</a></li>
+            <li><a routerLinkActive="active" [routerLink]="routes.appearance">Appearance </a></li>
+            <li><h4>Frontend Settings</h4></li>
+            <li class="submenu-sidelink"><a routerLinkActive="active" [routerLink]="routes.headerSettings">Header Settings</a></li>
+            <li class="submenu-sidelink"><a routerLinkActive="active" [routerLink]="routes.footerSettings">Footer Settings</a></li>
+            <li><a routerLinkActive="active" [routerLink]="routes.authenticationSettings">Authentication Settings</a></li>
+            <li><a routerLinkActive="active" [routerLink]="routes.socialAuthentication">Social Authentication</a></li>
+            <li><a routerLinkActive="active" [routerLink]="routes.language">Language </a></li>
+        </ul>
+        <ul>
+            <li><h5>System Settings</h5></li>
+            <li><a routerLinkActive="active" [routerLink]="routes.emailSettings">Email Settings </a></li>
+            <li><a routerLinkActive="active" [routerLink]="routes.smsSettings">SMS Settings</a></li>
+            <li><a routerLinkActive="active" [routerLink]="routes.gdprSettings">GDPR Settings </a></li>
+            <li><a routerLinkActive="active" [routerLink]="routes.calendarSettings">Calendar Settings </a></li>
+        </ul>
+        <ul>
+            <li><h5>Financial Settings</h5></li>
+            <li><a routerLinkActive="active" [routerLink]="routes.paymentGateways">Payment  Gateways</a></li>
+            <li><a routerLinkActive="active" [routerLink]="routes.paymentSetting">Payment Settings</a></li>
+            <li><a routerLinkActive="active" [routerLink]="routes.taxRates">Tax Rates</a></li>
+            <li><a routerLinkActive="active" [routerLink]="routes.currencies">Currencies</a></li>
+        </ul>
+        <ul>
+            <li> <h5><a routerLinkActive="active" [routerLink]="routes.serviceSettings">Service Settings</a></h5></li>
+        </ul>
+        <ul>
+            <li> <h5><a routerLinkActive="active" [routerLink]="routes.adminProviderSetting">Provider Settings</a></h5></li>
+        </ul>
+        <ul>
+            <li><h5>Other Settings</h5></li>
+            <li><a routerLinkActive="active" [routerLink]="routes.storageSettings">Storage Settings</a></li>
+            <li><a routerLinkActive="active" [routerLink]="routes.banIpAddress">Ban IP Address</a></li>
+            <li><a routerLinkActive="active" [routerLink]="routes.cronjob">Cronjob</a></li>
+            <li><h4>Backup</h4></li>
+            <li class="submenu-sidelink"><a routerLinkActive="active" [routerLink]="routes.systemBackup">System Backup</a></li>
+            <li class="submenu-sidelink"><a routerLinkActive="active" [routerLink]="routes.databaseBackup">Database Backup</a></li>
+            <li><a routerLinkActive="active" [routerLink]="routes.systemInformation">System Information</a></li>
+        </ul>
+    </div>
+</div>
+      <div class="row">
+           <div class="content-table">
+            <div class="content-page-header content-page-headersplit">
+                <h5>Languages</h5>
+                <div class="page-head-btn">
+                    <a class="btn btn-primary me-2"><i class="feather icon-download-cloud me-2"></i>Web Export</a>
+                    <a class="btn btn-primaryline"><i class="feather icon-download-cloud me-2"></i>App Export</a>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="table-resposnive table-bottom">
+                    <table class="table datatable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Language</th>
+                                <th>Code</th>
+                                <th>RTL</th>
+                                <th>Default  Language</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                                <th>Import</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of languages">
+                                <td>{{data.id}}</td>
+                                <td>
+                                    <div class="language-set">
+                                        <img [src]="data.img" alt="img">
+                                        <span>{{data.language}}</span>
+                                    </div>
+                                </td>
+                                <td>{{data.code}}</td>
+                                <td>
+                                    <div class="active-switch">
+                                        <label class="switch">
+                                            <input type="checkbox" checked="">
+                                            <span class="sliders round"></span>
+                                          </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="active-switch">
+                                        <label class="switch">
+                                            <input type="checkbox" checked="">
+                                            <span class="sliders round"></span>
+                                          </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="active-switch">
+                                        <label class="switch">
+                                            <input type="checkbox" checked="">
+                                            <span class="sliders round"></span>
+                                          </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="action-language">
+                                        <ul>
+                                            <li>
+                                                <a class="btn btn-grey" href="javascript:void(0);"><img src="assets/admin/img/icons/lanuage.svg" class="me-2" alt="img">Web</a>
+                                            </li>
+                                            <li>
+                                                <a class="btn btn-grey" href="javascript:void(0);"><img src="assets/admin/img/icons/lanuage.svg" class="me-2" alt="img">App</a>
+                                            </li>
+                                            <li>
+                                                <a class="btn btn-grey" href="javascript:void(0);"><img src="assets/admin/img/icons/lanuage.svg" class="me-2" alt="img">Admin</a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);" class="delete-table"><i class="far fa-edit "></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:void(0);" class="delete-table"  data-bs-toggle="modal" data-bs-target="#delete-item"><i class="far fa-trash-alt "></i></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="action-language">
+                                        <ul>
+                                            <li>
+                                                <a class="btn btn-primary" href="javascript:void(0);"><img src="assets/admin/img/icons/lanuage1.svg" class="me-2" alt="img">Web</a>
+                                            </li>
+                                            <li>
+                                                <a class="btn btn-primary" href="javascript:void(0);"><img src="assets/admin/img/icons/lanuage1.svg" class="me-2" alt="img">App</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+               
+            </div>
+           </div>
+        </div>

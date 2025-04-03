@@ -1,0 +1,60 @@
+ <!-- Sidebar -->
+ <div class="sidebar" id="sidebar" (mouseover)="miniSideBarMouseHover('over')" (mouseout)="miniSideBarMouseHover('out')" (focus)="miniSideBarFocus('over')" (blur)="miniSideBarBlur('out')">
+  <div class="sidebar-inner slimscroll">
+    <ng-scrollbar>
+      <div id="sidebar-menu" class="sidebar-menu">
+          <ul>
+            <ng-container *ngFor="let mainTittle of providersSidebar">
+                <ng-container *ngFor="let menu of mainTittle.menu">
+                  <li routerLinkActive="active" *ngIf="menu.hasSubRoute === false">
+                    <a [routerLink]="menu.route">
+                      <i class="ti" [class]="menu.icon"></i>
+                      <span>{{ menu.menuValue | titlecase }}</span>
+                    </a>
+                  </li>
+                </ng-container>
+                </ng-container>		
+              <li class="submenu">
+                  <a href="javascript:void(0);" routerLinkActive="active" [ngClass]="{ subdrop: setting === 'setting',active : page === 'settings'}"  (click)="settingsFunc('setting')"><i class="ti ti-settings"></i><span>Settings</span><span class="menu-arrow"></span></a>
+                  <ul [ngClass]="setting ? 'd-block' : 'd-none'">
+                      <li>
+                          <a routerLinkActive="active" [routerLink]="routes.providerAppointmentSettings"><i class="ti ti-chevrons-right me-2"></i>Appointment</a>
+                      </li>
+                      <li>
+                          <a routerLinkActive="active" [routerLink]="routes.providerAccountsSettings"><i class="ti ti-chevrons-right me-2"></i>Account</a>
+                      </li>
+                      <li>
+                          <a routerLinkActive="active" [routerLink]="routes.providerSocialProfile"><i class="ti ti-chevrons-right me-2"></i>Social Profiles</a>
+                      </li>
+                      <li>
+                          <a routerLinkActive="active" [routerLink]="routes.providerSecuritySettings"><i class="ti ti-chevrons-right me-2"></i>Security</a>
+                      </li>
+                      <li>
+                          <a routerLinkActive="active" [routerLink]="routes.providerPlan"><i class="ti ti-chevrons-right me-2"></i>Plan & Billings</a>
+                      </li>
+                      <li>
+                          <a routerLinkActive="active" [routerLink]="routes.paymentSettings"><i class="ti ti-chevrons-right me-2"></i>Payment</a>
+                      </li>
+                      <li>
+                          <a routerLinkActive="active" [routerLink]="routes.providerNotifcations"><i class="ti ti-chevrons-right me-2"></i>Notifications</a>
+                      </li>
+                      <li>
+                          <a routerLinkActive="active" [routerLink]="routes.providerConnectedApps"><i class="ti ti-chevrons-right me-2"></i>Connected Apps</a>
+                      </li>
+                      <li>
+                          <a routerLinkActive="active" [routerLink]="routes.Verification"><i class="ti ti-chevrons-right me-2"></i>Profile Verification</a>
+                      </li>
+                      <li>
+                          <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#del-account"><i class="ti ti-chevrons-right me-2"></i>Delete Account</a>
+                      </li>
+                  </ul>
+              </li>
+              <li>
+                  <a [routerLink]="routes.login"><i class="ti ti-logout-2"></i><span>Logout</span></a>
+              </li>
+          </ul>
+      </div>
+      </ng-scrollbar>
+  </div>
+</div>
+<!-- /Sidebar -->

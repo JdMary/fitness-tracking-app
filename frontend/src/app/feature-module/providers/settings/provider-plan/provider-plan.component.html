@@ -1,0 +1,363 @@
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="row">
+            <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
+                <h5>Plan & Billings</h5>
+                <div class="d-flex align-items-center">
+                    <a href="javascript:void(0);" class="btn btn-dark d-flex align-items-center">Plans</a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Plan & Billings -->
+        <div class="row">
+            <div class="col-lg-6 d-flex flex-column">
+                <!-- Current Plan -->
+                <h6 class="subhead-title">Current Plan</h6>
+                <div class="card flex-fill">
+                    <div class="card-body">
+                        <div class="plan-info row">
+                            <div class="col-md-9">
+                                <div class="plan-term">
+                                    <h6 class="mb-1">Business</h6>
+                                    <p class="mb-2">Our most popular plan for small teams.</p>
+                                    <p class="fs-12 text-dark"><i class="feather icon-calendar fs-12"></i> Renew
+                                        Date: <span class="fs-12 text-gray">Jan 22, 2023</span> </p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="plan-price">
+                                    <h4>$200</h4>
+                                    <p>per user/month</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="plan-btns">
+                            <a href="javascript:void(0);" class="btn btn-light  me-2">Cancel Subscription</a>
+                            <a href="javascript:void(0);" class="btn btn-dark ">Upgrade</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Current Plan -->
+
+            </div>
+            <div class="col-lg-6 d-flex flex-column">
+                <!-- Current Plan -->
+                <h6 class="subhead-title">Payment</h6>
+                <div class="card flex-fill">
+                    <div class="card-body">
+                        <div class="plan-info row">
+                            <div class="col-md-9">
+                                <div class="plan-term">
+                                    <h6 class="mb-1">Last Payment</h6>
+                                    <p class="fs-12 text-dark"><i class="feather icon-calendar fs-12 me-1"></i><span
+                                            class="fs-12 text-gray">January 22, 2022</span> </p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="plan-price d-flex justify-content-end">
+                                    <span
+                                        class="badge badge-soft-success d-inline-flex align-items-center">Active</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="plan-btns row">
+                            <div class="col-md-7">
+                                <div class="plan-term">
+                                    <h6 class="mb-1">Next Payment</h6>
+                                    <p class="fs-12 text-dark"><i class="feather icon-calendar fs-12 me-1"></i><span
+                                            class="fs-12 text-gray">January 22, 2023</span> </p>
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="d-flex justify-content-end">
+                                    <a href="javascript:void(0);" class="btn btn-dark ">Manage Payment</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- /Current Plan -->
+
+            </div>
+            <div class="col-md-12">
+                <h6 class="user-title">Payment Method</h6>
+                <div class="row">
+                    <!-- Credit Card -->
+                    <div class="col-md-6 col-xl-4 d-flex flex-column" *ngFor="let card of cards; let i = index">
+                        <div class="card card-payments flex-fill" [ngClass]="{'active': selectedCardIndex === i}">
+                            <div class="card-body">
+                                <div class="row align-items-center">
+                                    <div class="col-md-6">
+                                        <h6>{{ card.title }}</h6>
+                                        <div class="card-num">
+                                            <div class="visa-img">
+                                                <img [src]="card.imgUrl" alt="image">
+                                            </div>
+                                            <h6>**** **** **** <span>{{ card.lastFour }}</span></h6>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card-remove d-flex justify-content-end">
+                                            <a href="javascript:void(0);" class="btn btn-sm btn-light" (click)="selectCard(i)">Remove Card 
+                                                <i class="feather icon-trash-2"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Credit Card -->
+
+                  
+
+                    <!-- Add Card -->
+                    <div class="col-md-6 col-xl-4 d-flex flex-column">
+                        <div class="card-payment-add flex-fill">
+                            <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#add-payment">
+                                <span class="rounded-circle"><i class="feather icon-plus"></i></span>
+                            </a>
+                        </div>
+                    </div>
+                    <!-- /Add Card -->
+
+                </div>
+
+                <!-- Billing History -->
+                <div class="page-header">
+                    <div class="row flex-fill">
+                        <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
+                            <h5>Billing History</h5>
+                            <div class="d-flex align-items-center">
+                                <span class="text-dark me-2">Sort</span>
+                                <div class="dropdown me-2">
+                                    <a href="javascript:void(0);" class="dropdown-toggle bg-light-300 " data-bs-toggle="dropdown">
+                                        Newly Added
+                                    </a>
+                                    <div class="dropdown-menu">
+                                        <a href="javascript:void(0);" class="dropdown-item active">Recently Added</a>
+                                    </div>
+                                </div>
+                                <div class="dropdown me-2">
+                                    <a href="javascript:void(0);" class="dropdown-toggle bg-light-300 " data-bs-toggle="dropdown">
+                                        Export
+                                    </a>
+                                    <div class="dropdown-menu">
+                                        <a href="javascript:void(0);" class="dropdown-item active">Pdf</a>
+                                        <a href="javascript:void(0);" class="dropdown-item active">Excel</a>
+                                    </div>
+                                </div>
+                                <a href="javascript:void(0);" class="tags d-flex justify-content-center align-items-center  rounded me-2"><i class="ti ti-printer"></i></a>
+                                <a href="javascript:void(0);" class="tags d-flex justify-content-center align-items-center border rounded me-2 " (click)="toggleFilterInputs()" id="filter_search"><i class="ti ti-adjustments"></i></a>
+
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div id="filter_inputs"  [ngStyle]="{'display': isFilterInputsVisible ? 'block' : 'none'}">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6">
+                            <div class="mb-3">
+                                <div class="sel-cal Calendar-icon">
+                                    <span><i class="ti ti-calendar-month"></i></span>
+                                    <input class="form-control datetimepicker" bsDatepicker type="text" placeholder="dd-mm-yyyy">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="mb-3  mat-select-box">
+                              
+                                <mat-select
+                                [(ngModel)]="selectedValue2"
+                                [ngModelOptions]="{ standalone: true }"
+                                class="select"
+                                placeholder="Select"
+                              >
+                                <mat-option
+                                  *ngFor="let data of selectedList2"
+                                  [value]="data.value"
+                                >
+                                  {{ data.value }}
+                                </mat-option>
+                              </mat-select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="mb-3  mat-select-box">
+                               
+                                <mat-select
+                                [(ngModel)]="selectedValue2"
+                                [ngModelOptions]="{ standalone: true }"
+                                class="select"
+                                placeholder="Select"
+                              >
+                                <mat-option
+                                  *ngFor="let data of selectedList2"
+                                  [value]="data.value"
+                                >
+                                  {{ data.value }}
+                                </mat-option>
+                              </mat-select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="provide-table">
+                    <div class="table-responsive">
+                        <table class="table  datatable mb-0" id="data-table">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Payout Date</th>
+                                    <th>Plan Name</th>
+                                    <th>Amount</th>
+                                    <th>Invoice</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-gray">28 Sep 2024</td>
+                                    <td class="text-body">Basic, Monthly</td>
+                                    <td class="text-gray fw-500">$50.00</td>
+                                    <td class="text-gray">Invoice 08 sep, 2023</td>
+                                    <td><span class="badge badge-soft-success">Paid</span></td>
+                                    <td class="d-flex"><a href="javascript:void(0);"><span class="p-1 bg-light-300 rounded-circle d-flex align-items-center justify-content-center"><i class="ti ti-eye"></i></span></a></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-gray">28 Oct 2024</td>
+                                    <td class="text-body">Standard, Monthly</td>
+                                    <td class="text-gray fw-500">$200.00</td>
+                                    <td class="text-gray">Invoice 08 Oct, 2022</td>
+                                    <td><span class="badge badge-soft-success">Paid</span></td>
+                                    <td class="d-flex"><a href="javascript:void(0);"><span class="p-1 bg-light-300 rounded-circle d-flex align-items-center justify-content-center"><i class="ti ti-eye"></i></span></a></td>
+                                </tr>
+                                <tr>
+                                    <td class="text-gray">28 Nov 2024</td>
+                                    <td class="text-body">Enterprice, Year</td>
+                                    <td class="text-gray fw-500">$200.00</td>
+                                    <td class="text-gray">Invoice 08 Nov, 2022</td>
+                                    <td><span class="badge badge-soft-success">Paid</span></td>
+                                    <td class="d-flex"><a href="javascript:void(0);"><span class="p-1 bg-light-300 rounded-circle d-flex align-items-center justify-content-center"><i class="ti ti-eye"></i></span></a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div id="tablelength"></div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="table-ingopage">
+                            <div id="tableinfo"></div>
+                            <div id="tablepagination"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Billing History -->
+
+            </div>
+        </div>
+        <!-- /Plan & Billings -->
+
+
+
+    </div>
+</div>
+<!-- /Page Wrapper -->
+
+<!-- Add Payment -->
+<div class="modal fade custom-modal" id="add-payment">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header d-flex align-items-center justify-content-between border-bottom">
+                <h5 class="modal-title">Add Payment Method</h5>
+                <a href="javascript:void(0);" data-bs-dismiss="modal" aria-label="Close"><i
+                        class="ti ti-circle-x-filled fs-20"></i></a>
+            </div>
+            <form >
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Full Name</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">Card Number</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label class="form-label">Expiration date</label>
+                                        <div class=" input-icon position-relative">
+                                            <span class="input-icon-addon"><i class="ti ti-calendar"></i></span>
+                                            <input type="text" class="form-control monthpicker"
+                                                placeholder="mm-yyyy">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Security code</label>
+                                            <input type="text" class="form-control" placeholder="CVV">
+                                        </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn bg-gray" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-dark">Add Card</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Add Payment -->
+
+<!-- Delete Account -->
+<div class="modal fade custom-modal" id="del-account">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header d-flex align-items-center justify-content-between border-bottom">
+                <h5 class="modal-title">Delete Account</h5>
+                <a href="javascript:void(0);" data-bs-dismiss="modal" aria-label="Close"><i
+                        class="ti ti-circle-x-filled fs-20"></i></a>
+            </div>
+            <form action="javascript:void(0);">
+                <div class="modal-body">
+                    <p class="mb-3">Are you sure you want to delete This Account? To delete your account, Type
+                        your password.</p>
+                    <div class="mb-0">
+                        <label class="form-label">Password</label>
+                        <div class="pass-group">
+                            <input type="password" class="form-control pass-input" placeholder="*************">
+                            <span class="toggle-password feather icon-eye-off"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a href="javascript:void(0);" class="btn btn-light me-2" data-bs-dismiss="modal">Cancel</a>
+                    <button type="submit" class="btn btn-dark">Delete Account</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- /Delete Account -->

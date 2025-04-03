@@ -1,0 +1,85 @@
+{
+    "data" : [
+        {
+            "#": "1",
+            "taxName": "Casual Customs",
+            "taxPercentage": "0.00%"
+        },
+        {
+            "#": "2",
+            "taxName": "Your Tax Assistance",
+            "taxPercentage": "2.00%"
+        },
+        {
+            "#": "3",
+            "taxName": "Essential Expenses",
+            "taxPercentage": "7.25%"
+        },
+        {
+            "#": "4",
+            "taxName": "Taxing Co",
+            "taxPercentage": "4.50%"
+        },
+        {
+            "#": "5",
+            "taxName": "Afflict Tax Payers",
+            "taxPercentage": "0.00%"
+        },
+        {
+            "#": "6",
+            "taxName": "Financial Cub",
+            "taxPercentage": "1.00%"
+        },
+        {
+            "#": "7",
+            "taxName": "The Pocketbook",
+            "taxPercentage": "2.55%"
+        },
+        {
+            "#": "8",
+            "taxName": "Tax Deduction Collective",
+            "taxPercentage": "0.00%"
+        },
+        {
+            "#": "1",
+            "taxName": "Casual Customs",
+            "taxPercentage": "0.00%"
+        },
+        {
+            "#": "2",
+            "taxName": "Your Tax Assistance",
+            "taxPercentage": "2.00%"
+        },
+        {
+            "#": "3",
+            "taxName": "Essential Expenses",
+            "taxPercentage": "7.25%"
+        },
+        {
+            "#": "4",
+            "taxName": "Taxing Co",
+            "taxPercentage": "4.50%"
+        },
+        {
+            "#": "5",
+            "taxName": "Afflict Tax Payers",
+            "taxPercentage": "0.00%"
+        },
+        {
+            "#": "6",
+            "taxName": "Financial Cub",
+            "taxPercentage": "1.00%"
+        },
+        {
+            "#": "7",
+            "taxName": "The Pocketbook",
+            "taxPercentage": "2.55%"
+        },
+        {
+            "#": "8",
+            "taxName": "Tax Deduction Collective",
+            "taxPercentage": "0.00%"
+        }
+    ],
+    "totalData": 5
+}
