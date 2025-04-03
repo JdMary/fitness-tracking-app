@@ -1,0 +1,61 @@
+{
+    "data" : [
+        {
+            "referenceId": "1",
+            "emailtitle": "E-Mail Registration Confirmation",
+            "date": "28 Sep 2022 16:43:20",
+            "sendTo": "William",
+            "img": "assets/admin/img/customer/user-01.jpg"
+        },
+        {
+            "referenceId": "2",
+            "emailtitle": "Email User Booked Confirmation",
+            "date": "27 Sep 2022 10:43:20",
+            "sendTo": "Claire",
+            "img": "assets/admin/img/customer/user-04.jpg"
+        },
+        {
+            "referenceId": "3",
+            "emailtitle": "Email Provider Booked Confirmation",
+            "date": "23 Sep 2022 10:43:20",
+            "sendTo": "Johnny",
+            "img": "assets/admin/img/customer/user-02.jpg"
+        },
+        {
+            "referenceId": "4",
+            "emailtitle": "Email Booking Status",
+            "date": "23 Sep 2022 10:43:20",
+            "sendTo": "James",
+            "img": "assets/admin/img/customer/user-09.jpg"
+        },
+        {
+            "referenceId": "5",
+            "emailtitle": "Email Admin Refund",
+            "date": "28 Sep 2022 16:43:20",
+            "sendTo": "William",
+            "img": "assets/admin/img/customer/user-01.jpg"
+        },
+        {
+            "referenceId": "6",
+            "emailtitle": "Service Approval By Admin",
+            "date": "27 Sep 2022 10:43:20",
+            "sendTo": "Johnny",
+            "img": "assets/admin/img/customer/user-04.jpg"
+        },
+        {
+            "referenceId": "7",
+            "emailtitle": "Subscription Expires Mail",
+            "date": "23 Sep 2022 10:43:20",
+            "sendTo": "James",
+            "img": "assets/admin/img/customer/user-02.jpg"
+        },
+        {
+            "referenceId": "8",
+            "emailtitle": "Email Provider Booked Confirmation",
+            "date": "23 Sep 2022 10:43:20",
+            "sendTo": "Claire",
+            "img": "assets/admin/img/customer/user-09.jpg"
+        }
+    ],
+    "totalData": 8
+}

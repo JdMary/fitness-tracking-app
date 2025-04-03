@@ -1,0 +1,77 @@
+        <div class="content-page-header">
+            <h5>Social Profiles</h5>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="social-info">
+                    <div class="row align-items-center">
+                        <div class="col-lg-5 col-sm-12">
+                            <div class="form-group">
+                                <label for="">Name</label>
+                                <mat-select [(ngModel)]="selectedValue1" [ngModelOptions]="{standalone: true}" class="setting-select select"  placeholder="Facebook">
+                                    <mat-option *ngFor="let data of selectedList1" [value]="data.value">
+                                    {{data.value}}
+                                    </mat-option>
+                                </mat-select>
+                            </div>
+                        </div>
+                        <div class="col-lg-5 col-sm-12">
+                            <div class="form-group">
+                                <label for="">URL</label>
+                                <mat-select [(ngModel)]="selectedValue2" [ngModelOptions]="{standalone: true}" class="setting-select select"  placeholder="Ex. www.facebook.com">
+                                    <mat-option *ngFor="let data of selectedList2" [value]="data.value">
+                                    {{data.value}}
+                                    </mat-option>
+                                </mat-select>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-sm-12">
+                            <label for="">&nbsp;</label>
+                            <div class="form-group">
+                                <div class="active-switch">
+                                    <label class="switch">
+                                        <input type="checkbox">
+                                        <span class="sliders round"></span>
+                                        </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row align-items-center social-cont" *ngFor="let data of socialProfiles;let i = index">
+                        <div class="col-lg-5 col-sm-12">
+                            <div class="form-group">
+                                <label for="">Name</label>
+                                <mat-select [(ngModel)]="selectedValue3" [ngModelOptions]="{standalone: true}" class="setting-select select"  placeholder={{data.content}}>
+                                    <mat-option *ngFor="let data of selectedList3" [value]="data.value">
+                                    {{data.value}}
+                                    </mat-option>
+                                </mat-select>
+                            </div>
+                        </div>
+                        <div class="col-lg-5 col-sm-12">
+                            <div class="form-group">
+                                <label for="">URL</label>
+                                <mat-select [(ngModel)]="selectedValue4" [ngModelOptions]="{standalone: true}" class="setting-select select"  placeholder={{data.url}}>
+                                    <mat-option *ngFor="let data of selectedList4" [value]="data.value">
+                                    {{data.value}}
+                                    </mat-option>
+                                </mat-select>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-sm-12">
+                            <label for="">&nbsp;</label>
+                            <div class="form-group d-flex align-items-center">
+                                <div class="active-switch">
+                                    <label class="switch">
+                                        <input type="checkbox">
+                                        <span class="sliders round"></span>
+                                    </label>
+                                </div>
+                                <a (click)="delete(i)" href="javascript:void(0);" class="del-action ms-2 trash"><i class="feather icon-trash-2"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="javascript:void(0);" class="link-sets social-add" (click)="add()"><i class="fa fa-plus-circle me-2" aria-hidden="true"></i>Add More</a>
+            </div>
+        </div>

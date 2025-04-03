@@ -1,0 +1,61 @@
+<div class="sidebar" id="sidebar" (mouseover)="miniSideBarMouseHover('over')" (mouseout)="miniSideBarMouseHover('out')" (focus)="miniSideBarFocus('over')" (blur)="miniSideBarBlur('out')">
+  <div class="sidebar-header">
+    <div class="sidebar-logo">
+      <a [routerLink]="routes.dashboard">
+        <img src="assets/admin/img/logo.svg" class="img-fluid logo" alt="">
+      </a>
+      <a [routerLink]="routes.dashboard">
+        <img src="assets/admin/img/logo-small.svg" class="img-fluid logo-small" alt="">
+      </a>
+    </div>
+    <div class="siderbar-toggle">
+          <a (change)="toggleAdminSideBar()" href="javascript:void(0);">
+            <label class="switch" id="toggle_btn">
+              <input type="checkbox">
+              <span class="slider round"></span>
+            </label>
+          </a>
+    </div>
+  </div>
+
+  <div class="sidebar-inner slimscroll">
+    <ng-scrollbar>
+      <div id="sidebar-menu" class="sidebar-menu">
+        <ul>
+          <ng-container *ngFor="let mainTittle of adminSidebar">
+            <li class="menu-title">
+              <h6>{{ mainTittle.tittle | titlecase }}</h6>
+            </li>
+            <ng-container *ngFor="let menu of mainTittle.menu">
+              <li *ngIf="menu.hasSubRoute === false">
+                <a routerLinkActive="active" [routerLink]="menu.route" [ngClass]="{'active' : page === menu.base }">
+                  <i class="feather" [class]="menu.icon"></i>
+                  <span>{{ menu.menuValue | titlecase }}</span></a>
+              </li>
+              <li class="submenu" *ngIf="menu.hasSubRoute === true">
+                <a routerLinkActive="active" (click)="expandSubMenus(menu)" href="javascript:void(0)"
+                  [ngClass]="{ subdrop: menu.showSubRoute === true }"><i class="feather" [class]="menu.icon"></i>
+                  <span> {{ menu.menuValue | titlecase }}</span>
+                  <span class="menu-arrow"><i class="feather icon-chevron-right"></i></span></a>
+                <ul>
+                  <ng-container *ngFor="let subMenus of menu.subMenus">
+                    <li [ngClass]="
+                                  menu.showSubRoute === true
+                                    ? 'd-block'
+                                    : 'd-none'
+                                ">
+                      <a [routerLink]="subMenus.route" routerLinkActive="active">
+                        {{ subMenus.menuValue | titlecase }}
+                      </a>
+                    </li>
+                  </ng-container>
+
+                </ul>
+              </li>
+            </ng-container>
+          </ng-container>
+        </ul>
+      </div>
+    </ng-scrollbar>
+  </div>
+</div>
