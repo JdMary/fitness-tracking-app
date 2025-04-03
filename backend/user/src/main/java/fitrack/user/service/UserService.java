@@ -1,69 +1,46 @@
 package fitrack.user.service;
 
-
-import feign.FeignException;
-import fitrack.user.client.LeaderBoardClient;
-import fitrack.user.entity.UserRegular;
-
-import fitrack.user.entity.dtos.LeaderBoardDTO;
-import fitrack.user.repository.UserRegularRepository;
-
+import fitrack.user.entity.User;
+import fitrack.user.repository.UserRepository;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 
 import java.util.List;
 
 @Service
-
-public class UserService {
+@AllArgsConstructor
+public class UserService implements IUserService {
     @Autowired
-    private UserRegularRepository repository;
+    private UserRepository repository;
 
-
-    private final LeaderBoardClient leaderBoardClient;
-
-
-    public UserService(UserRegularRepository repository, LeaderBoardClient leaderBoardClient) {
-        this.repository = repository;
-
-        this.leaderBoardClient = leaderBoardClient;
-    }
-    public List<UserRegular> findAllUsers() {
+    @Override
+    public List<User> retrieveAllUsers() {
         return repository.findAll();
     }
 
-    public List<UserRegular> findAllUsersByBoard(String boardId) {
-        return repository.findAllByBoardId(boardId);
+    @Override
+    public User addUser(User u) {
+        return repository.save(u);
     }
 
-
-    public LeaderBoardDTO getBoard(String boardName) {
-        try {
-            return leaderBoardClient.findByName(boardName);
-
-        } catch (FeignException.NotFound e) {
-            throw new RuntimeException("Leaderboard not found: " + boardName);
-        } catch (Exception e) {
-            throw new RuntimeException("Erreur lors de l'appel à Achievement : " + e.getMessage());
-        }
+    @Override
+    public User updateUser(User u) {
+        return repository.save(u);
     }
 
+    @Override
+    public User retrieveUser(String idUser) {
+        return repository.findById(idUser).orElseThrow(() -> new RuntimeException("User not found with id: " + idUser));    }
 
-    public void saveUser(UserRegular user) {
-
-        if (user.getFitnessGoals() != null && user.getFitnessGoals().toLowerCase().contains("gain")) {
-            try {
-                LeaderBoardDTO board = leaderBoardClient.findByName("Weight Loss Challenge");
-                user.setBoardId(board.id());
-            } catch (Exception e) {
-                throw new RuntimeException("Leaderboard 'Weight Loss Challenge' introuvable.");
-            }
-        }
-
-        repository.save(user); // Assure-toi que ce repository est injecté et fonctionne
+    @Override
+    public void removeUser(String idUser) {
+        repository.deleteById(idUser);
     }
 
-
-
+    @Override
+    public List<User> addUsers(List<User> Users) {
+        return repository.saveAll(Users);
+    }
 }

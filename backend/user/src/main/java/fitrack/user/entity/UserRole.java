@@ -2,7 +2,9 @@ package fitrack.user.entity;
 
 public enum UserRole {
     ADMIN("admin"),
-    USER("user");
+    USER("user"),
+    TRAINER("trainer"),
+    FACILITY_MANAGER("facility_manager");
 
     private String role;
 

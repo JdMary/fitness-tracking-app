@@ -10,5 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/workout/plan")
 @AllArgsConstructor
 public class WorkoutPlanController {
+
     private WorkoutPlanService service;
 }
