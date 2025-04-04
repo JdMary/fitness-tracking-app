@@ -1,7 +1,6 @@
 package fitrack.workout.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -12,7 +11,9 @@ import lombok.*;
 @Builder
 public class Exercise {
     @Id
-    private String exerciseId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    private Long exerciseId;
     private String category;
     private int sets;
     private int reps;
@@ -20,5 +21,7 @@ public class Exercise {
     private String videoUrl;
     private String instructions;
     private boolean status;
+    @ManyToOne
+    private TrainingSession trainingSession;
 
 }

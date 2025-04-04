@@ -1,7 +1,6 @@
 package fitrack.workout.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.*;
 
@@ -14,11 +13,16 @@ import java.util.Date;
 @Builder
 public class ProgressTracker {
     @Id
-    private Integer progressId;
-    private Integer repsCompleted;
-    private Integer setsCompleted;
-    private Integer exercisesCompleted;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long progressId;
+    private Integer toatalRepsCompleted;
+    private Integer toatalSetsCompleted;
+    private Integer TotalExercisesCompleted;
     private Integer burnedCalories;
     private Date date;
+    @OneToOne
+    @JoinColumn(name = "workplan_id")
+    private WorkoutPlan workoutPlan;
+
 
 }
