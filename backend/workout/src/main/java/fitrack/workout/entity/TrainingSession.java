@@ -17,6 +17,7 @@ import java.util.List;
 public class TrainingSession {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "training_session_id", nullable = false, unique = true)
     private Long trainingSessionId;
     private boolean guided;
     private LocalDateTime entryTime;

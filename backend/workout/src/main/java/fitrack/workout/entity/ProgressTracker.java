@@ -14,6 +14,8 @@ import java.util.Date;
 public class ProgressTracker {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "progress_id", nullable = false, unique = true)
+
     private Long progressId;
     private Integer toatalRepsCompleted;
     private Integer toatalSetsCompleted;

@@ -26,7 +26,6 @@ application:
   config:
     users-url: http://localhost:8090/api/v1/users
     auth-url: http://localhost:8090/api/v1/auth
-
 management:
   tracing:
     sampling:

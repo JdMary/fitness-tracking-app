@@ -14,7 +14,8 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 public class WorkoutPlanService implements IWorkoutPlan{
-    private WorkoutPlanRepository repository;
+    @Autowired
+    private  WorkoutPlanRepository repository;
     @Override
     public WorkoutPlan createWorkoutPlan(WorkoutPlan plan) {
         return repository.save(plan);
@@ -35,8 +36,8 @@ public class WorkoutPlanService implements IWorkoutPlan{
         WorkoutPlan existing = this.getWorkoutPlanById(id);
         BeanUtils.copyProperties(plan,existing,"workplanId");//il accepte que string thats why
         //jai utilise bean utils dependency in order to copy automatically instead of manually doing it the updated fields
-        existing.setProgressTracker(plan.getProgressTracker());
-        existing.setTrainingSessions(plan.getTrainingSessions());
+        //existing.setProgressTracker(plan.getProgressTracker());
+        //existing.setTrainingSessions(plan.getTrainingSessions());
         return repository.save(existing);
     }
 
