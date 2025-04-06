@@ -1,14 +1,13 @@
 package fitrack.diet.entity;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import fitrack.diet.entity.enumPreference.PlanStatus;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Entity
 @Getter
@@ -21,15 +20,35 @@ public class DietPlan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long dietPlanId;
 
-    private int dayOfWeek;
+    private String username;
+
+    @ManyToOne
+    @JoinColumn(name = "preference_id")
+    private Preference preference;
+
+    @OneToMany(mappedBy = "dietPlan", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Meal> meals;
+
+    private Integer numberOfDays;
+
+    private LocalDateTime createdAt;
 
     private int calorieTarget;
     private int targetProtein;
     private int targetCarbs;
+
     private Date startDate;
     private Date endDate;
-    private String userId; //ref to user bcs microservice architecture
 
+    private String userId;
+    private LocalDateTime lastModified;
+
+//    @ElementCollection
+//    @CollectionTable(name = "diet_plan_daily_nutrition", joinColumns = @JoinColumn(name = "diet_plan_id"))
+//    private Map<Integer, DailyNutrition> dailyNutrition = new HashMap<>();
+
+    @Enumerated(EnumType.STRING)
+    private PlanStatus status;
 
 
 }

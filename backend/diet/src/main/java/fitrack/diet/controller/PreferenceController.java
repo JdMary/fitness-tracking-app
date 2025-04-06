@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/diets/preference")
 @AllArgsConstructor
@@ -23,18 +25,14 @@ public class PreferenceController {
         System.out.println("Saved Preference: " + savedPreference);
         return ResponseEntity.ok(savedPreference);
     }
-//    @PostMapping("/generate")
-//    public ResponseEntity<Long> generateMealPlan(
-//            @RequestHeader("Edamam-Account-User") Long user
-//    ) {
-//        return preferenceService.getMealPlan(user);
-//    }
 
-    // Optional: Add error handling
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleApiErrors(Exception ex) {
-        return ResponseEntity.internalServerError()
-                .body("Error fetching meal plan: " + ex.getMessage());
+    @GetMapping("/ListPreferenceByUsername")
+    public ResponseEntity<List<Preference>> getPreferencesByUserId(
+            @RequestHeader("Authorization") String token) {
+        List<Preference> preferences = preferenceService.getPreferencesByUserId(token);
+        return ResponseEntity.ok(preferences);
     }
+
+
 
 }

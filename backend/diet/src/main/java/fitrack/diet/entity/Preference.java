@@ -3,6 +3,9 @@ package fitrack.diet.entity;
 import fitrack.diet.entity.enumPreference.*;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,21 +29,25 @@ public class Preference {
     private DietLabel dietLabel;
 
     // Multiple selections
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @ElementCollection(fetch = FetchType.EAGER) //list not separate entity
     @CollectionTable(name = "preference_meal_types",joinColumns = @JoinColumn(name = "preference_id"))
     @Enumerated(EnumType.STRING)
     private Set<MealType> mealTypes = new HashSet<>();
 
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "preference_health_labels", joinColumns = @JoinColumn(name = "preference_id"))
     @Enumerated(EnumType.STRING)
     private Set<HealthLabel> healthLabels = new HashSet<>();
 
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "preference_cuisine_types", joinColumns = @JoinColumn(name = "preference_id"))
     @Enumerated(EnumType.STRING)
     private Set<CuisineType> cuisineTypes = new HashSet<>();
 
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "preference_dish_types", joinColumns = @JoinColumn(name = "preference_id"))
     @Enumerated(EnumType.STRING)
@@ -56,11 +63,11 @@ public class Preference {
     private Integer maxTotalTime;
 
     // Exclusions
-    private String excludedIngredients;  // Comma-separated (e.g., "mushrooms,spinach")
-    private String excludedDietLabels;    // Comma-separated diet types to exclude
-    private String excludedHealthLabels;  // Comma-separated health labels to exclude
+    private String excludedIngredients;
+    private String excludedDietLabels;
+    private String excludedHealthLabels;
 
-    // Macronutrient  (grams per day)
+    // Macro
     private Double minProtein;
     private Double maxProtein;
     private Double minCarbs;
@@ -70,7 +77,7 @@ public class Preference {
     private Double minFiber;
     private Double maxFiber;
 
-    // Micronutrients (daily values)
+    // Micro
     private Double minCalcium;
     private Double minCholesterol;
     private Double minPotassium;
@@ -78,7 +85,6 @@ public class Preference {
     private Double minVitaminA;
     private Double minVitaminC;
 
-// Manually written getters and setters for each field (if not using Lombok)
 
 
 }

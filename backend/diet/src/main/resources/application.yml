@@ -5,9 +5,11 @@ spring:
     import: optional:configserver:http://localhost:8888
 edamam:
   app:
-    id: 04703681
-    key: 859d05b0e8c1b7190b9c668a4927935f
+    id: 5d94c6bb
+    key: 2fbeb16837f522ca27251595540ac2d6
   mealplanner:
-    url: https://api.edamam.com/api/meal-planner/v1
+    url: https://api.edamam.com
   recipe:
     url: https://api.edamam.com/api/recipes/v2
+  account:
+    user: fitrackApp
