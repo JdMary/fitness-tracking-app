@@ -1,39 +1,14 @@
-package fitrack.workout.entity;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import lombok.*;
+package fitrack.workout.dto.entity;
 
 import java.util.Date;
-@Entity
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
-public class ProgressTracker {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "progress_id", nullable = false, unique = true)
 
-    private Long progressId;
+public class ProgressTrackerDTO {
     private Integer totalRepsCompleted;
     private Integer totalSetsCompleted;
-    private Integer TotalExercisesCompleted;
+    private Integer totalExercisesCompleted;
     private Integer burnedCalories;
     private Date date;
-    @OneToOne(mappedBy = "progressTracker")
-    @JsonIgnore
-    private WorkoutPlan workoutPlan;
-
-    public Long getProgressId() {
-        return progressId;
-    }
-
-    public void setProgressId(Long progressId) {
-        this.progressId = progressId;
-    }
+    private Long workoutPlanId;
 
     public Integer getTotalRepsCompleted() {
         return totalRepsCompleted;
@@ -52,11 +27,11 @@ public class ProgressTracker {
     }
 
     public Integer getTotalExercisesCompleted() {
-        return TotalExercisesCompleted;
+        return totalExercisesCompleted;
     }
 
     public void setTotalExercisesCompleted(Integer totalExercisesCompleted) {
-        TotalExercisesCompleted = totalExercisesCompleted;
+        this.totalExercisesCompleted = totalExercisesCompleted;
     }
 
     public Integer getBurnedCalories() {
@@ -75,11 +50,11 @@ public class ProgressTracker {
         this.date = date;
     }
 
-    public WorkoutPlan getWorkoutPlan() {
-        return workoutPlan;
+    public Long getWorkoutPlanId() {
+        return workoutPlanId;
     }
 
-    public void setWorkoutPlan(WorkoutPlan workoutPlan) {
-        this.workoutPlan = workoutPlan;
+    public void setWorkoutPlanId(Long workoutPlanId) {
+        this.workoutPlanId = workoutPlanId;
     }
 }

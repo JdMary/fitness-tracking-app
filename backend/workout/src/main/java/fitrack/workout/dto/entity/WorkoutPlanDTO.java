@@ -1,44 +1,15 @@
-package fitrack.workout.entity;
-
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.*;
+package fitrack.workout.dto.entity;
 
 import java.time.LocalDateTime;
 import java.util.List;
-@Entity
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Table
-public class WorkoutPlan {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "workplan_id", nullable = false, unique = true)
-    private Long workoutPlanId;
 
+public class WorkoutPlanDTO {
     private String description;
     private int duration;
-    @Column(name = "start_date")
     private LocalDateTime startDate;
     private String status;
     private String difficulty;
-
-    @OneToOne
-    private ProgressTracker progressTracker;
-
-    @OneToMany(mappedBy = "workoutPlan",cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private List<TrainingSession> trainingSessions;
-
-    public void setProgressTracker(ProgressTracker progressTracker) {
-        this.progressTracker = progressTracker;
-    }
-
-
+    private List<TrainingSessionDTO> trainingSessions;
 
     public String getDescription() {
         return description;
@@ -80,15 +51,11 @@ public class WorkoutPlan {
         this.difficulty = difficulty;
     }
 
-    public ProgressTracker getProgressTracker() {
-        return progressTracker;
-    }
-
-    public List<TrainingSession> getTrainingSessions() {
+    public List<TrainingSessionDTO> getTrainingSessions() {
         return trainingSessions;
     }
 
-    public void setTrainingSessions(List<TrainingSession> trainingSessions) {
+    public void setTrainingSessions(List<TrainingSessionDTO> trainingSessions) {
         this.trainingSessions = trainingSessions;
     }
 }

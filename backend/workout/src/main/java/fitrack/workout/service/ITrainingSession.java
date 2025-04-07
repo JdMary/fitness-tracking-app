@@ -1,6 +1,7 @@
 package fitrack.workout.service;
 
 import fitrack.workout.entity.TrainingSession;
+import fitrack.workout.entity.WorkoutPlan;
 
 import java.util.List;
 
@@ -10,4 +11,5 @@ public interface ITrainingSession {
     List<TrainingSession> getAllSessions();
     TrainingSession updateSession(Long id, TrainingSession session);
     void deleteSession(Long id);
+    public WorkoutPlan assignWorkoutPlanToTrainingSession(WorkoutPlan wp);
 }
