@@ -859,4 +859,28 @@ export class routes {
   public static get verificationRequest(): string {
     return this.baseUrl + '/admin/verification-request';
   }
+  ///////////////////////////dashboard
+  public static get addSportFacility(): string {
+    return this.baseUrl + '/admin/sport-facility';
+  }
+
+  public static get listSportFacility(): string {
+    return this.baseUrl + '/admin/list-sport-facility';
+  }
+  public static get editSportFacility(): string {
+    return this.baseUrl + '/admin/edit-sport-facility';
+  }
+  public static get addPromotion(): string {
+    return this.baseUrl + '/admin/promotion/add';
+  }
+  public static get listPromotion(): string {
+    return this.baseUrl + '/admin/promotion/list';
+  }
+  public static get editPromotion(): string {
+    return this.baseUrl + '/admin/promotion/edit';
+  }
+  ///////////frontend
+  
+
+  
 }

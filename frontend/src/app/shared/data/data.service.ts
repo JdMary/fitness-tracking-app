@@ -1446,16 +1446,16 @@ export class DataService {
           icon: 'icon-briefcase',
           subMenus: [
             {
-              menuValue: 'Add Service',
-              route: routes. addServices, //badl 7asb l route mte3k
+              menuValue: 'Add Sport Facility',
+              route: routes.addSportFacility, // ✅ dynamique depuis routes.ts
             },
             {
-              menuValue: 'Services',
-              route: routes.service, //badl 7asb l route mte3k
+              menuValue: 'Sport Facility',
+              route: routes.listSportFacility, // ✅ dynamique depuis routes.ts
             },
             {
-              menuValue: 'Service Settings',
-              route: routes.serviceSettings, //badl 7asb l route mte3k
+              menuValue: 'Promotions',
+              route: routes.listPromotion, //badl 7asb l route mte3k
             },
           ],
         },

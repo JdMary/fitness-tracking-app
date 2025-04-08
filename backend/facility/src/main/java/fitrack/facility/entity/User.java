@@ -1,16 +1,13 @@
 package fitrack.facility.entity;
-import lombok.*;
 
+import lombok.*;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-
 public class User {
-    private String id;
-    private String name;
-    private String email;
-    private UserRole role;
+    private String username;
+    private String role;
 }

@@ -632,6 +632,29 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'sport-facility',
+        loadChildren: () => import('./sport-facility/sport-facility.module').then(m => m.SportFacilityModule)
+      },
+      {
+        path: 'list-sport-facility',
+        loadChildren: () =>
+          import('./sport-facility/list-sport-facility/list-sport-facility.module').then(m => m.ListSportFacilityModule)
+      },
+      {
+        path: 'edit-sport-facility',
+        loadChildren: () =>
+          import('./sport-facility/edit-sport-facility/edit-sport-facility.module').then(m => m.EditSportFacilityModule)
+      },
+      {
+        path: 'promotion',
+        loadChildren: () => import('./promotion/promotion.module').then(m => m.PromotionModule)
+      },
+      
+      
+      
+
+      
+      {
         path: 'provider-sales',
         loadChildren: () =>
           import('./provider-sales/provider-sales.module').then(

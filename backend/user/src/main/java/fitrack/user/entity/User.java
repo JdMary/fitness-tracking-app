@@ -85,4 +85,9 @@ public class User implements UserDetails {
         return password;
     }
 
+
+    public  UserRole getRole()
+    {return role;
+    }
+
 }

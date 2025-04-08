@@ -8,19 +8,29 @@ import java.time.LocalDate;
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class Promotion {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
-    @JoinColumn(name = "facility_id", nullable = false)
-    private SportFacility facility;
 
-    private float discount;
-    private LocalDate validFrom;
-    private LocalDate validUntil;
+    private String promoCode;
+
+    private String description;
+
+    @Column(name = "discount") // ✅ Correction ici
+    private float discountPercentage;
+
+    private LocalDate startDate;
+
+    private LocalDate endDate;
+
     private boolean active;
+
+    @ManyToOne
+    @JoinColumn(name = "facility_id")
+    private SportFacility sportFacility;
 }
