@@ -8,11 +8,11 @@ import fitrack.workout.entity.WorkoutPlan;
 import java.util.List;
 
 public interface IWorkoutPlan {
-    public WorkoutPlanDTO createWorkoutPlanDTO(WorkoutPlanDTO dto);
-        WorkoutPlanDTO getWorkoutPlanById(Long id);
-    List<WorkoutPlanDTO> getAllPlans();
-    WorkoutPlanDTO updateWorkoutPlan(Long id, WorkoutPlanDTO dto);
+    WorkoutPlan createWorkoutPlan(WorkoutPlan plan);
+    WorkoutPlan getWorkoutPlanById(Long id);
+    WorkoutPlan updateWorkoutPlan(Long id, WorkoutPlan plan);
+    List<WorkoutPlan> getAllPlans();
     void deleteWorkoutPlan(Long id);
-     WorkoutPlan assignWorkoutPlanToTrainingSession(WorkoutPlan wp);
-     WorkoutPlan assignProgressToWorkoutPlan(ProgressTracker progress, Long idWorkoutPlan);
+    WorkoutPlan assignWorkoutPlanToTrainingSession(WorkoutPlan wp,String token);
+    WorkoutPlan assignProgressToWorkoutPlanToUser(ProgressTracker progress, Long idWorkoutPlan ,String token);
     }

@@ -1,6 +1,7 @@
 package fitrack.workout.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,21 +16,48 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-    public class TrainingSession {
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        @Column(name = "training_session_id", nullable = false, unique = true)
-        private Long trainingSessionId;
-        private boolean guided;
-        private LocalDateTime entryTime;
-        private LocalDateTime exitTime;
-        @ManyToOne
-        @JoinColumn(name = "workplan_id")
-        @JsonBackReference
-        private WorkoutPlan workoutPlan;
+        public class TrainingSession {
+            @Id
+            @GeneratedValue(strategy = GenerationType.IDENTITY)
+            @Column(name = "training_session_id", nullable = false, unique = true)
+            private Long trainingSessionId;
+            private boolean guided;
+            private LocalDateTime entryTime;
+            private LocalDateTime exitTime;
+            private String username;
+            @ManyToOne
+            @JoinColumn(name = "workplan_id")
+            @JsonBackReference
+            private WorkoutPlan workoutPlan;
 
-        @OneToMany(mappedBy = "trainingSession")
-        private List<Exercise> exercises=new ArrayList<>();
+            @OneToMany(mappedBy = "trainingSession")
+            @JsonManagedReference
+
+            private List<Exercise> exercises=new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "TrainingSession{" +
+                "trainingSessionId=" + trainingSessionId +
+                ", guided=" + guided +
+                ", entryTime=" + entryTime +
+                ", exitTime=" + exitTime +
+                ", username='" + username + '\'' +
+                ", workoutPlan=" + workoutPlan +
+                ", exercises=" + exercises +
+                '}';
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+
+
 
     public Long getTrainingSessionId() {
         return trainingSessionId;

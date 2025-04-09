@@ -23,6 +23,7 @@ public class ProgressTracker {
     private Integer TotalExercisesCompleted;
     private Integer burnedCalories;
     private Date date;
+    private String username;
     @OneToOne(mappedBy = "progressTracker")
     @JsonIgnore
     private WorkoutPlan workoutPlan;
@@ -81,5 +82,13 @@ public class ProgressTracker {
 
     public void setWorkoutPlan(WorkoutPlan workoutPlan) {
         this.workoutPlan = workoutPlan;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

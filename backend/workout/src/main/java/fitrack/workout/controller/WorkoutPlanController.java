@@ -30,27 +30,27 @@ public class WorkoutPlanController {
 
 
     @PostMapping("/add")
-    public ResponseEntity<WorkoutPlanDTO> createWorkoutPlan(@RequestBody WorkoutPlanDTO plan) {
-        WorkoutPlanDTO createdPlan = service.createWorkoutPlanDTO(plan);
+    public ResponseEntity<WorkoutPlan> createWorkoutPlan(@RequestBody WorkoutPlan plan) {
+        WorkoutPlan createdPlan = service.createWorkoutPlan(plan);
         return new ResponseEntity<>(createdPlan, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<WorkoutPlanDTO> getWorkoutPlan(@PathVariable Long id) {
+    public ResponseEntity<WorkoutPlan> getWorkoutPlan(@PathVariable Long id) {
         return ResponseEntity.ok(service.getWorkoutPlanById(id));
     }
 
     @GetMapping
-    public ResponseEntity<List<WorkoutPlanDTO>> getAllWorkoutPlans() {
+    public ResponseEntity<List<WorkoutPlan>> getAllWorkoutPlans() {
         return ResponseEntity.ok(service.getAllPlans());
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<WorkoutPlanDTO> updateWorkoutPlan(@PathVariable Long id, @RequestBody WorkoutPlanDTO plan) {
-        WorkoutPlanDTO existingPlan = service.getWorkoutPlanById(id);
+    public ResponseEntity<WorkoutPlan> updateWorkoutPlan(@PathVariable Long id, @RequestBody WorkoutPlan plan) {
+        WorkoutPlan existingPlan = service.getWorkoutPlanById(id);
 
         if (existingPlan != null) {
-            WorkoutPlanDTO updatedPlan = service.updateWorkoutPlan(id, plan);
+            WorkoutPlan updatedPlan = service.updateWorkoutPlan(id, plan);
             return ResponseEntity.ok(updatedPlan);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -61,7 +61,7 @@ public class WorkoutPlanController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteWorkoutPlan(@PathVariable Long id) {
-        WorkoutPlanDTO existingPlan = service.getWorkoutPlanById(id);
+        WorkoutPlan existingPlan = service.getWorkoutPlanById(id);
         if (existingPlan != null) {
             service.deleteWorkoutPlan(id);
             return ResponseEntity.noContent().build();
@@ -71,14 +71,19 @@ public class WorkoutPlanController {
 
     }
 
-    @PostMapping("/assign-progress/{id}")
-    @ResponseBody
-    public WorkoutPlan assignProgressToWorkoutPlan(@RequestBody ProgressTracker progress, @PathVariable("id") Long idWorkoutPlan) {
-        return service.assignProgressToWorkoutPlan(progress,idWorkoutPlan);
-    }
-    @PostMapping("/assign")
-    public ResponseEntity<WorkoutPlan> assignWorkout(@RequestBody WorkoutPlan wp) {
-        WorkoutPlan result = service.assignWorkoutPlanToTrainingSession(wp);
+
+    @PostMapping("/assign-session")
+    public ResponseEntity<WorkoutPlan> assignWorkoutToTrainingSessions(@RequestBody WorkoutPlan wp,
+                                                                       @RequestHeader("Authorization") String token) {
+        WorkoutPlan result = service.assignWorkoutPlanToTrainingSession(wp,token);
         return ResponseEntity.ok(result);
+    }
+    @PostMapping ("/{id}/progress")
+    public ResponseEntity<WorkoutPlan> assignProgress(@PathVariable Long id,
+                                                      @RequestBody ProgressTracker progress,
+                                                      @RequestHeader("Authorization") String token) {
+
+        WorkoutPlan updatedPlan = service.assignProgressToWorkoutPlanToUser(progress, id, token);
+        return ResponseEntity.ok(updatedPlan);
     }
 }

@@ -1,5 +1,6 @@
 package fitrack.workout.controller;
 
+import fitrack.workout.entity.Exercise;
 import fitrack.workout.entity.TrainingSession;
 import fitrack.workout.service.ITrainingSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +23,15 @@ public class TrainingSessionController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<TrainingSession> createTrainingSession(@RequestBody TrainingSession session) {
-        TrainingSession createdSession = service.createSession(session);
+    public ResponseEntity<TrainingSession> createTrainingSession(@RequestBody TrainingSession session,
+                                                                 @RequestHeader("Authorization") String token) {
+        TrainingSession createdSession = service.createSession(session,token);
         return new ResponseEntity<>(createdSession, HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TrainingSession> getTrainingSession(@PathVariable Long id) {
-        return ResponseEntity.ok(service.getSessionById(id));
+    public ResponseEntity<TrainingSession> getTrainingSession(@PathVariable Long id, @RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(service.getSessionById(id,token));
     }
 
     @GetMapping
@@ -40,23 +42,34 @@ public class TrainingSessionController {
     @PutMapping("/update/{id}")
     public ResponseEntity<TrainingSession> updateTrainingSession(
             @PathVariable Long id,
-            @RequestBody TrainingSession session) {
-        TrainingSession existingSession = service.getSessionById(id);
+            @RequestBody TrainingSession session,
+            @RequestHeader("Authorization") String token) {
+        TrainingSession existingSession = service.getSessionById(id,token);
         if(existingSession != null) {
-            return ResponseEntity.ok(service.updateSession(id, session));
+            return ResponseEntity.ok(service.updateSession(id, session,token));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteTrainingSession(@PathVariable Long id) {
-        TrainingSession existingSession = service.getSessionById(id);
+    public ResponseEntity<Void> deleteTrainingSession(@PathVariable Long id,
+                                                      @RequestHeader("Authorization") String token) {
+        TrainingSession existingSession = service.getSessionById(id,token);
         if(existingSession != null) {
             service.deleteSession(id);
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
+    }
+    @PostMapping("/{id}/assign-exercise")
+    public ResponseEntity<TrainingSession> assignExercise(
+            @PathVariable("id") Long sessionId,
+            @RequestBody Exercise exercise,
+            @RequestHeader("Authorization") String token
+    ) {
+        TrainingSession updated = service.assignExerciseToTrainingSession(sessionId, exercise, token);
+        return ResponseEntity.ok(updated);
     }
 }

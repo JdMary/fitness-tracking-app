@@ -1,5 +1,6 @@
     package fitrack.workout.entity;
 
+    import com.fasterxml.jackson.annotation.JsonBackReference;
     import jakarta.persistence.*;
     import lombok.*;
 
@@ -23,6 +24,7 @@
         private boolean status;
         @ManyToOne
         @JoinColumn(name = "training_session_id")
+        @JsonBackReference
         private TrainingSession trainingSession;
 
         public Long getExerciseId() {
