@@ -24,7 +24,7 @@ export class AddPromotionComponent implements OnInit {
   };
 
   sportFacilities: any[] = []; // Liste des installations sportives
-  token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im5hc3NpbUBlc3ByaXQudG4iLCJleHAiOjE3NDQwNjk3NTJ9.s1Zv4XYhK3PfiIxWRNg0ZacsmmjbB7_qy0FQL_MmdKE';
+  token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im5hc3NpbUBlc3ByaXQudG4iLCJleHAiOjE3NDQxNDQ3NDB9.QJBg6M_49dsP0W_Zs2lHeEVw2-WOKBszyoKZrmdpn9Y';
   routes = routes;
 
   constructor(
