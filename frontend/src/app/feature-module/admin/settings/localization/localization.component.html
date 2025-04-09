@@ -1,0 +1,284 @@
+    
+        <div class="content-page-header">
+            <h5>Localization</h5>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                       <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-groupheads">
+                                    <h2>Profile Picture</h2>
+                                </div>
+                            </div>
+                       </div>
+                       <div class="location-set">
+                            <div class="row align-items-center">
+                                <div class="col-lg-6 col-12">
+                                    <div class="location-setcontent">
+                                        <h5>Timezone</h5>
+                                        <h6>Lorem ipsum dolor sit amet, consectetur adipiscing</h6>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-12">
+                                    <div class="form-group mb-0">
+                                        <label for="">Timezone</label>
+                                        <div class="group-image">
+                                            <img src="assets/admin/img/icons/clock.svg" alt="img">
+                                            <mat-select [(ngModel)]="selectedValue1" [ngModelOptions]="{standalone: true}" class="setting-select placeholder-cus select"  placeholder="(UTC+09:00) Tokyo">
+                                                <mat-option *ngFor="let data of selectedList1" [value]="data.value">
+                                                {{data.value}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                       </div>
+                       <div class="location-set">
+                            <div class="row align-items-center">
+                                <div class="col-lg-6 col-12">
+                                    <div class="location-setcontent">
+                                        <h5>Date Format</h5>
+                                        <h6>Lorem ipsum dolor sit amet, consectetur adipiscing</h6>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-12">
+                                    <div class="form-group mb-0">
+                                        <label for="">Timezone</label>
+                                        <div class="group-image">
+                                            <img src="assets/admin/img/icons/calendar.svg" alt="img">
+                                            <mat-select [(ngModel)]="selectedValue2" [ngModelOptions]="{standalone: true}" class="setting-select placeholder-cus select"  placeholder="30 Sep 2022">
+                                                <mat-option *ngFor="let data of selectedList2" [value]="data.value">
+                                                {{data.value}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="location-set mb-0">
+                            <div class="row align-items-center">
+                                <div class="col-lg-6 col-12">
+                                    <div class="location-setcontent">
+                                        <h5>Time Format</h5>
+                                        <h6>Lorem ipsum dolor sit amet, consectetur adipiscing</h6>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-12">
+                                    <div class="form-group mb-0">
+                                        <label for="">Timezone</label>
+                                        <div class="group-image">
+                                            <img src="assets/admin/img/icons/clock.svg" alt="img">
+                                            <mat-select [(ngModel)]="selectedValue3" [ngModelOptions]="{standalone: true}" class="setting-select placeholder-cus select"  placeholder="12:00PM">
+                                                <mat-option *ngFor="let data of selectedList3" [value]="data.value">
+                                                {{data.value}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                       </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                       <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-groupheads">
+                                    <h2>Currency & Decimal</h2>
+                                </div>
+                            </div>
+                       </div>
+                       <div class="location-set">
+                            <div class="row align-items-center">
+                                <div class="col-lg-6 col-12">
+                                    <div class="location-setcontent">
+                                        <h5>Default Currency</h5>
+                                        <h6>Lorem ipsum dolor sit amet, consectetur adipiscing</h6>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-12">
+                                    <div class="form-group mb-0">
+                                        <label for="">Timezone</label>
+                                        <div class="group-image">
+                                            <img src="assets/admin/img/icons/clock.svg" alt="img">
+                                            <mat-select [(ngModel)]="selectedValue4" [ngModelOptions]="{standalone: true}" class="setting-select placeholder-cus select"  placeholder="USD">
+                                                <mat-option *ngFor="let data of selectedList4" [value]="data.value">
+                                                {{data.value}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                       </div>
+                       <div class="location-set mb-0">
+                            <div class="row align-items-center">
+                                <div class="col-lg-6 col-12">
+                                    <div class="location-setcontent">
+                                        <h5>Choose Currency</h5>
+                                        <h6>Lorem ipsum dolor sit amet, consectetur adipiscing</h6>
+                                    </div>
+                                </div>
+                                   
+                                <div class="col-lg-6 col-12">
+                                    <div class="form-group mb-0">
+                                        <label for="">Select Currency</label>
+                                        <mat-form-field class="example-chip-list" appearance="fill">
+                                            <mat-chip-grid #chipGrid2 aria-label="Fruit selection">
+                                              <mat-chip-row *ngFor="let fruit of fruits2" (removed)="remove2(fruit)">
+                                                {{fruit}}
+                                                <button matChipRemove [attr.aria-label]="'remove ' + fruit">
+                                                  <mat-icon>cancel</mat-icon>
+                                                </button>
+                                              </mat-chip-row>
+                                            </mat-chip-grid>
+                                            <input  #fruitInput2 [formControl]="fruitCtrl2"
+                                              [matChipInputFor]="chipGrid2" [matAutocomplete]="auto"
+                                              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                              (matChipInputTokenEnd)="add2($event)"/>
+                                            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                                              <mat-option *ngFor="let fruit of filteredFruits2 | async" [value]="fruit">
+                                                {{fruit}}
+                                              </mat-option>
+                                            </mat-autocomplete>
+                                          </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                       <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-groupheads">
+                                    <h2>Country Settings</h2>
+                                </div>
+                            </div>
+                       </div>
+                       <div class="location-set">
+                            <div class="row align-items-center">
+                                <div class="col-lg-6 col-12">
+                                    <div class="location-setcontent">
+                                        <h5>Country Restriction</h5>
+                                        <h6>Lorem ipsum dolor sit amet, consectetur adipiscing</h6>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-12">
+                                    <div class="form-group mb-0">
+                                        <label for="">Country Restriction</label>
+                                        <div class="group-image">
+                                            <img src="assets/admin/img/icons/global.svg" alt="img">
+                                            <mat-select class="select" [(ngModel)]="selectedValue5" [ngModelOptions]="{standalone: true}" class="setting-select placeholder-cus select"  placeholder="Allow all countries">
+                                                <mat-option *ngFor="let data of selectedList8" [value]="data.value">
+                                                {{data.value}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </div>
+                                        <p>Allow or disallowed the countries</p>
+                                    </div>
+                                </div>
+                            </div>
+                       </div>
+                       <div class="location-set mb-0">
+                            <div class="row align-items-center">
+                                <div class="col-lg-6 col-12">
+                                    <div class="location-setcontent">
+                                        <h5>Choose Countries</h5>
+                                        <h6>Lorem ipsum dolor sit amet, consectetur adipiscing</h6>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-12">
+                                    <div class="form-group mb-0">
+                                        <label for="">Select Countries</label>
+                                        <mat-form-field class="example-chip-list" appearance="fill">
+                                            <mat-chip-grid #chipGrid1 aria-label="Fruit selection">
+                                              <mat-chip-row *ngFor="let fruit of fruits1" (removed)="remove1(fruit)">
+                                                {{fruit}}
+                                                <button matChipRemove [attr.aria-label]="'remove ' + fruit">
+                                                  <mat-icon>cancel</mat-icon>
+                                                </button>
+                                              </mat-chip-row>
+                                            </mat-chip-grid>
+                                            <input  #fruitInput1 [formControl]="fruitCtrl1"
+                                              [matChipInputFor]="chipGrid1" [matAutocomplete]="auto"
+                                              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                              (matChipInputTokenEnd)="add1($event)"/>
+                                            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                                              <mat-option *ngFor="let fruit of filteredFruits1 | async" [value]="fruit">
+                                                {{fruit}}
+                                              </mat-option>
+                                            </mat-autocomplete>
+                                          </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-body">
+                       <div class="row">
+                            <div class="col-lg-12">
+                                <div class="form-groupheads">
+                                    <h2>Language Settings</h2>
+                                </div>
+                            </div>
+                       </div>
+                       <div class="location-set">
+                            <div class="row align-items-center">
+                                <div class="col-lg-6 col-12">
+                                    <div class="location-setcontent">
+                                        <h5>Default Language</h5>
+                                        <h6>Lorem ipsum dolor sit amet, consectetur adipiscing</h6>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-12">
+                                    <div class="form-group mb-0">
+                                        <label for="">Select Language</label>
+                                        <div class="group-image">
+                                            <img src="assets/admin/img/icons/global.svg" alt="img">
+                                            <mat-select [(ngModel)]="selectedValue6" [ngModelOptions]="{standalone: true}" class="setting-select placeholder-cus select"  placeholder="English">
+                                                <mat-option *ngFor="let data of selectedList7" [value]="data.value">
+                                                {{data.value}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                       </div>
+                       <div class="location-set mb-0">
+                            <div class="row align-items-center">
+                                <div class="col-lg-6 col-12">
+                                    <div class="location-setcontent">
+                                        <h5>Language Switcher</h5>
+                                        <h6>Lorem ipsum dolor sit amet, consectetur adipiscing</h6>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-12">
+                                    <div class="active-switch">
+                                        <label class="switch">
+                                            <input type="checkbox">
+                                            <span class="sliders round"></span>
+                                          </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="btn-path">
+                    <a href="javascript:void(0);" class="btn btn-cancel me-3">Cancel</a>
+                    <a href="javascript:void(0);" class="btn btn-primary">Save Changes</a>
+                </div>
+            </div>
+        </div>

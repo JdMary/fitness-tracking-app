@@ -1,0 +1,26 @@
+{
+    "data" : [
+        {
+            "id": "1",
+            "name": "Adminstrator",
+            "created": "30 Sep 2022",
+            "action1": "Edit Role",
+            "action2": "Permissions"
+        },
+        {
+            "id": "2",
+            "name": "Manager",
+            "created": "16 Sep 2022",
+            "action1": "Edit Role",
+            "action2": "Permissions"
+        },
+        {
+            "id": "3",
+            "name": "Accountant",
+            "created": "23 Sep 2022",
+            "action1": "Edit Role",
+            "action2": "Permissions"
+        }
+    ],
+    "totalData": 3
+}

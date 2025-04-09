@@ -1,0 +1,81 @@
+<div class="content">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-lg-6 mx-auto">
+        <div class="login-wrap">
+          <div class="login-header">
+            <h3>Login</h3>
+            <p>We'll send a confirmation code to your Phone.</p>
+            <h6>Login with <a [routerLink]="routes.loginEmail">Email</a></h6>
+          </div>
+
+          <!-- Login Form -->
+          <form [formGroup]="phoneForm">
+            <div class="log-form">
+              <div class="row">
+                <div class="col-md-12">
+                  <label for="" class="col-form-label">Phone Number</label>
+                  <div class="form-group position-relative">
+                    <ngx-mat-intl-tel-input id="phone" name="phone" type="text"  class="form-control form-control-lg group_formcontrol form-control-phone"
+                    [preferredCountries]="['us', 'gb']"
+                    [enablePlaceholder]="true"
+                    [enableSearch]="true"
+                    name="phone"
+                    describedBy="phoneInput"
+                    formControlName="phone"
+                ></ngx-mat-intl-tel-input>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6">
+                  <label class="custom_check">
+                    <input
+                      type="checkbox"
+                      name="rememberme"
+                      class="rememberme"
+                    />
+                    <span class="checkmark"></span>Remember Me
+                  </label>
+                </div>
+                <div class="col-6 text-end">
+                  <label class="custom_check">
+                    <input type="checkbox" name="loginotp" class="loginotp" />
+                    <span class="checkmark"></span>Login with OTP
+                  </label>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary w-100 login-btn" type="submit">
+              Login
+            </button>
+            <div class="login-or">
+              <span class="or-line"></span>
+              <span class="span-or">Or, Login with your email</span>
+            </div>
+            <div class="social-login">
+              <a href="javascript:void(0);" class="btn btn-google w-100"
+                ><img
+                  src="assets/img/icons/google.svg"
+                  class="me-2"
+                  alt="img"
+                />Login with Google</a
+              >
+              <a href="javascript:void(0);" class="btn btn-google w-100"
+                ><img
+                  src="assets/img/icons/fb.svg"
+                  class="me-2"
+                  alt="img"
+                />Login with Facebook</a
+              >
+            </div>
+            <p class="no-acc">
+              Don't have an account ? <a href="javascript:void(0);">Register</a>
+            </p>
+          </form>
+          <!-- /Login Form -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

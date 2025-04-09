@@ -1,0 +1,101 @@
+<div class="page-wrapper page-settings">
+    <div class="content">
+        <div class="content-page-header content-page-headersplit">
+            <h5>Plugins Manager</h5>
+            <div class="list-btn">
+                <ul>
+                    <li>
+                        <a class="btn btn-primary" ><i class="fa fa-plus me-2"></i>Add Plugin</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="tab-sets mb-4">
+                    <div class="tab-contents-sets">
+                        <ul>
+                            <li>
+                                <a [routerLink]="routes.pluginsManager" class="active">Installed Plugins</a>
+                            </li>
+                            <li>
+                                <a [routerLink]="routes.availablePlugins">Available Plugins</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-sm-6 col-12">
+                <div class="service-widget service-fav">
+                    <div class="service-img">
+                        <a [routerLink]="routes.viewService">
+                            <img class="img-fluid serv-img" alt="Service Image" src="assets/admin/img/services/service-14.jpg">
+                        </a>
+                    </div>
+                    <div class="service-content">
+                        <div class="serv-info">
+                            <div class="serv-users">
+                                <h6>Paytm<span>Version 1.0.0</span></h6>
+                                <a class="delete-plugin" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#delete-item"><i class="feather icon-trash-2 me-2"></i>Delete</a>
+                            </div>
+                            <div class="active-switch">
+                                <label class="switch">
+                                    <input type="checkbox" checked="">
+                                    <span class="sliders round"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 col-12">
+                <div class="service-widget service-fav">
+                    <div class="service-img">
+                        <a [routerLink]="routes.viewService">
+                            <img class="img-fluid serv-img" alt="Service Image" src="assets/admin/img/services/service-15.jpg">
+                        </a>
+                    </div>
+                    <div class="service-content">
+                        <div class="serv-info">
+                            <div class="serv-users">
+                                <h6>Google Analytics<span>Version 1.0.0</span></h6>
+                                <a class="delete-plugin" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#delete-item"><i class="feather icon-trash-2 me-2"></i>Delete</a>
+                            </div>
+                            <div class="active-switch">
+                                <label class="switch">
+                                    <input type="checkbox" checked="">
+                                    <span class="sliders round"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 col-12">
+                <div class="service-widget service-fav">
+                    <div class="service-img">
+                        <a [routerLink]="routes.viewService">
+                            <img class="img-fluid serv-img" alt="Service Image" src="assets/admin/img/services/service-16.jpg">
+                        </a>
+                    </div>
+                    <div class="service-content">
+                        <div class="serv-info">
+                            <div class="serv-users">
+                                <h6>Caldera Forms<span>Version 1.0.0</span></h6>
+                                <a class="delete-plugin" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#delete-item"><i class="feather icon-trash-2 me-2"></i>Delete</a>
+                            </div>
+                            <div class="active-switch">
+                                <label class="switch">
+                                    <input type="checkbox" checked="">
+                                    <span class="sliders round"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 

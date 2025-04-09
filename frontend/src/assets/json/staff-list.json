@@ -1,0 +1,75 @@
+{
+    "data" : [
+        {
+            "staffId": "ST0263",
+            "staffsName": "Anthony",
+            "createdOn": "14/01/2024",
+            "img":"assets/img/profiles/avatar-02.jpg",
+            "noOfServices": "2",
+            "totalBookings": "0",
+            "status": "Active",
+            "action": ""
+          },
+          {
+            "staffId": "ST5246",
+            "staffsName": "Brian",
+            "createdOn": "21/01/2024",
+            "img":"assets/img/profiles/avatar-35.jpg",
+            "noOfServices": "3",
+            "totalBookings": "4",
+            "status": "Active",
+            "action": ""
+          },
+          {
+            "staffId": "ST7645",
+            "staffsName": "Harvey",
+            "createdOn": "20/02/2024",
+            "img":"assets/img/profiles/avatar-36.jpg",
+            "noOfServices": "2",
+            "totalBookings": "6",
+            "status": "Active",
+            "action": ""
+          },
+          {
+            "staffId": "ST1269",
+            "staffsName": "Stephan",
+            "createdOn": "15/03/2024",
+            "img":"assets/img/profiles/avatar-52.jpg",
+            "noOfServices": "6",
+            "totalBookings": "10",
+            "status": "Active",
+            "action": ""
+          },
+          {
+            "staffId": "ST7436",
+            "staffsName": "Doglas",
+            "createdOn": "12/04/2024",
+            "img":"assets/img/profiles/avatar-53.jpg",
+            "noOfServices": "2",
+            "totalBookings": "15",
+            "status": "Inactive",
+            "action": ""
+          },
+          {
+            "staffId": "ST3695",
+            "staffsName": "Linda",
+            "createdOn": "20/05/2024",
+            "img":"assets/img/profiles/avatar-54.jpg",
+            "noOfServices": "1",
+            "totalBookings": "12",
+            "status": "Inactive",
+            "action": ""
+          },
+          {
+            "staffId": "ST5348",
+            "staffsName": "Elliot",
+            "createdOn": "06/07/2024",
+            "img":"assets/img/profiles/avatar-55.jpg",
+            "noOfServices": "1",
+            "totalBookings": "4",
+            "status": "Inactive",
+            "action": ""
+          }
+    ],
+    "totalData": 7
+}

@@ -1,0 +1,47 @@
+{
+    "data" : [
+        {
+            "id": "1",
+            "title": "Categories",
+            "language": "English",
+            "location": "Top Menu",
+            "date": "28 Sep 2022"
+        },
+        {
+            "id": "2",
+            "title": "Contact",
+            "language": "English",
+            "location": "Quick Links",
+            "date": "15 Sep 2022"
+        },
+        {
+            "id": "3",
+            "title": "Blog",
+            "language": "English",
+            "location": "Top Menu",
+            "date": "10 Sep 2022"
+        },
+        {
+            "id": "4",
+            "title": "Shops",
+            "language": "English",
+            "location": "Quick Links",
+            "date": "30 Aug 2022"
+        },
+        {
+            "id": "5",
+            "title": "Services",
+            "language": "English",
+            "location": "Top Menu",
+            "date": "23 Aug 2022"
+        },
+        {
+            "id": "6",
+            "title": "About Us",
+            "language": "English",
+            "location": "Quick Links",
+            "date": "04 Aug 2022"
+        }
+    ],
+    "totalData": 6
+}

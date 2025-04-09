@@ -1,0 +1,810 @@
+ <!-- Page Wrapper -->
+ <div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="row">
+            <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
+                <h5>My Services</h5>
+                <div class="d-flex align-items-center">
+                    <span class="fs-14 me-2">Sort</span>
+                    <div class="dropdown me-2">
+                        <a href="javascript:void(0);" class="dropdown-toggle bg-light-300 " data-bs-toggle="dropdown">
+                            Newly Added
+                        </a>
+                        <div class="dropdown-menu">
+                            <a href="javascript:void(0);" class="dropdown-item active">Recently Added</a>
+                        </div>
+                    </div>
+                    <a [routerLink]="routes.providerServicesList"
+                        class="tags active d-flex justify-content-center align-items-center  rounded me-2"><i
+                            class="ti ti-layout-grid"></i></a>
+                    <a [routerLink]="routes.providerServicesList"
+                        class="tags d-flex justify-content-center align-items-center border rounded me-2"><i
+                            class="ti ti-list"></i></a>
+                    <a [routerLink]="routes.serviceInformation" class="btn btn-dark d-flex align-items-center"><i class="ti ti-circle-plus me-2"></i>Add Services</a>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-xl-12 col-lg-12">
+                <div class="tab-list mb-4" role="tablist">
+                    <ul class="nav d-flex align-items-center">
+                        <li>
+                            <a href="javascript:void(0);" class="act-btn active me-3 p-2 rounded fs-14" data-bs-toggle="tab" data-bs-target="#active-service"  role="tab" aria-controls="active-service"
+                            aria-selected="true" tabindex="-1" >Active Services</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" class="act-btn p-2 rounded fs-14" data-bs-toggle="tab" data-bs-target="#inactive-service" role="tab" aria-controls="inactive-service" aria-selected="false" tabindex="-1">
+                                Inactive Services
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-content pt-0">
+                    <div class="tab-pane active" id="active-service" role="tabpanel" aria-labelledby="active-service">
+                        <div class="row justify-content-center align-items-center">
+                            <div class="col-xl-4 col-md-6">
+                                <div class="card p-0">
+                                    <div class="card-body p-0">
+                                        <div class="img-sec w-100">
+                                            <a [routerLink]="routes.serviceDetails"><img src="assets/img/providers/provider-13.jpg"
+                                                    class="img-fluid rounded-top w-100" alt="img"></a>
+                                            <div class="image-tag d-flex justify-content-end align-items-center">
+                                                <span class="trend-tag">Car Wash</span>
+                                                <span
+                                                    class="trend-tag-2  d-flex justify-content-center align-items-center rating text-gray"><i
+                                                        class="fa fa-star filled me-1"></i>4.9</span>
+                                            </div>
+                                        </div>
+                                        <div class="p-3">
+                                            <h5 class="mb-2 text-truncate">
+                                                <a [routerLink]="routes.serviceDetails">Car Repair Service</a>
+                                            </h5>
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <p class="fs-14 mb-0"><i class="ti ti-map-pin me-2"></i>New Jersey, USA
+                                                </p>
+                                                <h5>$20.00 <span class="fs-13 text-gray"><del>$25.00/hr</del></span>
+                                                </h5>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex gap-3">
+                                                    <a href="javascript:void(0);"><i class="ti ti-edit me-2"></i>Edit</a>
+                                                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#active"><i class="ti ti-info-circle me-2"></i>Inactive</a>
+                                                </div>
+                                                <a href="javascript:void(0);" class="btn bg-light">Apply Offer</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-md-6">
+                                <div class="card p-0">
+                                    <div class="card-body p-0">
+                                         <div class="img-sec w-100">
+                                            <a [routerLink]="routes.serviceDetails"><img src="assets/img/providers/provider-14.jpg"
+                                                    class="img-fluid rounded-top w-100" alt="img"></a>
+                                            <div class="image-tag d-flex justify-content-end align-items-center">
+                                                <span class="trend-tag">Construction</span>
+                                                <span
+                                                    class="trend-tag-2  d-flex justify-content-center align-items-center rating text-gray"><i
+                                                        class="fa fa-star filled me-1"></i>4.9</span>
+                                            </div>
+                                        </div>
+                                        <div class="p-3">
+                                            <h5 class="mb-2 text-truncate">
+                                                <a [routerLink]="routes.serviceDetails">Toughened Glass Fitting Services</a>
+                                            </h5>
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <p class="fs-14 mb-0"><i class="ti ti-map-pin me-2"></i>Chicago, USA</p>
+                                                <h5>$15.00<span class="fs-13 text-gray"><del>$20.00/hr</del></span></h5>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex gap-3">
+                                                    <a href="javascript:void(0);"><i class="ti ti-edit me-2"></i>Edit</a>
+                                                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#active"><i class="ti ti-info-circle me-2 "></i>Inactive</a>
+                                                </div>
+                                                <a href="javascript:void(0);" class="btn bg-light">Apply Offer</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-md-6">
+                                <div class="card p-0">
+                                    <div class="card-body p-0">
+                                         <div class="img-sec w-100">
+                                            <a [routerLink]="routes.serviceDetails"><img src="assets/img/providers/provider-15.jpg"
+                                                    class="img-fluid rounded-top w-100" alt="img"></a>
+                                            <div class="image-tag d-flex justify-content-end align-items-center">
+                                                <span class="trend-tag">Computer</span>
+                                                <span
+                                                    class="trend-tag-2  d-flex justify-content-center align-items-center rating text-gray"><i
+                                                        class="fa fa-star filled me-1"></i>4.9</span>
+                                            </div>
+                                        </div>
+                                        <div class="p-3">
+                                            <h5 class="mb-2 text-truncate">
+                                                <a [routerLink]="routes.serviceDetails">Computer & Server AMC Service</a>
+                                            </h5>
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <p class="fs-14 mb-0"><i class="ti ti-map-pin me-2"></i>Los Angeles, USA
+                                                </p>
+                                                <h5>$15.00 <span class="fs-13 text-gray"><del>$20.00/hr</del></span>
+                                                </h5>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex gap-3">
+                                                    <a href="javascript:void(0);"><i class="ti ti-edit me-2"></i>Edit</a>
+                                                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#active"><i class="ti ti-info-circle me-2"></i>Inactive</a>
+                                                </div>
+                                                <a href="javascript:void(0);" class="btn bg-light ">Apply Offer</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-md-6">
+                                <div class="card p-0">
+                                    <div class="card-body p-0">
+                                         <div class="img-sec w-100">
+                                            <a [routerLink]="routes.serviceDetails"><img src="assets/img/providers/provider-16.jpg"
+                                                    class="img-fluid rounded-top w-100" alt="img"></a>
+                                            <div class="image-tag d-flex justify-content-end align-items-center">
+                                                <span class="trend-tag">Interior</span>
+                                                <span
+                                                    class="trend-tag-2  d-flex justify-content-center align-items-center rating text-gray"><i
+                                                        class="fa fa-star filled me-1"></i>4.9</span>
+                                            </div>
+                                        </div>
+                                        <div class="p-3">
+                                            <h5 class="mb-2 text-truncate">
+                                                <a [routerLink]="routes.serviceDetails">Interior Designing</a>
+                                            </h5>
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <p class="fs-14 mb-0"><i class="ti ti-map-pin me-2"></i>Detroit, USA</p>
+                                                <h5>$25.00 <span class="fs-13 text-gray"><del>$30.00/hr</del></span>
+                                                </h5>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex gap-3">
+                                                    <a href="javascript:void(0);"><i class="ti ti-edit me-2"></i>Edit</a>
+                                                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#active"><i class="ti ti-info-circle me-2"></i>Inactive</a>
+                                                </div>
+                                                <a href="javascript:void(0);" class="btn bg-light">Apply Offer</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-md-6">
+                                <div class="card p-0">
+                                    <div class="card-body p-0">
+                                         <div class="img-sec w-100">
+                                            <a [routerLink]="routes.serviceDetails"><img src="assets/img/providers/provider-17.jpg"
+                                                    class="img-fluid rounded-top w-100" alt="img"></a>
+                                            <div class="image-tag d-flex justify-content-end align-items-center">
+                                                <span class="trend-tag">Car Wash</span>
+                                                <span
+                                                    class="trend-tag-2  d-flex justify-content-center align-items-center rating text-gray"><i
+                                                        class="fa fa-star filled me-1"></i>4.9</span>
+                                            </div>
+                                        </div>
+                                        <div class="p-3">
+                                            <h5 class="mb-2 text-truncate">
+                                                <a [routerLink]="routes.serviceDetails">Steam Car Wash</a>
+                                            </h5>
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <p class="fs-14 mb-0"><i class="ti ti-map-pin me-2"></i>San Jose, USA
+                                                </p>
+                                                <h5>$15.00 <span class="fs-13 text-gray"><del>$25.00/hr</del></span>
+                                                </h5>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex gap-3">
+                                                    <a href="javascript:void(0);"><i class="ti ti-edit me-2"></i>Edit</a>
+                                                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#active"><i class="ti ti-info-circle me-2"></i>Inactive</a>
+                                                </div>
+                                                <a href="javascript:void(0);" class="btn bg-light">Apply Offer</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-md-6">
+                                <div class="card p-0">
+                                    <div class="card-body p-0">
+                                         <div class="img-sec w-100">
+                                            <a [routerLink]="routes.serviceDetails"><img src="assets/img/providers/provider-18.jpg"
+                                                    class="img-fluid rounded-top w-100" alt="img"></a>
+                                            <div class="image-tag d-flex justify-content-end align-items-center">
+                                                <span class="trend-tag">Electrical</span>
+                                                <span
+                                                    class="trend-tag-2  d-flex justify-content-center align-items-center rating text-gray"><i
+                                                        class="fa fa-star filled me-1"></i>4.9</span>
+                                            </div>
+                                        </div>
+                                        <div class="p-3">
+                                            <h5 class="mb-2 text-truncate">
+                                                <a [routerLink]="routes.serviceDetails">Electric Panel Repairing Service</a>
+                                            </h5>
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <p class="fs-14 mb-0"><i class="ti ti-map-pin me-2"></i>Texas, USA</p>
+                                                <h5>$10.00 <span class="fs-13 text-gray"><del>$15.00/hr</del></span>
+                                                </h5>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex gap-3">
+                                                    <a href="javascript:void(0);"><i class="ti ti-edit me-2"></i>Edit</a>
+                                                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#active"><i class="ti ti-info-circle me-2"></i>Inactive</a>
+                                                </div>
+                                                <a href="javascript:void(0);" class="btn bg-light">Apply Offer</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-md-6">
+                                <div class="card p-0">
+                                    <div class="card-body p-0">
+                                         <div class="img-sec w-100">
+                                            <a [routerLink]="routes.serviceDetails"><img src="assets/img/providers/provider-19.jpg"
+                                                    class="img-fluid rounded-top w-100" alt="img"></a>
+                                            <div class="image-tag d-flex justify-content-end align-items-center">
+                                                <span class="trend-tag">Cleaning</span>
+                                                <span
+                                                    class="trend-tag-2  d-flex justify-content-center align-items-center rating text-gray"><i
+                                                        class="fa fa-star filled me-1"></i>4.9</span>
+                                            </div>
+                                        </div>
+                                        <div class="p-3">
+                                            <h5 class="mb-2 text-truncate">
+                                                <a [routerLink]="routes.serviceDetails">House Cleaning Services</a>
+                                            </h5>
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <p class="fs-14 mb-0"><i class="ti ti-map-pin me-2"></i>Denver, USA</p>
+                                                <h5>$15.00 <span class="fs-13 text-gray"><del>$20.00/hr</del></span>
+                                                </h5>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex gap-3">
+                                                    <a href="javascript:void(0);"><i class="ti ti-edit me-2"></i>Edit</a>
+                                                    <a href="javascript:void(0);"><i class="ti ti-info-circle me-2"></i>Inactive</a>
+                                                </div>
+                                                <a href="javascript:void(0);" class="btn bg-light">Apply Offer</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-md-6">
+                                <div class="card p-0">
+                                    <div class="card-body p-0">
+                                         <div class="img-sec w-100">
+                                            <a [routerLink]="routes.serviceDetails"><img src="assets/img/providers/provider-20.jpg"
+                                                    class="img-fluid rounded-top w-100" alt="img"></a>
+                                            <div class="image-tag d-flex justify-content-end align-items-center">
+                                                <span class="trend-tag">Painting</span>
+                                                <span
+                                                    class="trend-tag-2  d-flex justify-content-center align-items-center rating text-gray"><i
+                                                        class="fa fa-star filled me-1"></i>4.9</span>
+                                            </div>
+                                        </div>
+                                        <div class="p-3">
+                                            <h5 class="mb-2 text-truncate">
+                                                <a [routerLink]="routes.serviceDetails">Commercial Wall Painting</a>
+                                            </h5>
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <p class="fs-14 mb-0"><i class="ti ti-map-pin me-2"></i>Austin, USA</p>
+                                                <h5>$25.00 <span class="fs-13 text-gray"><del>$30.00/hr</del></span>
+                                                </h5>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex gap-3">
+                                                    <a href="javascript:void(0);"><i class="ti ti-edit me-2"></i>Edit</a>
+                                                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#active"><i class="ti ti-info-circle me-2"></i>Inactive</a>
+                                                </div>
+                                                <a href="javascript:void(0);" class="btn bg-light">Apply Offer</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-md-6">
+                                <div class="card p-0">
+                                    <div class="card-body p-0">
+                                         <div class="img-sec w-100">
+                                            <a [routerLink]="routes.serviceDetails"><img src="assets/img/providers/provider-22.jpg"
+                                                    class="img-fluid rounded-top w-100" alt="img"></a>
+                                            <div class="image-tag d-flex justify-content-end align-items-center">
+                                                <span class="trend-tag">Construction</span>
+                                                <span
+                                                    class="trend-tag-2  d-flex justify-content-center align-items-center rating text-gray"><i
+                                                        class="fa fa-star filled me-1"></i>4.9</span>
+                                            </div>
+                                        </div>
+                                        <div class="p-3">
+                                            <h5 class="mb-2 text-truncate">
+                                                <a [routerLink]="routes.serviceDetails">Building Construction Services</a>
+                                            </h5>
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <p class="fs-14 mb-0"><i class="ti ti-map-pin me-2"></i>Houston, USA</p>
+                                                <h5>$20.00 <span class="fs-13 text-gray"><del>$25.00/hr</del></span>
+                                                </h5>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex gap-3">
+                                                    <a href="javascript:void(0);"><i class="ti ti-edit me-2"></i>Edit</a>
+                                                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#active"><i class="ti ti-info-circle me-2"></i>Inactive</a>
+                                                </div>
+                                                <a href="javascript:void(0);" class="btn bg-dark">Apply Offer</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="inactive-service" role="tabpanel" aria-labelledby="inactive-service">
+                        <div class="row justify-content-center align-items-center">
+                            <div class="col-xl-4 col-md-6">
+                                <div class="card p-0">
+                                    <div class="card-body p-0">
+                                         <div class="img-sec w-100">
+                                            <a [routerLink]="routes.serviceDetails"><img src="assets/img/providers/provider-13.jpg"
+                                                    class="img-fluid rounded-top w-100" alt="img"></a>
+                                            <div class="image-tag d-flex justify-content-end align-items-center">
+                                                <span class="trend-tag">Car Wash</span>
+                                                <span class="trend-tag-2  d-flex justify-content-center align-items-center rating text-gray">
+                                                    <i class="fa fa-star filled me-1"></i>
+                                                    4.9
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="p-3">
+                                            <h5 class="mb-2 text-truncate">
+                                                <a [routerLink]="routes.serviceDetails">Car Repair Service</a>
+                                            </h5>
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <p class="fs-14 mb-0"><i class="ti ti-map-pin me-2"></i>New Jersey, USA
+                                                </p>
+                                                <h5>$20.00 <span class="fs-13 text-gray"><del>$25.00/hr</del></span>
+                                                </h5>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex gap-3">
+                                                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#del-service"><i class="ti ti-trash me-2"></i>Delete</a>
+                                                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#in-active"><i class="ti ti-info-circle me-2"></i>Active</a>
+                                                </div>
+                                                <a href="javascript:void(0);" class="btn bg-light">Apply Offer</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-md-6">
+                                <div class="card p-0">
+                                    <div class="card-body p-0">
+                                         <div class="img-sec w-100">
+                                            <a [routerLink]="routes.serviceDetails"><img src="assets/img/providers/provider-14.jpg"
+                                                    class="img-fluid rounded-top w-100" alt="img"></a>
+                                            <div class="image-tag d-flex justify-content-end align-items-center">
+                                                <span class="trend-tag">Construction</span>
+                                                <span class="trend-tag-2  d-flex justify-content-center align-items-center rating text-gray">
+                                                    <i class="fa fa-star filled me-1"></i>
+                                                    4.9
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="p-3">
+                                            <h5 class="mb-2 text-truncate">
+                                                <a [routerLink]="routes.serviceDetails">Toughened Glass Fitting Services</a>
+                                            </h5>
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <p class="fs-14 mb-0"><i class="ti ti-map-pin me-2"></i>Chicago, USA</p>
+                                                <h5>$15.00<span class="fs-13 text-gray"><del>$20.00/hr</del></span></h5>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex gap-3">
+                                                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#del-service"><i class="ti ti-trash me-2"></i>Delete</a>
+                                                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#in-active"><i class="ti ti-info-circle me-2"></i>Active</a>
+                                                </div>
+                                                <a href="javascript:void(0);" class="btn bg-light">Apply Offer</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-md-6">
+                                <div class="card p-0">
+                                    <div class="card-body p-0">
+                                         <div class="img-sec w-100">
+                                            <a [routerLink]="routes.serviceDetails"><img src="assets/img/providers/provider-15.jpg"
+                                                    class="img-fluid rounded-top w-100" alt="img"></a>
+                                            <div class="image-tag d-flex justify-content-end align-items-center">
+                                                <span class="trend-tag">Computer</span>
+                                                <span class="trend-tag-2  d-flex justify-content-center align-items-center rating text-gray">
+                                                    <i class="fa fa-star filled me-1"></i>
+                                                    4.9
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="p-3">
+                                            <h5 class="mb-2 text-truncate">
+                                                <a [routerLink]="routes.serviceDetails">Computer & Server AMC Service</a>
+                                            </h5>
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <p class="fs-14 mb-0"><i class="ti ti-map-pin me-2"></i>Los Angeles, USA
+                                                </p>
+                                                <h5>$15.00 <span class="fs-13 text-gray"><del>$20.00/hr</del></span>
+                                                </h5>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex gap-3">
+                                                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#del-service"><i class="ti ti-trash me-2"></i>Delete</a>
+                                                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#in-active">
+                                                        <i class="ti ti-info-circle me-2"></i>
+                                                        Active
+                                                    </a>
+                                                </div>
+                                                <a href="javascript:void(0);" class="btn bg-light ">Apply Offer</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-md-6">
+                                <div class="card p-0">
+                                    <div class="card-body p-0">
+                                         <div class="img-sec w-100">
+                                            <a [routerLink]="routes.serviceDetails"><img src="assets/img/providers/provider-16.jpg"
+                                                    class="img-fluid rounded-top w-100" alt="img"></a>
+                                            <div class="image-tag d-flex justify-content-end align-items-center">
+                                                <span class="trend-tag">Interior</span>
+                                                <span class="trend-tag-2  d-flex justify-content-center align-items-center rating text-gray">
+                                                    <i class="fa fa-star filled me-1"></i>
+                                                    4.9
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="p-3">
+                                            <h5 class="mb-2 text-truncate">
+                                                <a [routerLink]="routes.serviceDetails">Interior Designing</a>
+                                            </h5>
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <p class="fs-14 mb-0"><i class="ti ti-map-pin me-2"></i>Detroit, USA</p>
+                                                <h5>$25.00 <span class="fs-13 text-gray"><del>$30.00/hr</del></span>
+                                                </h5>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex gap-3">
+                                                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#del-service"><i class="ti ti-trash me-2"></i>Delete</a>
+                                                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#in-active">
+                                                        <i class="ti ti-info-circle me-2"></i>
+                                                        Active
+                                                    </a>
+                                                </div>
+                                                <a href="javascript:void(0);" class="btn bg-light">Apply Offer</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-md-6">
+                                <div class="card p-0">
+                                    <div class="card-body p-0">
+                                         <div class="img-sec w-100">
+                                            <a [routerLink]="routes.serviceDetails"><img src="assets/img/providers/provider-17.jpg"
+                                                    class="img-fluid rounded-top w-100" alt="img"></a>
+                                            <div class="image-tag d-flex justify-content-end align-items-center">
+                                                <span class="trend-tag">Car Wash</span>
+                                                <span class="trend-tag-2  d-flex justify-content-center align-items-center rating text-gray">
+                                                    <i class="fa fa-star filled me-1"></i>
+                                                    4.9
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="p-3">
+                                            <h5 class="mb-2 text-truncate">
+                                                <a [routerLink]="routes.serviceDetails">Steam Car Wash</a>
+                                            </h5>
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <p class="fs-14 mb-0"><i class="ti ti-map-pin me-2"></i>San Jose, USA
+                                                </p>
+                                                <h5>$15.00 <span class="fs-13 text-gray"><del>$25.00/hr</del></span>
+                                                </h5>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex gap-3">
+                                                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#del-service"><i class="ti ti-trash me-2"></i>Delete</a>
+                                                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#in-active">
+                                                        <i class="ti ti-info-circle me-2"></i>
+                                                        Active
+                                                    </a>
+                                                </div>
+                                                <a href="javascript:void(0);" class="btn bg-light">Apply Offer</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-md-6">
+                                <div class="card p-0">
+                                    <div class="card-body p-0">
+                                         <div class="img-sec w-100">
+                                            <a [routerLink]="routes.serviceDetails"><img src="assets/img/providers/provider-18.jpg"
+                                                    class="img-fluid rounded-top w-100" alt="img"></a>
+                                            <div class="image-tag d-flex justify-content-end align-items-center">
+                                                <span class="trend-tag">Electrical</span>
+                                                <span class="trend-tag-2  d-flex justify-content-center align-items-center rating text-gray">
+                                                    <i class="fa fa-star filled me-1"></i>
+                                                    4.9
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="p-3">
+                                            <h5 class="mb-2 text-truncate">
+                                                <a [routerLink]="routes.serviceDetails">Electric Panel Repairing Service</a>
+                                            </h5>
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <p class="fs-14 mb-0"><i class="ti ti-map-pin me-2"></i>Texas, USA</p>
+                                                <h5>$10.00 <span class="fs-13 text-gray"><del>$15.00/hr</del></span>
+                                                </h5>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex gap-3">
+                                                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#del-service"><i class="ti ti-trash me-2"></i>Delete</a>
+                                                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#in-active">
+                                                        <i class="ti ti-info-circle me-2"></i>
+                                                        Active
+                                                    </a>
+                                                </div>
+                                                <a href="javascript:void(0);" class="btn bg-light">Apply Offer</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-md-6">
+                                <div class="card p-0">
+                                    <div class="card-body p-0">
+                                         <div class="img-sec w-100">
+                                            <a [routerLink]="routes.serviceDetails"><img src="assets/img/providers/provider-19.jpg"
+                                                    class="img-fluid rounded-top w-100" alt="img"></a>
+                                            <div class="image-tag d-flex justify-content-end align-items-center">
+                                                <span class="trend-tag">Cleaning</span>
+                                                <span class="trend-tag-2  d-flex justify-content-center align-items-center rating text-gray">
+                                                    <i class="fa fa-star filled me-1"></i>
+                                                    4.9
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="p-3">
+                                            <h5 class="mb-2 text-truncate">
+                                                <a [routerLink]="routes.serviceDetails">House Cleaning Services</a>
+                                            </h5>
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <p class="fs-14 mb-0"><i class="ti ti-map-pin me-2"></i>Denver, USA</p>
+                                                <h5>$15.00 <span class="fs-13 text-gray"><del>$20.00/hr</del></span>
+                                                </h5>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex gap-3">
+                                                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#del-service"><i class="ti ti-trash me-2"></i>Delete</a>
+                                                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#in-active">
+                                                        <i class="ti ti-info-circle me-2"></i>
+                                                        Active
+                                                    </a>
+                                                </div>
+                                                <a href="javascript:void(0);" class="btn bg-light">Apply Offer</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-md-6">
+                                <div class="card p-0">
+                                    <div class="card-body p-0">
+                                         <div class="img-sec w-100">
+                                            <a [routerLink]="routes.serviceDetails"><img src="assets/img/providers/provider-20.jpg"
+                                                    class="img-fluid rounded-top w-100" alt="img"></a>
+                                            <div class="image-tag d-flex justify-content-end align-items-center">
+                                                <span class="trend-tag">Painting</span>
+                                                <span class="trend-tag-2  d-flex justify-content-center align-items-center rating text-gray">
+                                                    <i class="fa fa-star filled me-1"></i>
+                                                    4.9
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="p-3">
+                                            <h5 class="mb-2 text-truncate">
+                                                <a [routerLink]="routes.serviceDetails">Commercial Wall Painting</a>
+                                            </h5>
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <p class="fs-14 mb-0"><i class="ti ti-map-pin me-2"></i>Austin, USA</p>
+                                                <h5>$25.00 <span class="fs-13 text-gray"><del>$30.00/hr</del></span>
+                                                </h5>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex gap-3">
+                                                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#del-service"><i class="ti ti-trash me-2"></i>Delete</a>
+                                                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#in-active">
+                                                        <i class="ti ti-info-circle me-2"></i>
+                                                        Active
+                                                    </a>
+                                                </div>
+                                                <a href="javascript:void(0);" class="btn bg-light">Apply Offer</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-md-6">
+                                <div class="card p-0">
+                                    <div class="card-body p-0">
+                                        <div class="img-sec w-100">
+                                            <a [routerLink]="routes.serviceDetails"><img src="assets/img/providers/provider-22.jpg"
+                                                    class="img-fluid rounded-top w-100" alt="img"></a>
+                                            <div class="image-tag d-flex justify-content-end align-items-center">
+                                                <span class="trend-tag">Construction</span>
+                                                <span class="trend-tag-2  d-flex justify-content-center align-items-center rating text-gray">
+                                                    <i class="fa fa-star filled me-1"></i>
+                                                    4.9
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="p-3">
+                                            <h5 class="mb-2 text-truncate">
+                                                <a [routerLink]="routes.serviceDetails">Building Construction Services</a>
+                                            </h5>
+                                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                                <p class="fs-14 mb-0"><i class="ti ti-map-pin me-2"></i>Houston, USA</p>
+                                                <h5>$20.00 <span class="fs-13 text-gray"><del>$25.00/hr</del></span>
+                                                </h5>
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex gap-3">
+                                                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#del-service"><i class="ti ti-trash me-2"></i>Delete</a>
+                                                    <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#in-active">
+                                                        <i class="ti ti-info-circle me-2"></i>
+                                                        Active
+                                                    </a>
+                                                </div>
+                                                <a href="javascript:void(0);" class="btn bg-light">Apply Offer</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="value d-flex align-items-center">
+                        <span>Show</span>
+                        <select>
+                            <option>7</option>
+                        </select>
+                        <span>entries</span>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-center">
+                        <span class="me-2 text-gray-9">1 - 07 of 10</span>
+                        <nav aria-label="Page navigation">
+                            <ul class="paginations d-flex justify-content-center align-items-center">
+                                <li class="page-item me-2"><a
+                                        class="page-link-1 active d-flex justify-content-center align-items-center "
+                                        href="javascript:void(0);">1</a></li>
+                                <li class="page-item me-2"><a
+                                        class="page-link-1 d-flex justify-content-center align-items-center "
+                                        href="javascript:void(0);">2</a></li>
+                                <li class="page-item "><a
+                                        class="page-link-1 d-flex justify-content-center align-items-center "
+                                        href="javascript:void(0);">3</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Page Wrapper -->
+
+<!-- Inactive -->
+<div class="modal fade custom-modal" id="in-active">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header d-flex align-items-center justify-content-between border-bottom">
+                <h5 class="modal-title">Inactive Service</h5>
+                <a href="javascript:void(0);" data-bs-dismiss="modal" aria-label="Close"><i class="ti ti-circle-x-filled fs-20"></i></a>
+            </div>
+            <div class="modal-body">
+                <div class="write-review">
+                    <form >
+                        <p>Are you sure want to inactive this service?</p>
+                        <div class="modal-submit text-end">
+                            <a href="javascript:void(0);" class="btn btn-light me-2" data-bs-dismiss="modal">Cancel</a>
+                            <button type="submit" class="btn btn-dark">Yes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Inactive -->
+
+<!-- active -->
+<div class="modal fade custom-modal" id="active">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header d-flex align-items-center justify-content-between border-bottom">
+                <h5 class="modal-title">Active Services</h5>
+                <a href="javascript:void(0);" data-bs-dismiss="modal" aria-label="Close"><i class="ti ti-circle-x-filled fs-20"></i></a>
+            </div>
+            <div class="modal-body">
+                <div class="write-review">
+                    <form >
+                        <p>Are you sure want to active this service?</p>
+                        <div class="modal-submit text-end">
+                            <a href="javascript:void(0);" class="btn btn-light me-2" data-bs-dismiss="modal">Cancel</a>
+                            <button type="submit" class="btn btn-dark">Yes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /active -->
+
+<!-- Delete Service -->
+<div class="modal fade custom-modal" id="del-service">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header d-flex align-items-center justify-content-between border-bottom">
+                <h5 class="modal-title">Delete Service</h5>
+                <a href="javascript:void(0);" data-bs-dismiss="modal" aria-label="Close"><i class="ti ti-circle-x-filled fs-20"></i></a>
+            </div>
+            <div class="modal-body">
+                <div class="write-review">
+                    <form >
+                        <p>Are you sure want to delete this service?</p>
+                        <div class="modal-submit text-end">
+                            <a href="javascript:void(0);" class="btn btn-light me-2" data-bs-dismiss="modal">Cancel</a>
+                            <button type="submit" class="btn btn-dark">Yes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Delete Service -->
+
+<!-- Delete Account -->
+<div class="modal fade custom-modal" id="del-account">
+<div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-header d-flex align-items-center justify-content-between border-bottom">
+            <h5 class="modal-title">Delete Account</h5>
+            <a href="javascript:void(0);" data-bs-dismiss="modal" aria-label="Close"><i class="ti ti-circle-x-filled fs-20"></i></a>
+        </div>
+        <form action="#">
+            <div class="modal-body">
+                <p class="mb-3">Are you sure you want to delete This Account? To delete your account, Type your password.</p>
+                <div class="mb-0">
+                    <label class="form-label">Password</label>
+                    <div class="pass-group">
+                        <input type="password" class="form-control pass-input" placeholder="*************">
+                        <span class="toggle-password feather icon-eye-off"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="javascript:void(0);" class="btn btn-light me-2" data-bs-dismiss="modal">Cancel</a>
+                <button type="submit" class="btn btn-dark">Delete Account</button>
+            </div>	
+        </form>
+    </div>
+</div>
+</div>
+<!-- /Delete Account -->

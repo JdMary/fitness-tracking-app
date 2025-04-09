@@ -1,0 +1,476 @@
+ <!-- Page Wrapper -->
+ <div class="page-wrapper">
+    <div class="content container-fluid">
+        <div class="row">
+            <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
+                <h5>My Services</h5>
+                <div class="d-flex align-items-center">
+                    <span class="fs-14 me-2">Sort</span>
+                    <div class="dropdown me-2">
+                        <a href="javascript:void(0);" class="dropdown-toggle bg-light-300 " data-bs-toggle="dropdown">
+                            Newly Added
+                        </a>
+                        <div class="dropdown-menu">
+                            <a href="javascript:void(0);" class="dropdown-item active">Recently Added</a>
+                        </div>
+                    </div>
+                    <a [routerLink]="routes.providerServices"
+                        class="tags d-flex justify-content-center align-items-center  rounded me-2"><i
+                            class="ti ti-layout-grid"></i></a>
+                    <a [routerLink]="routes.providerServices"
+                        class="tags active d-flex justify-content-center align-items-center border rounded me-2"><i
+                            class="ti ti-list"></i></a>
+                    <a [routerLink]="routes. serviceInformation" class="btn btn-dark d-flex align-items-center"><i class="ti ti-circle-plus me-2"></i>Add Services</a>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-xl-12 col-lg-12">
+                <div class="tab-list mb-4" role="tablist">
+                    <ul class="nav d-flex align-items-center">
+                        <li>
+                            <a href="javascript:void(0);" class="act-btn active me-3 p-2 rounded fs-14" data-bs-toggle="tab" data-bs-target="#active-service"  role="tab" aria-controls="active-service"
+                            aria-selected="true" tabindex="-1" >Active Services</a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0);" class="act-btn p-2 rounded fs-14" data-bs-toggle="tab" data-bs-target="#inactive-service" role="tab" aria-controls="inactive-service" aria-selected="false" tabindex="-1">
+                                Inactive Services
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-content pt-0">
+                    <div class="tab-pane active" id="active-service" role="tabpanel" aria-labelledby="active-service">
+                        <div class="row justify-content-center align-items-center">
+                            <div class="col-xxl-12 col-lg-12">
+                                <div class="card shadow-none booking-list">
+                                    <div class="card-body d-md-flex align-items-center">
+                                        <div class="booking-widget d-sm-flex align-items-center row-gap-3 flex-fill  mb-3 mb-md-0">
+                                            <div class="booking-img me-sm-3 mb-3 mb-sm-0">
+                                                <a [routerLink]="routes.serviceDetails" class="avatar">
+                                                    <img src="assets/img/providers/provider-15.jpg" alt="User Image">
+                                                </a>
+                                                <div class="fav-item">
+                                                    <a href="javascript:void(0)" class="fav-icon">
+                                                        <i class="ti ti-heart"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="service-infos">
+                                                <span class="badge bg-primary-transparent me-2 mb-2">Computer</span>
+                                                <span class="fs-10"><i class="ti ti-star-filled text-warning"></i>4.9</span>
+                                                <h6 class="mb-2 fs-16">
+                                                    <a [routerLink]="routes.serviceDetails">Computer Services  </a>
+                                                </h6>
+                                                <span><i class="ti ti-map-pin"></i>New Jersey, USA</span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <a href="javascript:void(0);" class="me-2" data-bs-toggle="modal" data-bs-target="#edit-service"><i class="ti ti-edit me-1"></i>Edit</a>
+                                            <a href="javascript:void(0);" class="me-2" data-bs-toggle="modal" data-bs-target="#active"><i class="ti ti-info-circle me-1"></i>Active</a>
+                                            <a [routerLink]="routes. serviceInformation" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#reschedule">Apply Offer</a>
+                                        </div>
+                                    </div>							
+                                </div>
+                                <div class="card shadow-none booking-list">
+                                    <div class="card-body d-md-flex align-items-center">
+                                        <div class="booking-widget d-sm-flex align-items-center row-gap-3 flex-fill  mb-3 mb-md-0">
+                                            <div class="booking-img me-sm-3 mb-3 mb-sm-0">
+                                                <a [routerLink]="routes.bookingDetails" class="avatar">
+                                                    <img src="assets/img/providers/provider-13.jpg" alt="User Image">
+                                                </a>
+                                                <div class="fav-item">
+                                                    <a href="javascript:void(0)" class="fav-icon">
+                                                        <i class="ti ti-heart"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="service-infos">
+                                                <span class="badge bg-primary-transparent me-2 mb-2">Car Wash</span>
+                                                <span class="fs-10"><i class="ti ti-star-filled text-warning"></i>4.9</span>
+                                                <h6 class="mb-2 fs-16">
+                                                    <a [routerLink]="routes.serviceDetails">Car Repair Services</a>
+                                                </h6>
+                                                <span><i class="ti ti-map-pin"></i>New Jersey, USA</span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <a href="javascript:void(0);" class="me-2" data-bs-toggle="modal" data-bs-target="#edit-service"><i class="ti ti-edit me-1"></i>Edit</a>
+                                            <a href="javascript:void(0);" class="me-2" data-bs-toggle="modal" data-bs-target="#active"><i class="ti ti-info-circle me-1"></i>Active</a>
+                                            <a [routerLink]="routes. serviceInformation" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#reschedule">Apply Offer</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card shadow-none booking-list">
+                                    <div class="card-body d-md-flex align-items-center">
+                                        <div class="booking-widget d-sm-flex align-items-center row-gap-3 flex-fill  mb-3 mb-md-0">
+                                            <div class="booking-img me-sm-3 mb-3 mb-sm-0">
+                                                <a [routerLink]="routes.bookingDetails" class="avatar">
+                                                    <img src="assets/img/providers/provider-16.jpg" alt="User Image">
+                                                </a>
+                                                <div class="fav-item">
+                                                    <a href="javascript:void(0)" class="fav-icon">
+                                                        <i class="ti ti-heart"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="service-infos">
+                                                <span class="badge bg-primary-transparent me-2 mb-2">Interior</span>
+                                                <span class="fs-10"><i class="ti ti-star-filled text-warning"></i>4.9</span>
+                                                <h6 class="mb-2 fs-16">
+                                                    <a [routerLink]="routes.serviceDetails">Interior Designing</a>
+                                                </h6>
+                                                <span><i class="ti ti-map-pin"></i>Detroit, USA</span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <a href="javascript:void(0);" class="me-2" data-bs-toggle="modal" data-bs-target="#edit-service"><i class="ti ti-edit me-1"></i>Edit</a>
+                                            <a href="javascript:void(0);" class="me-2" data-bs-toggle="modal" data-bs-target="#active"><i class="ti ti-info-circle me-1"></i>Active</a>
+                                            <a [routerLink]="routes. serviceInformation" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#reschedule">Apply Offer</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card shadow-none booking-list">
+                                    <div class="card-body d-md-flex align-items-center">
+                                        <div class="booking-widget d-sm-flex align-items-center row-gap-3 flex-fill  mb-3 mb-md-0">
+                                            <div class="booking-img me-sm-3 mb-3 mb-sm-0">
+                                                <a [routerLink]="routes.bookingDetails" class="avatar">
+                                                    <img src="assets/img/providers/provider-17.jpg" alt="User Image">
+                                                </a>
+                                                <div class="fav-item">
+                                                    <a href="javascript:void(0)" class="fav-icon">
+                                                        <i class="ti ti-heart"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="service-infos">
+                                                <span class="badge bg-primary-transparent me-2 mb-2">Car Wash</span>
+                                                <span class="fs-10"><i class="ti ti-star-filled text-warning"></i>4.9</span>
+                                                <h6 class="mb-2 fs-16">
+                                                    <a [routerLink]="routes.serviceDetails">Steam Car Wash</a>
+                                                </h6>
+                                                <span><i class="ti ti-map-pin"></i>San Jose, USA</span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <a href="javascript:void(0);" class="me-2" data-bs-toggle="modal" data-bs-target="#edit-service"><i class="ti ti-edit me-1"></i>Edit</a>
+                                            <a href="javascript:void(0);" class="me-2" data-bs-toggle="modal" data-bs-target="#active"><i class="ti ti-info-circle me-1"></i>Active</a>
+                                            <a [routerLink]="routes. serviceInformation" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#reschedule">Apply Offer</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card shadow-none booking-list">
+                                    <div class="card-body d-md-flex align-items-center">
+                                        <div class="booking-widget d-sm-flex align-items-center row-gap-3 flex-fill  mb-3 mb-md-0">
+                                            <div class="booking-img me-sm-3 mb-3 mb-sm-0">
+                                                <a [routerLink]="routes.bookingDetails" class="avatar">
+                                                    <img src="assets/img/providers/provider-18.jpg" alt="User Image">
+                                                </a>
+                                                <div class="fav-item">
+                                                    <a href="javascript:void(0)" class="fav-icon">
+                                                        <i class="ti ti-heart"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="service-infos">
+                                                <span class="badge bg-primary-transparent me-2 mb-2">Electrical</span>
+                                                <span class="fs-10"><i class="ti ti-star-filled text-warning"></i>4.9</span>
+                                                <h6 class="mb-2 fs-16">
+                                                    <a [routerLink]="routes.serviceDetails">Electric Panel Repairing Service</a>
+                                                </h6>
+                                                <span><i class="ti ti-map-pin"></i>Texas, USA</span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <a href="javascript:void(0);" class="me-2" data-bs-toggle="modal" data-bs-target="#edit-service"><i class="ti ti-edit me-1"></i>Edit</a>
+                                            <a href="javascript:void(0);" class="me-2" data-bs-toggle="modal" data-bs-target="#active"><i class="ti ti-info-circle me-1"></i>Active</a>
+                                            <a [routerLink]="routes. serviceInformation" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#reschedule">Apply Offer</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="inactive-service" role="tabpanel" aria-labelledby="inactive-service">
+                        <div class="row justify-content-center align-items-center">
+                            <div class="col-xxl-12 col-lg-12">
+                                <div class="card shadow-none booking-list">
+                                    <div class="card-body d-md-flex align-items-center">
+                                        <div class="booking-widget d-sm-flex align-items-center row-gap-3 flex-fill  mb-3 mb-md-0">
+                                            <div class="booking-img me-sm-3 mb-3 mb-sm-0">
+                                                <a [routerLink]="routes.serviceDetails" class="avatar">
+                                                    <img src="assets/img/providers/provider-15.jpg" alt="User Image">
+                                                </a>
+                                                <div class="fav-item">
+                                                    <a href="javascript:void(0)" class="fav-icon">
+                                                        <i class="ti ti-heart"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="service-infos">
+                                                <span class="badge bg-primary-transparent me-2 mb-2">Computer</span>
+                                                <span class="fs-10"><i class="ti ti-star-filled text-warning"></i>4.9</span>
+                                                <h6 class="mb-2 fs-16">
+                                                    <a [routerLink]="routes.serviceDetails">Computer Services  </a>
+                                                </h6>
+                                                <span><i class="ti ti-map-pin"></i>New Jersey, USA</span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <a href="javascript:void(0);" class="me-2" data-bs-toggle="modal" data-bs-target="#edit-service"><i class="ti ti-edit me-1"></i>Edit</a>
+                                            <a href="javascript:void(0);" class="me-2" data-bs-toggle="modal" data-bs-target="#in-active"><i class="ti ti-info-circle me-1"></i>Inactive</a>
+                                            <a [routerLink]="routes. serviceInformation" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#reschedule">Apply Offer</a>
+                                        </div>
+                                    </div>							
+                                </div>
+                                <div class="card shadow-none booking-list">
+                                    <div class="card-body d-md-flex align-items-center">
+                                        <div class="booking-widget d-sm-flex align-items-center row-gap-3 flex-fill  mb-3 mb-md-0">
+                                            <div class="booking-img me-sm-3 mb-3 mb-sm-0">
+                                                <a [routerLink]="routes.bookingDetails" class="avatar">
+                                                    <img src="assets/img/providers/provider-13.jpg" alt="User Image">
+                                                </a>
+                                                <div class="fav-item">
+                                                    <a href="javascript:void(0)" class="fav-icon">
+                                                        <i class="ti ti-heart"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="service-infos">
+                                                <span class="badge bg-primary-transparent me-2 mb-2">Car Wash</span>
+                                                <span class="fs-10"><i class="ti ti-star-filled text-warning"></i>4.9</span>
+                                                <h6 class="mb-2 fs-16">
+                                                    <a [routerLink]="routes.serviceDetails">Car Repair Services</a>
+                                                </h6>
+                                                <span><i class="ti ti-map-pin"></i>New Jersey, USA</span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <a href="javascript:void(0);" class="me-2" data-bs-toggle="modal" data-bs-target="#edit-service"><i class="ti ti-edit me-1"></i>Edit</a>
+                                            <a href="javascript:void(0);" class="me-2" data-bs-toggle="modal" data-bs-target="#in-active"><i class="ti ti-info-circle me-1"></i>Inactive</a>
+                                            <a [routerLink]="routes. serviceInformation" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#reschedule">Apply Offer</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card shadow-none booking-list">
+                                    <div class="card-body d-md-flex align-items-center">
+                                        <div class="booking-widget d-sm-flex align-items-center row-gap-3 flex-fill  mb-3 mb-md-0">
+                                            <div class="booking-img me-sm-3 mb-3 mb-sm-0">
+                                                <a [routerLink]="routes.bookingDetails" class="avatar">
+                                                    <img src="assets/img/providers/provider-16.jpg" alt="User Image">
+                                                </a>
+                                                <div class="fav-item">
+                                                    <a href="javascript:void(0)" class="fav-icon">
+                                                        <i class="ti ti-heart"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="service-infos">
+                                                <span class="badge bg-primary-transparent me-2 mb-2">Interior</span>
+                                                <span class="fs-10"><i class="ti ti-star-filled text-warning"></i>4.9</span>
+                                                <h6 class="mb-2 fs-16">
+                                                    <a [routerLink]="routes.serviceDetails">Interior Designing</a>
+                                                </h6>
+                                                <span><i class="ti ti-map-pin"></i>Detroit, USA</span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <a href="javascript:void(0);" class="me-2" data-bs-toggle="modal" data-bs-target="#edit-service"><i class="ti ti-edit me-1"></i>Edit</a>
+                                            <a href="javascript:void(0);" class="me-2" data-bs-toggle="modal" data-bs-target="#in-active"><i class="ti ti-info-circle me-1"></i>Inactive</a>
+                                            <a [routerLink]="routes. serviceInformation" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#reschedule">Apply Offer</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card shadow-none booking-list">
+                                    <div class="card-body d-md-flex align-items-center">
+                                        <div class="booking-widget d-sm-flex align-items-center row-gap-3 flex-fill  mb-3 mb-md-0">
+                                            <div class="booking-img me-sm-3 mb-3 mb-sm-0">
+                                                <a [routerLink]="routes.bookingDetails" class="avatar">
+                                                    <img src="assets/img/providers/provider-17.jpg" alt="User Image">
+                                                </a>
+                                                <div class="fav-item">
+                                                    <a href="javascript:void(0)" class="fav-icon">
+                                                        <i class="ti ti-heart"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="service-infos">
+                                                <span class="badge bg-primary-transparent me-2 mb-2">Car Wash</span>
+                                                <span class="fs-10"><i class="ti ti-star-filled text-warning"></i>4.9</span>
+                                                <h6 class="mb-2 fs-16">
+                                                    <a [routerLink]="routes.serviceDetails">Steam Car Wash</a>
+                                                </h6>
+                                                <span><i class="ti ti-map-pin"></i>San Jose, USA</span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <a href="javascript:void(0);" class="me-2" data-bs-toggle="modal" data-bs-target="#edit-service"><i class="ti ti-edit me-1"></i>Edit</a>
+                                            <a href="javascript:void(0);" class="me-2" data-bs-toggle="modal" data-bs-target="#in-active"><i class="ti ti-info-circle me-1"></i>Inactive</a>
+                                            <a [routerLink]="routes. serviceInformation" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#reschedule">Apply Offer</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card shadow-none booking-list">
+                                    <div class="card-body d-md-flex align-items-center">
+                                        <div class="booking-widget d-sm-flex align-items-center row-gap-3 flex-fill  mb-3 mb-md-0">
+                                            <div class="booking-img me-sm-3 mb-3 mb-sm-0">
+                                                <a [routerLink]="routes.bookingDetails" class="avatar">
+                                                    <img src="assets/img/providers/provider-18.jpg" alt="User Image">
+                                                </a>
+                                                <div class="fav-item">
+                                                    <a href="javascript:void(0)" class="fav-icon">
+                                                        <i class="ti ti-heart"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="service-infos">
+                                                <span class="badge bg-primary-transparent me-2 mb-2">Electrical</span>
+                                                <span class="fs-10"><i class="ti ti-star-filled text-warning"></i>4.9</span>
+                                                <h6 class="mb-2 fs-16">
+                                                    <a [routerLink]="routes.serviceDetails">Electric Panel Repairing Service</a>
+                                                </h6>
+                                                <span><i class="ti ti-map-pin"></i>Texas, USA</span>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <a href="javascript:void(0);" class="me-2" data-bs-toggle="modal" data-bs-target="#edit-service"><i class="ti ti-edit me-1"></i>Edit</a>
+                                            <a href="javascript:void(0);" class="me-2" data-bs-toggle="modal" data-bs-target="#in-active"><i class="ti ti-info-circle me-1"></i>Inactive</a>
+                                            <a [routerLink]="routes. serviceInformation" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#reschedule">Apply Offer</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="value d-flex align-items-center">
+                        <span>Show</span>
+                        <select>
+                            <option>7</option>
+                        </select>
+                        <span>entries</span>
+                    </div>
+                    <div class="d-flex align-items-center justify-content-center">
+                        <span class="me-2 text-gray-9">1 - 07 of 10</span>
+                        <nav aria-label="Page navigation">
+                            <ul class="paginations d-flex justify-content-center align-items-center">
+                                <li class="page-item me-2"><a
+                                        class="page-link-1 active d-flex justify-content-center align-items-center "
+                                        href="javascript:void(0);">1</a></li>
+                                <li class="page-item me-2"><a
+                                        class="page-link-1 d-flex justify-content-center align-items-center "
+                                        href="javascript:void(0);">2</a></li>
+                                <li class="page-item "><a
+                                        class="page-link-1 d-flex justify-content-center align-items-center "
+                                        href="javascript:void(0);">3</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Page Wrapper -->
+
+<!-- Inactive -->
+<div class="modal fade custom-modal" id="in-active">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header d-flex align-items-center justify-content-between border-bottom">
+                <h5 class="modal-title">Inactive Service</h5>
+                <a href="javascript:void(0);" data-bs-dismiss="modal" aria-label="Close"><i class="ti ti-circle-x-filled fs-20"></i></a>
+            </div>
+            <div class="modal-body">
+                <div class="write-review">
+                    <form >
+                        <p>Are you sure want to inactive this service?</p>
+                        <div class="modal-submit text-end">
+                            <a href="javascript:void(0);" class="btn btn-light me-2" data-bs-dismiss="modal">Cancel</a>
+                            <button type="submit" class="btn btn-dark">Yes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Inactive -->
+
+<!-- active -->
+<div class="modal fade custom-modal" id="active">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header d-flex align-items-center justify-content-between border-bottom">
+                <h5 class="modal-title">Active Services</h5>
+                <a href="javascript:void(0);" data-bs-dismiss="modal" aria-label="Close"><i class="ti ti-circle-x-filled fs-20"></i></a>
+            </div>
+            <div class="modal-body">
+                <div class="write-review">
+                    <form >
+                        <p>Are you sure want to active this service?</p>
+                        <div class="modal-submit text-end">
+                            <a href="javascript:void(0);" class="btn btn-light me-2" data-bs-dismiss="modal">Cancel</a>
+                            <button type="submit" class="btn btn-dark">Yes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /active -->
+
+<!-- Delete Service -->
+<div class="modal fade custom-modal" id="del-service">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header d-flex align-items-center justify-content-between border-bottom">
+                <h5 class="modal-title">Delete Service</h5>
+                <a href="javascript:void(0);" data-bs-dismiss="modal" aria-label="Close"><i class="ti ti-circle-x-filled fs-20"></i></a>
+            </div>
+            <div class="modal-body">
+                <div class="write-review">
+                    <form >
+                        <p>Are you sure want to delete this service?</p>
+                        <div class="modal-submit text-end">
+                            <a href="javascript:void(0);" class="btn btn-light me-2" data-bs-dismiss="modal">Cancel</a>
+                            <button type="submit" class="btn btn-dark">Yes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Delete Service -->
+
+<!-- Delete Account -->
+<div class="modal fade custom-modal" id="del-account">
+<div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-header d-flex align-items-center justify-content-between border-bottom">
+            <h5 class="modal-title">Delete Account</h5>
+            <a href="javascript:void(0);" data-bs-dismiss="modal" aria-label="Close"><i class="ti ti-circle-x-filled fs-20"></i></a>
+        </div>
+        <form action="#">
+            <div class="modal-body">
+                <p class="mb-3">Are you sure you want to delete This Account? To delete your account, Type your password.</p>
+                <div class="mb-0">
+                    <label class="form-label">Password</label>
+                    <div class="pass-group">
+                        <input type="password" class="form-control pass-input" placeholder="*************">
+                        <span class="toggle-password feather-eye-off"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="javascript:void(0);" class="btn btn-light me-2" data-bs-dismiss="modal">Cancel</a>
+                <button type="submit" class="btn btn-dark">Delete Account</button>
+            </div>	
+        </form>
+    </div>
+</div>
+</div>
+<!-- /Delete Account -->

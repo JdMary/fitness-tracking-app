@@ -1,0 +1,158 @@
+<div class="page-wrapper page-settings">
+    <div class="content">
+        <div class="content-page-header content-page-headersplit">
+            <h5>Membership Plans</h5>
+            <div class="list-btn">
+                <ul>
+                    <li>
+                        <a class="btn btn-primary" [routerLink]="routes.addMembership" ><i class="fa fa-plus me-2"></i>Add Membership</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+        
+            <div class="col-md-12">
+                <div class="price-toggle">
+                    <div class="status-toggle d-inline-flex align-items-center">
+                        Monthly
+                        <input type="checkbox" id="status_1" class="check">
+                        <label for="status_1" class="checktoggle">checkbox</label>
+                        Yearly
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Price List -->
+            <div class="col-md-4 d-flex">
+                <div class="price-card flex-fill">
+                    <div class="price-head">
+                        <div class="price-level">
+                            <h6>Basic</h6>
+                            <span class="badge-active">Action</span>
+                        </div>
+                        <h1>$50 <span>/ month</span></h1>
+                    </div>	
+                    <div class="price-body">
+                        <ul>
+                            <li class="active">10 Services</li>
+                            <li class="active">10 Stafff</li>
+                            <li class="active">100 Appointments</li>
+                            <li class="inactive">Gallery</li>
+                            <li class="inactive">Addition Services</li>
+                        </ul>
+                        <div class="text-center">
+                            <a href="javascript:void(0);" class="btn btn-choose">Choose</a>
+                        </div>							
+                    </div>							
+                </div>							
+            </div>
+            <!-- /Price List -->
+            
+            <!-- Price List -->
+            <div class="col-md-4 d-flex">
+                <div class="price-card flex-fill">
+                    <div class="price-head">
+                        <div class="price-level">
+                            <h6>Business</h6>
+                        </div>
+                        <h1>$200 <span>/ month</span></h1>
+                    </div>	
+                    <div class="price-body">
+                        <ul>
+                            <li class="active">20 Services</li>
+                            <li class="active">20 Stafff</li>
+                            <li class="active">Unlimited Appointments</li>
+                            <li class="inactive">Gallery</li>
+                            <li class="inactive">Addition Services</li>
+                        </ul>
+                        <div class="text-center">
+                            <a href="javascript:void(0);" class="btn btn-choose">Choose</a>
+                        </div>							
+                    </div>							
+                </div>							
+            </div>
+            <!-- /Price List -->
+            
+            <!-- Price List -->
+            <div class="col-md-4 d-flex">
+                <div class="price-card flex-fill">
+                    <div class="price-head">
+                        <div class="price-level">
+                            <h6>Enterprise</h6>
+                        </div>
+                        <h1>$450 <span>/ month</span></h1>
+                    </div>	
+                    <div class="price-body">
+                        <ul>
+                            <li class="active">Unlimited Services</li>
+                            <li class="active">Unlimited Stafff</li>
+                            <li class="active">Unlimited Appointments</li>
+                            <li class="active">Gallery</li>
+                            <li class="active">Addition Services</li>
+                        </ul>
+                        <div class="text-center">
+                            <a href="javascript:void(0);" class="btn btn-choose">Choose</a>
+                        </div>							
+                    </div>							
+                </div>							
+            </div>
+            <!-- /Price List -->
+            
+        </div>
+    </div>
+</div> 
+    <!--change email-modal -->
+    <div class="modal fade" id="add-faq" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Create FAQ’s</h5>
+                    <button type="button" class="btn-close close-modal" data-bs-dismiss="modal" aria-label="Close">
+                        <i class="feather icon-x"></i>
+                    </button>
+                </div>
+                <div class="modal-body py-0">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="">Title</label>
+                                <input type="text" class="form-control" placeholder="Enter FAQ Title">
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="">Category</label>
+                                <mat-select [(ngModel)]="selectedValue" [ngModelOptions]="{standalone: true}" class="select"  placeholder="Select Category">
+                                    <mat-option *ngFor="let data of selectedList" [value]="data.value">
+                                    {{data.value}}
+                                    </mat-option>
+                                </mat-select>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="">Current Password</label>
+                                <textarea class="form-control" placeholder="Enter Your Details"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-groupheads d-flex d-flex justify-content-between">
+                                <h2>Status</h2>
+                                <div class="active-switch">
+                                    <label class="switch">
+                                        <input type="checkbox" checked="">
+                                        <span class="sliders round"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer pt-0">
+                    <button type="button" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
