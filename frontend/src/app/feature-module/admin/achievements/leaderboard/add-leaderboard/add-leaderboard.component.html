@@ -1,0 +1,66 @@
+<div class="page-wrapper">
+  <div class="content container-fluid">
+
+    <!-- Alerte d'erreur globale -->
+    <div *ngIf="errorMessage" class="alert alert-danger text-center" role="alert">
+      <i class="fa fa-exclamation-circle me-2"></i>
+      {{ errorMessage }}
+    </div>
+
+    <!-- Alerte de succès globale -->
+    <div *ngIf="successMessage" class="alert alert-success text-center" role="alert">
+      {{ successMessage }}
+    </div>
+
+    <div class="row">
+      <!-- Formulaire centré : col-md-8 + offset-md-2 -->
+      <div class="col-md-8 offset-md-2">
+        <h3 class="mb-4 text-center">Add Leaderboard</h3>
+
+        <div class="card">
+          <div class="card-body">
+            <!-- Title -->
+            <div class="mb-3">
+              <label class="form-label">Title</label>
+              <input
+                type="text"
+                [(ngModel)]="newLeaderboard.name"
+                class="form-control"
+                placeholder="Enter title"
+                name="title"
+              />
+            </div>
+
+            <!-- Description -->
+            <div class="mb-3">
+              <label class="form-label">Description</label>
+              <textarea
+                [(ngModel)]="newLeaderboard.description"
+                class="form-control"
+                placeholder="Enter description"
+                rows="4"
+                name="description"
+              ></textarea>
+            </div>
+
+            <!-- Boutons -->
+            <div class="d-flex justify-content-between">
+              <!-- Bouton Cancel à gauche -->
+              <button type="button" class="btn btn-secondary" (click)="navigateToList()">
+                Cancel
+              </button>
+
+              <!-- Bouton Add LeaderBoard à droite -->
+              <button type="button" class="btn btn-primary" (click)="addLeaderboard()">
+                Add LeaderBoard
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

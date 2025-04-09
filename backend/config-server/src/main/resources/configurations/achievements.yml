@@ -24,8 +24,10 @@ spring:
 
 application:
   config:
-    users-url: http://localhost:8090/api/v1/users
     auth-url: http://localhost:8090/api/v1/auth
+    usersRegular-url: http://localhost:8090/api/v1/usersRegular
+    workouts-url: http://localhost:8074/api/v1/workouts
+
 
 management:
   tracing:

@@ -1,0 +1,76 @@
+/* Container général tableau : largeur complète */
+.table-div {
+    width: 100%;
+    overflow-x: auto; /* Ajoute un scroll si besoin sur petits écrans */
+    margin-top: 20px; /* Espace entre filtres et tableau */
+  }
+  
+  .table {
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  .table th,
+  .table td {
+    vertical-align: middle !important;
+    text-align: center;
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+  
+  /* Pagination et sélection du nombre d'entrées en largeur pleine */
+  .pagination-main-class {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .pagination-section ul.pagination {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .pagination li a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 32px;
+    width: 32px;
+    font-size: 13px;
+  }
+  
+  /* Boutons d'action */
+  .action-language {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .btn-action {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 5px 10px; /* Légèrement plus grand que avant */
+    font-size: 13px; /* Légèrement plus grand */
+    line-height: 1.2;
+  }
+  
+  /* Filtres à droite, propre et avec bon espacement */
+  .content-page-header.mb-4 {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 40px; /* Espace au-dessus */
+    margin-bottom: 10px; /* Moins d'espace avec le tableau */
+  }
+  
+  .content-page-header.mb-4 .d-flex {
+    gap: 20px; /* Un peu plus d'espace entre les filtres */
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  

@@ -10,10 +10,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
-@FeignClient(name = "user-service", url = "${application.config.users-url}")
+@FeignClient(name = "user-service", url = "${application.config.usersRegular-url}")
 public interface UserClient {
 
     @GetMapping("/board/{board-id}")
     List<UserRegularDTO> findAllUsersByBoard(@PathVariable("board-id") String boardId);
-
+    @GetMapping("/id/{id}")
+    UserRegularDTO getUserById(@PathVariable("id") String id);
 }

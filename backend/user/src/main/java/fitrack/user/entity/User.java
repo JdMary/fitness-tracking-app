@@ -22,7 +22,6 @@ public class User implements UserDetails {
     private String id;
 
     @Column(nullable = false)
-
     private String name;
 
     @Column(nullable = false, unique = true)
@@ -59,7 +58,10 @@ public class User implements UserDetails {
     public String getUsername() {
         return email;
     }
-    
+
+    public String getName() {
+        return name;
+    }
 
     @Override
     public boolean isAccountNonExpired() {

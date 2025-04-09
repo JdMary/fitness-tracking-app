@@ -26,7 +26,7 @@ application:
   config:
     users-url: http://localhost:8090/api/v1/users
     auth-url: http://localhost:8090/api/v1/auth
-
+    achievements-url: http://localhost:8073/api/v1/achievements
 management:
   tracing:
     sampling:

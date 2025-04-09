@@ -1,0 +1,33 @@
+.container {
+    max-width: 600px;
+    margin: 60px auto; /* ✅ Ajout espace en haut et en bas */
+    padding-top: 40px; /* ✅ Padding supplémentaire pour respirer */
+  }
+  
+  .form-label {
+    margin-bottom: 0.5rem;
+  }
+  
+  .form-control,
+  .form-select {
+    border-radius: 0.375rem;
+    padding: 0.5rem;
+  }
+  
+  .alert {
+    font-size: 14px;
+  }
+  
+  button.btn {
+    min-width: 120px;
+  }
+  
+  /* ✅ Optionnel : Pour ajouter encore plus de clarté */
+  .container h2 {
+    margin-bottom: 30px;
+  }
+  
+  .container form {
+    margin-top: 20px;
+  }
+  

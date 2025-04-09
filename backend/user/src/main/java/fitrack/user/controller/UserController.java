@@ -4,7 +4,8 @@ import fitrack.user.entity.User;
 import fitrack.user.repository.UserRepository;
 import fitrack.user.service.IUserService;
 import fitrack.user.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -53,9 +54,11 @@ public class UserController {
     public ResponseEntity<?> retrieveUserByEmail(@PathVariable String email) {
         Optional<User> userOptional = userRepository.findByEmail(email);
 
-    @GetMapping("/testUser")
-    public String testUser() {
-        return "User controller fonctionne ✅";
+        if (userOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found with email: " + email);
+        }
+
+        return ResponseEntity.ok(userOptional.get());
     }
 
     @DeleteMapping("/remove-user/{idUser}")
@@ -64,5 +67,9 @@ public class UserController {
         userService.removeUser(idUser);
     }
 
-}
 
+
+
+
+
+}

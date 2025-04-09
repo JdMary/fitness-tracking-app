@@ -18,11 +18,11 @@ public class LeaderBoardService {
     @Autowired
     private LeaderBoardRepository repository;
 
-    private UserClient client;
+  //  private UserClient client;
 
-    public LeaderBoardService(UserClient client) {
-        this.client = client;
-    }
+  //  public LeaderBoardService(UserClient client) {
+      //  this.client = client;
+ //   }
 
 
 
@@ -35,6 +35,7 @@ public class LeaderBoardService {
 
         if (optionalBoard.isEmpty()) {
             FullBoardResponse response = new FullBoardResponse();
+            response.setBoardId(boardId);
             response.setName("NOT_FOUND");
             response.setDescription("No leaderboard with id: " + boardId);
             response.setUsers(List.of());
@@ -42,34 +43,67 @@ public class LeaderBoardService {
         }
 
         LeaderBoard board = optionalBoard.get();
-        var users = client.findAllUsersByBoard(board.getBoardId());
-        if (users == null) {
-            users = List.of(); // Utilisez List.of() pour créer une liste vide
+
+        // 🔥 Récupération des utilisateurs via le repository
+        var users = repository.findUsersByBoardId(boardId);
+
+        if (!users.isEmpty()) {
+            users.sort((u1, u2) -> Integer.compare(u2.getXpPoints(), u1.getXpPoints()));
+            for (int i = 0; i < users.size(); i++) {
+                users.get(i).setRank(i + 1);
+            }
         }
-else{
-        // 🔽 Tri décroissant par xpPoints
-        users.sort((u1, u2) -> Integer.compare(u2.getXpPoints(), u1.getXpPoints()));
-        for (int i = 0; i < users.size(); i++) {
-            users.get(i).setRank(i + 1);
-        }}
+
+        // ✅ Construction correcte de la réponse
         FullBoardResponse response = new FullBoardResponse();
+        response.setBoardId(board.getBoardId());
         response.setName(board.getName());
         response.setDescription(board.getDescription());
         response.setUsers(users);
-
         return response;
-
     }
+
+    public FullBoardResponse findByUserId(String userId) {
+        // 🔥 Récupération du LeaderBoard via le userId
+        LeaderBoard board = repository.findLeaderBoardByUserId(userId);
+
+        if (board == null || board.getBoardId() == null) {
+            FullBoardResponse response = new FullBoardResponse();
+            response.setBoardId(null); // ✅ car ici board est null
+            response.setName("NOT_FOUND");
+            response.setDescription("No leaderboard found for user ID: " + userId);
+            response.setUsers(List.of());
+            return response;
+        }
+
+
+        return findBoardWithUsers(board.getBoardId());
+    }
+    public void deleteBoard(String boardId) {
+        repository.deleteById(boardId);
+    }
+
 
 
 
     public void save(LeaderBoard board) {repository.save(board);}
 
-
+    public Optional<LeaderBoard> findbyID(String id) {
+        return repository.findById(id);
+    }
 
     public Optional<LeaderBoard> findName(String name) {
         return repository.findByName(name);
     }
 
-
+    public LeaderBoard updateLeaderboard(String id, LeaderBoard newData) {
+        return repository.findById(id)
+                .map(existingBoard -> {
+                    // Mise à jour uniquement des champs title et description
+                    existingBoard.setName(newData.getName());
+                    existingBoard.setDescription(newData.getDescription());
+                    return repository.save(existingBoard);
+                })
+                .orElseThrow(() -> new RuntimeException("Leaderboard not found with id: " + id));
+    }
 }

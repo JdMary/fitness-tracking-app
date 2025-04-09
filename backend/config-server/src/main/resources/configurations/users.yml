@@ -26,6 +26,7 @@ spring:
 application:
   config:
     achievements-url: http://localhost:8073/api/v1/achievements
+    leaderBoard-url: http://localhost:8073/api/v1/leaderBoard
 management:
   tracing:
     sampling:

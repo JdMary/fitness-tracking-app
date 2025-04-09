@@ -1,0 +1,114 @@
+<div class="container mt-4">
+
+    <!-- ✅ Titre principal -->
+    <h2 class="text-center mb-4 fw-bold text-success">Achievement List</h2>
+  
+    <!-- ✅ Filtres alignés proprement -->
+    <div class="d-flex align-items-center justify-content-center flex-wrap gap-3 mb-4">
+      
+      <!-- 🔍 Barre de recherche -->
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search by title..."
+        [(ngModel)]="searchTerm"
+        (input)="applySearch()"
+        style="max-width: 230px;"
+      />
+  
+      <!-- 🎯 Filtre Progress -->
+      <select
+        class="form-select"
+        [(ngModel)]="selectedProgress"
+        (change)="applyProgressFilter(selectedProgress)"
+        style="max-width: 200px;"
+      >
+        <option value="">All Progress</option>
+        <option value="0">0%</option>
+        <option value="50">50%</option>
+        <option value="100">100%</option>
+        <option value="lt50">Less than 50%</option>
+        <option value="gt50">Greater than 50%</option>
+      </select>
+  
+      <!-- 🔢 Tri XP -->
+      <select
+        class="form-select"
+        [(ngModel)]="selectedSort"
+        (change)="applySort(selectedSort)"
+        style="max-width: 200px;"
+      >
+        <option value="XP Croissant">XP Croissant</option>
+        <option value="XP Décroissant">XP Décroissant</option>
+      </select>
+    </div>
+  
+    <!-- ✅ Liste des achievements -->
+    <div *ngIf="filteredAchievements.length > 0; else noAchievements">
+      <div
+        class="card shadow-sm border-0 mb-3"
+        *ngFor="let achievement of filteredAchievements"
+      >
+        <div class="card-body d-flex align-items-center justify-content-between flex-wrap row-gap-3">
+  
+          <!-- 📄 Infos achievement -->
+          <div class="d-flex align-items-center flex-fill gap-3">
+  
+            <!-- 📷 Image (placeholder) -->
+            <div class="position-relative">
+              <a href="javascript:void(0);" class="avatar">
+                <img src="assets/img/services/service-08.jpg" alt="Achievement Image" style="width: 60px; height: 60px;" />
+              </a>
+            </div>
+  
+            <!-- ℹ️ Détails achievement -->
+            <div>
+              <!-- ✅ Titre + Progress -->
+              <div class="d-flex align-items-center gap-2 mb-2">
+                <h5 class="fw-bold text-dark mb-0">{{ achievement.title }}</h5>
+                <span class="badge bg-warning text-dark">
+                  {{ achievement.progress }}% Progress
+                </span>
+              </div>
+  
+              <!-- ✅ Détails -->
+              <p class="mb-1">
+                <strong>XP Points:</strong> {{ achievement.xpPoints }}
+              </p>
+              <p class="mb-1">
+                <strong>Criteria:</strong> {{ achievement.criteria }}
+              </p>
+              <p class="mb-0">
+                <strong>Exercise ID:</strong> {{ achievement.exerciseId }}
+              </p>
+            </div>
+          </div>
+  
+          <!-- ✅ Actions -->
+          <div class="text-end">
+            <a
+              [routerLink]="['/customers/customer-achievement-details', achievement.achieveId]"
+              class="btn btn-outline-success"
+            >
+              <i class="ti ti-circle-plus me-2"></i> Details
+            </a>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+  
+    <!-- ❌ Message si aucun achievement -->
+    <ng-template #noAchievements>
+      <div class="alert alert-info text-center">
+        No achievements found.
+      </div>
+    </ng-template>
+    <button
+    (click)="updateAchievementProgress()"
+    style="background-color: #28a745; color: white; padding: 8px 14px; border: none; border-radius: 4px; font-size: 14px; cursor: pointer;">
+    🚀 Tester Progress
+  </button>
+  
+  </div>
+  

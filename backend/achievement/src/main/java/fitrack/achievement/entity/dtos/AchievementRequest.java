@@ -8,8 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AchievementRequest {
-    @Getter
-    @Setter
+
     private String title;
 
     public String getTitle() {
@@ -44,15 +43,11 @@ public class AchievementRequest {
         this.exerciseId = exerciseId;
     }
 
-    @Getter
-    @Setter
+
     private int xpPoints;
 
-    @Getter
-    @Setter
     private float progress;
 
-    @Getter
-    @Setter
+
     private String exerciseId;
 }

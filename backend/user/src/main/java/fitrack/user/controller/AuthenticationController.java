@@ -4,7 +4,7 @@ import fitrack.user.entity.dtos.AuthenticationDTO;
 import fitrack.user.entity.dtos.LoginResponseDTO;
 import fitrack.user.entity.dtos.RegisterDTO;
 import fitrack.user.entity.User;
-
+import fitrack.user.security.TokenService;
 import fitrack.user.repository.UserRepository;
 import fitrack.user.service.IUserService;
 import org.slf4j.Logger;
@@ -54,7 +54,7 @@ public class AuthenticationController {
     }
 
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> register(@RequestBody RegisterDTO data) {
+    public ResponseEntity register(@RequestBody RegisterDTO data) {
         System.out.println("Registering user");
         if (this.userRepository.findByEmail(data.email()).isPresent()) return ResponseEntity.badRequest().build();
 
@@ -83,7 +83,8 @@ public class AuthenticationController {
             String token = bearerToken.substring(7); // Remove "Bearer " prefix
             String username = tokenService.extractUsername(token);
             Optional<User> user = userRepository.findByEmail(username);
-            return ResponseEntity.ok(user);
+            System.out.println(user.get().getName());
+            return ResponseEntity.ok(user.get());
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid token or user not found");
         }

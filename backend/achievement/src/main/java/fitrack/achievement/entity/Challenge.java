@@ -51,6 +51,9 @@ public class Challenge {
     private boolean reminder15;
     @Column(name = "participation")
     private boolean participation = false;
+    @Column(name = "validation")
+    private boolean validation=false;
+
 
     public boolean isParticipation() {
         return participation;
@@ -64,9 +67,6 @@ public class Challenge {
         return challengeId;
     }
 
-    public void setChallengeId(long challengeId) {
-        this.challengeId = challengeId;
-    }
 
     public String getTitle() {
         return title;
@@ -130,5 +130,17 @@ public class Challenge {
 
     public void setReminder15(boolean reminder15) {
         this.reminder15 = reminder15;
+    }
+
+    public void setChallengeId(String challengeId) {
+        this.challengeId = challengeId;
+    }
+
+    public boolean isValidation() {
+        return validation;
+    }
+
+    public void setValidation(boolean validation) {
+        this.validation = validation;
     }
 }

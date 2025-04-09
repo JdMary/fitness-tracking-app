@@ -1,0 +1,117 @@
+<div class="page-wrapper">
+  <div class="content container-fluid">
+
+    <!-- ✅ Message de succès -->
+    <div *ngIf="successMessage" class="alert alert-success text-center">
+      {{ successMessage }}
+    </div>
+
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title text-center mb-4">Add New Challenge</h4>
+
+            <div class="row">
+              <!-- Title -->
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Title</label>
+                  <input
+                    type="text"
+                    [(ngModel)]="challenge.title"
+                    (input)="errors['title'] = ''"
+                    class="form-control"
+                    placeholder="Enter title"
+                  />
+                  <div *ngIf="errors['title']" class="text-danger">
+                    {{ errors['title'] }}
+                  </div>
+                </div>
+              </div>
+
+              <!-- Description -->
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Description</label>
+                  <textarea
+                    [(ngModel)]="challenge.description"
+                    (input)="errors['description'] = ''"
+                    class="form-control"
+                    placeholder="Enter description"
+                  ></textarea>
+                  <div *ngIf="errors['description']" class="text-danger">
+                    {{ errors['description'] }}
+                  </div>
+                </div>
+              </div>
+
+              <!-- XP Points -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>XP Points</label>
+                  <input
+                    type="number"
+                    [(ngModel)]="challenge.xpPoints"
+                    (input)="errors['xpPoints'] = ''"
+                    class="form-control"
+                    placeholder="Enter XP Points"
+                  />
+                  <div *ngIf="errors['xpPoints']" class="text-danger">
+                    {{ errors['xpPoints'] }}
+                  </div>
+                </div>
+              </div>
+
+              <!-- Start Date -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Start Date</label>
+                  <input
+                    type="datetime-local"
+                    [(ngModel)]="challenge.startDate"
+                    (input)="errors['startDate'] = ''"
+                    class="form-control"
+                  />
+                  <div *ngIf="errors['startDate']" class="text-danger">
+                    {{ errors['startDate'] }}
+                  </div>
+                </div>
+              </div>
+
+              <!-- End Date -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>End Date</label>
+                  <input
+                    type="datetime-local"
+                    [(ngModel)]="challenge.endDate"
+                    (input)="errors['endDate'] = ''"
+                    class="form-control"
+                  />
+                  <div *ngIf="errors['endDate']" class="text-danger">
+                    {{ errors['endDate'] }}
+                  </div>
+                </div>
+              </div>
+
+              <!-- Boutons : Cancel à gauche, Add Challenge à droite -->
+              <div class="col-md-12 mt-3">
+                <div class="d-flex justify-content-between">
+                  <button type="button" class="btn btn-secondary" (click)="navigateToList()">
+                    Cancel
+                  </button>
+                  <button type="button" class="btn btn-primary" (click)="saveChallenge()">
+                    Add Challenge
+                  </button>
+                </div>
+              </div>
+              
+            </div> <!-- end row -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

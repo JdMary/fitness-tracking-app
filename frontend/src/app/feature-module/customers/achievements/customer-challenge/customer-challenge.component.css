@@ -1,0 +1,59 @@
+.dropdown-toggle {
+    padding: 5px 10px;
+    font-size: 14px;
+  }
+  
+  .card-body {
+    padding: 15px;/* ✅ Titre en vert */
+    h4, h3, h2, .page-title, .title {
+      color: #28a745; /* vert joli */
+      text-align: center;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+    
+    /* ✅ Bouton details vert */
+    .btn-details {
+      color: #28a745;
+      border: 1px solid #28a745;
+      background-color: white;
+      transition: 0.3s;
+      border-radius: 6px;
+      padding: 5px 14px;
+      font-size: 14px;
+    }
+    
+    .btn-details:hover {
+      background-color: #28a745;
+      color: white;
+    }
+    
+  }
+  
+  .booking-details li {
+    font-size: 14px;
+  }
+  
+  .btn {
+    font-size: 13px;
+    padding: 5px 12px;
+  }
+  
+  .avatar img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  h4.fw-bold {
+    font-size: 1.8rem;
+    color: #28a745;
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: bold;
+  }
+  .form-control {
+    border-radius: 6px;
+    padding: 8px 12px;
+  }
+  

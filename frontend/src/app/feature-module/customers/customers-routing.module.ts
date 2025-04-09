@@ -7,6 +7,7 @@ const routes: Routes = [
     path: '',
     component: CustomersComponent,
     children: [
+
       {
         path: 'customer-dashboard',
         loadChildren: () =>
@@ -21,6 +22,56 @@ const routes: Routes = [
             (m) => m.CustomerBookingModule
           ),
       },
+      {
+        path: 'customer-challenge',
+        loadChildren: () =>
+          import('./achievements/customer-challenge/customer-challenge.module').then(
+            (m) => m.CustomerChallengeModule
+          ),
+      },
+      {
+        path: 'customer-challenge-details',
+        loadChildren: () =>
+          import('./achievements/customer-challenge-details/customer-challenge-details.module')
+            .then(m => m.CustomerChallengeDetailsModule),
+      },
+      
+      {
+        path: 'customer-challenge-details',
+        loadChildren: () =>
+          import('./achievements/customer-challenge-details/customer-challenge-details.module')
+            .then(m => m.CustomerChallengeDetailsModule),
+      },
+      
+      {
+        path: 'customer-achievements',
+        loadChildren: () =>
+          import('./achievements/customer-achievements/customer-achievements.module')
+            .then(m => m.CustomerAchievementsModule),
+      },
+      {
+        path: 'customer-achievement-details',
+        loadChildren: () => import('./achievements/customer-achievement-details/customer-achievement-details.module')
+          .then(m => m.CustomerAchievementDetailsModule),
+      }
+,      
+      
+{
+  path: 'leaderboard-detail',
+  loadChildren: () =>
+    import('./achievements/customer-leaderboard-detail/customer-leaderboard-detail.module').then(
+      (m) => m.CustomerLeaderboardDetailModule
+    )
+}
+,
+
+
+
+
+
+
+      
+      
       {
         path: 'customer-favourite',
         loadChildren: () =>
@@ -83,6 +134,8 @@ const routes: Routes = [
       },
     ],
   },
+  { path: 'customer-achievement-details', loadChildren: () => import('./achievements/customer-achievement-details/customer-achievement-details.module').then(m => m.CustomerAchievementDetailsModule) },
+  { path: 'customer-leaderboard', loadChildren: () => import('./achievements/customer-leaderboard/customer-leaderboard.module').then(m => m.CustomerLeaderboardModule) },
 ];
 
 @NgModule({

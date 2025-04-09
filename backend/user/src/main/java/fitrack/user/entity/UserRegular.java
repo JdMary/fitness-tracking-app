@@ -57,6 +57,10 @@ public class UserRegular {
 
     private String boardId;
 
+    @Column(name = "phone_number")
+    @JsonProperty("phone")
+    private String phoneNumber;
+
     public String getId() {
         return id;
     }

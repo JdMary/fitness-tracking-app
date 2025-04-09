@@ -1,5 +1,6 @@
 package fitrack.achievement.entity.dtos;
 
+import fitrack.achievement.entity.User;
 import fitrack.achievement.entity.dtos.UserRegularDTO;
 import lombok.*;
 
@@ -12,9 +13,18 @@ import java.util.List;
 @ToString
 @Builder
 public class FullBoardResponse {
+    private String boardId;
     private String name;
     private String description;
-    private List<UserRegularDTO> users;
+    private List<User> users;
+
+    public void setBoardId(String boardId) {
+        this.boardId = boardId;
+    }
+
+    public String getBoardId() {
+        return boardId;
+    }
 
     public String getName() {
         return name;
@@ -32,11 +42,12 @@ public class FullBoardResponse {
         this.description = description;
     }
 
-    public List<UserRegularDTO> getUsers() {
+    public List<User> getUsers() {
         return users;
     }
 
-    public void setUsers(List<UserRegularDTO> users) {
+    public void setUsers(List<User> users) {
         this.users = users;
     }
+
 }

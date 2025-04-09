@@ -1,0 +1,74 @@
+.page-settings {
+  padding-top: 100px; /* 🆗 Plus d'espace en haut */
+}
+
+.content-page-header {
+  margin-bottom: 40px; /* 🆗 Plus bas */
+  padding-top: 20px; /* ✅ Pour pousser l'ensemble vers le bas */
+}
+
+.content-page-header .d-flex {
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px; /* ✅ Ajoute de l'espace en haut des filtres */
+}
+
+.table-responsive {
+  margin-top: 30px; /* ✅ Laisse respirer la table */
+}
+
+.row {
+  margin-top: 30px; /* ✅ Laisse respirer les autres contenus */
+}
+
+.alert {
+  margin-top: 20px; /* ✅ Décale les alertes vers le bas */
+  font-size: 13px;
+  padding: 6px 10px;
+}
+.content-page-header {
+  margin-bottom: 10px; /* ✅ Réduit l'espace entre filtres et tableau */
+  padding-top: 10px; /* Optionnel, tu peux ajuster */
+}
+
+.table-responsive {
+  margin-top: 5px; /* ✅ Réduit aussi l'espace ici */
+}
+
+.row {
+  margin-top: 15px; /* ✅ Optionnel, pour laisser un peu d'air après */
+}
+/* ✅ Style des boutons Edit / Delete */
+.btn-action {
+  padding: 4px 10px;
+  font-size: 12px;
+  display: flex; /* ✅ Utiliser flex pour meilleur alignement */
+  align-items: center; /* ✅ Centré verticalement */
+  justify-content: center; /* ✅ Centré horizontalement */
+  gap: 5px; /* ✅ Espacement harmonieux entre icône et texte */
+  height: auto;
+  line-height: 1;
+  text-align: center;
+}
+
+.btn-action i {
+  font-size: 12px; /* ✅ Icone plus petite */
+  
+}
+
+.btn-action span {
+  font-size: 16px; /* ✅ Texte plus petit */
+}
+
+.action-language {
+  display: flex;
+  gap: 4px; /* ✅ Moins d'espace entre les deux boutons */
+}
+
+/* ✅ Optionnel : Ajuster la hauteur si tu veux vraiment plus compact */
+.action-language a.btn {
+  height: 28px;
+  line-height: 1;
+  padding: 2px 6px;
+}

@@ -15,6 +15,7 @@ public class UserRegularDTO {
     private int xpPoints;
     private String name;
     private int rank;
+    private String phoneNumber;
 
     public int getXpPoints() {
         return xpPoints;
@@ -38,6 +39,14 @@ public class UserRegularDTO {
 
     public void setRank(int rank) {
         this.rank = rank;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 }
 

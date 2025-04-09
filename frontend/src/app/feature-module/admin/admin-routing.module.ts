@@ -386,6 +386,68 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'add-challenge',
+        loadChildren: () =>
+          import('./achievements/challenges/addChallenge/challenges.module').then(
+            (m) => m.ChallengesModule
+          ),
+      },
+      {
+        path: 'liste-challenges',
+        loadChildren: () =>
+          import('./achievements/challenges/liste-challenges/liste-challenges.module').then(
+            (m) => m.ListeChallengesModule
+          ),
+      },
+    
+      {
+        path: 'edit-challenge',
+        loadChildren: () =>
+          import('./achievements/challenges/edit-challenge/edit-challenge.module').then(
+            (m) => m.EditChallengeModule
+          ),
+      },
+      {
+      path: 'liste-achievements',
+      loadChildren: () =>
+        import('./achievements/achievement/liste-achievements/liste-achievements.module').then(
+          (m) => m.ListeAchievementsModule
+        ),
+    },
+    
+    {
+      path: 'edit-achievement/:challengeId',
+      loadChildren: () =>
+        import('./achievements/achievement/edit-achievement/edit-achievement.module').then(
+          (m) => m.EditAchievementModule
+        )
+    },    
+    {
+      path: 'liste-leaderboard',
+      loadChildren: () =>
+        import('./achievements/leaderboard/liste-leaderboard/liste-leaderboard.module').then(
+          (m) => m.ListeLeaderboardModule
+        ),
+    },
+    {
+      path: 'edit-leaderboard/:boardId',
+      loadChildren: () =>
+        import('./achievements/leaderboard/edit-leaderboard/edit-leaderboard.module').then(m => m.EditLeaderboardModule)
+    }
+,    
+    {
+      
+        path: 'add-leaderboard',
+        loadChildren: () =>
+          import('./achievements/leaderboard/add-leaderboard/add-leaderboard.module').then(
+            (m) => m.AddLeaderboardModule
+          ),
+      },
+      
+      
+      
+      
+      {
         path: 'add-service',
         loadChildren: () =>
           import('./add-service/add-service.module').then(

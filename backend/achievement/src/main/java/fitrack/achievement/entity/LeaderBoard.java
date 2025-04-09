@@ -17,7 +17,9 @@ public class LeaderBoard {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
 
-    @JsonProperty("board_id")
+    @JsonProperty("boardId")
+
+
     private String boardId;
 
     @JsonProperty("name")

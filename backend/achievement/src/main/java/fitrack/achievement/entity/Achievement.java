@@ -21,42 +21,32 @@ public class Achievement  {
     @GeneratedValue(strategy = GenerationType.UUID)
 
 
-    @JsonProperty("achieve_id")
+    @JsonProperty("achieveId")
     private String achieveId;
 
 
-    @Getter
-    @Setter
+
     @JsonProperty("title")
     private String title;
 
 
-    @Getter
-    @Setter
+
     @Column(name="xp_points")
     @JsonProperty("xpPoints")
     private int xpPoints;
 
-    @Getter
-    @Setter
+
     @JsonProperty("criteria")
     private String criteria;
 
-    @Getter
-    @Setter
-    @Column(name = "leaderboard_impact")
-    @JsonProperty("leaderboardImpact")
-    private String leaderboardImpact;
 
-    @Getter
-    @Setter
+
     @JsonProperty("progress")
     private float progress;
 
-    @Getter
-    @Setter
+
     @Column(name = "exercise_id")
-    @JsonProperty("exercieId")
+    @JsonProperty("exerciseId")
     private String exerciseId;
 
     public String getAchieveId() {
@@ -91,13 +81,7 @@ public class Achievement  {
         this.criteria = criteria;
     }
 
-    public String getLeaderboardImpact() {
-        return leaderboardImpact;
-    }
 
-    public void setLeaderboardImpact(String leaderboardImpact) {
-        this.leaderboardImpact = leaderboardImpact;
-    }
 
     public float getProgress() {
         return progress;
