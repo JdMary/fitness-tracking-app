@@ -46,7 +46,6 @@ public class SubscriptionService implements ISubscriptionService {
 
     @Override
     public Subscription createSubscription(Subscription subscription, String token, String priceType, Long promotionId) {
-        // ✅ Récupérer les détails utilisateur depuis le token
         Object response = authClient.extractUserDetails(token).getBody();
         User user = objectMapper.convertValue(response, User.class);
 
@@ -54,7 +53,6 @@ public class SubscriptionService implements ISubscriptionService {
             throw new RuntimeException("Seuls les utilisateurs avec le rôle USER peuvent créer un abonnement.");
         }
 
-        // ✅ Vérifier la SportFacility
         SportFacility facility = facilityRepository.findById(subscription.getSportFacility().getId())
                 .orElseThrow(() -> new RuntimeException("Facility non trouvée"));
 
@@ -67,10 +65,8 @@ public class SubscriptionService implements ISubscriptionService {
             throw new RuntimeException("La facility a atteint le nombre maximum de souscriptions.");
         }
 
-        // ✅ Simuler les xpPoints (temporaire)
         int xpPoints = 100;
 
-        // ✅ Choix du prix dynamique + enregistrement du type
         float selectedPrice;
         int monthsToAdd;
         if ("premium".equalsIgnoreCase(priceType)) {
@@ -83,7 +79,6 @@ public class SubscriptionService implements ISubscriptionService {
             monthsToAdd = 1;
         }
 
-        // ✅ Application de la promotion si elle existe
         if (promotionId != null) {
             Promotion promotion = promotionRepository.findById(promotionId)
                     .orElseThrow(() -> new RuntimeException("Promotion non trouvée"));
@@ -101,14 +96,12 @@ public class SubscriptionService implements ISubscriptionService {
             subscription.setPromotion(promotion);
         }
 
-        // ✅ Vérifier les xpPoints disponibles après application promo
         if (xpPoints < selectedPrice) {
             throw new RuntimeException("xpPoints insuffisants pour cet abonnement.");
         }
 
         subscription.setPricePaid(selectedPrice);
 
-        // ✅ Set metadata
         LocalDate now = LocalDate.now();
         subscription.setStartDate(now);
         subscription.setEndDate(now.plusMonths(monthsToAdd));
@@ -120,7 +113,6 @@ public class SubscriptionService implements ISubscriptionService {
             subscription.setSubId(randomId);
         }
 
-        // ✅ Déterminer et sauvegarder le statut dynamique
         subscription.setStatus(evaluateStatus(subscription));
 
         return repository.save(subscription);
@@ -162,7 +154,6 @@ public class SubscriptionService implements ISubscriptionService {
         return subscriptions;
     }
 
-    // ✅ Vérifie et met à jour le status si nécessaire
     private void updateStatusIfNeeded(Subscription subscription) {
         SubscriptionStatus currentStatus = evaluateStatus(subscription);
         if (subscription.getStatus() != currentStatus) {
@@ -171,7 +162,6 @@ public class SubscriptionService implements ISubscriptionService {
         }
     }
 
-    // ✅ Évalue le status de la souscription dynamiquement
     private SubscriptionStatus evaluateStatus(Subscription subscription) {
         return subscription.getEndDate().isBefore(LocalDate.now())
                 ? SubscriptionStatus.EXPIRED

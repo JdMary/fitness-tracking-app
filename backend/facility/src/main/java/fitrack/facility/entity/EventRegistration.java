@@ -18,7 +18,7 @@ public class EventRegistration {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // L'identifiant de l'utilisateur inscrit (provenant du microservice user)
+    // L'identifiant de l'utilisateur inscrit
     private Long userId;
 
     // Relation ManyToOne avec Event

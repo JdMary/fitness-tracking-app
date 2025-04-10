@@ -32,7 +32,7 @@ public class Subscription {
 
     private LocalDate createdAt;
 
-    private String ownerEmail; // ✅ Lien logique avec l’utilisateur
+    private String ownerEmail;
     private String priceType;
 
     @ManyToOne

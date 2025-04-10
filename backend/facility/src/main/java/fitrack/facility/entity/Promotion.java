@@ -21,7 +21,7 @@ public class Promotion {
 
     private String description;
 
-    @Column(name = "discount") // ✅ Correction ici
+    @Column(name = "discount")
     private float discountPercentage;
 
     private LocalDate startDate;

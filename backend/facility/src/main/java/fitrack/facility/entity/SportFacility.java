@@ -18,7 +18,7 @@ public class SportFacility {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String facilityId; // Identifiant personnalisé
+    private String facilityId;
     private String name;
     private String location;
     private String sportType;
@@ -27,7 +27,7 @@ public class SportFacility {
     private float normalPrice;
     private float premiumPrice;
 
-    private String ownerEmail; // L'utilisateur connecté (via Feign)
+    private String ownerEmail;
     private String description;
 
 }

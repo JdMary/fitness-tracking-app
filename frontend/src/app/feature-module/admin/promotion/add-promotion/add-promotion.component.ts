@@ -23,8 +23,8 @@ export class AddPromotionComponent implements OnInit {
     }
   };
 
-  sportFacilities: any[] = []; // Liste des installations sportives
-  token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im5hc3NpbUBlc3ByaXQudG4iLCJleHAiOjE3NDQxNDQ3NDB9.QJBg6M_49dsP0W_Zs2lHeEVw2-WOKBszyoKZrmdpn9Y';
+  sportFacilities: any[] = []; 
+  token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im5hc3NpbUBlc3ByaXQudG4iLCJleHAiOjE3NDQyNzkyOTl9.2BpGPYAL-NLlykkI-Yu8Nt2EkNL8UdPSeiRwVVXuOmw';
   routes = routes;
 
   constructor(
@@ -50,12 +50,12 @@ export class AddPromotionComponent implements OnInit {
   submitPromotion(): void {
     this.promotionService.addPromotion(this.promotion, this.token).subscribe({
       next: (response) => {
-        alert('Promotion created successfully 🎉');
+        alert('Promotion created successfully ');
         this.resetForm();
       },
       error: (error) => {
         console.error('Error creating promotion', error);
-        alert('Error creating promotion ❌');
+        alert('Error creating promotion ');
       }
     });
   }

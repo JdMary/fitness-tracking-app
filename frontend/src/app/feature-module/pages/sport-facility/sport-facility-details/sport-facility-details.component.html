@@ -1,0 +1,108 @@
+<!-- Breadcrumb -->
+<div class="breadcrumb-bar text-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-12">
+          <h2 class="breadcrumb-title mb-2">{{ facility?.name }}</h2>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb justify-content-center mb-0">
+              <li class="breadcrumb-item">
+                <a [routerLink]="routes.home"><i class="ti ti-home-2"></i></a>
+              </li>
+              <li class="breadcrumb-item">
+                <a [routerLink]="routes.userSportFacility">Facilities</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">{{ facility?.name }}</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /Breadcrumb -->
+  
+  <div class="page-wrapper">
+    <div class="content">
+      <div class="container">
+        <div class="row">
+          <!-- Main Detail Section -->
+          <div class="col-xl-8">
+            <div class="card border-0">
+              <div class="card-body">
+                <div class="service-head mb-2">
+                  <div class="d-flex align-items-center justify-content-between flex-wrap">
+                    <h3 class="mb-2">{{ facility?.name }}</h3>
+                    <span class="badge badge-purple-transparent mb-2">
+                      <i class="ti ti-calendar-check me-1"></i> Sport Type: {{ facility?.sportType }}
+                    </span>
+                  </div>
+                  <div class="d-flex align-items-center flex-wrap mb-2">
+                    <p class="me-3 mb-2">
+                      <i class="ti ti-map-pin me-2"></i>{{ facility?.location || 'Location not provided' }}
+                    </p>
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                    <span class="badge" [ngClass]="facility?.availability ? 'bg-success' : 'bg-danger'">
+                      {{ facility?.availability ? 'Available' : 'Unavailable' }}
+                    </span>
+                  </div>
+  
+                
+  
+                <!-- Description -->
+                <div class="accordion service-accordion">
+                  <div class="accordion-item mb-4">
+                    <h2 class="accordion-header">
+                      <button class="accordion-button p-0" type="button" data-bs-toggle="collapse" data-bs-target="#overview" aria-expanded="true">
+                        Facility Overview
+                      </button>
+                    </h2>
+                    <div id="overview" class="accordion-collapse collapse show">
+                      <div class="accordion-body border-0 p-0 pt-3">
+                        <p>{{ facility?.description || 'No description provided.' }}</p>
+                       
+                      </div>
+                    </div>
+                  </div>
+                </div>
+  
+              </div>
+            </div>
+          </div>
+  
+          <!-- Sidebar -->
+          <div class="col-xl-4 theiaStickySidebar">
+            <div class="card border-0">
+              <div class="card-body">
+                <div class="d-flex align-items-center justify-content-between border-bottom mb-3">
+                  <div class="mb-3">
+                    <p class="fs-14 mb-0">Facility ID</p>
+                    <h4 class="display-6 fw-bold">{{ facility?.facilityId }}</h4>
+                  </div>
+                </div>
+  
+                <a (click)="goBack()" class="btn btn-lg btn-primary w-100 d-flex align-items-center justify-content-center mb-3">
+                  <i class="ti ti-arrow-left me-2"></i> Back to list
+                </a>
+  
+                <a href="javascript:void(0);" class="btn btn-lg btn-outline-light d-flex align-items-center justify-content-center w-100">
+                  <i class="ti ti-share me-2"></i> Share Facility
+                </a>
+              </div>
+            </div>
+  
+            <div class="card border-0">
+              <div class="card-body">
+                <h4 class="mb-3">Contact Owner</h4>
+                <p>Email: {{ facility?.ownerEmail }}</p>
+              </div>
+            </div>
+          </div>
+          <!-- /Sidebar -->
+        </div>
+      </div>
+    </div>
+  </div>
+  

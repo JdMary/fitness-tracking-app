@@ -575,15 +575,15 @@ export class DataService {
       separateRoute: false,
       menu: [
         {
-          menuValue: 'Browse facilities',
-          routes: routes.customerDashboard, // badalha 7asb l route mte3k
+          menuValue: 'Ower Facilities',
+          routes: routes.userSportFacility, // badalha 7asb l route mte3k
           hasSubRoute: false,
           showSubRoute: false,
           subMenus: [],
         },
         {
           menuValue: 'Promotions',
-          routes: routes.customerBooking, // badalha 7asb l route mte3k
+          routes: routes.userPromotion, // badalha 7asb l route mte3k
           hasSubRoute: false,
           showSubRoute: false,
           subMenus: [],

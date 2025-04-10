@@ -20,26 +20,26 @@ public class SportFacilityController {
     private final AuthClient authClient;
     private final ObjectMapper objectMapper;
 
-    // ✅ 1. Ajouter une facility (avec token)
+    // Ajouter une facility
     @PostMapping
     public ResponseEntity<SportFacility> addFacility(@RequestBody SportFacility facility,
                                                      @RequestHeader("Authorization") String token) {
         return ResponseEntity.ok(service.addFacility(facility, token));
     }
 
-    // ✅ 2. Récupérer toutes les facilities
+    // Récupérer toutes les facilities
     @GetMapping
     public ResponseEntity<List<SportFacility>> getAll() {
         return ResponseEntity.ok(service.retrieveAllFacilities());
     }
 
-    // ✅ 3. Récupérer une facility par ID
+    // Récupérer une facility par ID
     @GetMapping("/{id}")
     public ResponseEntity<SportFacility> getById(@PathVariable Long id) {
         return ResponseEntity.ok(service.retrieveFacility(id));
     }
 
-    // ✅ 4. Modifier une facility (avec vérification de rôle via token)
+    //  Modifier une facility
     @PutMapping
     public ResponseEntity<SportFacility> update(@RequestBody SportFacility facility,
                                                 @RequestHeader("Authorization") String token) {
@@ -53,7 +53,7 @@ public class SportFacilityController {
         return ResponseEntity.ok(service.updateFacility(facility));
     }
 
-    // ✅ 5. Supprimer une facility (avec vérification de rôle via token)
+    // Supprimer une facility
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id,
                                        @RequestHeader("Authorization") String token) {
@@ -68,7 +68,7 @@ public class SportFacilityController {
         return ResponseEntity.noContent().build();
     }
 
-    // ✅ 6. Récupérer seulement les facilities disponibles
+    // Récupérer les facilities disponibles
     @GetMapping("/available")
     public ResponseEntity<List<SportFacility>> getAvailableFacilities() {
         return ResponseEntity.ok(service.findAvailableFacilities());

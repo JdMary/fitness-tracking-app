@@ -9,7 +9,7 @@ import { routes } from 'src/app/shared/routes/routes';
 })
 export class ListSportFacilityComponent implements OnInit {
   
-  facilities: any[] = []; // ✅ Liste des sport facilities
+  facilities: any[] = []; 
   selectedValue = '';
   selectedList = [
     { value: 'A - Z' },
@@ -17,7 +17,7 @@ export class ListSportFacilityComponent implements OnInit {
     { value: 'Recently Added' }
   ];
 
-  routes = routes; // ✅ Pour utiliser les routes dans le HTML
+  routes = routes; 
 
   constructor(private sportFacilityService: SportFacilityService) {}
 
@@ -26,30 +26,30 @@ export class ListSportFacilityComponent implements OnInit {
   }
 
   fetchFacilities(): void {
-    const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im5hc3NpbUBlc3ByaXQudG4iLCJleHAiOjE3NDQwNjk3NTJ9.s1Zv4XYhK3PfiIxWRNg0ZacsmmjbB7_qy0FQL_MmdKE'; // Remplace plus tard par le vrai token dynamique via AuthService
+    const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im5hc3NpbUBlc3ByaXQudG4iLCJleHAiOjE3NDQyNzkyOTl9.2BpGPYAL-NLlykkI-Yu8Nt2EkNL8UdPSeiRwVVXuOmw'; 
 
     this.sportFacilityService.getAllFacilities(token).subscribe({
       next: (response) => {
         this.facilities = response;
-        console.log('✅ Facilities loaded:', this.facilities);
+        console.log('Facilities loaded:', this.facilities);
       },
       error: (error) => {
-        console.error('❌ Error loading facilities', error);
+        console.error(' Error loading facilities', error);
       }
     });
   }
   openDeleteModal(id: number): void {
     const confirmDelete = confirm('Are you sure you want to delete this facility?');
     if (confirmDelete) {
-      const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im5hc3NpbUBlc3ByaXQudG4iLCJleHAiOjE3NDQwNjk3NTJ9.s1Zv4XYhK3PfiIxWRNg0ZacsmmjbB7_qy0FQL_MmdKE'; // ✅ à remplacer plus tard par AuthService
+      const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im5hc3NpbUBlc3ByaXQudG4iLCJleHAiOjE3NDQyNzkyOTl9.2BpGPYAL-NLlykkI-Yu8Nt2EkNL8UdPSeiRwVVXuOmw'; 
       this.sportFacilityService.deleteFacility(id, token).subscribe({
         next: () => {
-          alert('Facility deleted successfully 🎉');
-          this.fetchFacilities(); // 🔄 Refresh list
+          alert('Facility deleted successfully ');
+          this.fetchFacilities(); 
         },
         error: (error) => {
           console.error('Error deleting facility', error);
-          alert('Error deleting facility ❌');
+          alert('Error deleting facility ');
         }
       });
     }

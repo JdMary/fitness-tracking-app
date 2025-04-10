@@ -23,9 +23,9 @@ export class EditPromotionComponent implements OnInit {
     }
   };
 
-  token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im5hc3NpbUBlc3ByaXQudG4iLCJleHAiOjE3NDQwNjk3NTJ9.s1Zv4XYhK3PfiIxWRNg0ZacsmmjbB7_qy0FQL_MmdKE';
+  token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im5hc3NpbUBlc3ByaXQudG4iLCJleHAiOjE3NDQyNzkyOTl9.2BpGPYAL-NLlykkI-Yu8Nt2EkNL8UdPSeiRwVVXuOmw';
   routes = routes;
-  sportFacilities: any[] = []; // ✅ tu peux typer mieux plus tard
+  sportFacilities: any[] = []; 
 
 
   constructor(
@@ -40,17 +40,17 @@ export class EditPromotionComponent implements OnInit {
     this.loadPromotion();
   }
   fetchSportFacilities(): void {
-    const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im5hc3NpbUBlc3ByaXQudG4iLCJleHAiOjE3NDQwNjk3NTJ9.s1Zv4XYhK3PfiIxWRNg0ZacsmmjbB7_qy0FQL_MmdKE'; // ton token dynamique plus tard
+    const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im5hc3NpbUBlc3ByaXQudG4iLCJleHAiOjE3NDQyNzkyOTl9.2BpGPYAL-NLlykkI-Yu8Nt2EkNL8UdPSeiRwVVXuOmw'; 
     this.promotionService.getSportFacilities(token).subscribe({
       next: (response) => {
         this.sportFacilities = response;
-        console.log('✅ Sport facilities loaded:', this.sportFacilities);
+        console.log('Sport facilities loaded:', this.sportFacilities);
   
-        // 🟢 Après avoir chargé les facilities, charge la promotion
+        
         this.loadPromotion();
       },
       error: (error) => {
-        console.error('❌ Error loading sport facilities', error);
+        console.error('Error loading sport facilities', error);
       }
     });
   }
@@ -60,7 +60,7 @@ export class EditPromotionComponent implements OnInit {
       next: (data) => {
         this.promotion = data;
   
-        // 🟢 Important : Associer le sportFacility à l'objet de la liste pour garder le binding
+        
         const facilityFromList = this.sportFacilities.find(f => f.id === this.promotion.sportFacility.id);
         if (facilityFromList) {
           this.promotion.sportFacility = facilityFromList;
@@ -76,19 +76,19 @@ export class EditPromotionComponent implements OnInit {
   updatePromotion(): void {
     this.promotionService.updatePromotion(this.promotion, this.token).subscribe({
       next: () => {
-        alert('Promotion updated successfully 🎉');
+        alert('Promotion updated successfully ');
         this.router.navigate([routes.listPromotion]);
       },
       error: (error) => {
         console.error('Error updating promotion', error);
-        alert('Error updating promotion ❌');
+        alert('Error updating promotion ');
       }
     });
   }
-  isEditMode = true; // ✅ pour le mode édition
+  isEditMode = true; 
 
 onSubmit(): void {
-  this.updatePromotion(); // Appelle ta fonction d’update existante
+  this.updatePromotion(); 
 }
 
 }

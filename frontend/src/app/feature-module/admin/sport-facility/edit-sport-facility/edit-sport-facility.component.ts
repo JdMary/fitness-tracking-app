@@ -9,9 +9,9 @@ import { SportFacilityService } from 'src/app/shared/services/sport-facility.ser
 })
 export class EditSportFacilityComponent implements OnInit {
 
-  sportFacility: any = {}; // Initialisation
+  sportFacility: any = {}; 
   facilityId: string = '';
-  token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im5hc3NpbUBlc3ByaXQudG4iLCJleHAiOjE3NDQwNjk3NTJ9.s1Zv4XYhK3PfiIxWRNg0ZacsmmjbB7_qy0FQL_MmdKE';
+  token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im5hc3NpbUBlc3ByaXQudG4iLCJleHAiOjE3NDQyNzkyOTl9.2BpGPYAL-NLlykkI-Yu8Nt2EkNL8UdPSeiRwVVXuOmw';
 
   constructor(
     private route: ActivatedRoute,
@@ -30,7 +30,7 @@ export class EditSportFacilityComponent implements OnInit {
         this.sportFacility = response;
       },
       error: (error) => {
-        console.error('❌ Error loading facility', error);
+        console.error(' Error loading facility', error);
       }
     });
   }
@@ -38,11 +38,11 @@ export class EditSportFacilityComponent implements OnInit {
   updateFacility(): void {
     this.sportFacilityService.updateFacility(this.sportFacility, this.token).subscribe({
       next: (response) => {
-        alert('Facility updated successfully 🎉');
+        alert('Facility updated successfully ');
         this.router.navigate(['/admin/list-sport-facility']);
       },
       error: (error) => {
-        console.error('❌ Error updating facility', error);
+        console.error('Error updating facility', error);
       }
     });
   }

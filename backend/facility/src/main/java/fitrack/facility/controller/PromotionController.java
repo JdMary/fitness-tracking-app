@@ -15,26 +15,26 @@ public class PromotionController {
 
     private final PromotionService service;
 
-    // ✅ 1. Créer une promotion (FACILITY_MANAGER)
+    // Créer une promotion
     @PostMapping
     public ResponseEntity<Promotion> createPromotion(@RequestBody Promotion promotion,
                                                      @RequestHeader("Authorization") String token) {
         return ResponseEntity.ok(service.createPromotion(promotion, token));
     }
 
-    // ✅ 2. Récupérer toutes les promotions
+    // Récupérer toutes les promotions
     @GetMapping
     public ResponseEntity<List<Promotion>> getAllPromotions() {
         return ResponseEntity.ok(service.getAllPromotions());
     }
 
-    // ✅ 3. Récupérer une promotion par ID
+    //  Récupérer une promotion par ID
     @GetMapping("/{id}")
     public ResponseEntity<Promotion> getPromotionById(@PathVariable Long id) {
         return ResponseEntity.ok(service.getPromotionById(id));
     }
 
-    // ✅ 4. Modifier une promotion (FACILITY_MANAGER)
+    // Modifier une promotion
     @PutMapping("/{id}")
     public ResponseEntity<Promotion> updatePromotion(@PathVariable Long id,
                                                      @RequestBody Promotion promotion,
@@ -43,7 +43,7 @@ public class PromotionController {
         return ResponseEntity.ok(service.updatePromotion(promotion, token));
     }
 
-    // ✅ 5. Supprimer une promotion (FACILITY_MANAGER)
+    // Supprimer une promotion
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePromotion(@PathVariable Long id,
                                                 @RequestHeader("Authorization") String token) {
@@ -51,7 +51,7 @@ public class PromotionController {
         return ResponseEntity.noContent().build();
     }
 
-    // ✅ 6. Récupérer uniquement les promotions actives
+    // Récupérer uniquement les promotions actives
     @GetMapping("/active")
     public ResponseEntity<List<Promotion>> getActivePromotions() {
         return ResponseEntity.ok(service.getActivePromotions());

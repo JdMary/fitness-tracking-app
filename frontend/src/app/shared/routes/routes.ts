@@ -880,7 +880,15 @@ export class routes {
     return this.baseUrl + '/admin/promotion/edit';
   }
   ///////////frontend
-  
+  public static get userSportFacility(): string {
+    return this.baseUrl + '/sport-facility';
+  }
+  public static get sportFacilityDetails(): string {
+    return this.baseUrl + '/sport-facility/details';
+  }
+  public static get userPromotion(): string {
+    return this.baseUrl + '/promotion';
+  }
 
   
 }

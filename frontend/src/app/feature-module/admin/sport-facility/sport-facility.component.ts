@@ -25,17 +25,17 @@ export class SportFacilityComponent implements OnInit {
   ngOnInit(): void {}
 
   submitFacility(): void {
-    const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im5hc3NpbUBlc3ByaXQudG4iLCJleHAiOjE3NDQwNjk3NTJ9.s1Zv4XYhK3PfiIxWRNg0ZacsmmjbB7_qy0FQL_MmdKE'; // Ton vrai token 🔥
+    const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im5hc3NpbUBlc3ByaXQudG4iLCJleHAiOjE3NDQyNzkyOTl9.2BpGPYAL-NLlykkI-Yu8Nt2EkNL8UdPSeiRwVVXuOmw'; 
 
     this.sportFacilityService.createFacility(this.sportFacility, token).subscribe({
       next: (response) => {
-        console.log('✅ Facility created successfully', response);
-        alert('Facility created successfully 🎉');
+        console.log('✅Facility created successfully', response);
+        alert('Facility created successfully ');
         this.resetForm();
       },
       error: (error) => {
-        console.error('❌ Error creating facility', error);
-        alert('Error creating facility ❌');
+        console.error('Error creating facility', error);
+        alert('Error creating facility ');
       }
     });
   }

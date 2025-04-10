@@ -41,31 +41,25 @@ public class PromotionService implements IPromotionService {
 
     @Override
     public Promotion createPromotion(Promotion promotion, String token) {
-        // ✅ Récupérer l'utilisateur depuis le token
         User user = getUserFromToken(token);
 
-        // ✅ Vérification du rôle
         if (!"FACILITY_MANAGER".equalsIgnoreCase(user.getRole())) {
             throw new RuntimeException("Seuls les FACILITY_MANAGER peuvent créer une promotion.");
         }
 
-        // ✅ Vérifier que la SportFacility existe
         SportFacility facility = facilityRepository.findById(promotion.getSportFacility().getId())
                 .orElseThrow(() -> new RuntimeException("Facility non trouvée"));
 
         promotion.setSportFacility(facility);
 
-        // ✅ Vérifier que la date de fin est après la date de début
         if (promotion.getEndDate().isBefore(promotion.getStartDate())) {
             throw new RuntimeException("La date de fin doit être après la date de début.");
         }
 
-        // ✅ Vérifier que le pourcentage est valide
         if (promotion.getDiscountPercentage() <= 0 || promotion.getDiscountPercentage() > 100) {
             throw new RuntimeException("Le pourcentage de réduction doit être entre 1 et 100.");
         }
 
-        // ✅ Définir l'état actif de la promotion selon la date
         promotion.setActive(promotion.getEndDate().isAfter(LocalDate.now()));
 
         return repository.save(promotion);

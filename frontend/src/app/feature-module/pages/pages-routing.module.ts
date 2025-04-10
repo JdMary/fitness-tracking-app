@@ -143,6 +143,17 @@ const routes: Routes = [
             (m) => m.ServiceRequestModule
           ),
       },
+      ///////////////add
+      {
+        path: 'sport-facility',
+        loadChildren: () => import('./sport-facility/sport-facility.module').then(m => m.SportFacilityModule)
+
+      },
+      {
+        path: 'promotion',
+        loadChildren: () => import('./promotion/promotion.module').then(m => m.PromotionModule)
+      }
+      
     ],
   },
 ];

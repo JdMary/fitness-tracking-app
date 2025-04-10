@@ -18,7 +18,7 @@ export class ListPromotionComponent implements OnInit {
   ];
   routes = routes;
 
-  token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im5hc3NpbUBlc3ByaXQudG4iLCJleHAiOjE3NDQwNjk3NTJ9.s1Zv4XYhK3PfiIxWRNg0ZacsmmjbB7_qy0FQL_MmdKE';
+  token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im5hc3NpbUBlc3ByaXQudG4iLCJleHAiOjE3NDQyNzkyOTl9.2BpGPYAL-NLlykkI-Yu8Nt2EkNL8UdPSeiRwVVXuOmw';
 
   constructor(private promotionService: PromotionService) { }
 
@@ -30,10 +30,10 @@ export class ListPromotionComponent implements OnInit {
     this.promotionService.getAllPromotions(this.token).subscribe({
       next: (response) => {
         this.promotions = response;
-        console.log('✅ Promotions loaded:', this.promotions);
+        console.log('Promotions loaded:', this.promotions);
       },
       error: (error) => {
-        console.error('❌ Error loading promotions', error);
+        console.error('Error loading promotions', error);
       }
     });
   }
@@ -43,12 +43,12 @@ export class ListPromotionComponent implements OnInit {
     if (confirmDelete) {
       this.promotionService.deletePromotion(promotionId, this.token).subscribe({
         next: () => {
-          alert('Promotion deleted successfully 🎉');
+          alert('Promotion deleted successfully ');
           this.loadPromotions();
         },
         error: (error) => {
           console.error('Error deleting promotion', error);
-          alert('Error deleting promotion ❌');
+          alert('Error deleting promotion');
         }
       });
     }
