@@ -24,6 +24,6 @@ public enum MealType  implements ApiEnum<MealType> {
 
     @JsonCreator
     public static MealType fromLabel(String label) {
-        return ApiEnum.fromLabel(label, MealType.class); // Reuse shared logic
+        return ApiEnum.fromLabel(label, MealType.class);
     }
 }

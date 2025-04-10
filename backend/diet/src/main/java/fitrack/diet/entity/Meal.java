@@ -1,5 +1,7 @@
 package fitrack.diet.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import fitrack.diet.entity.enumPreference.*;
 import jakarta.persistence.*;
 import lombok.*;
@@ -20,12 +22,17 @@ public class Meal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long mealId;
 
-    @ManyToOne
+    @JsonBackReference("dietPlan-meals")
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "diet_plan_id")
     private DietPlan dietPlan;
 
     private String name;
+    @Lob
+    @Column(length = 2048)
     private String imageUrl;
+    @Lob
+    @Column(length = 2048)
     private String recipeUrl;
     private String source; // Recipe source
     private String sourceUrl; // Recipe source URL
@@ -40,6 +47,8 @@ public class Meal {
     private Integer cookTimeMinutes;
     private Integer totalTimeMinutes;
     private Integer servings;
+
+    private Double totalWeight;
 
     // detailed nutr
     private Double calories;

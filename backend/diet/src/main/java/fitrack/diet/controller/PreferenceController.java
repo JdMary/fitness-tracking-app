@@ -26,10 +26,10 @@ public class PreferenceController {
         return ResponseEntity.ok(savedPreference);
     }
 
-    @GetMapping("/ListPreferenceByUsername")
-    public ResponseEntity<List<Preference>> getPreferencesByUserId(
+    @GetMapping("/PreferenceByUsername")
+    public ResponseEntity<Preference> getPreferencesByUserId(
             @RequestHeader("Authorization") String token) {
-        List<Preference> preferences = preferenceService.getPreferencesByUserId(token);
+        Preference preferences = preferenceService.getPreferencesByUserId(token);
         return ResponseEntity.ok(preferences);
     }
 

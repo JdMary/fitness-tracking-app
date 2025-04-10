@@ -24,7 +24,8 @@ public interface ApiEnum<T extends Enum<T>> {
 
     @JsonCreator
     static <T extends Enum<T> & ApiEnum<T>> T fromLabel(String label, Class<T> enumClass) {
-        T value = getApiMap(enumClass).get(label.toLowerCase());
+        String normalized = label.toLowerCase();
+        T value = getApiMap(enumClass).get(normalized);
         if (value == null) {
             throw new IllegalArgumentException("Invalid " + enumClass.getSimpleName() + ": " + label);
         }

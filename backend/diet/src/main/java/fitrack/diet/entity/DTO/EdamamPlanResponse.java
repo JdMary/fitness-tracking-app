@@ -1,12 +1,13 @@
 package fitrack.diet.entity.DTO;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
 import java.util.Map;
-
+@AllArgsConstructor
 @Getter
 @Setter
 public class EdamamPlanResponse {

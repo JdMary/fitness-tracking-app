@@ -1,10 +1,14 @@
 package fitrack.diet.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import fitrack.diet.entity.enumPreference.PlanStatus;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -22,15 +26,15 @@ public class DietPlan {
 
     private String username;
 
-    @ManyToOne
-    @JoinColumn(name = "preference_id")
-    private Preference preference;
-
     @OneToMany(mappedBy = "dietPlan", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference("dietPlan-meals")
     private List<Meal> meals;
 
+    @Column(nullable = false)
+    @Min(value = 1, message = "Must have at least 1 day")
     private Integer numberOfDays;
 
+    @CreatedDate
     private LocalDateTime createdAt;
 
     private int calorieTarget;
@@ -40,7 +44,7 @@ public class DietPlan {
     private Date startDate;
     private Date endDate;
 
-    private String userId;
+    @LastModifiedDate
     private LocalDateTime lastModified;
 
 //    @ElementCollection

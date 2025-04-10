@@ -2,7 +2,6 @@ package fitrack.diet.service;
 
 import fitrack.diet.client.AuthClient;
 import fitrack.diet.entity.Preference;
-import fitrack.diet.entity.User;
 import fitrack.diet.repository.PreferenceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,7 +20,7 @@ public  class PreferenceService implements IPreferenceService {
     @Autowired
     private AuthClient authClient;
 
-    public List<Preference> getPreferencesByUserId(String token) {
+    public Preference getPreferencesByUserId(String token) {
         String username = String.valueOf(authClient.extractUsername(token).getBody());
         return preferenceRepository.findByUsername(username);
     }
@@ -35,6 +34,7 @@ public  class PreferenceService implements IPreferenceService {
         return preferenceRepository.save(savedPreference);
 
     }
+
 
 
 }

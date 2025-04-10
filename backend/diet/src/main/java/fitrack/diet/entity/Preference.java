@@ -85,6 +85,9 @@ public class Preference {
     private Double minVitaminA;
     private Double minVitaminC;
 
+    public boolean hasCaloriePreferences() {
+        return this.minCalories != null || this.maxCalories != null;
+    }
 
 
 }

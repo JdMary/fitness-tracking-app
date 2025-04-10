@@ -2,6 +2,8 @@ package fitrack.diet.entity.enumPreference;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 
+import java.util.Arrays;
+
 public enum DietLabel implements ApiEnum<DietLabel> {
     BALANCED("balanced"),
     HIGH_FIBER("high-fiber"),
@@ -23,6 +25,14 @@ public enum DietLabel implements ApiEnum<DietLabel> {
 
     @JsonCreator
     public static DietLabel fromLabel(String label) {
-        return ApiEnum.fromLabel(label, DietLabel.class); // Delegate to interface
+        return ApiEnum.fromLabel(label, DietLabel.class);
     }
-}
+
+    public static DietLabel fromString(String text) {
+        return Arrays.stream(values())
+                .filter(e -> e.apiValue.equalsIgnoreCase(text))
+                .findFirst()
+                .orElse(null);
+    }
+
+    }
