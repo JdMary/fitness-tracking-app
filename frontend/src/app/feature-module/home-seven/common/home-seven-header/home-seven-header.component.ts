@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonService } from 'src/app/shared/common/common.service';
 import { DataService } from 'src/app/shared/data/data.service';
@@ -10,7 +10,7 @@ import { SidebarService } from 'src/app/shared/side-bar/pages-sidebar.service';
   templateUrl: './home-seven-header.component.html',
   styleUrls: ['./home-seven-header.component.css'],
 })
-export class HomeSevenHeaderComponent {
+export class HomeSevenHeaderComponent implements OnInit {
   public routes = routes;
   header: Array<header> = [];
   base = '';
@@ -34,10 +34,26 @@ export class HomeSevenHeaderComponent {
     });
     this.header = this.data.header;
   }
+  ngOnInit(): void {
+    this.checkAuthToken();
+  }
   public toggleSidebar(): void {
     this.sidebarService.openSidebar();
   }
   public hideSidebar(): void {
     this.sidebarService.closeSidebar();
+  }
+  public isLoggedIn: boolean = false;
+
+  
+
+  private checkAuthToken(): void {
+    this.isLoggedIn = !!localStorage.getItem('authToken'); // Check if token exists
+  }
+
+  public logout(): void {
+    localStorage.removeItem('authToken'); // Remove token
+    this.isLoggedIn = false; // Update state
+    this.router.navigate(['/login']); // Navigate to login page
   }
 }

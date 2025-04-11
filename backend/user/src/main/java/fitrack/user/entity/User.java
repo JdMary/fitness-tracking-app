@@ -27,6 +27,9 @@ public class User implements UserDetails {
     @Column(nullable = false, unique = true)
     private String email;
 
+    @Column(unique = true)
+    private int number;
+
     @Column(nullable = false)
     private String password;
 
@@ -37,8 +40,9 @@ public class User implements UserDetails {
     private List<Order> orders;
     public User() {
     }
-    public User(String name, String email, String password, UserRole role) {
+    public User(String name, int number , String email, String password, UserRole role) {
         this.name = name;
+        this.number = number;
         this.email = email;
         this.password = password;
         this.role = role;
@@ -59,33 +63,5 @@ public class User implements UserDetails {
         return email;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
 
 }

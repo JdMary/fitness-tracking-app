@@ -6,6 +6,7 @@ import fitrack.user.service.IUserService;
 import fitrack.user.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,13 +17,16 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserController {
-    private final UserRepository userRepository;
-    private final IUserService userService;
 
-    UserController(UserRepository userRepository, UserService userService) {
-        this.userRepository = userRepository;
-        this.userService = userService;
-    }
+    @Autowired
+    public UserRepository userRepository;
+    @Autowired
+    public IUserService userService;
+
+//    UserController(UserRepository userRepository, UserService userService) {
+//        this.userRepository = userRepository;
+//        this.userService = userService;
+//    }
     @GetMapping("/test")
     public String test() {
         return "Service USER fonctionne ";
