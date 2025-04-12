@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PagesComponent } from './pages.component';
+import {WorkoutsModule} from "./workouts/workouts.module";
 
 const routes: Routes = [
   {
@@ -143,6 +144,13 @@ const routes: Routes = [
             (m) => m.ServiceRequestModule
           ),
       },
+      {
+        path: 'workouts',
+        loadChildren: () =>
+          import('./workouts/workouts.module').then(
+            m => m.WorkoutsModule
+          ),
+      }
     ],
   },
 ];

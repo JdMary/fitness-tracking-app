@@ -618,21 +618,21 @@ export class DataService {
       menu: [
         {
           menuValue: 'Workout plans',
-          routes: routes.customerDashboard, // badalha 7asb l route mte3k
+          routes: routes.workoutPlans, // badalha 7asb l route mte3k
           hasSubRoute: false,
           showSubRoute: false,
           subMenus: [],
         },
         {
           menuValue: 'Training sessions',
-          routes: routes.customerBooking, // badalha 7asb l route mte3k
+          routes: routes.trainingSessions, // badalha 7asb l route mte3k
           hasSubRoute: false,
           showSubRoute: false,
           subMenus: [],
         },
         {
           menuValue: 'Exercices',
-          routes: routes.customerBooking, // badalha 7asb l route mte3k
+          routes: routes.exercises, // badalha 7asb l route mte3k
           hasSubRoute: false,
           showSubRoute: false,
           subMenus: [],
@@ -873,7 +873,7 @@ export class DataService {
         },
       ],
     },
-    
+
     {
       tittle: 'Providers',
       showAsTab: false,

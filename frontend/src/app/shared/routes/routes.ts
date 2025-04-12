@@ -859,4 +859,13 @@ export class routes {
   public static get verificationRequest(): string {
     return this.baseUrl + '/admin/verification-request';
   }
+  public static get workoutPlans(): string {
+    return this.baseUrl + '/workouts/workout-plan';
+  }
+  public static get trainingSessions(): string {
+    return this.baseUrl + '/workouts/training-session';
+  }
+  public static get exercises(): string {
+    return this.baseUrl + '/workouts/exercises';
+  }
 }

@@ -6,12 +6,15 @@ import { AddCustomerComponent } from './add-customer.component';
 
 
 @NgModule({
-  declarations: [
-    AddCustomerComponent
-  ],
-  imports: [
-    CommonModule,
-    AddCustomerRoutingModule
-  ]
+    declarations: [
+        AddCustomerComponent
+    ],
+    exports: [
+        AddCustomerComponent
+    ],
+    imports: [
+        CommonModule,
+        AddCustomerRoutingModule
+    ]
 })
 export class AddCustomerModule { }
