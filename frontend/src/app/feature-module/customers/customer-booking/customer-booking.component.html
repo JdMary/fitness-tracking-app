@@ -281,36 +281,36 @@
 <!-- Reschedule Appointment -->
 <div class="modal fade custom-modal" id="reschedule">
   <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-          <div class="modal-header d-flex align-items-center justify-content-between border-bottom">
-              <h5 class="modal-title">Reschedule Appointment</h5>
-              <a href="javascript:void(0);" data-bs-dismiss="modal" aria-label="Close"><i class="ti ti-circle-x-filled fs-20"></i></a>
+    <div class="modal-content">
+      <div class="modal-header d-flex align-items-center justify-content-between border-bottom">
+        <h5 class="modal-title">Reschedule Appointment</h5>
+        <a href="javascript:void(0);" data-bs-dismiss="modal" aria-label="Close"><i class="ti ti-circle-x-filled fs-20"></i></a>
+      </div>
+      <div class="modal-body">
+        <form >
+          <div class="mb-3">
+            <label class="form-label">Appointment Date</label>
+            <div class="form-icon">
+              <input type="text" class="form-control datetimepicker" placeholder="DD/MM/YYYY">
+              <span class="cus-icon"><i class="feather icon-calendar"></i></span>
+            </div>
           </div>
-          <div class="modal-body">
-              <form >
-                  <div class="mb-3">
-        <label class="form-label">Appointment Date</label>
-        <div class="form-icon">
-          <input type="text" class="form-control datetimepicker" placeholder="DD/MM/YYYY">
-          <span class="cus-icon"><i class="feather icon-calendar"></i></span>
+          <div class="mb-0">
+            <label class="form-label">Appointment Time</label>
+            <div class="form-icon">
+              <input type="text" class="form-control timepicker" placeholder="DD/MM/YYYY">
+              <span class="cus-icon"><i class="feather icon-clock"></i></span>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <div class="acc-submit">
+          <a href="javascript:void(0);" class="btn btn-light me-2" data-bs-dismiss="modal">Cancel</a>
+          <button class="btn btn-dark" data-bs-dismiss="modal" type="button">Save</button>
         </div>
       </div>
-      <div class="mb-0">
-        <label class="form-label">Appointment Time</label>
-        <div class="form-icon">
-          <input type="text" class="form-control timepicker" placeholder="DD/MM/YYYY">
-          <span class="cus-icon"><i class="feather icon-clock"></i></span>
-        </div>
-      </div>
-              </form>
-          </div>
-          <div class="modal-footer">
-              <div class="acc-submit">
-                  <a href="javascript:void(0);" class="btn btn-light me-2" data-bs-dismiss="modal">Cancel</a>
-                  <button class="btn btn-dark" data-bs-dismiss="modal" type="button">Save</button>
-              </div>
-          </div>
-      </div>
+    </div>
   </div>
 </div>
 <!-- /Reschedule Appointment -->
@@ -318,24 +318,24 @@
 <!-- Cancel Appointment -->
 <div class="modal fade custom-modal" id="cancel_appointment">
   <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-          <div class="modal-header d-flex align-items-center justify-content-between border-bottom">
-              <h5 class="modal-title">Cancel Appointment</h5>
-              <a href="javascript:void(0);" data-bs-dismiss="modal" aria-label="Close"><i class="ti ti-circle-x-filled fs-20"></i></a>
+    <div class="modal-content">
+      <div class="modal-header d-flex align-items-center justify-content-between border-bottom">
+        <h5 class="modal-title">Cancel Appointment</h5>
+        <a href="javascript:void(0);" data-bs-dismiss="modal" aria-label="Close"><i class="ti ti-circle-x-filled fs-20"></i></a>
+      </div>
+      <form>
+        <div class="modal-body">
+          <p>Are you sure you want to cancel <span class="text-dark"> John Doe</span> appointment on
+            <span class="text-dark"> Oct 28, 2022</span> at time <span class="text-dark"> 10AM - 12PM</span></p>
+        </div>
+        <div class="modal-footer">
+          <div class="acc-submit">
+            <a href="javascript:void(0);" class="btn btn-light me-2" data-bs-dismiss="modal">Dismiss</a>
+            <button class="btn btn-dark" data-bs-dismiss="modal" type="button">Yes, Cancel</button>
           </div>
-  <form>
-    <div class="modal-body">
-      <p>Are you sure you want to cancel <span class="text-dark"> John Doe</span> appointment on
-        <span class="text-dark"> Oct 28, 2022</span> at time <span class="text-dark"> 10AM - 12PM</span></p>
+        </div>
+      </form>
     </div>
-    <div class="modal-footer">
-      <div class="acc-submit">
-        <a href="javascript:void(0);" class="btn btn-light me-2" data-bs-dismiss="modal">Dismiss</a>
-        <button class="btn btn-dark" data-bs-dismiss="modal" type="button">Yes, Cancel</button>
-      </div>
-    </div>
-  </form>
-      </div>
   </div>
 </div>
 <!-- /Cancel Appointment -->
@@ -343,45 +343,45 @@
 <!-- Add Review -->
 <div class="modal fade custom-modal" id="add-review">
   <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-          <div class="modal-header d-flex align-items-center justify-content-between border-bottom">
-              <h5 class="modal-title">Write A Review</h5>
-              <a href="javascript:void(0);" data-bs-dismiss="modal" aria-label="Close"><i class="ti ti-circle-x-filled fs-20"></i></a>
-          </div>
-  <form >
-    <div class="modal-body">
-      <div class="write-review">
-        <div class="review-add d-flex align-items-center mb-3">
-          <div class="rev-img me-2">
-            <img src="assets/img/services/service-19.jpg" alt="image">
-          </div>
-          <div>
-            <h6 class="fs-16 fw-medium mb-1">Computer Services</h6>
-            <p class="fs-12">Newyork, USA</p>
-          </div>
-        </div>
-        <div class="form-info d-flex align-items-center justify-content-between mb-3">
-          <p class="fw-medium text-dark mb-0">Rate The Service</p>
-          <div class="rating-select mb-0">
-            <a href="javascript:void(0);"><i class="fas fa-star"></i></a>
-            <a href="javascript:void(0);"><i class="fas fa-star"></i></a>
-            <a href="javascript:void(0);"><i class="fas fa-star"></i></a>
-            <a href="javascript:void(0);"><i class="fas fa-star"></i></a>
-            <a href="javascript:void(0);"><i class="fas fa-star"></i></a>
-          </div>
-        </div>
-        <div class="mb-0">
-          <label class="col-form-label">Write your Review</label>
-          <textarea class="form-control" rows="4" placeholder="Please write your review"></textarea>
-        </div>
+    <div class="modal-content">
+      <div class="modal-header d-flex align-items-center justify-content-between border-bottom">
+        <h5 class="modal-title">Write A Review</h5>
+        <a href="javascript:void(0);" data-bs-dismiss="modal" aria-label="Close"><i class="ti ti-circle-x-filled fs-20"></i></a>
       </div>
+      <form >
+        <div class="modal-body">
+          <div class="write-review">
+            <div class="review-add d-flex align-items-center mb-3">
+              <div class="rev-img me-2">
+                <img src="assets/img/services/service-19.jpg" alt="image">
+              </div>
+              <div>
+                <h6 class="fs-16 fw-medium mb-1">Computer Services</h6>
+                <p class="fs-12">Newyork, USA</p>
+              </div>
+            </div>
+            <div class="form-info d-flex align-items-center justify-content-between mb-3">
+              <p class="fw-medium text-dark mb-0">Rate The Service</p>
+              <div class="rating-select mb-0">
+                <a href="javascript:void(0);"><i class="fas fa-star"></i></a>
+                <a href="javascript:void(0);"><i class="fas fa-star"></i></a>
+                <a href="javascript:void(0);"><i class="fas fa-star"></i></a>
+                <a href="javascript:void(0);"><i class="fas fa-star"></i></a>
+                <a href="javascript:void(0);"><i class="fas fa-star"></i></a>
+              </div>
+            </div>
+            <div class="mb-0">
+              <label class="col-form-label">Write your Review</label>
+              <textarea class="form-control" rows="4" placeholder="Please write your review"></textarea>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a href="javascript:void(0);" class="btn btn-light me-2" data-bs-dismiss="modal">Cancel</a>
+          <button type="button" data-bs-dismiss="modal" class="btn btn-dark">Send</button>
+        </div>
+      </form>
     </div>
-    <div class="modal-footer">
-      <a href="javascript:void(0);" class="btn btn-light me-2" data-bs-dismiss="modal">Cancel</a>
-      <button type="button" data-bs-dismiss="modal" class="btn btn-dark">Send</button>
-    </div>
-  </form>
-      </div>
   </div>
 </div>
 <!-- /Add Review -->

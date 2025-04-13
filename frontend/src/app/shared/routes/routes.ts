@@ -866,6 +866,7 @@ export class routes {
     return this.baseUrl + '/workouts/training-session';
   }
   public static get exercises(): string {
-    return this.baseUrl + '/workouts/exercises';
+    return this.baseUrl + '/workouts/exercice';
   }
+ 
 }

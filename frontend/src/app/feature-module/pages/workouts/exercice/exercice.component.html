@@ -1,0 +1,68 @@
+<p>exercice works!</p>
+
+<a [routerLink]="'/exercice-details'">Details</a>
+
+<div class="card">
+  <div class="card-body">
+    <form [formGroup]="exerciseForm">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Category</label>
+          <select class="form-control" formControlName="category">
+            <option value="Cardio">Cardio</option>
+            <option value="Strength">Strength</option>
+            <option value="Flexibility">Flexibility</option>
+            <option value="Balance">Balance</option>
+          </select>
+          <div class="invalid-feedback" *ngIf="exerciseForm.get('category')?.invalid && exerciseForm.get('category')?.touched">
+            Category is required
+          </div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Sets</label>
+          <input type="number" class="form-control" formControlName="sets">
+          <div class="invalid-feedback" *ngIf="exerciseForm.get('sets')?.invalid && exerciseForm.get('sets')?.touched">
+            Sets must be at least 1
+          </div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Reps</label>
+          <input type="number" class="form-control" formControlName="reps">
+          <div class="invalid-feedback" *ngIf="exerciseForm.get('reps')?.invalid && exerciseForm.get('reps')?.touched">
+            Reps must be at least 1
+          </div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Difficulty</label>
+          <select class="form-control" formControlName="difficulty">
+            <option value="Beginner">Beginner</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Advanced">Advanced</option>
+          </select>
+        </div>
+        <div class="col-md-12 mb-3">
+          <label class="form-label">Instructions</label>
+          <textarea class="form-control" rows="3" formControlName="instructions"></textarea>
+          <div class="invalid-feedback" *ngIf="exerciseForm.get('instructions')?.invalid && exerciseForm.get('instructions')?.touched">
+            Instructions are required
+          </div>
+        </div>
+        <div class="col-md-12 mb-3">
+          <label class="form-label">Video Upload</label>
+          <div class="upload-zone">
+            <input type="file" accept="video/*" class="form-control" (change)="onFileSelected($event)">
+          </div>
+          <div class="video-preview mt-2" *ngIf="videoUrl">
+            <video [src]="videoUrl" controls class="img-fluid"></video>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <div class="d-flex justify-content-between mt-3">
+        <button type="button" class="btn btn-secondary" (click)="onPrevious()">Back</button>
+        <button type="button" class="btn btn-success" [disabled]="!exerciseForm.valid" (click)="onSubmit()">Complete</button>
+      </div>
+    </form>
+  </div>
+</div>

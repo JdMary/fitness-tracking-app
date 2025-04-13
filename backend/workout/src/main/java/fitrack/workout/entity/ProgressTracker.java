@@ -16,7 +16,6 @@ public class ProgressTracker {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "progress_id", nullable = false, unique = true)
-
     private Long progressId;
     private Integer totalRepsCompleted;
     private Integer totalSetsCompleted;
