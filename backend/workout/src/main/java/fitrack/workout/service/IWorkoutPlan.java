@@ -15,4 +15,5 @@ public interface IWorkoutPlan {
     void deleteWorkoutPlan(Long id);
     WorkoutPlan assignWorkoutPlanToTrainingSession(WorkoutPlan wp,String token);
     WorkoutPlan assignProgressToWorkoutPlanToUser(ProgressTracker progress, Long idWorkoutPlan ,String token);
+    WorkoutPlan createFullWorkoutPlan(WorkoutPlan plan);
     }

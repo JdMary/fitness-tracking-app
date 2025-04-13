@@ -23,6 +23,7 @@ export class ExerciceComponent implements OnInit {
       sets: ['', [Validators.required, Validators.min(1)]],
       reps: ['', [Validators.required, Validators.min(1)]],
       difficulty: ['', Validators.required],
+      videoUrl: [''],
       instructions: ['', Validators.required]
     });
   }

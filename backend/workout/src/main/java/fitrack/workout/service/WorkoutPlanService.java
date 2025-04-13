@@ -92,5 +92,10 @@ public class WorkoutPlanService implements IWorkoutPlan {
         return existingWorkoutPlan;
     }
 
+    @Override
+    public WorkoutPlan createFullWorkoutPlan(WorkoutPlan plan) {
+        return null;
+    }
+
 
 }

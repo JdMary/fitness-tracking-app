@@ -637,6 +637,13 @@ export class DataService {
           showSubRoute: false,
           subMenus: [],
         },
+        {
+          menuValue: 'Create Workout',
+          routes: routes.workoutWizard,
+          hasSubRoute: false,
+          showSubRoute: false,
+          subMenus: [],
+        },
       ],
     },
     {

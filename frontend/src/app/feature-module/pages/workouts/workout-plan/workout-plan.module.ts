@@ -1,24 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { WorkoutPlanRoutingModule } from './workout-plan-routing.module';
+import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { WorkoutPlanComponent } from './workout-plan.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { CustomersHeaderComponent } from '../../../customers/common/customers-header/customers-header.component';
-import { FormsModule } from '@angular/forms';
 
 @NgModule({
-    declarations: [
-        WorkoutPlanComponent
-    ],
-    exports: [
-        WorkoutPlanComponent
-    ],
-    imports: [
-        CommonModule,
-        WorkoutPlanRoutingModule,
-        SharedModule,
-        FormsModule
-    ]
+  declarations: [WorkoutPlanComponent],
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+    SharedModule
+  ],
+  exports: [WorkoutPlanComponent]
 })
 export class WorkoutPlanModule { }

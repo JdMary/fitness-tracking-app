@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import {WorkoutPlan, TrainingSession, Exercise} from 'workouts/models/entities';
+import { WorkoutPlan, TrainingSession, Exercise } from '../models/entities';
 
 @Injectable({
   providedIn: 'root'

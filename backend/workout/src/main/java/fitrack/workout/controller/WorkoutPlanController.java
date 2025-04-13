@@ -27,6 +27,10 @@ public class WorkoutPlanController {
     public String test() {
         return "Service USER fonctionne ";
     }
+    @GetMapping("/create-full-workout")
+    public String createFullWorkoutPlan(@RequestBody WorkoutPlan plan) {
+        return "Service USER fonctionne ";
+    }
 
 
     @PostMapping("/add")

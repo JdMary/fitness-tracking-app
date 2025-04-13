@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { WorkoutFormService } from '../services/workout-form.service';
+import { routes } from 'src/app/shared/routes/routes';
 
 @Component({
   selector: 'app-training-session',
@@ -9,6 +10,7 @@ import { WorkoutFormService } from '../services/workout-form.service';
   styleUrls: ['./training-session.component.css']
 })
 export class TrainingSessionComponent implements OnInit {
+  public routes = routes;
   sessionForm: FormGroup;
   selectedValue: string | null = null;
   selectedList = [
@@ -36,8 +38,9 @@ export class TrainingSessionComponent implements OnInit {
       country: 'Canada'
     }
   ];
-  routes = {
-    serviceDetails: '/service-details'
+  public data = {
+    like: false,
+    title: 'Training Session'
   };
 
   constructor(
@@ -71,5 +74,9 @@ export class TrainingSessionComponent implements OnInit {
   onPrevious() {
     this.formService.updateTrainingSession(this.sessionForm.value);
     this.router.navigate(['/workouts/workout-plan']);
+  }
+
+  toggleLike(): void {
+    this.data.like = !this.data.like;
   }
 }
