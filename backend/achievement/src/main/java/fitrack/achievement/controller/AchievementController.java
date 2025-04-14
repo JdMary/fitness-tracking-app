@@ -55,6 +55,9 @@ public class AchievementController {
         return ResponseEntity.ok(service.findAllAchivements());
     }
 
+
+
+
     @PutMapping("/update/{achieveId}")
     public ResponseEntity<Achievement> updateAchievement(@PathVariable String achieveId, @RequestBody Achievement achievementDetails) {
         Achievement updatedAchievement = service.updateAchievement(achieveId, achievementDetails);

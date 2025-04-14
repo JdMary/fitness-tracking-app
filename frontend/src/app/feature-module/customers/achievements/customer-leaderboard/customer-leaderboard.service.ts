@@ -11,39 +11,42 @@ import { FullBoardResponse } from '../customer-leaderboard-detail/board-response
 })
 export class CustomerLeaderboardService {
 
-  private apiUrl = 'http://localhost:8073/api/v1/leaderBoard';
+  private apiUrl = 'http://localhost:8222/api/v1/leaderBoard';
+  token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImZhcmFoQGVzcHJpdC50biIsImV4cCI6MTc0NDY0MTM3MH0.DxUXt6kNGs_eeHb8kWJ9-dp8_fPxj-LLcsqCaAK4erE";
 
   constructor(private http: HttpClient) {}
 
   getAllLeaderboards(): Observable<LeaderBoard[]> {
-    return this.http.get<LeaderBoard[]>(`${this.apiUrl}/liste`);
-  }
-
-  getLeaderboardWithUsers(boardId: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/withUsers/${boardId}`);
-  }
+    const headers = { Authorization: `Bearer ${this.token}` }; 
+    return this.http.get<LeaderBoard[]>(`${this.apiUrl}/liste`, { headers });
+}
+getLeaderboardWithUsers(boardId: string): Observable<any> {
+  const headers = { Authorization: `Bearer ${this.token}` }; 
+  return this.http.get(`${this.apiUrl}/withUsers/${boardId}`, { headers });
+}
 
   addLeaderboard(board: LeaderBoard): Observable<void> {
+    const headers = { Authorization: `Bearer ${this.token}` };
     return this.http.post<void>(`${this.apiUrl}/addBoard`, board);
   }
 
   deleteLeaderboard(boardId: string): Observable<string> {
+    const headers = { Authorization: `Bearer ${this.token}` };
     return this.http.delete(`${this.apiUrl}/delete/${boardId}`, { responseType: 'text' });
   }
 
 
   updateLeaderboard(leaderboard: LeaderBoard): Observable<LeaderBoard> {
-    return this.http.put<LeaderBoard>(`${this.apiUrl}/update/${leaderboard.boardId}`, leaderboard);
+    const headers = { Authorization: `Bearer ${this.token}` }; // Ajout du token
+    return this.http.put<LeaderBoard>(`${this.apiUrl}/update/${leaderboard.boardId}`, leaderboard, { headers });
 }
+
 getLeaderboardById(id: string): Observable<LeaderBoard> {
-    return this.http.get<LeaderBoard>(`${this.apiUrl}/getById/${id}`);
-  }
-  
-  
-
-
-  getBoardByUserId(userId: string): Observable<FullBoardResponse> {
-    return this.http.get<FullBoardResponse>(`${this.apiUrl}/byUser/${userId}`);
-  }
-
+    const headers = { Authorization: `Bearer ${this.token}` }; // Ajout du token
+    return this.http.get<LeaderBoard>(`${this.apiUrl}/getById/${id}`, { headers });
 }
+
+getBoardByUserId(userId: string): Observable<FullBoardResponse> {
+    const headers = { Authorization: `Bearer ${this.token}` }; // Ajout du token
+    return this.http.get<FullBoardResponse>(`${this.apiUrl}/byUser/${userId}`, { headers });
+}}

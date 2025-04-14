@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CustomerLeaderboardComponent } from './customer-leaderboard-detail.component';
+import { CustomerLeaderboardDetailComponent } from './customer-leaderboard-detail.component';
 
-describe('CustomerLeaderboardComponent', () => {
-  let component: CustomerLeaderboardComponent;
-  let fixture: ComponentFixture<CustomerLeaderboardComponent>;
+describe('CustomerLeaderboardDetailComponent', () => {
+  let component: CustomerLeaderboardDetailComponent;
+  let fixture: ComponentFixture<CustomerLeaderboardDetailComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CustomerLeaderboardComponent]
+      declarations: [CustomerLeaderboardDetailComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CustomerLeaderboardComponent);
+    fixture = TestBed.createComponent(CustomerLeaderboardDetailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

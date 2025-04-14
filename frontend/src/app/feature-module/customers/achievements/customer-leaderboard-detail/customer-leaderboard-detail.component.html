@@ -1,37 +1,73 @@
 <div class="container mt-5">
 
-    <div *ngIf="errorMessage" class="alert alert-danger text-center">
-      {{ errorMessage }}
+  <!-- ✅ Leaderboard Name & Description -->
+  <h2 class="text-center mb-2 text-success fw-bold">{{ boardDetails?.name }}</h2>
+  <p class="text-center mb-4 text-muted">{{ boardDetails?.description }}</p>
+
+  <!-- ✅ Rank & XP + Congrats message aligned horizontally -->
+  <div class="d-flex justify-content-center align-items-center gap-4 flex-wrap mb-5">
+
+    <!-- Rank & XP (Vertical stacking) -->
+    <div class="d-flex flex-column align-items-center gap-3">
+      <!-- Rank Card -->
+      <div class="rank-xp-card text-center">
+        <h5 class="text-secondary mb-1">Rank</h5>
+        <h2 class="text-danger fw-bold">{{ currentUserRank ?? 'N/A' }}</h2>
+      </div>
+
+      <!-- XP Points Card -->
+      <div class="rank-xp-card text-center">
+        <h5 class="text-secondary mb-1">XP Points</h5>
+        <h2 class="text-danger fw-bold">{{ currentUserXP ?? '0' }}</h2>
+      </div>
     </div>
-  
-    <div *ngIf="boardDetails; else loading">
-      <h2 class="text-center mb-4">{{ boardDetails.name }}</h2>
-      <p class="text-center">{{ boardDetails.description }}</p>
-  
-      <h3 class="mt-4">Users in this Leaderboard</h3>
-  
-      <table class="table table-striped table-bordered mt-3">
-        <thead class="table-dark">
-          <tr>
-            <th>Rank</th>
-            <th>User ID</th>
-            <th>XP Points</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let user of boardDetails.users">
-            <td>{{ user.rank }}</td>
-            <td>{{ user.userId }}</td>
-            <td>{{ user.xpPoints }}</td>
-          </tr>
-        </tbody>
-      </table>
-  
-      <button class="btn btn-secondary mt-3" (click)="goBack()">Back</button>
+
+    <!-- Congrats Card -->
+    <div class="card shadow-sm text-center flex-grow-1" style="min-width: 300px;">
+      <div class="card-body">
+        <h4 class="fw-bold mb-3">
+          🎉 Congrats, you are ranked #{{ currentUserRank ?? 'N/A' }} in this leaderboard!
+        </h4>
+        <p class="text-muted mb-3">Keep going and collect more points 🚀</p>
+        <div>
+          <img src="https://cdn-icons-png.flaticon.com/512/891/891462.png" alt="Celebration" width="60">
+        </div>
+      </div>
     </div>
-  
-    <ng-template #loading>
-      <p class="text-center">Loading leaderboard details...</p>
-    </ng-template>
+
   </div>
-  
+
+  <!-- ✅ Leaderboard Rankings -->
+  <h3 class="text-center fw-bold mb-4">Leaderboard Rankings</h3>
+
+  <table class="table table-striped table-bordered">
+    <thead class="table-dark">
+      <tr>
+        <th>Rank</th>
+        <th>User ID</th>
+        <th>XP Points</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let user of boardDetails?.users"
+        [class.table-active]="user.userId === userId"
+      >
+        <td>
+          <span *ngIf="user.rank === 1">🥇</span>
+          <span *ngIf="user.rank === 2">🥈</span>
+          <span *ngIf="user.rank === 3">🥉</span>
+          {{ user.rank }}
+        </td>
+        <td>{{ user.userId }}</td>
+        <td>{{ user.xpPoints }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ✅ Back Button -->
+  <div class="text-center mt-4">
+    <button class="btn btn-secondary" (click)="goBack()">Back</button>
+  </div>
+
+</div>

@@ -1,70 +1,73 @@
-<!-- ✅ Titre bien centré -->
-<h2 class="text-center mb-4 fw-bold text-success">Challenges List</h2>
+<div class="container mt-4" style="max-width: 900px;">
 
-<!-- ✅ Filtres centrés sous le titre -->
-<div class="d-flex justify-content-center mb-4 flex-wrap gap-2">
-  <input
-    type="text"
-    class="form-control"
-    placeholder="Search by title or status..."
-    [(ngModel)]="searchTerm"
-    (input)="applySearch()"
-    style="max-width: 250px;"
-  />
-</div>
+  <!-- ✅ Titre bien centré -->
+  <h2 class="text-center mb-4 fw-bold text-success">Challenges List</h2>
 
-<!-- ✅ Liste des challenges -->
-<div *ngIf="filteredChallenges.length > 0; else noChallenges">
-  <div 
-    class="card shadow-none booking-list mb-3" 
-    *ngFor="let challenge of filteredChallenges; let i = index"
-    style="border: 1px solid #dee2e6; border-radius: 8px;"
-  >
-    <div class="card-body d-md-flex align-items-center justify-content-between flex-wrap row-gap-3">
+  <!-- ✅ Filtres centrés sous le titre -->
+  <div class="d-flex justify-content-center mb-4 flex-wrap gap-2">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Search by title or status..."
+      [(ngModel)]="searchTerm"
+      (input)="applySearch()"
+      style="max-width: 250px;"
+    />
+  </div>
 
-      <!-- 📄 Infos challenge -->
-      <div class="booking-widget d-sm-flex align-items-center flex-fill mb-3 mb-md-0 gap-3">
-        <div class="booking-img position-relative">
-          <a href="javascript:void(0);" class="avatar">
-            <img src="assets/img/services/service-08.jpg" alt="Challenge Image" />
-          </a>
+  <!-- ✅ Liste des challenges -->
+  <div *ngIf="filteredChallenges.length > 0; else noChallenges">
+    <div 
+      class="card shadow-none booking-list mb-3" 
+      *ngFor="let challenge of filteredChallenges; let i = index"
+      style="border: 1px solid #dee2e6; border-radius: 8px;"
+    >
+      <div class="card-body d-md-flex align-items-center justify-content-between flex-wrap row-gap-3">
+
+        <!-- 📄 Infos challenge -->
+        <div class="booking-widget d-sm-flex align-items-center flex-fill mb-3 mb-md-0 gap-3">
+          <div class="booking-img position-relative">
+            <a href="javascript:void(0);" class="avatar">
+              <!-- Optionnel : image ou icône -->
+            </a>
+          </div>
+
+          <div class="booking-det-info">
+            <h6 class="mb-3 mb-md-2">
+              {{ challenge.title }}
+              <span class="badge ms-2" [ngClass]="getBadgeClass(challenge.status)">
+                {{ challenge.status }}
+              </span>
+            </h6>
+            <ul class="booking-details list-unstyled mb-0">
+              <li><strong>Start Date:</strong> {{ challenge.startDate | date: 'dd/MM/yyyy hh:mm a' }}</li>
+              <li><strong>End Date:</strong> {{ challenge.endDate | date: 'dd/MM/yyyy hh:mm a' }}</li>
+              <li><strong>XP Points:</strong> {{ challenge.xpPoints }}</li>
+              <li><strong>Description:</strong> {{ challenge.description }}</li>
+            </ul>
+          </div>
         </div>
 
-        <div class="booking-det-info">
-          <h6 class="mb-3">
-            {{ challenge.title }}
-            <span class="badge ms-2" [ngClass]="getBadgeClass(challenge.status)">
-              {{ challenge.status }}
-            </span>
-          </h6>
-          <ul class="booking-details list-unstyled">
-            <li class="mb-1"><strong>Start Date:</strong> {{ challenge.startDate | date: 'dd/MM/yyyy hh:mm a' }}</li>
-            <li class="mb-1"><strong>End Date:</strong> {{ challenge.endDate | date: 'dd/MM/yyyy hh:mm a' }}</li>
-            <li class="mb-1"><strong>XP Points:</strong> {{ challenge.xpPoints }}</li>
-            <li class="mb-1"><strong>Description:</strong> {{ challenge.description }}</li>
-          </ul>
+        <div class="text-end">
+          <div class="d-flex flex-wrap gap-2 justify-content-end">
+            <a
+              [routerLink]="['/customers/customer-challenge-details', challenge.challengeId]"
+              class="btn btn-details"
+            >
+              <i class="ti ti-circle-plus me-2"></i> Details
+            </a>
+          </div>
         </div>
+
       </div>
-
-      <!-- ✅ Actions -->
-      <div class="text-end">
-        <div class="d-flex flex-wrap gap-2 justify-content-end">
-          <a
-            [routerLink]="['/customers/customer-challenge-details', challenge.challengeId]"
-            class="btn btn-details"
-          >
-            <i class="ti ti-circle-plus me-2"></i> Details
-          </a>
-        </div>
-      </div>
-
     </div>
   </div>
-</div>
 
-<!-- ✅ Message aucun challenge -->
-<ng-template #noChallenges>
-  <div class="alert alert-info text-center">
-    No challenges found for now.
-  </div>
-</ng-template>
+  
+  <ng-template #noChallenges>
+    <div class="alert alert-info text-center">
+      No challenges found for now.
+    </div>
+  </ng-template>
+
+</div>

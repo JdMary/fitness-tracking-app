@@ -9,10 +9,11 @@ import { FullBoardResponse } from './board-response.model';
   styleUrls: ['./customer-leaderboard-detail.component.css']
 })
 export class CustomerLeaderboardDetailComponent implements OnInit {
-
   boardDetails: FullBoardResponse | null = null;
   errorMessage: string = '';
   userId: string = '';
+  currentUserRank: number | null = null;
+  currentUserXP: number | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -42,6 +43,10 @@ export class CustomerLeaderboardDetailComponent implements OnInit {
           // ✅ Attribue les rangs
           this.boardDetails.users.forEach((user, index) => {
             user.rank = index + 1;
+            if (user.userId === this.userId) {
+              this.currentUserRank = user.rank;
+              this.currentUserXP = user.xpPoints;
+            }
           });
         }
       },
@@ -53,6 +58,6 @@ export class CustomerLeaderboardDetailComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/customers/liste-leaderboards']); // Adapter si besoin
+    this.router.navigate(['/customers/liste-leaderboards']);
   }
 }

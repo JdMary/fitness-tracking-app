@@ -15,7 +15,8 @@ export class CustomerAchievementsComponent implements OnInit {
   searchTerm: string = '';
   selectedSort: string = 'XP Décroissant';
   selectedProgress: string = '';
-
+  
+  
   sortOptions = ['XP Croissant', 'XP Décroissant'];
 
   progressOptions = [
@@ -87,26 +88,17 @@ export class CustomerAchievementsComponent implements OnInit {
     }
 
     this.filteredAchievements = filtered;
-  }
-
-
-
-  
-  updateAchievementProgress(): void {
+  }updateAchievementProgress(): void {
     const staticExerciseId = '98df1738-1a67-4166-80cf-0b78c992f9bdvd';
-    const totalSets = 10; 
+    const totalSets = 3;
   
     this.achievementService.updateProgress(staticExerciseId, totalSets).subscribe({
-      next: (response) => {
-        console.log('✅ Success:', response);
-        alert(response);
-        this.loadAchievements(); 
+      next: () => {
+        this.loadAchievements(); // ✅ Recharge simplement la liste
       },
       error: (error) => {
         console.error('❌ Error:', error);
-        alert(error.error); // message d'erreur
       }
     });
   }
-  
-}
+}  

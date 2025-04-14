@@ -63,16 +63,15 @@
     </button>
   </div>
 
-  <!-- 📖 Challenge History -->
+
   <div class="mt-4">
     <h3 style="margin-bottom: 15px;">🕒 Challenge History</h3>
     <div style="background: #f8f8f8; padding: 15px; border-radius: 8px;">
       <div><strong>📅 Created:</strong> {{ challenge?.startDate | date: 'short' }}</div>
-      <div><strong>👤 Created for User:</strong> {{ challenge?.userId }}</div>
+      
     </div>
   </div>
 
-  <!-- 🔙 Back Button -->
   <div class="mt-4">
     <a [routerLink]="['/customers/customer-challenge']"
       style="background-color: grey; color: white; padding: 6px 12px; border-radius: 4px; text-decoration: none;">

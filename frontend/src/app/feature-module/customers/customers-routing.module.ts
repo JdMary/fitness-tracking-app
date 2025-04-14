@@ -57,13 +57,24 @@ const routes: Routes = [
 ,      
       
 {
-  path: 'leaderboard-detail',
+  path: 'customer-leaderboard-detail',
   loadChildren: () =>
     import('./achievements/customer-leaderboard-detail/customer-leaderboard-detail.module').then(
       (m) => m.CustomerLeaderboardDetailModule
     )
 }
+
 ,
+
+
+{
+  path: 'share-on-facebook',
+  loadChildren: () =>
+    import('./achievements/share-on-facebook/share-on-facebook.module').then(
+   
+      (m) => m.ShareOnFacebookModule
+    )
+},
 
 
 
