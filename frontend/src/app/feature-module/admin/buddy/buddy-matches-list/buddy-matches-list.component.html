@@ -1,1 +1,40 @@
-<p>buddy-matches-list works!</p>
+<div class="page-wrapper">
+    <div class="content">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="content-page-header">
+                    <h5>Buddy Matches</h5>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Match ID</th>
+                                <th>Request ID</th>
+                                <th>User 1</th>
+                                <th>User 2</th>
+                                <th>Creation Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let match of buddyMatches">
+                                <td>{{match.id}}</td>
+                                <td>{{match.requestId}}</td>
+                                <td>{{match.email1}}</td>
+                                <td>{{match.email2}}</td>
+                                <td>{{match.creationDate | date:'medium'}}</td>
+                                <td>
+                                    <div class="action-items">
+                                        <a class="btn btn-sm bg-info-light me-2"><i class="far fa-eye me-1"></i></a>
+                                        <a class="btn btn-sm bg-danger-light"><i class="far fa-trash-alt me-1"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

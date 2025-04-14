@@ -6,11 +6,10 @@ import fitrack.buddy.entity.*;
 import fitrack.buddy.repository.BuddyMatchRepository;
 import fitrack.buddy.repository.BuddyRequestRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import fitrack.buddy.client.AuthClient;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -73,10 +72,9 @@ public class BuddyRequestService implements IBuddyRequestService {
     }
 
     @Override
-    public UserDTO displayUser(Long id) {
-        BuddyRequest buddyRequest = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException(BUDDY_REQUEST_NOT_FOUND));
-        return userClient.retrieveUserByEmail(buddyRequest.getUserEmail()).getBody();
+    public ResponseEntity<UserDTO> displayUser(String userEmail) {
+        System.out.println(userClient.retrieveUserByEmail(userEmail).getBody());
+        return userClient.retrieveUserByEmail(userEmail);
     }
 
     @Override

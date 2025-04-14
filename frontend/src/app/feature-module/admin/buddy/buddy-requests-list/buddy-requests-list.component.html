@@ -1,1 +1,136 @@
-<p>buddy-requests-list works!</p>
+<div class="page-wrapper page-settings">
+    <div class="content">
+        <div class="content-page-header content-page-headersplit">
+            <h5>All Buddy Requests</h5>
+            <div class="list-btn">
+                <ul>
+                    <li>
+                        <div class="filter-sorting">
+                            <ul>
+                              <li>
+                                <a href="javascript:void(0);" class="filter-sets"><i class="feather icon-filter me-2"></i>Filter</a>
+                              </li>
+                                <li>
+                                    <span><img src="assets/admin/img/icons/sort.svg" class="me-2" alt="img"></span>
+                                    <div class="custom-select">
+                                        <mat-select class="select"  placeholder="A - Z">
+                                            <mat-option>
+                                            </mat-option>
+                                        </mat-select>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <a class="btn btn-primary"><i class="fa fa-plus me-2"></i>Create Services </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="tab-sets">
+                    <div class="tab-contents-sets">
+                        <ul>
+                            <li>
+                                <a [class.active]="selectedStatus === 'ALL'" (click)="filterByStatus('ALL')">All Buddy Requests</a>
+                            </li>
+                            <li>
+                                <a [class.active]="selectedStatus === 'PENDING'" (click)="filterByStatus('PENDING')">Pending</a>
+                            </li>
+                            <li>
+                                <a [class.active]="selectedStatus === 'WAITING'" (click)="filterByStatus('WAITING')">Waiting</a>
+                            </li>
+                            <li>
+                                <a [class.active]="selectedStatus === 'ACCEPTED'" (click)="filterByStatus('ACCEPTED')">Accepted</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tab-contents-count">
+                        <h6>Showing 8-10 of 84 results</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 ">
+                <div class="table-resposnive table-div">
+                    <table matSort class="table datatable">
+                        <thead>
+                            <tr>
+                                <th mat-sort-header="id">ID</th>
+                                <th mat-sort-header="service">User Name</th>
+                                <th mat-sort-header="category">User Email</th>
+                                <th mat-sort-header="subCategory">Status</th>
+                                <th mat-sort-header="amount">Goal</th>
+                                <th mat-sort-header="date">Workout Start Time</th>
+                                <th mat-sort-header="status">Duration</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let request of filteredBuddyRequests">
+                                <td>{{request.id}}</td>
+                                <td>{{request.userEmail.split('@')[0]}}</td>
+                                <td>{{request.userEmail}}</td>
+                                <td>
+                                    <span [ngClass]="{
+                                        'badge-active': request.status === 'ACCEPTED',
+                                        'badge-pending': request.status === 'PENDING',
+                                        'badge-inactive': request.status === 'WAITING'
+                                    }">{{request.status}}</span>
+                                </td>
+                                <td>{{request.goal}}</td>
+                                <td>{{request.workoutStartTime | date:'short'}}</td>
+                                <td>{{request.duration}} minutes</td>
+                                <td>
+                                    <div class="action-items">
+                                        <a class="btn btn-sm bg-info-light me-2"><i class="far fa-eye me-1"></i></a>
+                                        <a class="btn btn-sm bg-danger-light"><i class="far fa-trash-alt me-1"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                                 
+                </div>
+                <div class="pagination-main-class"> 
+                  <div class="table_footer">
+                    <div class="row">
+                      <div class="col-sm-12 col-md-6">
+                        <div class="dataTables_length">
+                          <label for="">
+                            <select
+                            
+                              class="form-control form-control-sm"
+                            >
+                              <option value="10">10</option>
+                              <option value="25">25</option>
+                              <option value="50">50</option>
+                              <option value="100">100</option>
+                            </select>
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="table_design">
+                    <div >
+                        <div class="dataTables_info">
+                             items
+                          </div>
+                    </div>
+                    <div class="d-flex">
+                      <div class="pagination_section">
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>    
+            </div>
+        </div>
+    </div>
+    
+</div>
+

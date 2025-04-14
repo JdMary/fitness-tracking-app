@@ -5,10 +5,10 @@ export class routes {
     return this.baseUrl + '/buddy/buddy-list';
   }
   public static get adminRequestList(): string {
-    return this.baseUrl + '/buddy/requests-list';
+    return this.baseUrl + '/admin/buddy/requests-list';
   }
   public static get adminMatchList(): string {
-    return this.baseUrl + '/buddy/matches-list';
+    return this.baseUrl + '/admin/buddy/matches-list';
   }
   public static get buddyRequest(): string {
     return this.baseUrl + '/buddy/buddy-request';

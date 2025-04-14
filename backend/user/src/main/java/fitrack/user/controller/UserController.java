@@ -51,14 +51,12 @@ public class UserController {
     }
 
     @GetMapping("/retrieve-user-email/{email}")
-    public ResponseEntity<?> retrieveUserByEmail(@PathVariable String email) {
-        Optional<User> userOptional = userRepository.findByEmail(email);
-
-        if (userOptional.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found with email: " + email);
+    public ResponseEntity<User> retrieveUserByEmail(@PathVariable String email) {
+        Optional<User> user = userRepository.findByEmail(email);
+        if (!user.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
-
-        return ResponseEntity.ok(userOptional.get());
+        return ResponseEntity.ok(user.get());
     }
 
     @DeleteMapping("/remove-user/{idUser}")

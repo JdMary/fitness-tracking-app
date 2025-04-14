@@ -1470,7 +1470,6 @@ export class DataService {
           menuValue: 'Buddy',
           hasSubRoute: true,
           showSubRoute: false,
-          route: routes.service,
           icon: 'icon-briefcase',
           subMenus: [
             {

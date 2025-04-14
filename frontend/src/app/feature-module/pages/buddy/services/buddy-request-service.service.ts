@@ -30,7 +30,7 @@ export interface BuddyMatch {
 })
 export class BuddyRequestService {
   private apiUrl = 'http://localhost:8222/api/v1/buddies/request';
-  private token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6InNhZmFAZXNwcml0LnRuIiwiZXhwIjoxNzQ0NTk2MjUzfQ.Klr8eY5fOQss7WalFilHViMkXvZ4p9ILEbJyqW175ng';
+  private token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6InNhZmFAZXNwcml0LnRuIiwiZXhwIjoxNzQ0NjY0Mzc2fQ.SU8B0fuRK8AEWK8b9mmE7Sr2q-oZkzDmWP8KmTtklWU';
 
   constructor(private http: HttpClient) {}
 
