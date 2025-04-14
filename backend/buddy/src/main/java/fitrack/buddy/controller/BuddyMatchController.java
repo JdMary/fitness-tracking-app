@@ -24,9 +24,9 @@ public class BuddyMatchController {
         return buddyMatchService.retrieveBuddyMatches();
     }
 
-    @GetMapping("retrieve/{userEmail}")
-    public List<BuddyMatch> retrieveBuddyMatchesByUserEmail(@PathVariable String userEmail) {
-        return buddyMatchService.findAllByUserEmail(userEmail);
+    @GetMapping("retrieveByEmail")
+    public List<BuddyMatch> retrieveBuddyMatchesByUserEmail(@RequestHeader("Authorization") String token) {
+        return buddyMatchService.findAllByUserEmail(token);
     }
 
     @DeleteMapping("delete/{id}")

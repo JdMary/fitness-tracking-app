@@ -576,14 +576,14 @@ export class DataService {
       menu: [
         {
           menuValue: 'Browse facilities',
-          routes: routes.customerDashboard, // badalha 7asb l route mte3k
+          routes: routes.customerDashboard,
           hasSubRoute: false,
           showSubRoute: false,
           subMenus: [],
         },
         {
           menuValue: 'Promotions',
-          routes: routes.customerBooking, // badalha 7asb l route mte3k
+          routes: routes.customerBooking,
           hasSubRoute: false,
           showSubRoute: false,
           subMenus: [],
@@ -591,24 +591,31 @@ export class DataService {
       ],
     },
     {
-      tittle: 'Buddy',
+      tittle: 'Buddy', //##############################################################################
       showAsTab: false,
       separateRoute: false,
       menu: [
         {
-          menuValue: 'Browse buddy requests',
-          routes: routes.customerDashboard, // badalha 7asb l route mte3k
+          menuValue: 'Browse buddy Requests',
+          routes: routes.buddyList,
           hasSubRoute: false,
           showSubRoute: false,
           subMenus: [],
         },
         {
-          menuValue: 'Past buddy matches',
-          routes: routes.customerBooking, // badalha 7asb l route mte3k
+          menuValue: 'Create/Review Requests',
+          routes: routes.buddyRequest,
           hasSubRoute: false,
           showSubRoute: false,
           subMenus: [],
         },
+        {
+          menuValue: 'View Match',
+          routes: routes.buddyMatch,
+          hasSubRoute: false,
+          showSubRoute: false,
+          subMenus: [],
+        }
       ],
     },
     {
@@ -618,21 +625,21 @@ export class DataService {
       menu: [
         {
           menuValue: 'Workout plans',
-          routes: routes.customerDashboard, // badalha 7asb l route mte3k
+          routes: routes.customerDashboard,
           hasSubRoute: false,
           showSubRoute: false,
           subMenus: [],
         },
         {
           menuValue: 'Training sessions',
-          routes: routes.customerBooking, // badalha 7asb l route mte3k
+          routes: routes.customerBooking,
           hasSubRoute: false,
           showSubRoute: false,
           subMenus: [],
         },
         {
           menuValue: 'Exercices',
-          routes: routes.customerBooking, // badalha 7asb l route mte3k
+          routes: routes.customerBooking,
           hasSubRoute: false,
           showSubRoute: false,
           subMenus: [],
@@ -646,27 +653,27 @@ export class DataService {
       menu: [
         {
           menuValue: 'Diet plan',
-          routes: routes.customerDashboard, // badalha 7asb l route mte3k
+          routes: routes.customerDashboard,
           hasSubRoute: false,
           showSubRoute: false,
           subMenus: [
             {
               menuValue: 'Generate',
-              routes: routes.serviceDetails, // badalha 7asb l route mte3k
+              routes: routes.serviceDetails,
               hasSubRoute: false,
               showSubRoute: false,
               subMenus: [],
             },
             {
               menuValue: 'Log',
-              routes: routes.serviceDetailstwo,// badalha 7asb l route mte3k
+              routes: routes.serviceDetailstwo,
               hasSubRoute: false,
               showSubRoute: false,
               subMenus: [],
             },
             {
               menuValue: 'Nutrition Analysis',
-              routes: routes.serviceDetailstwo,// badalha 7asb l route mte3k
+              routes: routes.serviceDetailstwo,
               hasSubRoute: false,
               showSubRoute: false,
               subMenus: [],
@@ -676,7 +683,7 @@ export class DataService {
         },
         {
           menuValue: 'Preferences',
-          routes: routes.customerBooking, // badalha 7asb l route mte3k
+          routes: routes.customerBooking,
           hasSubRoute: false,
           showSubRoute: false,
           subMenus: [],
@@ -690,28 +697,28 @@ export class DataService {
       menu: [
         {
           menuValue: 'View Leaderboard',
-          routes: routes.customerDashboard, // badalha 7asb l route mte3k
+          routes: routes.customerDashboard,
           hasSubRoute: false,
           showSubRoute: false,
           subMenus: [],
         },
         {
           menuValue: 'Rewards',
-          routes: routes.customerBooking, // badalha 7asb l route mte3k
+          routes: routes.customerBooking,
           hasSubRoute: false,
           showSubRoute: false,
           subMenus: [],
         },
         {
           menuValue: 'Challenges',
-          routes: routes.customerBooking, // badalha 7asb l route mte3k
+          routes: routes.customerBooking,
           hasSubRoute: false,
           showSubRoute: false,
           subMenus: [],
         },
         {
           menuValue: 'Achievements',
-          routes: routes.customerBooking, // badalha 7asb l route mte3k
+          routes: routes.customerBooking,
           hasSubRoute: false,
           showSubRoute: false,
           subMenus: [],
@@ -1463,21 +1470,17 @@ export class DataService {
           menuValue: 'Buddy',
           hasSubRoute: true,
           showSubRoute: false,
-          route: routes.service, //badl 7asb l route mte3k
+          route: routes.service,
           icon: 'icon-briefcase',
           subMenus: [
             {
-              menuValue: 'Add Service',
-              route: routes. addServices, //badl 7asb l route mte3k
+              menuValue: 'Requests List',
+              route: routes.adminRequestList,
             },
             {
-              menuValue: 'Services',
-              route: routes.service, //badl 7asb l route mte3k
-            },
-            {
-              menuValue: 'Service Settings',
-              route: routes.serviceSettings, //badl 7asb l route mte3k
-            },
+              menuValue: 'Matches List',
+              route: routes.adminMatchList,
+            }
           ],
         },
         {
@@ -4085,7 +4088,7 @@ export class DataService {
       img2 : "assets/img/profiles/avatar-10.jpg",
       date : "15, Dec 2023",
       title : "Lorem ipsum dolor sit amet, adipiscing elit, sed do eiusmod",
-      para : "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium laudantium,eaque ipsa",
+      para : "Sed ut perspiciatis unde omnis iste natus error voluptatem accusantium laudantium,eaque ipsa",
       name : "Sophie",
       heading : "Repair"
     },
@@ -4094,7 +4097,7 @@ export class DataService {
       img2 : "assets/img/profiles/avatar-16.jpg",
       date : "10, Dec 2023",
       title : "Lorem ipsum dolor sit amet, adipiscing elit, sed do eiusmod",
-      para : "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium laudantium,eaque ipsa",
+      para : "Sed ut perspiciatis unde omnis iste natus error voluptatem accusantium laudantium,eaque ipsa",
       name : "James",
       heading : "Cleaning"
     },
@@ -4103,7 +4106,7 @@ export class DataService {
       img2 : "assets/img/profiles/avatar-16.jpg",
       date : "15 Dec 2023",
       title : "Lorem ipsum dolor sit amet, adipiscing elit, sed do eiusmod",
-      para : "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium laudantium,eaque ipsa",
+      para : "Sed ut perspiciatis unde omnis iste natus error voluptatem accusantium laudantium,eaque ipsa",
       name : "George",
       heading : "Repair"
     },
@@ -4112,7 +4115,7 @@ export class DataService {
       img2 : "assets/img/profiles/avatar-15.jpg",
       date : "15 Dec 2023",
       title : "Lorem ipsum dolor sit amet, adipiscing elit, sed do eiusmod",
-      para : "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium laudantium,eaque ipsa",
+      para : "Sed ut perspiciatis unde omnis iste natus error voluptatem accusantium laudantium,eaque ipsa",
       name : "Sophie",
       heading : "Repair"
     },

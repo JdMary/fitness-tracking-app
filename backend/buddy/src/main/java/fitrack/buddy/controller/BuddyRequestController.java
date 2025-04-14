@@ -30,6 +30,10 @@ public class BuddyRequestController {
     public List<BuddyRequest> retrieveBuddyRequestsByUserEmail(@RequestHeader("Authorization") String token) {
         return buddyRequestService.findAllByUserEmail(token);
     }
+    @GetMapping("retrieveByNotEmail")
+    public List<BuddyRequest> retrieveBuddyRequestsByUserEmailNot(@RequestHeader("Authorization") String token) {
+        return buddyRequestService.findAllNotOwnedByUser(token);
+    }
 
     @DeleteMapping("delete/{id}")
     public ResponseEntity<String> deleteBuddyRequest(@PathVariable Long id) {
@@ -37,14 +41,10 @@ public class BuddyRequestController {
         return ResponseEntity.ok("Buddy request with ID " + id + " has been deleted.");
     }
     @PutMapping("addPotentialMatch/{id}")
-    public BuddyRequestResponseDTO addPotentialMatch(@PathVariable Long id, @RequestBody Long requestId) {
-        return buddyRequestService.addPotentialMatch(id, requestId);
+    public BuddyRequest addPotentialMatch(@PathVariable Long id, @RequestHeader("Authorization") String token) {
+        return buddyRequestService.addPotentialMatch(id, token);
     }
-    @GetMapping("display/{id}")
-    public BuddyRequest displayPotentialMatch(@PathVariable Long id) {
-        return buddyRequestService.displayPotentialMatch(id);
-    }
-    @PostMapping("/addMatch/{id}")
+    @PostMapping("/acceptMatch/{id}")
     public BuddyMatch addBuddyMatch(@PathVariable Long id) {
         return buddyRequestService.acceptPotentialMatch(id);
     }

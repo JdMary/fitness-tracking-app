@@ -1,6 +1,21 @@
 export class routes {
   private static Url = '';
 
+  public static get buddyList(): string {
+    return this.baseUrl + '/buddy/buddy-list';
+  }
+  public static get adminRequestList(): string {
+    return this.baseUrl + '/buddy/requests-list';
+  }
+  public static get adminMatchList(): string {
+    return this.baseUrl + '/buddy/matches-list';
+  }
+  public static get buddyRequest(): string {
+    return this.baseUrl + '/buddy/buddy-request';
+  }
+  public static get buddyMatch(): string {
+    return this.baseUrl + '/buddy/buddy-match';
+  }
   public static get baseUrl(): string {
     return this.Url;
   }

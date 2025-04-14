@@ -1,12 +1,14 @@
 package fitrack.buddy.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import fitrack.buddy.converter.DurationToLongConverter;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 @Entity
@@ -21,7 +23,7 @@ public class BuddyRequest {
     private Long id;
 
     private String userEmail;
-    private Long potentialMatch;
+    private String potentialMatch;
 
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -29,12 +31,11 @@ public class BuddyRequest {
     @Enumerated(EnumType.STRING)
     private Goals goal;
 
-
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime workoutStartTime;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
-    private LocalDateTime workoutEndTime;
+    @Convert(converter = DurationToLongConverter.class)
+    private Duration duration;
 
     @ManyToOne
     private BuddyMatch match;
@@ -43,5 +44,5 @@ public class BuddyRequest {
     @Column(updatable = false, nullable = false)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime creationDate;
-
 }
+

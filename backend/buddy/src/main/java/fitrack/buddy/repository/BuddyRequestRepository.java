@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface BuddyRequestRepository extends JpaRepository<BuddyRequest, Long> {
     List<BuddyRequest> findAllByUserEmail(String email);
+    List<BuddyRequest> findAllByUserEmailNot(String userEmail);
 }

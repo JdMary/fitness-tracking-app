@@ -10,7 +10,7 @@ public interface IBuddyMatchService {
 
     BuddyMatch addBuddyMatch(BuddyMatch buddyMatch);
 
-    List<BuddyMatch> findAllByUserEmail(String email);
+    List<BuddyMatch> findAllByUserEmail(String token);
 
     void removeBuddyMatch(Long id);
 }

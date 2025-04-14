@@ -1,0 +1,321 @@
+<div class="breadcrumb-bar text-center">
+  <div class="container">
+      <div class="row">
+          <div class="col-md-12 col-12">
+              <h2 class="breadcrumb-title mb-2">Requests List</h2>
+              <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb justify-content-center mb-0">
+                      <li class="breadcrumb-item"><a [routerLink]="routes.home"><i class="ti ti-home-2"></i></a></li>
+                      <li class="breadcrumb-item active" aria-current="page">Browse buddy requests</li>
+                  </ol>
+              </nav>
+          </div>
+      </div>
+      <div class="breadcrumb-bg">
+          <img src="assets/img/bg/breadcrumb-bg-01.png" class="breadcrumb-bg-1" alt="Img">
+          <img src="assets/img/bg/breadcrumb-bg-02.png" class="breadcrumb-bg-2" alt="Img">
+      </div>
+  </div>
+</div>
+
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+  <div class="content">
+      <div class="container">
+          <div class="row">
+              <div class="col-xl-3 col-lg-4 theiaStickySidebar">
+                  <div class="card">
+                      <div class="card-body">
+                          <form [action]="routes.search">
+                              <div class="d-flex align-items-center justify-content-between mb-3 pb-3 border-bottom">
+                                  <h5><i class="ti ti-filter-check me-2"></i>Filters</h5>
+                                  <a href="javascript:void(0);">Reset Filter</a>
+                              </div>
+                              <div class="mb-3 pb-3 border-bottom">
+                                  <label class="form-label">Search By Keyword</label>
+                                  <input type="text" class="form-control" placeholder="What are you looking for?">
+                              </div>
+                              <div class="accordion border-bottom mb-3">
+                                  <div class="accordion-item mb-3">
+                                      <div class="accordion-header" id="accordion-headingThree">
+                                          <div class="accordion-button p-0 mb-3" data-bs-toggle="collapse" data-bs-target="#accordion-collapseThree" aria-expanded="true" aria-controls="accordion-collapseThree" role="button">
+                                              Categories
+                                          </div>
+                                      </div>
+                                      <div id="accordion-collapseThree" class="accordion-collapse collapse show" aria-labelledby="accordion-headingThree">
+                                          <div class="content-list mb-3" id="fill-more" [ngStyle]="">
+                                              <div class="form-check mb-2" >
+                                                  <label class="form-check-label">
+                                                      <input class="form-check-input" type="checkbox" checked>
+                                                      All Categories
+                                                  </label>
+                                              </div>
+                                              <div class="form-check mb-2">
+                                                  <label class="form-check-label">
+                                                      <input class="form-check-input" type="checkbox">
+                                                      Construction
+                                                  </label>
+                                              </div>
+                                              <div class="form-check mb-2">
+                                                  <label class="form-check-label">
+                                                      <input class="form-check-input" type="checkbox">
+                                                      Car Wash
+                                                  </label>
+                                              </div>
+                                              <div class="form-check mb-2">
+                                                  <label class="form-check-label">
+                                                      <input class="form-check-input" type="checkbox">
+                                                      Electrical
+                                                  </label>
+                                              </div>
+                                              <div class="form-check mb-2">
+                                                  <label class="form-check-label">
+                                                      <input class="form-check-input" type="checkbox">
+                                                      Cleaning
+                                                  </label>
+                                              </div>
+                                              <div class="form-check mb-2">
+                                                  <label class="form-check-label">
+                                                      <input class="form-check-input" type="checkbox">
+                                                      Plumbing
+                                                  </label>
+                                              </div>
+                                              <div class="form-check mb-2">
+                                                  <label class="form-check-label">
+                                                      <input class="form-check-input" type="checkbox">
+                                                      Designing
+                                                  </label>
+                                              </div>
+                                          </div>
+                                          <a href="javascript:void(0);" id="more" class="more-view text-primary fs-14"> <i class="ti ti-chevron-down ms-1"></i></a>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="accordion border-bottom mb-3">
+                                  <div class="accordion-header" id="accordion-headingFour">
+                                      <div class="accordion-button p-0 mb-3" data-bs-toggle="collapse" data-bs-target="#accordion-collapseFour" aria-expanded="true" aria-controls="accordion-collapseFour" role="button">
+                                          Sub Category
+                                      </div>
+                                  </div>
+                                  <div id="accordion-collapseFour" class="accordion-collapse collapse show" aria-labelledby="accordion-headingFour">
+                                      <div class="mb-3">
+                                        <mat-select  panelClass="dependentSelect"  class="form-control select"  placeholder="All Sub Category">
+                                          <mat-option  >
+                                          
+                                          </mat-option>
+                                      </mat-select>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="accordion border-bottom mb-3">
+                                  <div class="accordion-header" id="accordion-headingFive">
+                                      <div class="accordion-button p-0 mb-3" data-bs-toggle="collapse" data-bs-target="#accordion-collapseFive" aria-expanded="true" aria-controls="accordion-collapseFive" role="button">
+                                          Location
+                                      </div>
+                                  </div>
+                                  <div id="accordion-collapseFive" class="accordion-collapse collapse show" aria-labelledby="accordion-headingFive">
+                                      <div class="mb-3">
+                                          <div class="position-relative">
+                                              <input type="text" class="form-control" placeholder="Select Location">
+                                              <span class="icon-addon"><i class="ti ti-map-pin"></i></span>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="accordion border-bottom mb-3">
+                                  <div class="accordion-header" id="accordion-headingSix">
+                                      <div class="accordion-button p-0 mb-3" data-bs-toggle="collapse" data-bs-target="#accordion-collapseSix" aria-expanded="true" aria-controls="accordion-collapseSix" role="button">
+                                          Price Range
+                                      </div>
+                                  </div>
+                                  <div id="accordion-collapseSix" class="accordion-collapse collapse show" aria-labelledby="accordion-headingSix">
+                                      <div class="filter-range">
+                                        <mat-slider min="200" max="500"  discrete>
+                                          <input value="300" matSliderStartThumb>
+                                          <input value="400" matSliderEndThumb>
+                                        </mat-slider>
+                                      </div>
+                                      <div class="filter-range-amount mb-3">
+                                          <p class="fs-14">Price: <span>$5 - $210</span></p>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="accordion">
+                                  <div class="accordion-item mb-3">
+                                      <div class="accordion-header" id="accordion-headingTwo">
+                                          <div class="accordion-button fs-18 p-0 mb-3" data-bs-toggle="collapse" data-bs-target="#accordion-collapseTwo" aria-expanded="true" aria-controls="accordion-collapseTwo" role="button">
+                                              Ratings
+                                          </div>
+                                      </div>
+                                      <div id="accordion-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="accordion-headingTwo">
+                                          <div class="mb-3">
+                                              <div class="form-check mb-2">
+                                                  <label class="form-check-label d-block">
+                                                      <input class="form-check-input" type="checkbox" checked>
+                                                      <span class="rating">
+                                                          <i class="fas fa-star filled"></i>
+                                                          <i class="fas fa-star filled"></i>
+                                                          <i class="fas fa-star filled"></i>
+                                                          <i class="fas fa-star filled"></i>
+                                                          <i class="fas fa-star filled"></i><span class="float-end">(55)</span>
+                                                      </span>
+                                                  </label>
+                                              </div>
+                                              <div class="form-check mb-2">
+                                                  <label class="form-check-label d-block">
+                                                      <input class="form-check-input" type="checkbox">
+                                                      <span class="rating">
+                                                          <i class="fas fa-star filled"></i>
+                                                          <i class="fas fa-star filled"></i>
+                                                          <i class="fas fa-star filled"></i>
+                                                          <i class="fas fa-star filled"></i>
+                                                          <i class="fa-regular fa-star filled"></i><span class="float-end">(48)</span>
+                                                      </span>
+                                                  </label>
+                                              </div>
+                                              <div class="form-check mb-2">
+                                                  <label class="form-check-label d-block">
+                                                      <input class="form-check-input" type="checkbox">
+                                                      <span class="rating">
+                                                          <i class="fas fa-star filled"></i>
+                                                          <i class="fas fa-star filled"></i>
+                                                          <i class="fas fa-star filled"></i>
+                                                          <i class="fa-regular fa-star filled"></i>
+                                                          <i class="fa-regular fa-star filled"></i><span class="float-end">(13)</span>
+                                                      </span>
+                                                  </label>
+                                              </div>
+                                              <div class="form-check mb-2">
+                                                  <label class="form-check-label d-block">
+                                                      <input class="form-check-input" type="checkbox">
+                                                      <span class="rating">
+                                                          <i class="fas fa-star filled"></i>
+                                                          <i class="fas fa-star filled"></i>
+                                                          <i class="fa-regular fa-star filled"></i>
+                                                          <i class="fa-regular fa-star filled"></i>
+                                                          <i class="fa-regular fa-star filled"></i><span class="float-end">(05)</span>
+                                                      </span>
+                                                  </label>
+                                              </div>
+                                              <div class="form-check mb-2">
+                                                  <label class="form-check-label d-block">
+                                                      <input class="form-check-input" type="checkbox">
+                                                      <span class="rating">
+                                                          <i class="fas fa-star filled"></i>
+                                                          <i class="fa-regular fa-star filled"></i>
+                                                          <i class="fa-regular fa-star filled"></i>
+                                                          <i class="fa-regular fa-star filled"></i>
+                                                          <i class="fa-regular fa-star filled"></i><span class="float-end">(00)</span>
+                                                      </span>
+                                                  </label>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <button type="submit" class="btn btn-dark w-100">Search</button>
+                          </form>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-xl-9 col-lg-8">
+                  <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
+                      <h4 >Found <span class="text-primary">{{ buddyRequestsCount }} Requests</span></h4>
+                      <div class="d-flex align-items-center">
+                          <span class="text-dark me-2">Sort</span>
+                          <div class="dropdown me-2">
+                              <a href="javascript:void(0);" class="dropdown-toggle bg-light-300 " data-bs-toggle="dropdown">
+                                  Sort by
+                              </a>
+                              <div class="dropdown-menu">
+                                  <a href="javascript:void(0);" class="dropdown-item active">Status</a>
+                                  <a href="javascript:void(0);" class="dropdown-item">Time</a>
+                              </div>
+                          </div>
+                          <a [routerLink]="routes.serviceGrid" class="tags d-flex justify-content-center align-items-center bg-primary rounded me-2"><i class="ti ti-layout-grid"></i></a>
+                          <a [routerLink]="routes.serviceList" class="tags d-flex justify-content-center align-items-center border rounded"><i class="ti ti-list"></i></a>
+                      </div>
+                  </div>
+                  <div class="row justify-content-center align-items-center">
+                    <div class="col-xl-4 col-md-6" *ngFor="let request of paginatedBuddyRequests">
+                      <div class="card p-0">
+                          <div class="card-body p-0">
+                              <div class="img-sec w-100">
+                                  <a [routerLink]="routes.serviceDetails">
+                                      <img src="assets/img/providers/provider-13.jpg" class="img-fluid rounded-top w-100" alt="img">
+                                  </a>
+                                  <div class="image-tag d-flex justify-content-end align-items-center">
+                                    <span class="trend-tag" [ngSwitch]="request.goal">
+                                      <ng-container *ngSwitchCase="'LOSE_WEIGHT'">Lose Weight</ng-container>
+                                      <ng-container *ngSwitchCase="'BUILD_MUSCLE'">Build Muscle</ng-container>
+                                      <ng-container *ngSwitchCase="'GET_FIT'">Get Fit</ng-container>
+                                      <ng-container *ngSwitchDefault>{{ request.goal }}</ng-container>
+                                    </span>                                    
+                                      <a href="javascript:void(0);" class="fav-icon like-icon">
+                                          <i class="ti ti-heart"></i>
+                                      </a>
+                                  </div>
+                                  <span class="image-logo avatar avatar-md border rounded-circle">
+                                      <img src="assets/img/providers/provider-01.jpg" class="img-fluid rounded-circle " alt="logo">
+                                  </span>
+                              </div>
+                              <div class="p-3">
+                                  <h5 class="mb-2">
+                                      <a [routerLink]="routes.serviceDetails">{{ request.userEmail }}</a>
+                                  </h5>
+                                  <div class="d-flex justify-content-between align-items-center mb-3">
+                                      <p class="fs-14 mb-0"><i class="ti ti-map-pin me-2"></i>{{ request.workoutStartTime }}</p>
+                                      <span 
+                                  class="badge ms-2" 
+                                  [ngClass]="{
+                                    'badge-soft-warning': request.status === 'PENDING',
+                                    'badge-soft-info': request.status === 'WAITING',
+                                    'badge-soft-success': request.status === 'ACCEPTED',
+                                    'badge-soft-danger': request.status === 'REJECTED'
+                                      }">
+                                    {{ request.status }}
+                                      </span>
+                                  </div>
+                                  <div class="d-flex justify-content-between align-items-center mb-3">
+                                      <p class="fs-14 mb-0"><i class="ti ti-clock me-2"></i>Duration</p>
+                                      <p class="fs-14 mb-0">{{ request.duration }}</p>
+                                  </div>
+                                  <div class="d-flex justify-content-between align-items-center">
+                                      <a [routerLink]="routes.booking" class="btn bg-primary-transparent">View Profile</a>
+                                      <button class="btn bg-primary-transparent" 
+                                              (click)="subscribe(request.id)"
+                                              [disabled]="request.status !== 'PENDING'">
+                                        Subscribe
+                                      </button>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                    <nav aria-label="Page navigation">
+                      <ul class="paginations d-flex justify-content-center align-items-center">
+                        <li class="page-item me-3" [class.disabled]="currentPage === 1">
+                          <a class="page-link" (click)="prevPage()"><i class="ti ti-arrow-left me-2"></i>Prev</a>
+                        </li>
+                        <li class="page-item me-2" *ngFor="let page of pages">
+                          <a class="page-link-1 d-flex justify-content-center align-items-center"
+                             [class.active]="currentPage === page"
+                             (click)="changePage(page)">
+                            {{page}}
+                          </a>
+                        </li>
+                        <li class="page-item" [class.disabled]="currentPage === totalPages">
+                          <a class="page-link" (click)="nextPage()">Next<i class="ti ti-arrow-right ms-2"></i></a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- /Page Wrapper -->
+<ng-template #noRequests>
+  <p>No buddy requests available.</p>
+</ng-template>

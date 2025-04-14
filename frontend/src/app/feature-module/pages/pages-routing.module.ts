@@ -13,6 +13,11 @@ const routes: Routes = [
         pathMatch: 'full',
       },
       {
+        path: 'buddy',
+        loadChildren: () =>
+          import('./buddy/buddy.module').then((m) => m.BuddyModule),
+      },
+      {
         path: 'about-us',
         loadChildren: () =>
           import('./about-us/about-us.module').then((m) => m.AboutUsModule),

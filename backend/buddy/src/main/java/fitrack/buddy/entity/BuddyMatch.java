@@ -18,8 +18,7 @@ public class BuddyMatch {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long requestId1;
-    private Long requestId2;
+    private Long requestId;
     private String email1;
     private String email2;
 

@@ -638,6 +638,11 @@ const routes: Routes = [
             (m) => m.ProviderSalesModule
           ),
       },
+      {
+        path: 'buddy',
+        loadChildren: () =>
+          import('./buddy/buddy.module').then((m) => m.BuddyModule),
+      },
     ],
   },
 ];
