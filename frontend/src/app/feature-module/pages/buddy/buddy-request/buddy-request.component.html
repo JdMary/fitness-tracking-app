@@ -145,15 +145,7 @@
                                         <img src="assets/img/providers/provider-13.jpg" class="img-fluid rounded-top w-100" alt="img">
                                     </a>
                                     <div class="image-tag d-flex justify-content-end align-items-center">
-                                      <span class="trend-tag" [ngSwitch]="request.goal">
-                                        <ng-container *ngSwitchCase="'LOSE_WEIGHT'">Lose Weight</ng-container>
-                                        <ng-container *ngSwitchCase="'BUILD_MUSCLE'">Build Muscle</ng-container>
-                                        <ng-container *ngSwitchCase="'GET_FIT'">Get Fit</ng-container>
-                                        <ng-container *ngSwitchDefault>{{ request.goal }}</ng-container>
-                                      </span>                                    
-                                        <a href="javascript:void(0);" class="fav-icon like-icon">
-                                            <i class="ti ti-heart"></i>
-                                        </a>
+                                        <span class="trend-tag">{{ request.goal | formatGoal }}</span>
                                     </div>
                                     <span class="image-logo avatar avatar-md border rounded-circle">
                                         <img src="assets/img/providers/provider-01.jpg" class="img-fluid rounded-circle " alt="logo">
@@ -163,25 +155,32 @@
                                     <h5 class="mb-2">
                                         <a [routerLink]="routes.serviceDetails">{{ request.userEmail }}</a>
                                     </h5>
+                                    <div class="d-flex align-items-center mb-3">
+                                        <p class="fs-14 mb-0">
+                                            <i class="ti ti-calendar-clock"></i>
+                                            Day and Time: {{ request.workoutStartTime }}
+                                        </p>
+                                    </div>
                                     <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <p class="fs-14 mb-0"><i class="ti ti-map-pin me-2"></i>{{ request.workoutStartTime }}</p>
+                                        <div class="d-flex align-items-center">
+                                            <p class="fs-14 mb-0"><i class="ti ti-clock"></i>Duration:&nbsp;</p>
+                                            <p class="fs-14 mb-0">{{ request.duration }} minutes</p>
+                                        </div>
                                         <span 
-                                    class="badge ms-2" 
-                                    [ngClass]="{
-                                      'badge-soft-warning': request.status === 'PENDING',
-                                      'badge-soft-info': request.status === 'WAITING',
-                                      'badge-soft-success': request.status === 'ACCEPTED',
-                                      'badge-soft-danger': request.status === 'REJECTED'
-                                        }">
-                                      {{ request.status }}
+                                            class="badge" 
+                                            [ngClass]="{
+                                              'badge-soft-warning': request.status === 'PENDING',
+                                              'badge-soft-info': request.status === 'WAITING',
+                                              'badge-soft-success': request.status === 'ACCEPTED',
+                                              'badge-soft-danger': request.status === 'REJECTED'
+                                            }">
+                                          {{ request.status }}
                                         </span>
                                     </div>
-                                    <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <p class="fs-14 mb-0">Duration</p>
-                                        <p class="fs-14 mb-0">{{ request.duration }}</p>
-                                    </div>
-                                    <div class="d-flex justify-content-center align-items-center" style="min-height: 38px;">
-                                        <button class="btn btn-primary" *ngIf="request.status === 'WAITING'" (click)="acceptRequest(request.id)">Accept Request</button>
+                                    <div class="d-flex justify-content-between align-items-center" style="min-height: 38px;">
+                                        <button class="btn btn-primary me-2" *ngIf="request.status === 'WAITING'" (click)="acceptRequest(request.id)">Accept</button>
+                                        <button class="btn btn-info me-2" *ngIf="request.status === 'WAITING'">View Profile</button>
+                                        <button class="btn btn-danger" *ngIf="request.status === 'WAITING'" (click)="rejectRequest(request.id)">Reject</button>
                                     </div>
                                 </div>
                             </div>

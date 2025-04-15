@@ -34,8 +34,7 @@ public class BuddyRequest {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime workoutStartTime;
 
-    @Convert(converter = DurationToLongConverter.class)
-    private Duration duration;
+    private int duration;
 
     @ManyToOne
     private BuddyMatch match;

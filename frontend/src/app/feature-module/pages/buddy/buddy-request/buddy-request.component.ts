@@ -14,6 +14,8 @@ export class BuddyRequestComponent implements OnInit {
   goals = ['LOSE_WEIGHT', 'BUILD_MUSCLE', 'GET_FIT', 'INCREASE_ENDURANCE', 'HEAVY_LIFTING', 'IMPROVE_FLEXIBILITY'];
   selectedGoal: string | null = null;
   goalError: boolean = false;
+  userName: string | undefined;
+
   minDurationValidator(control: any) {
     const value = Number(control.value);
     if (isNaN(value) || value < 30) {
@@ -95,6 +97,7 @@ export class BuddyRequestComponent implements OnInit {
       }
     );
   }
+  
   get totalPagesArray(): number[] {
     return Array.from({ length: this.totalPages }, (_, i) => i + 1);
   }
@@ -170,6 +173,16 @@ onSubmit() {
     );
   }
 }
+getUserName(email: string): string {
+  let userName = '';
+  this.buddyRequestService.displayUserName(email).subscribe(
+    (name: string) => {
+      userName = name;
+    }
+  );
+  return userName;
+}
+
 
 acceptRequest(requestId: number): void {
   this.buddyRequestService.acceptMatch(requestId).subscribe(
@@ -180,6 +193,18 @@ acceptRequest(requestId: number): void {
     },
     (error) => {
       console.error('Failed to accept match:', error);
+    }
+  );
+}
+rejectRequest(requestId: number): void {
+  this.buddyRequestService.rejectMatch(requestId).subscribe(
+    (response) => {
+      console.log('Match rejected successfully:', response);
+      // Reload the requests to update the UI
+      this.loadBuddyRequests();
+    },
+    (error) => {
+      console.error('Failed to reject match:', error);
     }
   );
 }
@@ -195,5 +220,6 @@ acceptRequest(requestId: number): void {
   get duration() {
     return this.buddyRequestForm.get('duration');
   }
+  
   
 }

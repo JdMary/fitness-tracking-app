@@ -18,6 +18,7 @@ public interface IBuddyRequestService {
     void removeBuddyRequest(Long id);
     BuddyRequest addPotentialMatch(Long id, String token);
     BuddyMatch acceptPotentialMatch(Long id);
-    ResponseEntity<UserDTO> displayUser(String userEmail);
+    BuddyRequest rejectPotentialMatch(Long id);
+    String displayUser(String userEmail);
     List<BuddyRequest> findAllNotOwnedByUser(String token);
 }

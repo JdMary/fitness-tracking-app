@@ -14,13 +14,16 @@ export class BuddyRequestsListComponent implements OnInit {
   constructor(private buddyService: BuddyRequestService) {}
 
   ngOnInit(): void {
+    this.selectedStatus = 'ALL';
     this.loadBuddyRequests();
-    this.filteredBuddyRequests = [...this.buddyRequests];
   }
 
   loadBuddyRequests() {
     this.buddyService.getBuddyRequests().subscribe(
-      requests => this.buddyRequests = requests
+      requests => {
+        this.buddyRequests = requests;
+        this.filterByStatus(this.selectedStatus);
+      }
     );
   }
 
@@ -31,5 +34,12 @@ export class BuddyRequestsListComponent implements OnInit {
     } else {
       this.filteredBuddyRequests = this.buddyRequests.filter(request => request.status === status);
     }
+  }
+
+  formatGoal(goal: string): string {
+    return goal.toLowerCase()
+      .split('_')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
   }
 }

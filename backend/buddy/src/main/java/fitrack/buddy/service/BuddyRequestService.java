@@ -67,14 +67,21 @@ public class BuddyRequestService implements IBuddyRequestService {
                 .email1(buddyRequest.getUserEmail())
                 .email2(buddyRequest.getPotentialMatch())
                 .build();
-        //buddyRequest.setMatch(buddyMatch);
         return matchRepository.save(buddyMatch);
     }
 
     @Override
-    public ResponseEntity<UserDTO> displayUser(String userEmail) {
+    public BuddyRequest rejectPotentialMatch(Long id) {
+        BuddyRequest buddyRequest = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException(BUDDY_REQUEST_NOT_FOUND));
+        buddyRequest.setStatus(Status.REJECTED);
+        return repository.save(buddyRequest);
+    }
+
+    @Override
+    public String displayUser(String userEmail) {
         System.out.println(userClient.retrieveUserByEmail(userEmail).getBody());
-        return userClient.retrieveUserByEmail(userEmail);
+        return userClient.retrieveUserByEmail(userEmail).getBody().getName();
     }
 
     @Override

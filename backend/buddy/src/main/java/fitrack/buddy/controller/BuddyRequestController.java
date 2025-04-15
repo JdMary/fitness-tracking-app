@@ -50,8 +50,12 @@ public class BuddyRequestController {
     public BuddyMatch addBuddyMatch(@PathVariable Long id) {
         return buddyRequestService.acceptPotentialMatch(id);
     }
+    @PutMapping("/rejectMatch/{id}")
+    public BuddyRequest rejectPotentialMatch(@PathVariable Long id) {
+        return buddyRequestService.rejectPotentialMatch(id);
+    }
     @GetMapping("/displayUser/{userEmail}")
-    public ResponseEntity<UserDTO> displayUser(@PathVariable String userEmail) {
+    public String displayUser(@PathVariable String userEmail) {
         return buddyRequestService.displayUser(userEmail);
     }
 

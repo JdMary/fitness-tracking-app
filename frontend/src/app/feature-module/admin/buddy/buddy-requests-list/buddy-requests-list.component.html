@@ -34,7 +34,7 @@
                     <div class="tab-contents-sets">
                         <ul>
                             <li>
-                                <a [class.active]="selectedStatus === 'ALL'" (click)="filterByStatus('ALL')">All Buddy Requests</a>
+                                <a class="active" [class.active]="selectedStatus === 'ALL'" (click)="filterByStatus('ALL')">All Buddy Requests</a>
                             </li>
                             <li>
                                 <a [class.active]="selectedStatus === 'PENDING'" (click)="filterByStatus('PENDING')">Pending</a>
@@ -81,7 +81,7 @@
                                         'badge-inactive': request.status === 'WAITING'
                                     }">{{request.status}}</span>
                                 </td>
-                                <td>{{request.goal}}</td>
+                                <td>{{formatGoal(request.goal)}}</td>
                                 <td>{{request.workoutStartTime | date:'short'}}</td>
                                 <td>{{request.duration}} minutes</td>
                                 <td>
