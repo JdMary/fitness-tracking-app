@@ -4,14 +4,20 @@ package fitrack.workout.service;
 import fitrack.workout.client.AuthClient;
 import fitrack.workout.dto.mapper.ProgressTrackerMapper;
 import fitrack.workout.dto.mapper.WorkoutPlanMapper;
+import fitrack.workout.entity.Exercise;
 import fitrack.workout.entity.ProgressTracker;
+import fitrack.workout.entity.TrainingSession;
 import fitrack.workout.entity.WorkoutPlan;
+import fitrack.workout.repository.ExerciseRepository;
 import fitrack.workout.repository.ProgressTrackerRepository;
 import fitrack.workout.repository.TrainingSessionRepository;
 import fitrack.workout.repository.WorkoutPlanRepository;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,22 +32,31 @@ public class WorkoutPlanService implements IWorkoutPlan {
     @Autowired
     private TrainingSessionRepository trainingSessionRepository;
     @Autowired
-    private WorkoutPlanMapper workoutPlanMapper;
-    @Autowired
-    private ProgressTrackerMapper progressTrackerMapper;
+    private ExerciseRepository exerciseRepository;
     @Autowired
     private AuthClient authClient;
 
 
     @Override
-    public WorkoutPlan createWorkoutPlan(WorkoutPlan plan) {
+    public WorkoutPlan createWorkoutPlan(WorkoutPlan plan, String token) {
+        String username = String.valueOf(authClient.extractUsername(token).getBody());
+        plan.setUsername(username);
         return repository.save(plan);
     }
 
     @Override
     public WorkoutPlan getWorkoutPlanById(Long id) {
-        return repository.findById(id).get();
+       return repository.findById(id).get();
     }
+
+   /* @Override
+    public WorkoutPlan getWorkoutPlanById(Long id, String token) {
+        String username = String.valueOf(authClient.extractUsername(token).getBody());
+        repository.findByUsername(username)
+        return null;
+    }*/
+
+
 
     @Override
     public WorkoutPlan updateWorkoutPlan(Long id, WorkoutPlan plan) {
@@ -54,13 +69,18 @@ public class WorkoutPlanService implements IWorkoutPlan {
     }
 
     @Override
-    public List<WorkoutPlan> getAllPlans() {
-        return repository.findAll();
+    public List<WorkoutPlan> getAllPlans(String token) {
+        String username = String.valueOf(authClient.extractUsername(token).getBody());
+        return repository.findByUsername(username);
     }
 
+    @Transactional
     @Override
-    public void deleteWorkoutPlan(Long id) {
-        repository.deleteById(id);
+    public void deleteWorkoutPlan(Long id, String token) {
+        String username = String.valueOf(authClient.extractUsername(token).getBody());
+        WorkoutPlan workoutPlan = repository.findByWorkoutPlanIdAndUsername(id, username).get();
+        repository.delete(workoutPlan);
+
     }
 
     @Override
@@ -93,8 +113,10 @@ public class WorkoutPlanService implements IWorkoutPlan {
     }
 
     @Override
-    public WorkoutPlan createFullWorkoutPlan(WorkoutPlan plan) {
-        return null;
+    public WorkoutPlan createFullWorkoutPlan(WorkoutPlan plan, String token) {
+        String username = String.valueOf(authClient.extractUsername(token).getBody());
+        plan.setUsername(username);
+        return repository.save(plan);
     }
 
 

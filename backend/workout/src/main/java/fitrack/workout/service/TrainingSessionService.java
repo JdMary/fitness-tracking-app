@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -24,6 +25,7 @@ public class TrainingSessionService implements ITrainingSession{
     @Autowired
     private TrainingSessionRepository repository;
     @Autowired
+    private WorkoutPlanRepository workoutPlanRepository;
     private ExerciseRepository exerciseRepository;
     @Autowired
     private AuthClient authClient;
@@ -44,11 +46,12 @@ public class TrainingSessionService implements ITrainingSession{
         return session;
     }
 
-
     @Override
-    public List<TrainingSession> getAllSessions() {
-        return repository.findAll();
+    public List<TrainingSession> getAllSessions(String token) {
+        String username = String.valueOf(authClient.extractUsername(token).getBody());
+        return repository.findByUsername(username);
     }
+
 
     @Override
     public TrainingSession updateSession(Long id, TrainingSession session, String token) {
@@ -58,10 +61,6 @@ public class TrainingSessionService implements ITrainingSession{
     }
 
 
-    @Override
-    public void deleteSession(Long id) {
-        repository.deleteById(id);
-    }
 
     @Override
     public TrainingSession assignExerciseToTrainingSession(Long sessionId, Exercise exercise, String token) {
@@ -96,10 +95,47 @@ public class TrainingSessionService implements ITrainingSession{
         return repository.save(session);
     }
 
+    @Override
+    public TrainingSession createFullTrainingSession(TrainingSession session, Long workoutPlanId, String token) {
+        String username = String.valueOf(authClient.extractUsername(token).getBody());
+        WorkoutPlan plan = workoutPlanRepository.findById(workoutPlanId).get();
+        session.setWorkoutPlan(plan);
+        session.setUsername(username);
+        session.getExercises().forEach(exercise -> exercise.setTrainingSession(session));
+        return repository.save(session);
+    }
 
+    @Override
+    public List<TrainingSession> createBulkTrainingSessions(List<TrainingSession> trainingSessions, Long workoutPlanId, String token) {
+        String username = String.valueOf(authClient.extractUsername(token).getBody());
+        WorkoutPlan workoutPlan = workoutPlanRepository.findById(workoutPlanId).get();
+        return trainingSessions.stream()
+                .peek(session -> {
+                    session.setWorkoutPlan(workoutPlan);
+                    session.setUsername(username);
+                    if (session.getExercises() != null) {
+                        session.getExercises().forEach(exercise -> {
+                            exercise.setTrainingSession(session);
+                            exercise.setUsername(username);
+                        });
+                    }
+                })
+                .map(repository::save)
+                .collect(Collectors.toList());
+    }
 
+    @Override
+    public List<TrainingSession> getTrainingSessionsByWorkoutPlanId(Long workoutPlanId, String token) {
+        String username = String.valueOf(authClient.extractUsername(token).getBody());
+        return repository.findByWorkoutPlanAndUsername(workoutPlanId, username);
+    }
 
-
+    @Override
+    public void deleteSession(Long id, String token) {
+        String username = String.valueOf(authClient.extractUsername(token).getBody());
+        TrainingSession trainingSession = repository.findByTrainingSessionIdAndUsername(id,username).get();
+        repository.delete(trainingSession);
+    }
 
 
 

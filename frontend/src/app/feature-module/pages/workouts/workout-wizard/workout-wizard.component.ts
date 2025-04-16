@@ -38,7 +38,7 @@ export class WorkoutWizardComponent implements OnInit {
     this.workoutForm = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
-      duration: ['', [Validators.required, Validators.min(1)]],
+      duration: ['', Validators.required],
       startDate: ['', Validators.required],
       difficulty: ['Beginner', Validators.required]
     });
@@ -46,21 +46,16 @@ export class WorkoutWizardComponent implements OnInit {
     this.trainingSessionForm = this.fb.group({
       name: ['', Validators.required],
       date: ['', Validators.required],
-      duration: ['', [Validators.required, Validators.min(1)]],
+      duration: ['', Validators.required],
       entryTime: ['', Validators.required],
       exitTime: ['', Validators.required],
-      guided: [false],
       exercises: [[]]
     });
 
     this.exerciseForm = this.fb.group({
       name: ['', Validators.required],
-      category: ['', Validators.required],
       sets: ['', [Validators.required, Validators.min(1)]],
       reps: ['', [Validators.required, Validators.min(1)]],
-      difficulty: ['Beginner', Validators.required],
-      videoUrl: [''],
-      instructions: [''],
       description: ['']
     });
   }
@@ -85,11 +80,9 @@ export class WorkoutWizardComponent implements OnInit {
   }
 
   nextStep() {
-    if (this.isFormsValid() && this.currentStep < this.steps.length - 1) {
+    if (this.currentStep < this.steps.length - 1) {
       this.steps[this.currentStep].completed = true;
       this.currentStep++;
-    } else {
-      alert('Please fill in all required fields for the current step.');
     }
   }
 
@@ -101,36 +94,33 @@ export class WorkoutWizardComponent implements OnInit {
 
   onSubmit() {
     if (this.isFormsValid()) {
-      const token = 'mock-token';
-      
-      // Prepare complete workout plan data
       const workoutPlanData = {
         ...this.workoutForm.value,
         trainingSessions: []
       };
 
-      // Prepare training session data
       const trainingSessionData = {
-        ...this.trainingSessionForm.value
+        ...this.trainingSessionForm.value,
+        date: new Date(this.trainingSessionForm.value.date).toISOString()
       };
 
-      // Prepare exercise data
       const exerciseData = {
         ...this.exerciseForm.value
       };
 
-      // Create the complete chain with error handling
       this.workoutService.createWorkoutPlan(workoutPlanData)
         .subscribe({
           next: (workoutPlan) => {
+            console.log('Workout plan created:', workoutPlan);
             const sessionWithPlan = {
               ...trainingSessionData,
-              workoutPlanId: workoutPlan.id
+              workoutPlanId: workoutPlan.id  // Use id instead of workoutPlanId
             };
             
-            this.workoutService.createTrainingSession(sessionWithPlan, token)
+            this.workoutService.createTrainingSession(sessionWithPlan)
               .subscribe({
                 next: (session) => {
+                  console.log('Training session created:', session);
                   const exerciseWithSession = {
                     ...exerciseData,
                     trainingSessionId: session.id
@@ -138,43 +128,42 @@ export class WorkoutWizardComponent implements OnInit {
                   
                   this.workoutService.createExercise(exerciseWithSession)
                     .subscribe({
-                      next: () => {
+                      next: (exercise) => {
+                        console.log('Exercise created:', exercise);
                         this.router.navigate(['/workouts']);
                       },
-                      error: (error) => console.error('Exercise creation failed:', error)
+                      error: (error) => {
+                        console.error('Exercise creation failed:', error);
+                        alert('Failed to create exercise. Please try again.');
+                      }
                     });
                 },
-                error: (error) => console.error('Training session creation failed:', error)
+                error: (error) => {
+                  console.error('Training session creation failed:', error);
+                  alert('Failed to create training session. Please try again.');
+                }
               });
           },
-          error: (error) => console.error('Workout plan creation failed:', error)
+          error: (error) => {
+            console.error('Workout plan creation failed:', error);
+            alert('Failed to create workout plan. Please try again.');
+          }
         });
+    } else {
+      alert('Please fill in all required fields before submitting.');
     }
   }
 
-  public isFormsValid(): boolean {
-    // Log form statuses for debugging
-    console.log('Workout Form:', this.workoutForm.value, this.workoutForm.valid);
-    console.log('Training Session Form:', this.trainingSessionForm.value, this.trainingSessionForm.valid);
-    console.log('Exercise Form:', this.exerciseForm.value, this.exerciseForm.valid);
-
-    if (this.currentStep === 2) {
-      // On final submit, check all forms
-      return this.workoutForm.valid && 
-             this.trainingSessionForm.valid && 
-             this.exerciseForm.valid;
-    } else {
-      // During navigation, only check current form
-      switch(this.currentStep) {
-        case 0:
-          return this.workoutForm.valid;
-        case 1:
-          return this.trainingSessionForm.valid;
-        case 2:
-          return this.exerciseForm.valid;
-        default:
-          return false;
-      }
+  isFormsValid(): boolean {
+    switch(this.currentStep) {
+      case 0:
+        return this.workoutForm.valid;
+      case 1:
+        return this.trainingSessionForm.valid;
+      case 2:
+        return this.exerciseForm.valid;
+      default:
+        return false;
     }
   }
 }

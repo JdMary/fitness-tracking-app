@@ -618,14 +618,29 @@ export class DataService {
       menu: [
         {
           menuValue: 'Workout plans',
-          routes: routes.workoutPlans, // badalha 7asb l route mte3k
-          hasSubRoute: false,
+          routes: routes.workoutPlans,
+          hasSubRoute: true,
           showSubRoute: false,
-          subMenus: [],
+          subMenus: [
+            {
+              menuValue: 'View Plans',
+              routes: routes.workoutPlansList,
+              hasSubRoute: false,
+              showSubRoute: false,
+              subMenus: [],
+            },
+            {
+              menuValue: 'Create Plan',
+              routes: routes.createWorkoutPlan,
+              hasSubRoute: false,
+              showSubRoute: false,
+              subMenus: [],
+            }
+          ],
         },
         {
           menuValue: 'Training sessions',
-          routes: routes.trainingSessions, // badalha 7asb l route mte3k
+          routes: routes.trainingSessions,
           hasSubRoute: false,
           showSubRoute: false,
           subMenus: [],
@@ -638,7 +653,7 @@ export class DataService {
           subMenus: [],
         },
         {
-          menuValue: 'Create Workout',
+          menuValue: 'Create Full Workout',
           routes: routes.workoutWizard,
           hasSubRoute: false,
           showSubRoute: false,

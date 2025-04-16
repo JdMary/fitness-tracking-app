@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { WorkoutsComponent } from './workouts.component';
-import { WorkoutPlanComponent } from './workout-plan/workout-plan.component';
 import { TrainingSessionComponent } from './training-session/training-session.component';
 import { ExerciceComponent } from './exercice/exercice.component';
 import { WorkoutWizardComponent } from './workout-wizard/workout-wizard.component';
+import { WorkoutPlanListComponent } from './workout-plan-list/workout-plan-list.component';
+import { WorkoutPlanFormComponent } from './workout-plan-form/workout-plan-form.component';
+import { TrainingSessionFormComponent } from './training-session-form/training-session-form.component';
 
 const routes: Routes = [
   {
@@ -12,8 +14,19 @@ const routes: Routes = [
     component: WorkoutsComponent,
     children: [
       {
-        path: 'workout-plan',
-        component: WorkoutPlanComponent
+        path: 'plans',
+        children: [
+          { path: 'list', component: WorkoutPlanListComponent,
+           /* children: [
+              { 
+                path: ':id/training-session', 
+                component: TrainingSessionFormComponent 
+              }
+            ]*/
+          },
+          { path: 'create', component: WorkoutPlanFormComponent },
+          { path: ':id/training-session', component: TrainingSessionFormComponent }
+        ]
       },
       {
         path: 'training-session',
@@ -27,7 +40,11 @@ const routes: Routes = [
         path: 'wizard',
         component: WorkoutWizardComponent
       },
-      { path: '', redirectTo: 'workout-plan', pathMatch: 'full' }
+      { 
+        path: '', 
+        redirectTo: 'plans', 
+        pathMatch: 'full' 
+      }
     ]
   }
 ];

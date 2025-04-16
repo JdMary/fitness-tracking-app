@@ -11,6 +11,7 @@ export interface Exercise {
 }
 
 export interface WorkoutPlan {
+  id: number;
   workoutPlanId: number;
   description: string;
   duration: number;
@@ -22,6 +23,7 @@ export interface WorkoutPlan {
 }
 
 export interface TrainingSession {
+  id: number;
   trainingSessionId: number;
   guided: boolean;
   entryTime: string;

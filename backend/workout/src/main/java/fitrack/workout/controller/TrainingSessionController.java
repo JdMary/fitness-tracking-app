@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -22,6 +23,13 @@ public class TrainingSessionController {
         return "Training Session Service is working";
     }
 
+    @PostMapping("/add-full")
+    public ResponseEntity<TrainingSession> createFullTrainingSession(
+            @RequestBody TrainingSession session,
+            @RequestHeader("Authorization") String token) {
+        Long workoutPlanId = session.getWorkoutPlan().getWorkoutPlanId(); // From request body
+        return ResponseEntity.ok(service.createFullTrainingSession(session, workoutPlanId, token));
+    }
     @PostMapping("/add")
     public ResponseEntity<TrainingSession> createTrainingSession(@RequestBody TrainingSession session,
                                                                  @RequestHeader("Authorization") String token) {
@@ -34,9 +42,13 @@ public class TrainingSessionController {
         return ResponseEntity.ok(service.getSessionById(id,token));
     }
 
-    @GetMapping
-    public ResponseEntity<List<TrainingSession>> getAllTrainingSessions() {
-        return ResponseEntity.ok(service.getAllSessions());
+    @GetMapping("/get-sessions")
+    public ResponseEntity<List<TrainingSession>> getAllTrainingSessions(@RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(service.getAllSessions(token));
+    }
+   @GetMapping("/get-sessions-by-workout/{workoutPlanId}")
+    public ResponseEntity<List<TrainingSession>> getTrainingSessionsByWorkouPlan(@PathVariable Long workoutPlanId,@RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(service.getTrainingSessionsByWorkoutPlanId(workoutPlanId,token));
     }
 
     @PutMapping("/update/{id}")
@@ -57,7 +69,7 @@ public class TrainingSessionController {
                                                       @RequestHeader("Authorization") String token) {
         TrainingSession existingSession = service.getSessionById(id,token);
         if(existingSession != null) {
-            service.deleteSession(id);
+            service.deleteSession(id,token);
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -71,5 +83,25 @@ public class TrainingSessionController {
     ) {
         TrainingSession updated = service.assignExerciseToTrainingSession(sessionId, exercise, token);
         return ResponseEntity.ok(updated);
+    }
+
+
+    @PostMapping("/bulk/{workoutPlanId}")
+    public ResponseEntity<?> createBulkSessions(
+            @PathVariable Long workoutPlanId,
+            @RequestBody List<TrainingSession> trainingSessions,
+            @RequestHeader("Authorization") String token) {
+
+        try {
+            List<TrainingSession> createdSessions = service
+                    .createBulkTrainingSessions(trainingSessions, workoutPlanId, token);
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdSessions);
+
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).body(e.getReason());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erreur interne : " + e.getMessage());
+        }
     }
 }

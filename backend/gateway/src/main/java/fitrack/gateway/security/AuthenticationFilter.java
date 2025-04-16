@@ -2,6 +2,7 @@ package fitrack.gateway.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
@@ -24,7 +25,7 @@ public class AuthenticationFilter implements WebFilter {
 
         System.out.println("Incoming Request: " + request.getMethod() + " " + path);
 
-        if (path.startsWith("/api/v1/auth/login") || path.startsWith("/api/v1/auth/register")) {
+        if (path.startsWith("/api/v1/auth/login") || path.startsWith("/api/v1/auth/register")|| request.getMethod().equals(HttpMethod.OPTIONS)) {
             System.out.println("Bypassing authentication for: " + path);
             return chain.filter(exchange);
         }

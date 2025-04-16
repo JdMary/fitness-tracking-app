@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { WorkoutFormService } from '../services/workout-form.service';
+import { ExerciceService } from '../services/exercice.service';
+import { Exercise } from '../models/entities';
 
 @Component({
   selector: 'app-exercice',
@@ -11,12 +13,14 @@ import { WorkoutFormService } from '../services/workout-form.service';
 export class ExerciceComponent implements OnInit {
   exerciseForm: FormGroup;
   videoUrl: string | null = null;
-  videoFile: File | null = null;
-
+  loading = false;
+  error: string | null = null;
+  trainingSessionId: number | null = null;
+  exercices: Exercise[] = [];
   constructor(
     private fb: FormBuilder,
-    private router: Router,
-    private formService: WorkoutFormService
+    private route: ActivatedRoute,
+    private exerciceService: ExerciceService,
   ) {
     this.exerciseForm = this.fb.group({
       category: ['', Validators.required],
@@ -29,41 +33,40 @@ export class ExerciceComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.formService.exercise$.subscribe(data => {
-      if (data) {
-        this.exerciseForm.patchValue(data);
-      }
+    this.route.queryParams.subscribe(params => {
+      this.trainingSessionId = params['trainingSessionId'] ? +params['trainingSessionId'] : null;
+      this.loadTrainingSessions();
     });
   }
 
-  onFileSelected(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      this.videoFile = file;
-      this.videoUrl = URL.createObjectURL(file);
-    }
-  }
-
-  onSubmit() {
-    if (this.exerciseForm.valid) {
-      const formData = {
-        ...this.exerciseForm.value,
-        videoFile: this.videoFile
-      };
-      this.formService.updateExercise(formData);
-      this.formService.submitForm();
-      // Navigate to success page or show success message
-    }
-  }
-
-  onPrevious() {
-    this.formService.updateExercise(this.exerciseForm.value);
-    this.router.navigate(['/workouts/training-session']);
-  }
-
-  ngOnDestroy() {
-    if (this.videoUrl) {
-      URL.revokeObjectURL(this.videoUrl);
+  
+  loadTrainingSessions(): void {
+    this.loading = true;
+    if (this.trainingSessionId) {
+      this.exerciceService.getAllExercicesBySession(this.trainingSessionId).subscribe({
+        next: (exercices) => {
+          this.exercices = exercices;
+          this.loading = false;
+        },
+        error: (error) => {
+          this.error = 'Failed to load exercices';
+          this.loading = false;
+          console.error('Error loading exercices:', error);
+        }
+      });
+    } else {
+      this.exerciceService.getAllExercices().subscribe({
+        next: (exercices) => {
+          this.exercices = exercices;
+          this.loading = false;
+          console.log('Loaded exercices:', exercices);
+        },
+        error: (error) => {
+          this.error = 'Failed to load exercices';
+          this.loading = false;
+          console.error('Error loading exercices:', error);
+        }
+      });
     }
   }
 }

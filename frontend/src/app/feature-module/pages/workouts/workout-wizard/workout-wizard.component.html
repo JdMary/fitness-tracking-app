@@ -23,32 +23,16 @@
         <form *ngIf="currentStep === 0" [formGroup]="workoutForm">
           <div class="row">
             <div class="col-md-6 mb-3">
-              <label class="form-label">Name</label>
-              <input type="text" class="form-control" formControlName="name">
-              <div class="text-danger" *ngIf="workoutForm.get('name')?.invalid && workoutForm.get('name')?.touched">
-                Name is required
-              </div>
-            </div>
-            <div class="col-md-6 mb-3">
               <label class="form-label">Description</label>
               <input type="text" class="form-control" formControlName="description">
-              <div class="text-danger" *ngIf="workoutForm.get('description')?.invalid && workoutForm.get('description')?.touched">
-                Description is required
-              </div>
             </div>
             <div class="col-md-6 mb-3">
               <label class="form-label">Duration (minutes)</label>
               <input type="number" class="form-control" formControlName="duration">
-              <div class="text-danger" *ngIf="workoutForm.get('duration')?.invalid && workoutForm.get('duration')?.touched">
-                Duration must be at least 1 minute
-              </div>
             </div>
             <div class="col-md-6 mb-3">
               <label class="form-label">Start Date</label>
               <input type="date" class="form-control" formControlName="startDate">
-              <div class="text-danger" *ngIf="workoutForm.get('startDate')?.invalid && workoutForm.get('startDate')?.touched">
-                Start date is required
-              </div>
             </div>
             <div class="col-md-6 mb-3">
               <label class="form-label">Difficulty Level</label>
@@ -65,42 +49,43 @@
         <form *ngIf="currentStep === 1" [formGroup]="trainingSessionForm">
           <div class="row">
             <div class="col-md-6 mb-3">
-              <label class="form-label">Session Name</label>
-              <input type="text" class="form-control" formControlName="name">
-              <div class="text-danger" *ngIf="trainingSessionForm.get('name')?.invalid && trainingSessionForm.get('name')?.touched">
-                Name is required
-              </div>
-            </div>
-            <div class="col-md-6 mb-3">
-              <label class="form-label">Date</label>
-              <input type="date" class="form-control" formControlName="date">
-              <div class="text-danger" *ngIf="trainingSessionForm.get('date')?.invalid && trainingSessionForm.get('date')?.touched">
-                Date is required
-              </div>
-            </div>
-            <div class="col-md-6 mb-3">
               <label class="form-label">Entry Time</label>
-              <input type="time" class="form-control" formControlName="entryTime" (change)="calculateDuration()">
-              <div class="text-danger" *ngIf="trainingSessionForm.get('entryTime')?.invalid && trainingSessionForm.get('entryTime')?.touched">
-                Entry time is required
-              </div>
+              <input type="datetime-local" class="form-control" formControlName="entryTime">
             </div>
             <div class="col-md-6 mb-3">
               <label class="form-label">Exit Time</label>
-              <input type="time" class="form-control" formControlName="exitTime" (change)="calculateDuration()">
-              <div class="text-danger" *ngIf="trainingSessionForm.get('exitTime')?.invalid && trainingSessionForm.get('exitTime')?.touched">
-                Exit time is required
-              </div>
+              <input type="datetime-local" class="form-control" formControlName="exitTime">
             </div>
             <div class="col-md-6 mb-3">
-              <label class="form-label">Duration (minutes)</label>
-              <input type="number" class="form-control" formControlName="duration" readonly>
+              <label class="form-label">Username</label>
+              <input type="text" class="form-control" formControlName="username">
             </div>
             <div class="col-md-6 mb-3">
-              <div class="form-check">
-                <input type="checkbox" class="form-check-input" formControlName="guided" id="guided">
-                <label class="form-check-label" for="guided">Guided Session</label>
-              </div>
+              <label class="form-label">Session Type</label>
+              <select class="form-control" formControlName="guided">
+                <option [ngValue]="true">Guided</option>
+                <option [ngValue]="false">Self-Paced</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="name">Session Name</label>
+              <input type="text" id="name" formControlName="name" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="date">Date</label>
+              <input type="date" id="date" formControlName="date" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="entryTime">Entry Time</label>
+              <input type="time" id="entryTime" formControlName="entryTime" class="form-control" (change)="calculateDuration()">
+            </div>
+            <div class="form-group">
+              <label for="exitTime">Exit Time</label>
+              <input type="time" id="exitTime" formControlName="exitTime" class="form-control" (change)="calculateDuration()">
+            </div>
+            <div class="form-group">
+              <label for="duration">Duration (minutes)</label>
+              <input type="number" id="duration" formControlName="duration" class="form-control" readonly>
             </div>
           </div>
         </form>
@@ -109,32 +94,16 @@
         <form *ngIf="currentStep === 2" [formGroup]="exerciseForm">
           <div class="row">
             <div class="col-md-6 mb-3">
-              <label class="form-label">Exercise Name</label>
-              <input type="text" class="form-control" formControlName="name">
-              <div class="text-danger" *ngIf="exerciseForm.get('name')?.invalid && exerciseForm.get('name')?.touched">
-                Name is required
-              </div>
-            </div>
-            <div class="col-md-6 mb-3">
               <label class="form-label">Category</label>
               <input type="text" class="form-control" formControlName="category">
-              <div class="text-danger" *ngIf="exerciseForm.get('category')?.invalid && exerciseForm.get('category')?.touched">
-                Category is required
-              </div>
             </div>
             <div class="col-md-6 mb-3">
               <label class="form-label">Sets</label>
               <input type="number" class="form-control" formControlName="sets">
-              <div class="text-danger" *ngIf="exerciseForm.get('sets')?.invalid && exerciseForm.get('sets')?.touched">
-                At least 1 set is required
-              </div>
             </div>
             <div class="col-md-6 mb-3">
               <label class="form-label">Reps</label>
               <input type="number" class="form-control" formControlName="reps">
-              <div class="text-danger" *ngIf="exerciseForm.get('reps')?.invalid && exerciseForm.get('reps')?.touched">
-                At least 1 rep is required
-              </div>
             </div>
             <div class="col-md-6 mb-3">
               <label class="form-label">Difficulty</label>
@@ -145,16 +114,12 @@
               </select>
             </div>
             <div class="col-12 mb-3">
-              <label class="form-label">Video URL (optional)</label>
+              <label class="form-label">Video URL</label>
               <input type="url" class="form-control" formControlName="videoUrl">
             </div>
             <div class="col-12 mb-3">
-              <label class="form-label">Instructions (optional)</label>
+              <label class="form-label">Instructions</label>
               <textarea class="form-control" formControlName="instructions" rows="3"></textarea>
-            </div>
-            <div class="col-12 mb-3">
-              <label class="form-label">Description (optional)</label>
-              <textarea class="form-control" formControlName="description" rows="3"></textarea>
             </div>
           </div>
         </form>
@@ -168,14 +133,12 @@
           </button>
           <button class="btn btn-primary" 
                   *ngIf="currentStep < steps.length - 1"
-                  (click)="nextStep()"
-                  [disabled]="!isFormsValid()">
+                  (click)="nextStep()">
             Next
           </button>
           <button class="btn btn-success" 
                   *ngIf="currentStep === steps.length - 1"
-                  (click)="onSubmit()"
-                  [disabled]="!isFormsValid()">
+                  (click)="onSubmit()">
             Submit
           </button>
         </div>

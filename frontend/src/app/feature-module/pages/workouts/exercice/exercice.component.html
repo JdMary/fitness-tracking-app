@@ -1,68 +1,74 @@
-<p>exercice works!</p>
-
-<a [routerLink]="'/exercice-details'">Details</a>
-
-<div class="card">
-  <div class="card-body">
-    <form [formGroup]="exerciseForm">
-      <div class="row">
-        <div class="col-md-6 mb-3">
-          <label class="form-label">Category</label>
-          <select class="form-control" formControlName="category">
-            <option value="Cardio">Cardio</option>
-            <option value="Strength">Strength</option>
-            <option value="Flexibility">Flexibility</option>
-            <option value="Balance">Balance</option>
-          </select>
-          <div class="invalid-feedback" *ngIf="exerciseForm.get('category')?.invalid && exerciseForm.get('category')?.touched">
-            Category is required
-          </div>
-        </div>
-        <div class="col-md-6 mb-3">
-          <label class="form-label">Sets</label>
-          <input type="number" class="form-control" formControlName="sets">
-          <div class="invalid-feedback" *ngIf="exerciseForm.get('sets')?.invalid && exerciseForm.get('sets')?.touched">
-            Sets must be at least 1
-          </div>
-        </div>
-        <div class="col-md-6 mb-3">
-          <label class="form-label">Reps</label>
-          <input type="number" class="form-control" formControlName="reps">
-          <div class="invalid-feedback" *ngIf="exerciseForm.get('reps')?.invalid && exerciseForm.get('reps')?.touched">
-            Reps must be at least 1
-          </div>
-        </div>
-        <div class="col-md-6 mb-3">
-          <label class="form-label">Difficulty</label>
-          <select class="form-control" formControlName="difficulty">
-            <option value="Beginner">Beginner</option>
-            <option value="Intermediate">Intermediate</option>
-            <option value="Advanced">Advanced</option>
-          </select>
-        </div>
-        <div class="col-md-12 mb-3">
-          <label class="form-label">Instructions</label>
-          <textarea class="form-control" rows="3" formControlName="instructions"></textarea>
-          <div class="invalid-feedback" *ngIf="exerciseForm.get('instructions')?.invalid && exerciseForm.get('instructions')?.touched">
-            Instructions are required
-          </div>
-        </div>
-        <div class="col-md-12 mb-3">
-          <label class="form-label">Video Upload</label>
-          <div class="upload-zone">
-            <input type="file" accept="video/*" class="form-control" (change)="onFileSelected($event)">
-          </div>
-          <div class="video-preview mt-2" *ngIf="videoUrl">
-            <video [src]="videoUrl" controls class="img-fluid"></video>
-          </div>
+<div class="page-wrapper">
+  <div class="content">
+    <div class="container">
+      <!-- Loading and Error States -->
+      <div *ngIf="loading" class="text-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
         </div>
       </div>
 
-      <!-- Navigation Buttons -->
-      <div class="d-flex justify-content-between mt-3">
-        <button type="button" class="btn btn-secondary" (click)="onPrevious()">Back</button>
-        <button type="button" class="btn btn-success" [disabled]="!exerciseForm.valid" (click)="onSubmit()">Complete</button>
+      <div *ngIf="error" class="alert alert-danger">
+        {{ error }}
       </div>
-    </form>
+
+      <!-- Exercises List -->
+      <div *ngIf="!loading && !error" class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h5 class="card-title">Exercises for Training Session {{ trainingSessionId }}</h5>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6 col-lg-4 mb-4" *ngFor="let exercise of exercices">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h6 class="card-title">{{ exercise.category }}</h6>
+                      
+                      <div class="mt-3">
+                        <div class="d-flex justify-content-between mb-2">
+                          <span>Sets:</span>
+                          <strong>{{ exercise.sets }}</strong>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                          <span>Reps:</span>
+                          <strong>{{ exercise.reps }}</strong>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                          <span>Difficulty:</span>
+                          <span class="badge" [ngClass]="{
+                            'bg-success': exercise.difficulty === 'Beginner',
+                            'bg-warning': exercise.difficulty === 'Intermediate',
+                            'bg-danger': exercise.difficulty === 'Advanced'
+                          }">{{ exercise.difficulty }}</span>
+                        </div>
+                      </div>
+
+                      <div class="mt-3" *ngIf="exercise.instructions">
+                        <h6 class="mb-2">Instructions:</h6>
+                        <p class="small">{{ exercise.instructions }}</p>
+                      </div>
+
+                      <div class="mt-3" *ngIf="exercise.videoUrl">
+                        <a [href]="exercise.videoUrl" target="_blank" class="btn btn-sm btn-outline-primary">
+                          <i class="ti ti-video me-1"></i> Watch Tutorial
+                        </a>
+                      </div>
+
+                      <div class="mt-3">
+                        <span class="badge" [ngClass]="{'bg-success': exercise.status, 'bg-secondary': !exercise.status}">
+                          {{ exercise.status ? 'Completed' : 'Pending' }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

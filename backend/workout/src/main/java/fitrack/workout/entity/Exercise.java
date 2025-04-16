@@ -22,6 +22,16 @@
         private String videoUrl;
         private String instructions;
         private boolean status;
+        private String username;
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
+
+
         @ManyToOne
         @JoinColumn(name = "training_session_id")
         @JsonBackReference

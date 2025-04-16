@@ -1,0 +1,60 @@
+.container-service {
+  padding: 1.5rem;
+
+  .card {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .form-group.mat {
+    margin-bottom: 1rem;
+    
+    label {
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .add-extra {
+    display: inline-block;
+    color: #007bff;
+    text-decoration: none;
+    margin-top: 1rem;
+    cursor: pointer;
+
+    &:hover {
+      color: #0056b3;
+    }
+  }
+
+  .trash {
+    color: #dc3545;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    padding: 0.375rem;
+
+    &:hover {
+      color: #bd2130;
+    }
+  }
+
+  .exercises-section {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #dee2e6;
+    background-color: #f8f9fa;
+    border-radius: 6px;
+    padding: 15px;
+    margin-top: 20px;
+  }
+
+  .training-session-block {
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    
+    &:not(:last-child) {
+      border-bottom: 1px solid #e5e5e5;
+    }
+  }
+}

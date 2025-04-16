@@ -862,6 +862,12 @@ export class routes {
   public static get workoutPlans(): string {
     return this.baseUrl + '/workouts/workout-plan';
   }
+    public static get workoutPlansList(): string {
+      return this.baseUrl + '/workouts/plans/list';
+    }
+  public static get createWorkoutPlan(): string {
+    return this.baseUrl + '/workouts/plans/create';
+  }
   public static get workoutWizard(): string {
     return this.baseUrl + '/workouts/wizard';
   }

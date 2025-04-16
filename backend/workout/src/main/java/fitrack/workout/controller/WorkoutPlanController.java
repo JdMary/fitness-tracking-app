@@ -27,15 +27,18 @@ public class WorkoutPlanController {
     public String test() {
         return "Service USER fonctionne ";
     }
-    @GetMapping("/create-full-workout")
-    public String createFullWorkoutPlan(@RequestBody WorkoutPlan plan) {
-        return "Service USER fonctionne ";
+    @PostMapping("/add-full")
+    public ResponseEntity<WorkoutPlan> createFullWorkoutPlan(
+            @RequestBody WorkoutPlan plan,
+            @RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(service.createFullWorkoutPlan(plan,token));
     }
 
 
     @PostMapping("/add")
-    public ResponseEntity<WorkoutPlan> createWorkoutPlan(@RequestBody WorkoutPlan plan) {
-        WorkoutPlan createdPlan = service.createWorkoutPlan(plan);
+    public ResponseEntity<WorkoutPlan> createWorkoutPlan(@RequestBody WorkoutPlan plan,
+                                                         @RequestHeader("Authorization") String token) {
+        WorkoutPlan createdPlan = service.createWorkoutPlan(plan,token);
         return new ResponseEntity<>(createdPlan, HttpStatus.CREATED);
     }
 
@@ -44,9 +47,9 @@ public class WorkoutPlanController {
         return ResponseEntity.ok(service.getWorkoutPlanById(id));
     }
 
-    @GetMapping
-    public ResponseEntity<List<WorkoutPlan>> getAllWorkoutPlans() {
-        return ResponseEntity.ok(service.getAllPlans());
+    @GetMapping("/get-plans")
+    public ResponseEntity<List<WorkoutPlan>> getAllWorkoutPlans(@RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(service.getAllPlans(token));
     }
 
     @PutMapping("/update/{id}")
@@ -64,10 +67,11 @@ public class WorkoutPlanController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Void> deleteWorkoutPlan(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteWorkoutPlan(@PathVariable Long id,
+                                                  @RequestHeader("Authorization") String token) {
         WorkoutPlan existingPlan = service.getWorkoutPlanById(id);
         if (existingPlan != null) {
-            service.deleteWorkoutPlan(id);
+            service.deleteWorkoutPlan(id, token);
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

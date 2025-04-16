@@ -30,9 +30,8 @@ import java.util.List;
             @JsonBackReference
             private WorkoutPlan workoutPlan;
 
-            @OneToMany(mappedBy = "trainingSession")
+            @OneToMany(mappedBy = "trainingSession" ,cascade = CascadeType.ALL, orphanRemoval = true)
             @JsonManagedReference
-
             private List<Exercise> exercises=new ArrayList<>();
 
     @Override

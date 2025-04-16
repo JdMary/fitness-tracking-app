@@ -20,7 +20,13 @@ public class ExerciseController {
     public ResponseEntity<Exercise> createExercise(@RequestBody Exercise exercise) {
         return new ResponseEntity<>(service.createExercise(exercise), HttpStatus.CREATED);
     }
-
+    @PostMapping("/add-full")
+    public ResponseEntity<Exercise> createFullExercise(
+            @RequestBody Exercise exercise,
+            @RequestHeader("Authorization") String token) {
+        Long trainingSessionId = exercise.getTrainingSession().getTrainingSessionId(); // From request body
+        return ResponseEntity.ok(service.createFullExercise(exercise, trainingSessionId, token));
+    }
 
 
 
@@ -28,9 +34,13 @@ public class ExerciseController {
     public ResponseEntity<Exercise> getExercise(@PathVariable Long id) {
         return ResponseEntity.ok(service.getExerciseById(id));
     }
-    @GetMapping
-    public ResponseEntity<List<Exercise>> getAllExercises() {
-        return ResponseEntity.ok(service.getAllExercises());
+    @GetMapping("/get-exercices-by-session/{id}")
+    public ResponseEntity<List<Exercise>> getExercisesBySessions(@PathVariable Long id, @RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(service.getExercisesByTrainingSessionId(id, token));
+    }
+    @GetMapping("/get-exercices")
+    public ResponseEntity<List<Exercise>> getExercises(@RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(service.getAllExercises(token));
     }
 
     @PutMapping("/update/{id}")

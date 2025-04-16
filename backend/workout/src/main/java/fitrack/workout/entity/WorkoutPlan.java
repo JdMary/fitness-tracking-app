@@ -26,11 +26,14 @@ public class WorkoutPlan {
     private LocalDateTime startDate;
     private String status;
     private String difficulty;
+    private String username;
+
+
 
     @OneToOne
     private ProgressTracker progressTracker;
 
-    @OneToMany(mappedBy = "workoutPlan",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "workoutPlan", cascade = CascadeType.ALL,orphanRemoval = true)
     @JsonManagedReference
     private List<TrainingSession> trainingSessions;
 
@@ -90,5 +93,13 @@ public class WorkoutPlan {
 
     public void setTrainingSessions(List<TrainingSession> trainingSessions) {
         this.trainingSessions = trainingSessions;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

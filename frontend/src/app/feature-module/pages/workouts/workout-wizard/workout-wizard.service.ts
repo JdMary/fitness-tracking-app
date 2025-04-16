@@ -9,43 +9,43 @@ import { WorkoutPlan, TrainingSession, Exercise } from '../models/entities';
 })
 export class WorkoutWizardService {
   private baseUrl = 'http://localhost:8222/api/v1/workouts';
+  private readonly authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im1haGRpQGdtYWlsLnRuIiwiZXhwIjoxNzQ0NjQ0NDkxfQ.d55T2nA-SF8OdNjxaVSEO1C07fBlUYh9Aswyy59K3Gg';
 
   constructor(private http: HttpClient) {}
 
-  createWorkoutPlan(workoutPlan: any): Observable<any> {
-    console.log('Creating workout plan:', workoutPlan);
-    return this.http.post(`${this.baseUrl}/workout-plan/add`, workoutPlan)
-      .pipe(catchError(this.handleError));
+  private getHeaders(): HttpHeaders {
+    return new HttpHeaders().set('Authorization', `Bearer ${this.authToken}`);
   }
 
-  createTrainingSession(session: any, token: string): Observable<any> {
+  createWorkoutPlan(plan: WorkoutPlan): Observable<WorkoutPlan> {
+    return this.http.post<WorkoutPlan>(`${this.baseUrl}/plan/add`, plan, { headers: this.getHeaders() });
+  }
+
+  createTrainingSession(session: any): Observable<any> {
     console.log('Creating training session:', session);
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.post(`${this.baseUrl}/training-session/add`, session, { headers })
+    return this.http.post(`${this.baseUrl}/training-session/add`, session, { headers: this.getHeaders() })
       .pipe(catchError(this.handleError));
   }
 
-  createExercise(exercise: any): Observable<any> {
-    console.log('Creating exercise:', exercise);
-    return this.http.post(`${this.baseUrl}/exercise/add`, exercise)
-      .pipe(catchError(this.handleError));
+  createExercise(exercise: Exercise): Observable<Exercise> {
+    return this.http.post<Exercise>(`${this.baseUrl}/exercises/add`, exercise, { headers: this.getHeaders() });
   }
 
-  assignSessionToWorkout(workoutPlan: WorkoutPlan, token: string): Observable<WorkoutPlan> {
+ /* assignSessionToWorkout(workoutPlan: WorkoutPlan): Observable<WorkoutPlan> {
     return this.http.post<WorkoutPlan>(
       `${this.baseUrl}/plan/assign-session`,
       workoutPlan,
-      { headers: { 'Authorization': token } }
+      { headers: this.getHeaders() }
     );
   }
 
-  assignExerciseToSession(sessionId: number, exercise: Exercise, token: string): Observable<TrainingSession> {
+  assignExerciseToSession(sessionId: number, exercise: Exercise): Observable<TrainingSession> {
     return this.http.post<TrainingSession>(
       `${this.baseUrl}/training-session/${sessionId}/assign-exercise`,
       exercise,
-      { headers: { 'Authorization': token } }
+      { headers: this.getHeaders() }
     );
-  }
+  }*/
 
   private handleError(error: HttpErrorResponse) {
     console.error('An error occurred:', error);
