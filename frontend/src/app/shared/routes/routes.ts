@@ -1,14 +1,14 @@
 export class routes {
   private static Url = '';
 
-  public static get buddyList(): string {
-    return this.baseUrl + '/buddy/buddy-list';
-  }
   public static get adminRequestList(): string {
     return this.baseUrl + '/admin/buddy/requests-list';
   }
   public static get adminMatchList(): string {
     return this.baseUrl + '/admin/buddy/matches-list';
+  }
+  public static get buddyList(): string {
+    return this.baseUrl + '/buddy/buddy-list';
   }
   public static get buddyRequest(): string {
     return this.baseUrl + '/buddy/buddy-request';

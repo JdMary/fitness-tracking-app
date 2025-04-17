@@ -3,11 +3,11 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 col-12">
-                <h2 class="breadcrumb-title mb-2">Services</h2>
+                <h2 class="breadcrumb-title mb-2">List of Matches</h2>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb justify-content-center mb-0">
                         <li class="breadcrumb-item"><a ><i class="ti ti-home-2"></i></a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Services</li>
+                        <li class="breadcrumb-item active" aria-current="page">View Matches</li>
                     </ol>
                 </nav>
             </div>
@@ -220,7 +220,7 @@
                 </div>
                 <div class="col-xl-9 col-lg-8">
                     <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
-                        <h4 >Found <span class="text-primary">11 Services</span></h4>
+                        <h4 >Found <span class="text-primary">{{ matchesCount }} Matches</span></h4>
                         <div class="d-flex align-items-center">
                             <span class="text-dark me-2">Sort</span>
                             <div class="dropdown me-2">
@@ -238,10 +238,8 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-
-                            <!-- Service List -->
                             <div class="service-list">
-                                <div class="service-cont">
+                                <div class="service-cont" *ngFor="let match of buddyMatches">
                                     <div class="service-cont-img">
                                         <a >
                                             <img class="img-fluid serv-img" alt="Service Image" src="assets/img/services/service-04.jpg">
@@ -253,183 +251,44 @@
                                         </div>
                                     </div>
                                     <div class="service-cont-info">
-                                        <span class="badge bg-light fs-14 mb-2">Car Wash</span>
-                                        <h3 class="title">
-                                            <a >Car Repair Services</a>
-                                        </h3>
-                                        <p><i class="feather icon-map-pin"></i>Maryland City, MD, USA</p>
-                                        <div class="service-pro-img">
-                                            <img src="assets/img/profiles/avatar-01.jpg" alt="user">
-                                            <span><i class="fas fa-star filled"></i>4.9</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="service-action">
-                                    <h6>$25.00<span class="old-price">$35.00</span></h6>
-                                </div>
-                            </div>
-                            <!-- /Service List -->
+                                        <div class="d-flex justify-content-between align-items-center flex-wrap">
+                                            <div class="d-flex align-items-center">
+                                                <h3 class="title mb-0">
+                                                    <i class="feather icon-user me-2"></i>
+                                                    <a>{{ match.email1 }}</a>
+                                                </h3>
+                                            </div>
+                                            <div class="d-flex align-items-center">
+                                                <h3 class="title mb-0">
+                                                    <i class="feather icon-user ms-2"></i>
+                                                    <a>{{ match.email2 }}</a>
+                                                </h3>
+                                            </div>
+                                        </div>                                        
 
-                            <!-- Service List -->
-                            <div class="service-list">
-                                <div class="service-cont">
-                                    <div class="service-cont-img">
-                                        <a >
-                                            <img class="img-fluid serv-img" alt="Service Image" src="assets/img/services/service-02.jpg">
-                                        </a>
-                                        <div class="fav-item">
-                                            <a href="javascript:void(0)" class="fav-icon">
-                                                <i class="feather icon-heart"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="service-cont-info">
-                                        <span class="badge bg-light fs-14 mb-2">Construction</span>
-                                        <h3 class="title">
-                                            <a>Toughened Glass Fitting Services</a>
-                                        </h3>
-                                        <p><i class="feather icon-map-pin"></i>New Jersey, USA</p>
+                                        <div class="d-flex flex-wrap align-items-center gap-4 mt-3">
+                                            <div class="d-flex align-items-center" style="white-space: nowrap;">
+                                                <i class="feather icon-clock text-primary me-1"></i>
+                                                <strong>Start Time:</strong>&nbsp;{{ match.workoutStartTime | date:'short' }}
+                                            </div>
+                                            <div class="d-flex align-items-center" style="white-space: nowrap;">
+                                                 <i class="feather icon-clock text-primary me-1"></i>
+                                                <strong>Duration:</strong>&nbsp;{{ match.duration }} minutes
+                                            </div>
+                                            <div class="d-flex align-items-center" style="white-space: nowrap; margin-left: 50px;">
+                                                <i class="feather icon-target text-success me-1"></i>
+                                                <strong>Goal:</strong>&nbsp;{{ match.goal | formatGoal }}
+                                            </div>
+                                        </div>                                        
+                                        
                                         <div class="service-pro-img">
-                                            <img src="assets/img/profiles/avatar-02.jpg" alt="User">
-                                            <span><i class="fas fa-star filled"></i>4.9</span>
+                                            <div class="d-flex justify-content-end mt-4 mb-2 pe-3">
+                                                <a class="btn btn-primary-light px-4 ms-auto">Message</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="service-action">
-                                    <h6>$30.00<span class="old-price">$35.00</span></h6>
-                                    <a class="btn btn-light">Book Now</a>
-                                </div>
-                            </div>
-                            <!-- /Service List -->
-
-                            <!-- Service List -->
-                            <div class="service-list">
-                                <div class="service-cont">
-                                    <div class="service-cont-img">
-                                        <a>
-                                            <img class="img-fluid serv-img" alt="Service Image" src="assets/img/services/service-06.jpg">
-                                        </a>
-                                        <div class="fav-item">
-                                            <a href="javascript:void(0)" class="fav-icon">
-                                                <i class="feather icon-heart"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="service-cont-info">
-                                        <span class="badge bg-light fs-14 mb-2">Computer</span>
-                                        <h3 class="title">
-                                            <a>Computer &amp; Server AMC Service</a>
-                                        </h3>
-                                        <p><i class="feather icon-map-pin"></i>California, USA</p>
-                                        <div class="service-pro-img">
-                                            <img src="assets/img/profiles/avatar-05.jpg" alt="User">
-                                            <span><i class="fas fa-star filled"></i>4.9</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="service-action">
-                                    <h6>$30.00<span class="old-price">$35.00</span></h6>
-                                    <a>Book Now</a>
-                                </div>
-                            </div>
-                            <!-- /Service List -->
-
-                            <!-- Service List -->
-                            <div class="service-list">
-                                <div class="service-cont">
-                                    <div class="service-cont-img">
-                                        <a>
-                                            <img class="img-fluid serv-img" alt="Service Image" src="assets/img/services/service-07.jpg">
-                                        </a>
-                                        <div class="fav-item">
-                                            <a href="javascript:void(0)" class="fav-icon">
-                                                <i class="feather icon-heart"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="service-cont-info">
-                                        <span class="badge bg-light fs-14 mb-2">Interior</span>
-                                        <h3 class="title">
-                                            <a>Interior Designing</a>
-                                        </h3>
-                                        <p><i class="feather icon-map-pin"></i>Maryland, USA</p>
-                                        <div class="service-pro-img">
-                                            <img src="assets/img/profiles/avatar-06.jpg" alt="User">
-                                            <span><i class="fas fa-star filled"></i>4.9</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="service-action">
-                                    <h6>$15.00<span class="old-price">$25.00</span></h6>
-                                    <a class="btn btn-light">Book Now</a>
-                                </div>
-                            </div>
-                            <!-- /Service List -->
-
-                            <!-- Service List -->
-                            <div class="service-list">
-                                <div class="service-cont">
-                                    <div class="service-cont-img">
-                                        <a>
-                                            <img class="img-fluid serv-img" alt="Service Image" src="assets/img/services/service-09.jpg">
-                                        </a>
-                                        <div class="fav-item">
-                                            <a href="javascript:void(0)" class="fav-icon" >
-                                                <i class="feather icon-heart"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="service-cont-info">
-                                        <span class="badge bg-light fs-14 mb-2">Cleaning</span>
-                                        <h3 class="title">
-                                            <a>House Cleaning Services</a>
-                                        </h3>
-                                        <p><i class="feather icon-map-pin"></i>Georgia</p>
-                                        <div class="service-pro-img">
-                                            <img src="assets/img/profiles/avatar-09.jpg" alt="User">
-                                            <span><i class="fas fa-star filled"></i>4.9</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="service-action">
-                                    <h6>$55.00<span class="old-price">$60.00</span></h6>
-                                    <a class="btn btn-light">Book Now</a>
-                                </div>
-                            </div>
-                            <!-- /Service List -->
-
-                            <!-- Service List -->
-                            <div class="service-list">
-                                <div class="service-cont">
-                                    <div class="service-cont-img">
-                                        <a>
-                                            <img class="img-fluid serv-img" alt="Service Image" src="assets/img/services/service-10.jpg">
-                                        </a>
-                                        <div class="fav-item">
-                                            <a href="javascript:void(0)" class="fav-icon">
-                                                <i class="feather icon-heart"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="service-cont-info">
-                                        <span class="badge bg-light fs-14 mb-2">Construction</span>
-                                        <h3 class="title">
-                                            <a>Building Construction Services</a>
-                                        </h3>
-                                        <p><i class="feather icon-map-pin"></i>Montana, USA</p>
-                                        <div class="service-pro-img">
-                                            <img src="assets/img/profiles/avatar-09.jpg" alt="User">
-                                            <span><i class="fas fa-star filled"></i>4.9</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="service-action">
-                                    <h6>$45.00<span class="old-price">$50.00</span></h6>
-                                    <a class="btn btn-light">Book Now</a>
-                                </div>
-                            </div>
-                            <!-- /Service List -->
-
+                            </div>                            
                         </div>
                     </div>
                     <nav aria-label="Page navigation">

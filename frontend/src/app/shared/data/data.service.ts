@@ -610,7 +610,7 @@ export class DataService {
           subMenus: [],
         },
         {
-          menuValue: 'View Match',
+          menuValue: 'View Matches',
           routes: routes.buddyMatch,
           hasSubRoute: false,
           showSubRoute: false,

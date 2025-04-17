@@ -112,7 +112,7 @@
                                       </div>
                                     </div>
                                   </div>
-                                <button type="submit" class="btn btn-dark w-100">Submit</button>
+                                <button type="submit" class="btn btn-dark w-100">{{ submitValue }}</button>
                             </form>
                         </div>
                     </div>
@@ -136,9 +136,9 @@
                             <a [routerLink]="routes.serviceList" class="tags d-flex justify-content-center align-items-center border rounded"><i class="ti ti-list"></i></a>
                         </div>
                     </div>
-                    <div class="row justify-content-center align-items-center">
-                      <div class="col-xl-4 col-md-6" *ngFor="let request of paginatedBuddyRequests">
-                        <div class="card p-0">
+                    <div class="row justify-content-start align-items-stretch g-3">
+                      <div class="col-xl-4 col-md-6 d-flex" *ngFor="let request of paginatedBuddyRequests">
+                        <div class="card p-0 w-100" *ngIf="request.status === 'PENDING' || request.status === 'WAITING'">
                             <div class="card-body p-0">
                                 <div class="img-sec w-100">
                                     <a [routerLink]="routes.serviceDetails">
@@ -171,16 +171,27 @@
                                             [ngClass]="{
                                               'badge-soft-warning': request.status === 'PENDING',
                                               'badge-soft-info': request.status === 'WAITING',
-                                              'badge-soft-success': request.status === 'ACCEPTED',
-                                              'badge-soft-danger': request.status === 'REJECTED'
                                             }">
                                           {{ request.status }}
                                         </span>
                                     </div>
+                                    <div class="d-flex align-items-center mb-3">
+                                      <h5 class="fs-14 mb-0 waiting-message" *ngIf="request.status === 'WAITING'">
+                                        <i class="ti ti-user-plus text-primary me-2"></i>
+                                        <span class="text-primary fw-bold">{{ request.potentialMatch }}</span>
+                                        <span class="text-dark"> requested to join</span>
+                                      </h5>
+                                      <h5 class="fs-14 mb-0 waiting-message" *ngIf="request.status === 'PENDING'">
+                                        <i class="ti ti-user-plus text-primary me-2"></i>
+                                        <span class="text-dark">Waiting for someone to Join!</span>
+                                      </h5>                                    </div>
                                     <div class="d-flex justify-content-between align-items-center" style="min-height: 38px;">
-                                        <button class="btn btn-primary me-2" *ngIf="request.status === 'WAITING'" (click)="acceptRequest(request.id)">Accept</button>
-                                        <button class="btn btn-info me-2" *ngIf="request.status === 'WAITING'">View Profile</button>
-                                        <button class="btn btn-danger" *ngIf="request.status === 'WAITING'" (click)="rejectRequest(request.id)">Reject</button>
+                                      <button class="btn btn-danger-light" *ngIf="request.status === 'WAITING'" (click)="rejectRequest(request.id)">Reject</button>
+                                      <button class="btn btn-info-light" *ngIf="request.status === 'WAITING'">View Profile</button>
+                                        <button class="btn btn-primary-light" *ngIf="request.status === 'WAITING'" (click)="acceptRequest(request.id)">Accept</button>
+                                        <div class="w-100 text-center" *ngIf="request.status === 'PENDING'">
+                                            <button class="btn btn-warning-light" (click)="findBuddyRequestById(request.id)">Edit Request</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

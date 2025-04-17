@@ -1,5 +1,6 @@
 package fitrack.buddy.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -19,8 +20,18 @@ public class BuddyMatch {
     private Long id;
 
     private Long requestId;
+
     private String email1;
+
     private String email2;
+
+    @Enumerated(EnumType.STRING)
+    private Goals goal;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime workoutStartTime;
+
+    private int duration;
 
     @CreationTimestamp
     @Column(updatable = false, nullable = false)

@@ -15,6 +15,10 @@ export class BuddyRequestComponent implements OnInit {
   selectedGoal: string | null = null;
   goalError: boolean = false;
   userName: string | undefined;
+  singleBuddyRequest: BuddyRequest | null = null;
+  editMode: boolean = false;
+  editRequestId: number | null = null;
+  submitValue: string = 'Create Request';
 
   minDurationValidator(control: any) {
     const value = Number(control.value);
@@ -41,14 +45,15 @@ export class BuddyRequestComponent implements OnInit {
   } 
   selectGoal(goal: string): void {
     this.selectedGoal = goal;
-    this.buddyRequestForm.patchValue({ goal });
+    this.buddyRequestForm.get('goal')?.setValue(goal);
+    this.goalError = false;
   }
   
   public routes = routes;
   buddyRequests: BuddyRequestFull[] = [];
   buddyRequestsCount: number = 0;
   currentPage: number = 1;
-  itemsPerPage: number = 9;
+  itemsPerPage: number = 6;
   
   get paginatedBuddyRequests(): BuddyRequestFull[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
@@ -94,6 +99,7 @@ export class BuddyRequestComponent implements OnInit {
       (data) => {
         this.buddyRequests = data;
         this.buddyRequestsCount = data.length;
+        this.submitValue = 'Create Request';
       }
     );
   }
@@ -117,11 +123,10 @@ get combinedDateTime(): Date | null {
 }
   
 onSubmit() {
-  if (!this.selectedGoal) {
+  if (!this.selectedGoal || !this.buddyRequestForm.get('goal')?.value) {
     this.goalError = true;
+    console.log("erreur");
     return;
-  } else {
-    this.goalError = false;
   }
 
   if (this.buddyRequestForm.valid) {
@@ -134,45 +139,49 @@ onSubmit() {
       duration: formValue.duration,
     };
 
-    this.buddyRequestService.addBuddyRequest(buddyRequest).subscribe(
-      (response) => {
-        console.log('Buddy request added successfully:', response);
-        this.loadBuddyRequests();
-
-        // Reset the form and clear all fields
-        this.buddyRequestForm.reset({
-          goal: '',
-          date: '',
-          time: '',
-          duration: ''
-        });
-        
-        // Reset goal selection and error state
-        this.selectedGoal = null;
-        this.goalError = false;
-
-        // Clear validation errors
-        Object.keys(this.buddyRequestForm.controls).forEach(key => {
-          const control = this.buddyRequestForm.get(key);
-          control?.markAsUntouched();
-          control?.updateValueAndValidity();
-        });
-
-        // Manually clear checkboxes
-        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-        checkboxes.forEach((checkbox: any) => {
-          checkbox.checked = false;
-        });
-
-        // Force duration field to clear
-        this.buddyRequestForm.get('duration')?.setValue('');
-      },
-      (error) => {
-        console.error('Failed to add buddy request:', error);
-      }
-    );
+    if (this.editMode && this.editRequestId) {
+      this.buddyRequestService.updateBuddyRequest(this.editRequestId, buddyRequest).subscribe(
+        (response) => {
+          console.log('Buddy request updated successfully:', response);
+          this.resetForm();
+        }
+      );
+    } else {
+      this.buddyRequestService.addBuddyRequest(buddyRequest).subscribe(
+        (response) => {
+          console.log('Buddy request added successfully:', response);
+          this.resetForm();
+        }
+      );
+    }
   }
 }
+
+resetForm(): void {
+  this.loadBuddyRequests();
+  this.buddyRequestForm.reset({
+    goal: '',
+    date: '',
+    time: '',
+    duration: ''
+  });
+  this.selectedGoal = null;
+  this.goalError = false;
+  this.editMode = false;
+  this.editRequestId = null;
+  
+  Object.keys(this.buddyRequestForm.controls).forEach(key => {
+    const control = this.buddyRequestForm.get(key);
+    control?.markAsUntouched();
+    control?.updateValueAndValidity();
+  });
+  
+  const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+  checkboxes.forEach((checkbox: any) => {
+    checkbox.checked = false;
+  });
+}
+
 getUserName(email: string): string {
   let userName = '';
   this.buddyRequestService.displayUserName(email).subscribe(
@@ -188,11 +197,7 @@ acceptRequest(requestId: number): void {
   this.buddyRequestService.acceptMatch(requestId).subscribe(
     (response) => {
       console.log('Match accepted successfully:', response);
-      // Reload the requests to update the UI
       this.loadBuddyRequests();
-    },
-    (error) => {
-      console.error('Failed to accept match:', error);
     }
   );
 }
@@ -200,11 +205,38 @@ rejectRequest(requestId: number): void {
   this.buddyRequestService.rejectMatch(requestId).subscribe(
     (response) => {
       console.log('Match rejected successfully:', response);
-      // Reload the requests to update the UI
       this.loadBuddyRequests();
-    },
-    (error) => {
-      console.error('Failed to reject match:', error);
+    }
+  );
+}
+
+findBuddyRequestById(id: number): void {
+  this.buddyRequestService.findBuddyRequest(id).subscribe(
+    (data) => {
+      if (data) {
+        this.singleBuddyRequest = data;
+        this.editMode = true;
+        this.editRequestId = id;
+        this.submitValue = 'Update Request';
+        
+        const workoutDateTime = new Date(data.workoutStartTime.toString());
+        const date = workoutDateTime.toISOString().split('T')[0];
+        const time = workoutDateTime.toTimeString().slice(0,5);
+
+        this.selectedGoal = data.goal;
+        
+        this.buddyRequestForm.patchValue({
+          goal: data.goal,
+          date: date,
+          time: time,
+          duration: data.duration
+        });
+
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach((checkbox: any) => {
+          checkbox.checked = checkbox.value === data.goal;
+        });
+      }
     }
   );
 }

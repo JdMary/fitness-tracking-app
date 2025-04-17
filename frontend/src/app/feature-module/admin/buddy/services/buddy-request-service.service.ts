@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { TokenService } from '../../../token/token.service';
 
 export interface BuddyRequestFull {
   id: number;
@@ -38,10 +39,10 @@ export interface BuddyMatchFull {
 export class BuddyRequestService {
   private apiUrlforRequest = 'http://localhost:8222/api/v1/buddies/request';
   private apiUrlforMatch = 'http://localhost:8222/api/v1/buddies/match';
-  private token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6InNhZmFAZXNwcml0LnRuIiwiZXhwIjoxNzQ0NzI4Nzg3fQ.B8pctLeRGvPUMS2KqH4_6_SWXAF3H6320gvKEJCtj8U';
+  private token = this.tokenService.getToken();
 
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private tokenService: TokenService) {}
 
   getBuddyRequests(): Observable<BuddyRequestFull[]> {
     const headers = new HttpHeaders({

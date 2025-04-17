@@ -271,15 +271,13 @@
                                         [ngClass]="{
                                           'badge-soft-warning': request.status === 'PENDING',
                                           'badge-soft-info': request.status === 'WAITING',
-                                          'badge-soft-success': request.status === 'ACCEPTED',
-                                          'badge-soft-danger': request.status === 'REJECTED'
                                         }">
                                       {{ request.status }}
                                     </span>
                                 </div>
                                   <div class="d-flex justify-content-between align-items-center">
                                       <a [routerLink]="routes.booking" class="btn bg-primary-transparent">View Profile</a>
-                                      <button class="btn bg-primary-transparent" 
+                                      <button class="btn btn-info-light" 
                                               (click)="subscribe(request.id)"
                                               [disabled]="request.status !== 'PENDING'">
                                         Subscribe

@@ -2,6 +2,7 @@ package fitrack.buddy.controller;
 
 
 import fitrack.buddy.entity.BuddyMatch;
+import fitrack.buddy.entity.BuddyRequest;
 import fitrack.buddy.service.IBuddyMatchService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -34,4 +35,5 @@ public class BuddyMatchController {
         buddyMatchService.removeBuddyMatch(id);
         return ResponseEntity.ok("Buddy match with ID " + id + " has been deleted.");
     }
+
 }

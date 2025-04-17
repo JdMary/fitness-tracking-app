@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { TokenService } from '../../../token/token.service';
+
 
 export interface BuddyRequestFull {
   id: number;
@@ -30,8 +32,8 @@ export interface BuddyMatch {
 })
 export class BuddyRequestService {
   private apiUrl = 'http://localhost:8222/api/v1/buddies/request';
-  private token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImVtbmFAZXNwcml0LnRuIiwiZXhwIjoxNzQ0NzI5NTA4fQ.9DYqbCE-Ksj6jyVpTgwikLItW1rz1tFy87eknaHoLio';
-  constructor(private http: HttpClient) {}
+  private token = this.tokenService.getToken();
+  constructor(private http: HttpClient, private tokenService: TokenService) {}
 
   getMyBuddyRequests(): Observable<BuddyRequestFull[]> {
     const headers = new HttpHeaders({
@@ -71,11 +73,25 @@ export class BuddyRequestService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`,
     });
-    return this.http.post<BuddyRequestFull>(`${this.apiUrl}/rejectMatch/${id}`, null, { headers });
+    return this.http.put<BuddyRequestFull>(`${this.apiUrl}/rejectMatch/${id}`, null, { headers });
   }
   
   displayUserName(userEmail: string): Observable<string> {
     return this.http.get<string>(`${this.apiUrl}/displayUser/${userEmail}`);
   }
+  findBuddyRequest(id: number): Observable<BuddyRequest> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`,
+    });
+    return this.http.get<BuddyRequest>(`${this.apiUrl}/findbyId/${id}`, { headers });
+  }
+
+  updateBuddyRequest(id: number, request: BuddyRequest): Observable<any> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`,
+    });
+    return this.http.put(`${this.apiUrl}/update/${id}`, request, { headers });
+  }
+
 }
 

@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/buddies/request")
@@ -42,9 +43,17 @@ public class BuddyRequestController {
         buddyRequestService.removeBuddyRequest(id);
         return ResponseEntity.ok("Buddy request with ID " + id + " has been deleted.");
     }
+    @GetMapping("findbyId/{id}")
+    public BuddyRequest findBuddyRequestById(@PathVariable Long id) {
+        return buddyRequestService.findBuddyRequestById(id);
+    }
     @PutMapping("addPotentialMatch/{id}")
     public BuddyRequest addPotentialMatch(@PathVariable Long id, @RequestHeader("Authorization") String token) {
         return buddyRequestService.addPotentialMatch(id, token);
+    }
+    @PutMapping("update/{id}")
+    public BuddyRequest updateBuddyRequest(@PathVariable Long id, @RequestBody BuddyRequest buddyRequest) {
+        return  buddyRequestService.updateBuddyRequest(id,buddyRequest);
     }
     @PostMapping("/acceptMatch/{id}")
     public BuddyMatch addBuddyMatch(@PathVariable Long id) {
@@ -57,6 +66,14 @@ public class BuddyRequestController {
     @GetMapping("/displayUser/{userEmail}")
     public String displayUser(@PathVariable String userEmail) {
         return buddyRequestService.displayUser(userEmail);
+    }
+    @GetMapping("countByStatus")
+    public Map<String, Long> countByStatus() {
+        return buddyRequestService.countByStatus();
+    }
+    @GetMapping("countByAcceptedOrRejected")
+    public Map<String, Long> countByAcceptedOrRejected() {
+        return buddyRequestService.countByAcceptedOrRejected();
     }
 
 }
