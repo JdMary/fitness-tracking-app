@@ -3,3 +3,20 @@ spring:
     name: buddies
   config:
     import: optional:configserver:http://localhost:8888
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: mahdikhadher2001@gmail.com
+    password: qksx ozdn toax wqyg
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+
+twilio:
+  account-sid: AC8776e66017e2c9e7e0d0ff33a65cba35
+  auth-token: f112f37f3c628b66119c6747554f0866
+  phone-number: +15075708901

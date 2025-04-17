@@ -24,6 +24,8 @@ public class BuddyRequestService implements IBuddyRequestService {
     private BuddyRequestRepository repository;
     private BuddyMatchRepository matchRepository;
     private CountBuddyRequestsRepository r;
+    private EmailService emailService;
+    private SmsService smsService;
     private AuthClient authClient;
     private UserClient userClient;
     private static final String BUDDY_REQUEST_NOT_FOUND = "BuddyRequest not found";
@@ -37,6 +39,8 @@ public class BuddyRequestService implements IBuddyRequestService {
         String username = String.valueOf(authClient.extractUsername(token).getBody());
         buddyRequest.setUserEmail(username);
         buddyRequest.setStatus(Status.PENDING);
+        //smsService.sendSms("+21628323353", "Hey Mahdi, your buddy request was accepted!");
+        //emailService.sendEmail("mahdi.khadher@esprit.tn","aaa","bbbb");
         return repository.save(buddyRequest);
     }
 

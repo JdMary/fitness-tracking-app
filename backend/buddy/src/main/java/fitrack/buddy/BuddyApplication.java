@@ -14,5 +14,4 @@ public class BuddyApplication {
 		SpringApplication.run(BuddyApplication.class, args);
 	}
 
-
 }

@@ -99,7 +99,6 @@ export class BuddyRequestComponent implements OnInit {
       (data) => {
         this.buddyRequests = data;
         this.buddyRequestsCount = data.length;
-        this.submitValue = 'Create Request';
       }
     );
   }
@@ -159,6 +158,7 @@ onSubmit() {
 
 resetForm(): void {
   this.loadBuddyRequests();
+  this.submitValue = 'Create Request';
   this.buddyRequestForm.reset({
     goal: '',
     date: '',
