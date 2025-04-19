@@ -18,8 +18,11 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -117,6 +120,23 @@ public class WorkoutPlanService implements IWorkoutPlan {
         String username = String.valueOf(authClient.extractUsername(token).getBody());
         plan.setUsername(username);
         return repository.save(plan);
+    }
+
+    @Scheduled(fixedRate = 60000)
+    public void updateWorkoutPlanStatus() {
+        System.out.printf("updateWorkoutPlanStatus");
+        List<WorkoutPlan> plans = repository.findAll();
+        for (WorkoutPlan plan : plans) {
+            List<TrainingSession> sessions = trainingSessionRepository.findByWorkoutPlanId(plan.getWorkoutPlanId());
+
+            boolean hasPastSessions = sessions.stream()
+                    .anyMatch(session -> session.getExitTime() != null && session.getExitTime().isBefore(LocalDateTime.now()));
+
+            if (hasPastSessions) {
+                plan.setStatus("COMPLETED");
+                repository.save(plan);
+            }
+        }
     }
 
 

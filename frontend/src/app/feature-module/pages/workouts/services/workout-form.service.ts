@@ -33,7 +33,6 @@ export class WorkoutFormService {
       exercise: this.exercise.value
     };
     console.log('Form submitted:', formData);
-    // Here you would typically make an API call to save the data
     return formData;
   }
 

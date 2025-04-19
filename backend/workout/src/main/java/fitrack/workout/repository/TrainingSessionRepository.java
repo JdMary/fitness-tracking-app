@@ -1,5 +1,6 @@
 package fitrack.workout.repository;
 
+import fitrack.workout.entity.Exercise;
 import fitrack.workout.entity.TrainingSession;
 import fitrack.workout.entity.WorkoutPlan;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,5 +18,8 @@ public interface TrainingSessionRepository extends JpaRepository<TrainingSession
             @Param("username") String username
     );
     Optional<TrainingSession> findByTrainingSessionIdAndUsername(Long workoutPlanId, String username);
+    @Query("SELECT ts FROM TrainingSession ts WHERE ts.workoutPlan.workoutPlanId = :workoutPlanId")
+    List<TrainingSession> findByWorkoutPlanId(@Param("workoutPlanId") Long workoutPlanId);
+
 
 }
