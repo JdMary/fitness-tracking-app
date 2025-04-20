@@ -61,4 +61,9 @@ export class AuthService {
     const body = { email, newPassword };
     return this.http.post(url, body, { responseType: 'text' }); // Expect plain text response
   }
+
+  extractNameFromEmail(email: string): Observable<string> {
+    const url = `${this.baseUrl}/extract-name/${email}`;
+    return this.http.get(url, { responseType: 'text' });
+  }
 }

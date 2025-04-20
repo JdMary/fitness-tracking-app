@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { TokenService } from '../../../token/token.service';
+import { AuthService } from 'src/app/feature-module/backend-services/user/auth.service';
 
 
 export interface BuddyRequestFull {
   id: number;
   userEmail: string;
+  userName: string;
   potentialMatch: number;
   status: string;         
   goal: string;           
@@ -33,64 +35,44 @@ export interface BuddyMatch {
 export class BuddyRequestService {
   private apiUrl = 'http://localhost:8222/api/v1/buddies/request';
   private token = this.tokenService.getToken();
-  constructor(private http: HttpClient, private tokenService: TokenService) {}
-
-  getMyBuddyRequests(): Observable<BuddyRequestFull[]> {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.token}`,
+  constructor(private http: HttpClient, private tokenService: TokenService, private authService: AuthService ) {}
+  private getHeaders(): HttpHeaders {
+    const token = localStorage.getItem('authToken'); // Retrieve token from local storage
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`
     });
-    return this.http.get<BuddyRequestFull[]>(`${this.apiUrl}/retrieveByEmail`, { headers });
+  }
+  getMyBuddyRequests(): Observable<BuddyRequestFull[]> {
+    return this.http.get<BuddyRequestFull[]>(`${this.apiUrl}/retrieveByEmail`, { headers: this.getHeaders() });
   }
   getBuddyRequests(): Observable<BuddyRequestFull[]> {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.token}`,
-    });
-    return this.http.get<BuddyRequestFull[]>(`${this.apiUrl}/retrieveByNotEmail`, { headers });
+     return this.http.get<BuddyRequestFull[]>(`${this.apiUrl}/retrieveByNotEmail`, { headers: this.getHeaders() });
   }
 
   addBuddyRequest(buddyRequest: BuddyRequest): Observable<BuddyRequest> {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.token}`,
-      'Content-Type': 'application/json',
-    });
-    return this.http.post<BuddyRequest>(`${this.apiUrl}/add`, buddyRequest, { headers });
+    return this.http.post<BuddyRequest>(`${this.apiUrl}/add`, buddyRequest, { headers: this.getHeaders() });
   }
 
   addPotentialMatch(id: number): Observable<BuddyRequestFull> {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.token}`,
-    });
-    return this.http.put<BuddyRequestFull>(`${this.apiUrl}/addPotentialMatch/${id}`, null, { headers });
+    return this.http.put<BuddyRequestFull>(`${this.apiUrl}/addPotentialMatch/${id}`, null, { headers: this.getHeaders() });
   }
 
   acceptMatch(id: number): Observable<BuddyMatch> {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.token}`,
-    });
-    return this.http.post<BuddyMatch>(`${this.apiUrl}/acceptMatch/${id}`, null, { headers });
+    return this.http.post<BuddyMatch>(`${this.apiUrl}/acceptMatch/${id}`, null, { headers: this.getHeaders() });
   }
   rejectMatch(id: number): Observable<BuddyRequestFull> {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.token}`,
-    });
-    return this.http.put<BuddyRequestFull>(`${this.apiUrl}/rejectMatch/${id}`, null, { headers });
+    return this.http.put<BuddyRequestFull>(`${this.apiUrl}/rejectMatch/${id}`, null, { headers: this.getHeaders() });
   }
   
   displayUserName(userEmail: string): Observable<string> {
     return this.http.get<string>(`${this.apiUrl}/displayUser/${userEmail}`);
   }
   findBuddyRequest(id: number): Observable<BuddyRequest> {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.token}`,
-    });
-    return this.http.get<BuddyRequest>(`${this.apiUrl}/findbyId/${id}`, { headers });
+    return this.http.get<BuddyRequest>(`${this.apiUrl}/findbyId/${id}`, { headers: this.getHeaders() });
   }
 
   updateBuddyRequest(id: number, request: BuddyRequest): Observable<any> {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.token}`,
-    });
-    return this.http.put(`${this.apiUrl}/update/${id}`, request, { headers });
+    return this.http.put(`${this.apiUrl}/update/${id}`, request, { headers: this.getHeaders() });
   }
 
 }

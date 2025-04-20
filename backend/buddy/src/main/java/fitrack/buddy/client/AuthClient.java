@@ -15,5 +15,8 @@ public interface AuthClient {
 
     @GetMapping("/extract-user-details")
      ResponseEntity<UserDTO> extractUserDetails(@RequestHeader("Authorization") String bearerToken);
+
+    @GetMapping("/extract-name")
+    public ResponseEntity<String> extractName(@RequestHeader("Authorization") String bearerToken);
 }
 

@@ -96,6 +96,16 @@ public class AuthenticationController {
         }
     }
 
+    @GetMapping("/extract-name/{email}")
+    public ResponseEntity<String> extractNamefromEmail(@PathVariable String email) {
+        try {
+            User user = userRepository.findByEmail(email);
+            return ResponseEntity.ok(user.getName());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid token");
+        }
+    }
+
     @GetMapping("/extract-user-details")
     public ResponseEntity<?> extractUserDetails(@RequestHeader("Authorization") String bearerToken) {
         try {

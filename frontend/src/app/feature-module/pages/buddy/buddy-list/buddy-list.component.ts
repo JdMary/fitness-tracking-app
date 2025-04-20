@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BuddyRequestService, BuddyRequestFull } from '../services/buddy-request-service.service';
+import { AuthService } from '../../../backend-services/user/auth.service';
 import { routes } from 'src/app/shared/routes/routes';
 
 @Component({
@@ -14,11 +15,13 @@ export class BuddyListComponent implements OnInit {
   currentPage: number = 1;
   pageSize: number = 6;
   totalPages: number = 1;
+  userName : string = '';
 
-  constructor(private buddyRequestService: BuddyRequestService) {}
+  constructor(private buddyRequestService: BuddyRequestService, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.loadBuddyRequests();
+    //console.log(this.getUserNameFromEmail("tabib.rami@esprit.tn"));
   }
 
   get paginatedBuddyRequests(): BuddyRequestFull[] {
@@ -35,11 +38,38 @@ export class BuddyListComponent implements OnInit {
     this.buddyRequestService.getBuddyRequests().subscribe(
       (data) => {
         this.buddyRequests = data;
+        this.buddyRequests.forEach(request => {
+          if (request.userEmail) {
+            this.authService.extractNameFromEmail(request.userEmail).subscribe(
+              (name) => {
+                request.userName = name; // Assuming `userName` is a property in BuddyRequestFull
+              },
+              (error) => {
+                console.error('Error extracting name from email:', error);
+              }
+            );
+          }
+        });
+
         this.buddyRequestsCount = data.length;
         this.totalPages = Math.ceil(this.buddyRequestsCount / this.pageSize);
       }
     );
   }
+  
+  getUserNameFromEmail(email: string): void {
+    this.authService.extractNameFromEmail(email).subscribe(
+      (name) => {
+        console.log(name);
+        this.userName = name;
+        
+      },
+      (error) => {
+        console.error('Error extracting name from email:', error);
+      }
+    );
+  }
+
 
   changePage(page: number): void {
     if (page >= 1 && page <= this.totalPages) {

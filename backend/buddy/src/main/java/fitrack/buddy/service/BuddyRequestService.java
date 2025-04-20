@@ -116,6 +116,7 @@ public class BuddyRequestService implements IBuddyRequestService {
     @Override
     public List<BuddyRequest> findAllNotOwnedByUser(String token) {
         String username = String.valueOf(authClient.extractUsername(token).getBody());
+        System.out.println("Username: " + username);
         return repository.findAllByUserEmailNot(username);
     }
 
