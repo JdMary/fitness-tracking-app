@@ -3,4 +3,15 @@ spring:
     name: users
   config:
     import: optional:configserver:http://localhost:8888
-
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: rami.toubib2014@gmail.com
+    password: kngp embc okyp iodi
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+        debug: true

@@ -14,6 +14,9 @@ export class UserSignupComponent {
   public signupForm: FormGroup;
   public errorMessage: string | null = null;
 
+  image: File | null = null;
+  imageMin: File | null = null;
+
   constructor(
     private router: Router,
     private fb: FormBuilder,
@@ -29,9 +32,9 @@ export class UserSignupComponent {
   }
 
   public onSubmit(): void {
-    if (this.signupForm.valid) {
+    if (this.signupForm.valid && this.image) {
       const { name, phone, email, password, role } = this.signupForm.value;
-      this.authService.register(name, phone, email, password, role).subscribe({
+      this.authService.register(name, phone, email, password, role, this.image).subscribe({
         next: () => {
           this.router.navigate([routes.login]);
         },
@@ -42,6 +45,17 @@ export class UserSignupComponent {
       });
     } else {
       this.errorMessage = 'Please fill in all required fields correctly.';
+    }
+  }
+  onFileChange(event: any) {
+    this.image = event.target.files[0];
+    this.imageMin = null;
+    const fr = new FileReader();
+    fr.onload = (evento: any) => {
+      this.imageMin = evento.target.result;
+    };
+    if (this.image) {
+      fr.readAsDataURL(this.image);
     }
   }
 }

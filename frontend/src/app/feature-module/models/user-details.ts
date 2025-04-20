@@ -16,4 +16,6 @@ export interface Authority {
     accountNonLocked: boolean;
     accountNonExpired: boolean;
     credentialsNonExpired: boolean;
+    imageUrl?: string;
+    imageId?: string;
   }

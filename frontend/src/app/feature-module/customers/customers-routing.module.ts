@@ -22,6 +22,13 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'pose-ai',
+        loadChildren: () =>
+          import('./pose-ai/pose-ai.module').then(
+            (m) => m.PoseAiModule
+          ),
+      },
+      {
         path: 'customer-favourite',
         loadChildren: () =>
           import('./customer-favourite/customer-favourite.module').then(

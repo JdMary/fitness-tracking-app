@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/feature-module/backend-services/user/auth.service';
+import { UserService } from 'src/app/feature-module/backend-services/user/user.service';
 import { CommonService } from 'src/app/shared/common/common.service';
 import { DataService } from 'src/app/shared/data/data.service';
 import { header } from 'src/app/shared/models/pages-model';
@@ -16,12 +18,16 @@ export class HomeSevenHeaderComponent implements OnInit {
   base = '';
   page = '';
   last = '';
-
+  userImageUrl :string | null = null;
   constructor(
     public data: DataService,
     public router: Router,
     private common: CommonService,
-    private sidebarService: SidebarService
+    private sidebarService: SidebarService,
+    private authService: AuthService,
+    private userService: UserService
+
+
   ) {
     this.common.base.subscribe((base: string) => {
       this.base = base;
@@ -36,6 +42,7 @@ export class HomeSevenHeaderComponent implements OnInit {
   }
   ngOnInit(): void {
     this.checkAuthToken();
+    this.getUserImageUrl();
   }
   public toggleSidebar(): void {
     this.sidebarService.openSidebar();
@@ -55,5 +62,25 @@ export class HomeSevenHeaderComponent implements OnInit {
     localStorage.removeItem('authToken'); // Remove token
     this.isLoggedIn = false; // Update state
     this.router.navigate(['/login']); // Navigate to login page
+  }
+
+  public getUserImageUrl(): void {
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+      this.userImageUrl = null;
+      return;
+    }
+    console.log('Token:', token);
+    this.authService.extractUsername(token).subscribe((username: string) => {
+      console.log('Extracted Username:', username);
+      if (username) {
+        this.userService.getUserImageByEmail(username).subscribe((imageUrl: string) => {
+          this.userImageUrl = imageUrl;
+          console.log('User Image URL:', this.userImageUrl);
+        });
+      } else {
+        this.userImageUrl = null;
+      }
+    });
   }
 }

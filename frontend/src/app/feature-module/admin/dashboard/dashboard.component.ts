@@ -17,6 +17,8 @@ import {
 import { Sort } from '@angular/material/sort';
 import { DataService } from 'src/app/shared/data/data.service';
 import { adminDashboard, topProviders, topServices } from 'src/app/shared/models/pages-model';
+import { UserService } from '../../backend-services/user/user.service';
+
 export type ChartOptions = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   series: ApexAxisChartSeries | any;
@@ -53,18 +55,19 @@ export type ChartOptions = {
 export class DashboardComponent implements OnInit{
   public routes = routes;
   options: unknown;
+  public userSignupStats: { [month: string]: number } = {};
 
   @ViewChild('chart') chart!: ChartComponent;
   public chartOptionsOne: Partial<ChartOptions>;
   public chartOptionsTwo: Partial<ChartOptions>;
   public chartOptionsThree: Partial<ChartOptions>;
   public chartOptionsFour: Partial<ChartOptions>;
+  public userActivityChartOptions: Partial<ChartOptions>;
   public adminDashboard : Array<adminDashboard> = [];
   public topServices : Array<topServices> = [];
   public topProviders : Array<topProviders> = [];
 
-
-  constructor(private data : DataService) {
+  constructor(private data : DataService, private userService: UserService) {
     this.chartOptionsOne = {
       series: [
         {
@@ -214,6 +217,28 @@ export class DashboardComponent implements OnInit{
       }
     }]
     };
+    this.userActivityChartOptions = {
+      series: [],
+      chart: {
+        type: 'pie',
+        width: 300,
+      },
+      labels: ['Active Users', 'Inactive Users'],
+      colors: ['#1BA345', '#FEC001'],
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200,
+            },
+            legend: {
+              position: 'bottom',
+            },
+          },
+        },
+      ],
+    };
     this.adminDashboard = this.data.adminDashboard;
     this.topServices = this.data.topServices;
     this.topProviders = this.data.topProviders;
@@ -263,5 +288,59 @@ export class DashboardComponent implements OnInit{
       center: { lat: 20.5937, lng: 78.9629 },
       zoom: 3,
     };
+    this.fetchUserActivityStats();
+    this.fetchUserSignupStats();
+  }
+
+  private fetchUserActivityStats(): void {
+    this.userService.getUserActivityStats().subscribe((stats) => {
+      this.userActivityChartOptions.series = [
+        stats.activeUsers,
+        stats.inactiveUsers,
+      ];
+    });
+  }
+
+  private fetchUserSignupStats(): void {
+    this.userService.getUserSignupStats().subscribe((stats) => {
+      this.userSignupStats = stats;
+
+      const months = Object.keys(stats);
+      const signups = Object.values(stats);
+
+      this.chartOptionsTwo = {
+        series: [
+          {
+            name: 'Signups',
+            data: signups,
+          },
+        ],
+        chart: {
+          height: 350,
+          type: 'area',
+        },
+        fill: {
+          colors: ['#4169E1'],
+          type: 'gradient',
+          gradient: {
+            type: 'horizontal',
+            shadeIntensity: 0.1,
+            opacityFrom: 0.5,
+            opacityTo: 0.5,
+            stops: [0, 50, 100],
+          },
+        },
+        dataLabels: {
+          enabled: false,
+        },
+        stroke: {
+          curve: 'smooth',
+        },
+        xaxis: {
+          type: 'category',
+          categories: months,
+        },
+      };
+    });
   }
 }

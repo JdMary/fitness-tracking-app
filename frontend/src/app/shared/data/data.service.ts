@@ -8,6 +8,22 @@ import { apiResultFormat } from '../models/models';
   providedIn: 'root',
 })
 export class DataService {
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    number: number;
+    password: string;
+    role: string;
+    orders: any[]; // Replace `any` with the specific type if you have a model for orders
+    username: string;
+    enabled: boolean;
+    accountNonLocked: boolean;
+    accountNonExpired: boolean;
+    credentialsNonExpired: boolean;
+    imageUrl?: string;
+    imageId?: string;
+  } | undefined;
   constructor(private http: HttpClient) {}
   public getProviderPayout(): Observable<apiResultFormat> {
     return this.http.get<apiResultFormat>('assets/json/provider-payout.json').pipe(
@@ -632,7 +648,7 @@ export class DataService {
         },
         {
           menuValue: 'Exercices',
-          routes: routes.customerBooking, // badalha 7asb l route mte3k
+          routes: routes.poseAi, // badalha 7asb l route mte3k
           hasSubRoute: false,
           showSubRoute: false,
           subMenus: [],
@@ -1510,7 +1526,7 @@ export class DataService {
           subMenus: [
             {
               menuValue: 'Add Service',
-              route: routes. addServices, //badl 7asb l route mte3k
+              route: routes.addServices, //badl 7asb l route mte3k
             },
             {
               menuValue: 'Services',
@@ -1552,7 +1568,7 @@ export class DataService {
           subMenus: [
             {
               menuValue: 'Add Service',
-              route: routes. addServices, //badl 7asb l route mte3k
+              route: routes.addUsers, //badl 7asb l route mte3k
             },
             {
               menuValue: 'Services',

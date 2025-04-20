@@ -26,11 +26,18 @@
 										<p class="fs-14">OTP sent to your Email Address ending ******doe&#64;example.com</p>
 									</div>
 									<div class="text-center otp-input">
+										<!-- Error Message -->
+										<div *ngIf="error" class="alert alert-danger text-center" role="alert">
+											{{ error }}
+										</div>
+										<!-- OTP Input Fields -->
 										<div class="d-flex align-items-center mb-3">
-											<input [(ngModel)]="oneTimePassword.data1" maxlength="1" (keydown.backspace)="tiggerBackspace(oneTimePassword.data1 , 'digit-1')" (input)="ValueChanged(oneTimePassword.data1 , 'digit-1')" type="text" class="rounded w-100 py-sm-3 py-2 text-center fs-26 fw-bold me-3" value="4" id="digit-1" name="digit-1" />
-                                        <input [(ngModel)]="oneTimePassword.data2" maxlength="1" (keydown.backspace)="tiggerBackspace(oneTimePassword.data2 , 'digit-2')" (input)="ValueChanged(oneTimePassword.data2 , 'digit-2')" type="text" class="rounded w-100 py-sm-3 py-2 text-center fs-26 fw-bold me-3" value="8"  id="digit-2" name="digit-2"   />
-                                        <input [(ngModel)]="oneTimePassword.data3" maxlength="1" (keydown.backspace)="tiggerBackspace(oneTimePassword.data3 , 'digit-3')" (input)="ValueChanged(oneTimePassword.data3 , 'digit-3')" type="text" class="rounded w-100 py-sm-3 py-2 text-center fs-26 fw-bold me-3"  id="digit-3" name="digit-3"   />
-                                        <input [(ngModel)]="oneTimePassword.data4" maxlength="1" (keydown.backspace)="tiggerBackspace(oneTimePassword.data4 , 'digit-4')"  (input)="ValueChanged(oneTimePassword.data4 , 'digit-4')" type="text" class="rounded w-100 py-sm-3 py-2 text-center fs-26 fw-bold me-3"  id="digit-4" name="digit-4"   />
+											<input [(ngModel)]="oneTimePassword.data1" maxlength="1" (keydown.backspace)="tiggerBackspace(oneTimePassword.data1 , 'digit-1')" (input)="ValueChanged(oneTimePassword.data1 , 'digit-1')" type="text" class="rounded w-100 py-sm-3 py-2 text-center fs-26 fw-bold me-3" id="digit-1" name="digit-1" />
+											<input [(ngModel)]="oneTimePassword.data2" maxlength="1" (keydown.backspace)="tiggerBackspace(oneTimePassword.data2 , 'digit-2')" (input)="ValueChanged(oneTimePassword.data2 , 'digit-2')" type="text" class="rounded w-100 py-sm-3 py-2 text-center fs-26 fw-bold me-3" id="digit-2" name="digit-2" />
+											<input [(ngModel)]="oneTimePassword.data3" maxlength="1" (keydown.backspace)="tiggerBackspace(oneTimePassword.data3 , 'digit-3')" (input)="ValueChanged(oneTimePassword.data3 , 'digit-3')" type="text" class="rounded w-100 py-sm-3 py-2 text-center fs-26 fw-bold me-3" id="digit-3" name="digit-3" />
+											<input [(ngModel)]="oneTimePassword.data4" maxlength="1" (keydown.backspace)="tiggerBackspace(oneTimePassword.data4 , 'digit-4')" (input)="ValueChanged(oneTimePassword.data4 , 'digit-4')" type="text" class="rounded w-100 py-sm-3 py-2 text-center fs-26 fw-bold me-3" id="digit-4" name="digit-4" />
+											<input [(ngModel)]="oneTimePassword.data5" maxlength="1" (keydown.backspace)="tiggerBackspace(oneTimePassword.data5 , 'digit-5')" (input)="ValueChanged(oneTimePassword.data5 , 'digit-5')" type="text" class="rounded w-100 py-sm-3 py-2 text-center fs-26 fw-bold me-3" id="digit-5" name="digit-5" />
+											<input [(ngModel)]="oneTimePassword.data6" maxlength="1" (keydown.backspace)="tiggerBackspace(oneTimePassword.data6 , 'digit-6')" (input)="ValueChanged(oneTimePassword.data6 , 'digit-6')" type="text" class="rounded w-100 py-sm-3 py-2 text-center fs-26 fw-bold" id="digit-6" name="digit-6" />
 										</div>
 										<div>
 											<div class="badge bg-danger-transparent mb-3">
@@ -40,7 +47,7 @@
 												<p>Didn't get the OTP? <a href="javascript:void(0);" class="text-primary">Resend OTP</a></p>
 											</div>
 											<div>
-												<button type="button" class="btn btn-lg btn-linear-primary w-100" (click)="navigate()" >Verify & Proceed</button>
+												<button type="button" class="btn btn-lg btn-linear-primary w-100" (click)="verifyOtp()">Verify & Proceed</button>
 											</div>
 										</div>
 									</div>	

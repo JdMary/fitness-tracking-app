@@ -64,6 +64,12 @@ export class routes {
   public static get customerBooking(): string {
     return this.baseUrl + '/customers/customer-booking';
   }
+  public static get poseAi(): string {
+    return this.baseUrl + '/customers/pose-ai';
+  }
+  public static get profile(): string {
+    return this.baseUrl + '/user/profile';
+  }
   public static get customerChat(): string {
     return this.baseUrl + '/customers/customer-chat';
   }
@@ -107,7 +113,7 @@ export class routes {
     return this.baseUrl + '/error-page/error500';
   }
   public static get homeOne(): string {
-    return this.baseUrl + '/home-one';
+    return this.baseUrl + '/home';
   }
   public static get home(): string {
     return this.baseUrl + '/home';
@@ -648,6 +654,9 @@ export class routes {
   }
   public static get addServices(): string {
     return this.baseUrl + '/admin/add-service';
+  }
+  public static get addUsers(): string {
+    return this.baseUrl + '/admin/add-user';
   }
   public static get pendingServices(): string {
     return this.baseUrl + '/admin/pending-services';

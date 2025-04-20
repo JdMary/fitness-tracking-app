@@ -18,11 +18,11 @@ public class AuthenticationService implements UserDetailsService {
 
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         System.out.println("🔍 Looking up user by email: " + email);
-
-        return userRepository.findByEmail(email)
-                .orElseThrow(() -> {
-                    System.out.println("❌ User not found with email: " + email);
-                    return new UsernameNotFoundException("User not found with email: " + email);
-                });
+        UserDetails user = userRepository.findByEmail(email);
+        if (user == null) {
+            System.out.println("❌ User not found with email: " + email);
+            throw new UsernameNotFoundException("User not found with email: " + email);
+        }
+        return userRepository.findByEmail(email);
     }
 }

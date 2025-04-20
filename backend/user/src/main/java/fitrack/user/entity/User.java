@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -36,16 +37,40 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private UserRole role;
 
+    @Column
+    private String imageUrl;
+
+    @Column
+    private String imageId;
+
+    @Column
+    private String otp;
+
+    @Column
+    private LocalDateTime lastLogin;
+
+    @Column(nullable = false)
+    private Boolean inactive = false;
+
+    @Column
+    private LocalDateTime otpExpiry;
+
+    @Column
+    private LocalDateTime signupDate;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Order> orders;
     public User() {
     }
-    public User(String name, int number , String email, String password, UserRole role) {
+    public User(String name, int number , String email, String password, UserRole role, String imageUrl, String imageId) {
         this.name = name;
         this.number = number;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.imageUrl = imageUrl;
+        this.imageId = imageId;
+        this.signupDate = LocalDateTime.now();
     }
 
     @Override
@@ -63,5 +88,7 @@ public class User implements UserDetails {
         return email;
     }
 
-
+    public boolean isInactive() {
+        return inactive;
+    }
 }

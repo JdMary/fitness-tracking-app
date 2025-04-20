@@ -638,6 +638,13 @@ const routes: Routes = [
             (m) => m.ProviderSalesModule
           ),
       },
+      {
+        path: 'add-user',
+        loadChildren: () =>
+          import('./add-user/add-user.module').then(
+            (m) => m.AddUserModule
+          ),
+      },
     ],
   },
 ];
