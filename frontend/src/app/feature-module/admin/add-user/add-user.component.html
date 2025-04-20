@@ -1,0 +1,1750 @@
+<div class="page-wrapper">
+  <div class="content">
+    <div class="row">
+      <div class="col-lg-12 m-auto">
+        <div class="progressbar-card">
+          <ul id="progress-head">
+            <li class="active">Add User - User Information</li>
+            <li>Add User - Availability</li>
+            <li>Add User - Location</li>
+            <li>Add User - Gallery</li>
+            <li>Add User - SEO</li>
+          </ul>
+          <ul id="progressbar">
+            <li
+              [ngClass]="{
+                active: currentStep === 0,
+                activated: currentStep > 0
+              }"
+            >
+              <div class="multi-step-icon">
+                <span><i class="far fa-check-circle"></i></span>
+              </div>
+              <div class="multi-step-info">
+                <h6>Information</h6>
+              </div>
+            </li>
+            <li
+              [ngClass]="{
+                active: currentStep === 1,
+                activated: currentStep > 1
+              }"
+              [class.active]="currentStep === 1"
+            >
+              <div class="multi-step-icon">
+                <span><i class="far fa-clock"></i></span>
+              </div>
+              <div class="multi-step-info">
+                <h6>Availability</h6>
+              </div>
+            </li>
+            <li
+              [ngClass]="{
+                active: currentStep === 2,
+                activated: currentStep > 2
+              }"
+              [class.active]="currentStep === 2"
+            >
+              <div class="multi-step-icon">
+                <span><i class="far fa-map"></i></span>
+              </div>
+              <div class="multi-step-info">
+                <h6>Location</h6>
+              </div>
+            </li>
+            <li
+              [ngClass]="{
+                active: currentStep === 3,
+                activated: currentStep > 3
+              }"
+              [class.active]="currentStep === 3"
+            >
+              <div class="multi-step-icon">
+                <span><i class="far fa-images"></i></span>
+              </div>
+              <div class="multi-step-info">
+                <h6>Gallery</h6>
+              </div>
+            </li>
+            <li
+              [ngClass]="{
+                active: currentStep === 4,
+                activated: currentStep > 4
+              }"
+              [class.active]="currentStep === 4"
+            >
+              <div class="multi-step-icon">
+                <span><i class="far fa-chart-bar"></i></span>
+              </div>
+              <div class="multi-step-info">
+                <h6>SEO</h6>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <!-- User Information -->
+        <fieldset id="first-field" [class.d-block]="selectedFieldSet[0] === 0">
+          <div class="container-user space-user">
+            <div class="sub-title">
+              <h6>User Information</h6>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group mat">
+                  <label for="">Provider</label>
+                  <mat-select
+                    [(ngModel)]="selectedValue"
+                    [ngModelOptions]="{ standalone: true }"
+                    class="form-control select"
+                    placeholder="Select Provider"
+                  >
+                    <mat-option
+                      *ngFor="let data of selectedList"
+                      [value]="data.value"
+                    >
+                      {{ data.value }}
+                    </mat-option>
+                  </mat-select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group mat">
+                  <label for="">User Title</label>
+                  <input type="text" class="form-control" placeholder="" />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group mat">
+                  <label for="">Category</label>
+                  <mat-select
+                    [(ngModel)]="selectedValue"
+                    [ngModelOptions]="{ standalone: true }"
+                    class="form-control select"
+                    placeholder="Select Provider"
+                  >
+                    <mat-option
+                      *ngFor="let data of selectedList1"
+                      [value]="data.value"
+                    >
+                      {{ data.value }}
+                    </mat-option>
+                  </mat-select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group mat">
+                  <label for="">Sub Category</label>
+                  <mat-select
+                    [(ngModel)]="selectedValue"
+                    [ngModelOptions]="{ standalone: true }"
+                    class="form-control select"
+                    placeholder="Select Provider"
+                  >
+                    <mat-option
+                      *ngFor="let data of selectedList2"
+                      [value]="data.value"
+                    >
+                      {{ data.value }}
+                    </mat-option>
+                  </mat-select>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group price mat">
+                  <label for="">Price <span>Set 0 for free</span></label>
+                  <input type="text" class="form-control" placeholder="" />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group mat">
+                  <label for="">Duration</label>
+                  <div class="form-duration">
+                    <input type="text" class="form-control" placeholder="" />
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group user-editor">
+                  <label for="">Description</label>
+                  <ngx-editor [editor]="editor">
+                    <ngx-editor-menu [editor]="editor" [toolbar]="toolbar">
+                    </ngx-editor-menu>
+                  </ngx-editor>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="container-user">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="additional">
+                  <div class="sub-title User">
+                    <h6>Additional User</h6>
+                  </div>
+                  <div class="status-toggle float-sm-end mb-3">
+                    <input
+                      type="checkbox"
+                      id="status_1"
+                      class="check"
+                      checked=""
+                    />
+                    <label for="status_1" class="checktoggle">checkbox</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="adduser-info">
+              <div class="row user-cont">
+                <div class="col-md-4">
+                  <div class="form-group mat">
+                    <label for="" class="col-form-label">Additional User</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter User Item"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group mat">
+                    <label for="" class="col-form-label">Price</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter Price"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group mat">
+                    <label for="" class="col-form-label">Duration</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter User Duration"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                class="row user-cont"
+                *ngFor="let charge of chargesArray; let i = index"
+              >
+                <div class="col-md-4">
+                  <div class="form-group mat">
+                    <label for="" class="col-form-label">Additional User</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter User Item"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group mat">
+                    <label for="" class="col-form-label">Price</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter Price"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="d-flex align-items-center">
+                    <div class="form-group w-100">
+                      <label for="" class="col-form-label">Duration</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter User Duration"
+                      />
+                    </div>
+                    <div class="form-group mat">
+                      <label for="" class="col-form-label">&nbsp;</label>
+                      <a
+                        (click)="deleteCharges(i)" (keydown.enter)="deleteCharges(i)" tabindex="0"
+                        class="btn btn-danger-outline trash"
+                        ><i class="far fa-trash-alt"></i
+                      ></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <a
+              (click)="addCharges()"
+              href="javascript:void(0);"
+              class="link-sets add-extra"
+              ><i class="fa fa-plus-circle me-2" aria-hidden="true"></i>Add
+              Additional User</a
+            >
+          </div>
+          <div class="container-user space-user">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="video">
+                  <div class="video-title">
+                    <h6>Video</h6>
+                  </div>
+                </div>
+                <div class="video-link">
+                  <div class="form-group mat">
+                    <label for="">Video Link</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="https://www.youtube.com/shorts/Lf-Z7H8bZ8o"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="bottom-btn">
+                <div class="field-btns">
+                  <button
+                    class="btn btn-primary next_btn"
+                    type="button"
+                    (click)="nextStep()"
+                    (click)="selectedFieldSet[0] = 1"
+                  >
+                    Next <i class="fas fa-arrow-right"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <!-- /User Information -->
+        <!-- Availability -->
+        <fieldset [class.d-block]="selectedFieldSet[0] === 1">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="available-section card-section">
+                <div class="available-heading">
+                  <h4>Availability</h4>
+                </div>
+
+                <!-- Timeslot -->
+                <div class="timeslot-sec">
+                  <!-- Schedule Nav -->
+                  <label for="" class="col-form-label">Configure Time Slots</label>
+                  <div class="schedule-nav">
+                    <ul class="nav">
+                      <li class="nav-item">
+                        <a
+                          class="nav-link active"
+                          data-bs-toggle="tab"
+                          href="#all_days"
+                          >All Days</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a
+                          class="nav-link"
+                          data-bs-toggle="tab"
+                          href="#slot_monday"
+                          >Monday</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a
+                          class="nav-link"
+                          data-bs-toggle="tab"
+                          href="#slot_tuesday"
+                          >Tuesday</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a
+                          class="nav-link"
+                          data-bs-toggle="tab"
+                          href="#slot_wednesday"
+                          >Wednesday</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a
+                          class="nav-link"
+                          data-bs-toggle="tab"
+                          href="#slot_thursday"
+                          >Thursday</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a
+                          class="nav-link"
+                          data-bs-toggle="tab"
+                          href="#slot_friday"
+                          >Friday</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a
+                          class="nav-link"
+                          data-bs-toggle="tab"
+                          href="#slot_saturday"
+                          >Saturday</a
+                        >
+                      </li>
+                      <li class="nav-item">
+                        <a
+                          class="nav-link"
+                          data-bs-toggle="tab"
+                          href="#slot_sunday"
+                          >Sunday</a
+                        >
+                      </li>
+                    </ul>
+                  </div>
+                  <!-- /Schedule Nav -->
+
+                  <div class="tab-content pt-0">
+                    <div class="tab-pane active" id="all_days">
+                      <div class="hours-info">
+                        <h4 class="nameof-day">All Days</h4>
+                        <div class="row hours-cont">
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="" class="col-form-label">From</label>
+                              <div class="form-icon">
+                                <input
+                                  (click)="toggleTimePicker('startTime1')"
+                                  [value]="formatTime(startTime1)"
+                                  type="text"
+                                  placeholder="Select Time"
+                                  class="form-control timepicker"
+                                />
+                                <timepicker
+                                  [class.d-block]="
+                                    showTimePicker[0] === 'startTime1'
+                                  "
+                                  class="custom-timepicker"
+                                  [ngModelOptions]="{ standalone: true }"
+                                  [(ngModel)]="startTime1"
+                                ></timepicker>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="" class="col-form-label">To</label>
+                              <div class="form-icon">
+                                <input
+                                  (click)="toggleTimePicker('endTime1')"
+                                  [value]="formatTime(endTime1)"
+                                  type="text"
+                                  placeholder="Select Time"
+                                  class="form-control timepicker"
+                                />
+                                <timepicker
+                                  [class.d-block]="
+                                    showTimePicker[0] === 'endTime1'
+                                  "
+                                  class="custom-timepicker"
+                                  [ngModelOptions]="{ standalone: true }"
+                                  [(ngModel)]="endTime1"
+                                ></timepicker>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="" class="col-form-label">Slots</label>
+                              <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Enter Slot"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="row hours-cont"
+                          *ngFor="let hours of hoursArray1; let i = index"
+                        >
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="" class="col-form-label">From</label>
+                              <div class="form-icon">
+                                <input
+                                  type="text"
+                                  class="form-control timepicker"
+                                  placeholder="Select Time"
+                                />
+                                <span class="cus-icon"
+                                  ><i class="feather-clock"></i
+                                ></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="" class="col-form-label">To</label>
+                              <div class="form-icon">
+                                <input
+                                  type="text"
+                                  class="form-control timepicker"
+                                  placeholder="Select Time"
+                                />
+                                <span class="cus-icon"
+                                  ><i class="feather-clock"></i
+                                ></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="d-flex">
+                              <div class="form-group w-100">
+                                <label for="" class="col-form-label">Slots</label>
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  placeholder="Enter Slot"
+                                />
+                              </div>
+                              <div class="form-group">
+                                <label for="" class="col-form-label">&nbsp;</label>
+                                <a
+                                  href="javascript:void(0);"
+                                  class="btn btn-danger-outline trash"
+                                  (click)="deleteHours(hoursArray1, i)"
+                                  ><i class="far fa-trash-alt"></i
+                                ></a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <a
+                        href="javascript:void(0);"
+                        class="add-text add-hours"
+                        (click)="addHours(hoursArray1)"
+                        ><i class="feather icon-plus-circle"></i> Add More</a
+                      >
+                    </div>
+                    <div class="tab-pane fade" id="slot_monday">
+                      <div class="hours-info">
+                        <h4 class="nameof-day">Monday</h4>
+                        <div class="row hours-cont">
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="" class="col-form-label">From</label>
+                              <div class="form-icon">
+                                <input
+                                  (click)="toggleTimePicker('startTime2')"
+                                  [value]="formatTime(startTime2)"
+                                  type="text"
+                                  placeholder="Select Time"
+                                  class="form-control timepicker"
+                                />
+                                <timepicker
+                                  [class.d-block]="
+                                    showTimePicker[0] === 'startTime2'
+                                  "
+                                  class="custom-timepicker"
+                                  [ngModelOptions]="{ standalone: true }"
+                                  [(ngModel)]="startTime2"
+                                ></timepicker>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="" class="col-form-label">To</label>
+                              <div class="form-icon">
+                                <input
+                                  (click)="toggleTimePicker('endTime2')"
+                                  [value]="formatTime(endTime2)"
+                                  type="text"
+                                  placeholder="Select Time"
+                                  class="form-control timepicker"
+                                />
+                                <timepicker
+                                  [class.d-block]="
+                                    showTimePicker[0] === 'endTime2'
+                                  "
+                                  class="custom-timepicker"
+                                  [ngModelOptions]="{ standalone: true }"
+                                  [(ngModel)]="endTime2"
+                                ></timepicker>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="" class="col-form-label">Slots</label>
+                              <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Enter Slot"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="row hours-cont"
+                          *ngFor="let hours of hoursArray2; let i = index"
+                        >
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="" class="col-form-label">From</label>
+                              <div class="form-icon">
+                                <input
+                                  type="text"
+                                  class="form-control timepicker"
+                                  placeholder="Select Time"
+                                />
+                                <span class="cus-icon"
+                                  ><i class="feather-clock"></i
+                                ></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="" class="col-form-label">To</label>
+                              <div class="form-icon">
+                                <input
+                                  type="text"
+                                  class="form-control timepicker"
+                                  placeholder="Select Time"
+                                />
+                                <span class="cus-icon"
+                                  ><i class="feather-clock"></i
+                                ></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="d-flex">
+                              <div class="form-group w-100">
+                                <label for="" class="col-form-label">Slots</label>
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  placeholder="Enter Slot"
+                                />
+                              </div>
+                              <div class="form-group">
+                                <label for="" class="col-form-label">&nbsp;</label>
+                                <a
+                                  href="javascript:void(0);"
+                                  class="btn btn-danger-outline trash"
+                                  (click)="deleteHours(hoursArray2, i)"
+                                  ><i class="far fa-trash-alt"></i
+                                ></a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <a
+                        href="javascript:void(0);"
+                        class="add-text add-hours"
+                        (click)="addHours(hoursArray2)"
+                        ><i class="feather icon-plus-circle"></i> Add More</a
+                      >
+                    </div>
+                    <div class="tab-pane fade" id="slot_tuesday">
+                      <div class="hours-info">
+                        <h4 class="nameof-day">Tuesday</h4>
+                        <div class="row hours-cont">
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="" class="col-form-label">From</label>
+                              <div class="form-icon">
+                                <input
+                                  (click)="toggleTimePicker('startTime3')"
+                                  [value]="formatTime(startTime3)"
+                                  type="text"
+                                  placeholder="Select Time"
+                                  class="form-control timepicker"
+                                />
+                                <timepicker
+                                  [class.d-block]="
+                                    showTimePicker[0] === 'startTime3'
+                                  "
+                                  class="custom-timepicker"
+                                  [ngModelOptions]="{ standalone: true }"
+                                  [(ngModel)]="startTime3"
+                                ></timepicker>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="" class="col-form-label">To</label>
+                              <div class="form-icon">
+                                <input
+                                  (click)="toggleTimePicker('endTime3')"
+                                  [value]="formatTime(endTime3)"
+                                  type="text"
+                                  placeholder="Select Time"
+                                  class="form-control timepicker"
+                                />
+                                <timepicker
+                                  [class.d-block]="
+                                    showTimePicker[0] === 'endTime3'
+                                  "
+                                  class="custom-timepicker"
+                                  [ngModelOptions]="{ standalone: true }"
+                                  [(ngModel)]="endTime3"
+                                ></timepicker>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="" class="col-form-label">Slots</label>
+                              <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Enter Slot"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="row hours-cont"
+                          *ngFor="let hours of hoursArray3; let i = index"
+                        >
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="" class="col-form-label">From</label>
+                              <div class="form-icon">
+                                <input
+                                  type="text"
+                                  class="form-control timepicker"
+                                  placeholder="Select Time"
+                                />
+                                <span class="cus-icon"
+                                  ><i class="feather-clock"></i
+                                ></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="" class="col-form-label">To</label>
+                              <div class="form-icon">
+                                <input
+                                  type="text"
+                                  class="form-control timepicker"
+                                  placeholder="Select Time"
+                                />
+                                <span class="cus-icon"
+                                  ><i class="feather-clock"></i
+                                ></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="d-flex">
+                              <div class="form-group w-100">
+                                <label for="" class="col-form-label">Slots</label>
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  placeholder="Enter Slot"
+                                />
+                              </div>
+                              <div class="form-group">
+                                <label for="" class="col-form-label">&nbsp;</label>
+                                <a
+                                  href="javascript:void(0);"
+                                  class="btn btn-danger-outline trash"
+                                  (click)="deleteHours(hoursArray3, i)"
+                                  ><i class="far fa-trash-alt"></i
+                                ></a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <a
+                        href="javascript:void(0);"
+                        class="add-text add-hours"
+                        (click)="addHours(hoursArray3)"
+                        ><i class="feather icon-plus-circle"></i> Add More</a
+                      >
+                    </div>
+                    <div class="tab-pane fade" id="slot_wednesday">
+                      <div class="hours-info">
+                        <h4 class="nameof-day">Wednesday</h4>
+                        <div class="row hours-cont">
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="" class="col-form-label">From</label>
+                              <div class="form-icon">
+                                <input
+                                  (click)="toggleTimePicker('startTime4')"
+                                  [value]="formatTime(startTime4)"
+                                  type="text"
+                                  placeholder="Select Time"
+                                  class="form-control timepicker"
+                                />
+                                <timepicker
+                                  [class.d-block]="
+                                    showTimePicker[0] === 'startTime4'
+                                  "
+                                  class="custom-timepicker"
+                                  [ngModelOptions]="{ standalone: true }"
+                                  [(ngModel)]="startTime4"
+                                ></timepicker>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="" class="col-form-label">To</label>
+                              <div class="form-icon">
+                                <input
+                                  (click)="toggleTimePicker('endTime4')"
+                                  [value]="formatTime(endTime4)"
+                                  type="text"
+                                  placeholder="Select Time"
+                                  class="form-control timepicker"
+                                />
+                                <timepicker
+                                  [class.d-block]="
+                                    showTimePicker[0] === 'endTime4'
+                                  "
+                                  class="custom-timepicker"
+                                  [ngModelOptions]="{ standalone: true }"
+                                  [(ngModel)]="endTime4"
+                                ></timepicker>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="" class="col-form-label">Slots</label>
+                              <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Enter Slot"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="row hours-cont"
+                          *ngFor="let hours of hoursArray4; let i = index"
+                        >
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="" class="col-form-label">From</label>
+                              <div class="form-icon">
+                                <input
+                                  type="text"
+                                  class="form-control timepicker"
+                                  placeholder="Select Time"
+                                />
+                                <span class="cus-icon"
+                                  ><i class="feather-clock"></i
+                                ></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="" class="col-form-label">To</label>
+                              <div class="form-icon">
+                                <input
+                                  type="text"
+                                  class="form-control timepicker"
+                                  placeholder="Select Time"
+                                />
+                                <span class="cus-icon"
+                                  ><i class="feather-clock"></i
+                                ></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="d-flex">
+                              <div class="form-group w-100">
+                                <label for="" class="col-form-label">Slots</label>
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  placeholder="Enter Slot"
+                                />
+                              </div>
+                              <div class="form-group">
+                                <label for="" class="col-form-label">&nbsp;</label>
+                                <a
+                                  href="javascript:void(0);"
+                                  class="btn btn-danger-outline trash"
+                                  (click)="deleteHours(hoursArray4, i)"
+                                  ><i class="far fa-trash-alt"></i
+                                ></a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <a
+                        href="javascript:void(0);"
+                        class="add-text add-hours"
+                        (click)="addHours(hoursArray4)"
+                        ><i class="feather icon-plus-circle"></i> Add More</a
+                      >
+                    </div>
+                    <div class="tab-pane fade" id="slot_thursday">
+                      <div class="hours-info">
+                        <h4 class="nameof-day">Thursday</h4>
+                        <div class="row hours-cont">
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="" class="col-form-label">From</label>
+                              <div class="form-icon">
+                                <input
+                                  (click)="toggleTimePicker('startTime5')"
+                                  [value]="formatTime(startTime5)"
+                                  type="text"
+                                  placeholder="Select Time"
+                                  class="form-control timepicker"
+                                />
+                                <timepicker
+                                  [class.d-block]="
+                                    showTimePicker[0] === 'startTime5'
+                                  "
+                                  class="custom-timepicker"
+                                  [ngModelOptions]="{ standalone: true }"
+                                  [(ngModel)]="startTime5"
+                                ></timepicker>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="" class="col-form-label">To</label>
+                              <div class="form-icon">
+                                <input
+                                  (click)="toggleTimePicker('endTime5')"
+                                  [value]="formatTime(endTime5)"
+                                  type="text"
+                                  placeholder="Select Time"
+                                  class="form-control timepicker"
+                                />
+                                <timepicker
+                                  [class.d-block]="
+                                    showTimePicker[0] === 'endTime5'
+                                  "
+                                  class="custom-timepicker"
+                                  [ngModelOptions]="{ standalone: true }"
+                                  [(ngModel)]="endTime5"
+                                ></timepicker>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="" class="col-form-label">Slots</label>
+                              <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Enter Slot"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="row hours-cont"
+                          *ngFor="let hours of hoursArray5; let i = index"
+                        >
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="" class="col-form-label">From</label>
+                              <div class="form-icon">
+                                <input
+                                  type="text"
+                                  class="form-control timepicker"
+                                  placeholder="Select Time"
+                                />
+                                <span class="cus-icon"
+                                  ><i class="feather-clock"></i
+                                ></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="" class="col-form-label">To</label>
+                              <div class="form-icon">
+                                <input
+                                  type="text"
+                                  class="form-control timepicker"
+                                  placeholder="Select Time"
+                                />
+                                <span class="cus-icon"
+                                  ><i class="feather-clock"></i
+                                ></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="d-flex">
+                              <div class="form-group w-100">
+                                <label for="" class="col-form-label">Slots</label>
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  placeholder="Enter Slot"
+                                />
+                              </div>
+                              <div class="form-group">
+                                <label for="" class="col-form-label">&nbsp;</label>
+                                <a
+                                  href="javascript:void(0);"
+                                  class="btn btn-danger-outline trash"
+                                  (click)="deleteHours(hoursArray5, i)"
+                                  ><i class="far fa-trash-alt"></i
+                                ></a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <a
+                        href="javascript:void(0);"
+                        class="add-text add-hours"
+                        (click)="addHours(hoursArray5)"
+                        ><i class="feather icon-plus-circle"></i> Add More</a
+                      >
+                    </div>
+                    <div class="tab-pane fade" id="slot_friday">
+                      <div class="hours-info">
+                        <h4 class="nameof-day">Friday</h4>
+                        <div class="row hours-cont">
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="" class="col-form-label">From</label>
+                              <div class="form-icon">
+                                <input
+                                  (click)="toggleTimePicker('startTime6')"
+                                  [value]="formatTime(startTime6)"
+                                  type="text"
+                                  placeholder="Select Time"
+                                  class="form-control timepicker"
+                                />
+                                <timepicker
+                                  [class.d-block]="
+                                    showTimePicker[0] === 'startTime6'
+                                  "
+                                  class="custom-timepicker"
+                                  [ngModelOptions]="{ standalone: true }"
+                                  [(ngModel)]="startTime6"
+                                ></timepicker>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="" class="col-form-label">To</label>
+                              <div class="form-icon">
+                                <input
+                                  (click)="toggleTimePicker('endTime6')"
+                                  [value]="formatTime(endTime6)"
+                                  type="text"
+                                  placeholder="Select Time"
+                                  class="form-control timepicker"
+                                />
+                                <timepicker
+                                  [class.d-block]="
+                                    showTimePicker[0] === 'endTime6'
+                                  "
+                                  class="custom-timepicker"
+                                  [ngModelOptions]="{ standalone: true }"
+                                  [(ngModel)]="endTime6"
+                                ></timepicker>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="" class="col-form-label">Slots</label>
+                              <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Enter Slot"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="row hours-cont"
+                          *ngFor="let hours of hoursArray6; let i = index"
+                        >
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="" class="col-form-label">From</label>
+                              <div class="form-icon">
+                                <input
+                                  type="text"
+                                  class="form-control timepicker"
+                                  placeholder="Select Time"
+                                />
+                                <span class="cus-icon"
+                                  ><i class="feather-clock"></i
+                                ></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="" class="col-form-label">To</label>
+                              <div class="form-icon">
+                                <input
+                                  type="text"
+                                  class="form-control timepicker"
+                                  placeholder="Select Time"
+                                />
+                                <span class="cus-icon"
+                                  ><i class="feather-clock"></i
+                                ></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="d-flex">
+                              <div class="form-group w-100">
+                                <label for="" class="col-form-label">Slots</label>
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  placeholder="Enter Slot"
+                                />
+                              </div>
+                              <div class="form-group">
+                                <label for="" class="col-form-label">&nbsp;</label>
+                                <a
+                                  href="javascript:void(0);"
+                                  class="btn btn-danger-outline trash"
+                                  (click)="deleteHours(hoursArray6, i)"
+                                  ><i class="far fa-trash-alt"></i
+                                ></a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <a
+                        href="javascript:void(0);"
+                        class="add-text add-hours"
+                        (click)="addHours(hoursArray6)"
+                        ><i class="feather icon-plus-circle"></i> Add More</a
+                      >
+                    </div>
+                    <div class="tab-pane fade" id="slot_saturday">
+                      <div class="hours-info">
+                        <h4 class="nameof-day">Saturday</h4>
+                        <div class="row hours-cont">
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="" class="col-form-label">From</label>
+                              <div class="form-icon">
+                                <input
+                                  (click)="toggleTimePicker('startTime7')"
+                                  [value]="formatTime(startTime7)"
+                                  type="text"
+                                  placeholder="Select Time"
+                                  class="form-control timepicker"
+                                />
+                                <timepicker
+                                  [class.d-block]="
+                                    showTimePicker[0] === 'startTime7'
+                                  "
+                                  class="custom-timepicker"
+                                  [ngModelOptions]="{ standalone: true }"
+                                  [(ngModel)]="startTime7"
+                                ></timepicker>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="" class="col-form-label">To</label>
+                              <div class="form-icon">
+                                <input
+                                  (click)="toggleTimePicker('endTime7')"
+                                  [value]="formatTime(endTime7)"
+                                  type="text"
+                                  placeholder="Select Time"
+                                  class="form-control timepicker"
+                                />
+                                <timepicker
+                                  [class.d-block]="
+                                    showTimePicker[0] === 'endTime7'
+                                  "
+                                  class="custom-timepicker"
+                                  [ngModelOptions]="{ standalone: true }"
+                                  [(ngModel)]="endTime7"
+                                ></timepicker>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="" class="col-form-label">Slots</label>
+                              <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Enter Slot"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="row hours-cont"
+                          *ngFor="let hours of hoursArray7; let i = index"
+                        >
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="" class="col-form-label">From</label>
+                              <div class="form-icon">
+                                <input
+                                  type="text"
+                                  class="form-control timepicker"
+                                  placeholder="Select Time"
+                                />
+                                <span class="cus-icon"
+                                  ><i class="feather-clock"></i
+                                ></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="" class="col-form-label">To</label>
+                              <div class="form-icon">
+                                <input
+                                  type="text"
+                                  class="form-control timepicker"
+                                  placeholder="Select Time"
+                                />
+                                <span class="cus-icon"
+                                  ><i class="feather-clock"></i
+                                ></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="d-flex">
+                              <div class="form-group w-100">
+                                <label for="" class="col-form-label">Slots</label>
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  placeholder="Enter Slot"
+                                />
+                              </div>
+                              <div class="form-group">
+                                <label for="" class="col-form-label">&nbsp;</label>
+                                <a
+                                  href="javascript:void(0);"
+                                  class="btn btn-danger-outline trash"
+                                  (click)="deleteHours(hoursArray7, i)"
+                                  ><i class="far fa-trash-alt"></i
+                                ></a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <a
+                        href="javascript:void(0);"
+                        class="add-text add-hours"
+                        (click)="addHours(hoursArray7)"
+                        ><i class="feather icon-plus-circle"></i> Add More</a
+                      >
+                    </div>
+                    <div class="tab-pane fade" id="slot_sunday">
+                      <div class="hours-info">
+                        <h4 class="nameof-day">Sunday</h4>
+                        <div class="row hours-cont">
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="" class="col-form-label">From</label>
+                              <div class="form-icon">
+                                <input
+                                  (click)="toggleTimePicker('startTime8')"
+                                  [value]="formatTime(startTime8)"
+                                  type="text"
+                                  placeholder="Select Time"
+                                  class="form-control timepicker"
+                                />
+                                <timepicker
+                                  [class.d-block]="
+                                    showTimePicker[0] === 'startTime8'
+                                  "
+                                  class="custom-timepicker"
+                                  [ngModelOptions]="{ standalone: true }"
+                                  [(ngModel)]="startTime8"
+                                ></timepicker>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="" class="col-form-label">To</label>
+                              <div class="form-icon">
+                                <input
+                                  (click)="toggleTimePicker('endTime8')"
+                                  [value]="formatTime(endTime8)"
+                                  type="text"
+                                  placeholder="Select Time"
+                                  class="form-control timepicker"
+                                />
+                                <timepicker
+                                  [class.d-block]="
+                                    showTimePicker[0] === 'endTime8'
+                                  "
+                                  class="custom-timepicker"
+                                  [ngModelOptions]="{ standalone: true }"
+                                  [(ngModel)]="endTime8"
+                                ></timepicker>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="" class="col-form-label">Slots</label>
+                              <input
+                                type="text"
+                                class="form-control"
+                                placeholder="Enter Slot"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="row hours-cont"
+                          *ngFor="let hours of hoursArray8; let i = index"
+                        >
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="" class="col-form-label">From</label>
+                              <div class="form-icon">
+                                <input
+                                  type="text"
+                                  class="form-control timepicker"
+                                  placeholder="Select Time"
+                                />
+                                <span class="cus-icon"
+                                  ><i class="feather-clock"></i
+                                ></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                              <label for="" class="col-form-label">To</label>
+                              <div class="form-icon">
+                                <input
+                                  type="text"
+                                  class="form-control timepicker"
+                                  placeholder="Select Time"
+                                />
+                                <span class="cus-icon"
+                                  ><i class="feather-clock"></i
+                                ></span>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="d-flex">
+                              <div class="form-group w-100">
+                                <label for="" class="col-form-label">Slots</label>
+                                <input
+                                  type="text"
+                                  class="form-control"
+                                  placeholder="Enter Slot"
+                                />
+                              </div>
+                              <div class="form-group">
+                                <label for="" class="col-form-label">&nbsp;</label>
+                                <a
+                                  href="javascript:void(0);"
+                                  class="btn btn-danger-outline trash"
+                                  (click)="deleteHours(hoursArray8, i)"
+                                  ><i class="far fa-trash-alt"></i
+                                ></a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <a
+                        href="javascript:void(0);"
+                        class="add-text add-hours"
+                        (click)="addHours(hoursArray8)"
+                        ><i class="feather icon-plus-circle"></i> Add More</a
+                      >
+                    </div>
+                  </div>
+                </div>
+                <!-- Timeslot -->
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="bottom-btn">
+                <div class="field-btns">
+                  <button
+                    class="btn btn-prev prev_btn"
+                    type="button"
+                    (click)="prevStep()"
+                    (click)="selectedFieldSet[0] = 0"
+                  >
+                    <i class="fas fa-arrow-left"></i> Prev
+                  </button>
+                  <button
+                    class="btn btn-primary next_btn"
+                    type="button"
+                    (click)="nextStep()"
+                    (click)="selectedFieldSet[0] = 2"
+                  >
+                    Next <i class="fas fa-arrow-right"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <!-- /Availability -->
+        <!-- Location -->
+        <fieldset [class.d-block]="selectedFieldSet[0] === 2">
+          <div class="addition-user card-section space-user">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="heading-user">
+                  <h4>Location</h4>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="">Address</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter Your Address"
+                  />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="">Contry</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter Sub Category"
+                  />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="">City</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter Your City"
+                  />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="">State</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter Your State"
+                  />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="">Pincode</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter Your Pincode"
+                  />
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="">Google Maps Place ID</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter Maps Place ID"
+                  />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="">Latitude</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter Latitude Number"
+                  />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="">Longitude</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter Longitude Number"
+                  />
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <div class="map-grid">
+                    <iframe
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6509170.989457427!2d-123.80081967108484!3d37.192957227641294!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fb9fe5f285e3d%3A0x8b5109a227086f55!2sCalifornia%2C%20USA!5e0!3m2!1sen!2sin!4v1669181581381!5m2!1sen!2sin"
+                      allowfullscreen=""
+                      aria-hidden="false"
+                      tabindex="0"
+                      class="contact-map"
+                    ></iframe>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="bottom-btn">
+                <div class="field-btns">
+                  <button
+                    class="btn btn-prev prev_btn"
+                    type="button"
+                    (click)="prevStep()"
+                    (click)="selectedFieldSet[0] = 1"
+                  >
+                    <i class="fas fa-arrow-left"></i> Prev
+                  </button>
+                  <button
+                    class="btn btn-primary next_btn"
+                    type="button"
+                    (click)="nextStep()"
+                    (click)="selectedFieldSet[0] = 3"
+                  >
+                    Next <i class="fas fa-arrow-right"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+        <!-- /Location -->
+        <!-- Gallery -->
+        <fieldset [class.d-block]="selectedFieldSet[0] === 3">
+          <div class="addition-user card-section">
+            <div class="heading-user">
+              <h4>Gallery</h4>
+            </div>
+            <div class="form-uploads">
+              <div class="form-uploads-path">
+                <img src="assets/admin/img/icons/upload.svg" alt="img" />
+                <div class="file-browse">
+                  <h6>Drag & drop image or</h6>
+                  <div class="file-browse-path">
+                    <input type="file" />
+                    <a href="javascript:void(0);"> Browse</a>
+                  </div>
+                </div>
+                <h5>Supported formates: JPEG, PNG</h5>
+              </div>
+            </div>
+            <div class="file-preview">
+              <label for="" class="form-label">Select Default Image</label>
+              <ul class="gallery-selected-img">
+                <li [ngClass]="{ 'd-none': hideClass[1] }">
+                  <div class="img-preview">
+                    <img
+                      src="assets/img/services/service-01.jpg"
+                      alt="User Image"
+                    />
+                    <a
+                      href="javascript:void(0);"
+                      class="remove-gallery"
+                      (click)="deleteItem(1)"
+                      ><i class="feather icon-trash-2"></i
+                    ></a>
+                  </div>
+                  <label class="custom_check">
+                    <input type="radio" name="gallery" checked />
+                    <span class="checkmark"></span>
+                  </label>
+                </li>
+                <li [ngClass]="{ 'd-none': hideClass[2] }">
+                  <div class="img-preview">
+                    <img
+                      src="assets/img/services/service-02.jpg"
+                      alt="User Image"
+                    />
+                    <a
+                      href="javascript:void(0);"
+                      class="remove-gallery"
+                      (click)="deleteItem(2)"
+                      ><i class="feather icon-trash-2"></i
+                    ></a>
+                  </div>
+                  <label class="custom_check">
+                    <input type="radio" name="gallery" />
+                    <span class="checkmark"></span>
+                  </label>
+                </li>
+                <li [ngClass]="{ 'd-none': hideClass[3] }">
+                  <div class="img-preview">
+                    <img
+                      src="assets/img/services/service-03.jpg"
+                      alt="User Image"
+                    />
+                    <a
+                      href="javascript:void(0);"
+                      class="remove-gallery"
+                      (click)="deleteItem(3)"
+                      ><i class="feather icon-trash-2"></i
+                    ></a>
+                  </div>
+                  <label class="custom_check">
+                    <input type="radio" name="gallery" />
+                    <span class="checkmark"></span>
+                  </label>
+                </li>
+                <li [ngClass]="{ 'd-none': hideClass[4] }">
+                  <div class="img-preview">
+                    <img
+                      src="assets/img/services/service-04.jpg"
+                      alt="User Image"
+                    />
+                    <a
+                      href="javascript:void(0);"
+                      class="remove-gallery"
+                      (click)="deleteItem(4)"
+                      ><i class="feather icon-trash-2"></i
+                    ></a>
+                  </div>
+                  <label class="custom_check">
+                    <input type="radio" name="gallery" />
+                    <span class="checkmark"></span>
+                  </label>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="bottom-btn">
+            <div class="field-btns">
+              <button
+                class="btn btn-prev prev_btn"
+                (click)="prevStep()"
+                (click)="selectedFieldSet[0] = 2"
+                type="button"
+              >
+                <i class="fas fa-arrow-left"></i> Prev
+              </button>
+              <button
+                class="btn btn-primary next_btn"
+                (click)="nextStep()"
+                (click)="selectedFieldSet[0] = 4"
+                type="button"
+              >
+                Next <i class="fas fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+        </fieldset>
+        <!-- /Gallery -->
+        <!-- SEO -->
+        <fieldset [class.d-block]="selectedFieldSet[0] === 4">
+          <div class="addition-user card-section space-user">
+            <div class="heading-user">
+              <h4>SEO</h4>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="">Meta Title (English)</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Enter metatitle"
+                  />
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="form-group meta-keys">
+                  <label for="">Meta Keywords (English)</label>
+                  <input
+                    class="input-tags form-control"
+                    type="text"
+                    data-role="tagsinput"
+                    name="specialist"
+                    placeholder="Enter keywords"
+                    id="specialist"
+                  />
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="">Meta Description (English)</label>
+                  <textarea
+                    class="form-control"
+                    placeholder="Enter description"
+                    rows="5"
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bottom-btn">
+            <div class="field-btns">
+              <button
+                class="btn btn-prev prev_btn"
+                type="button"
+                (click)="prevStep()"
+                (click)="selectedFieldSet[0] = 3"
+              >
+                <i class="fas fa-arrow-left"></i> Prev
+              </button>
+              <!-- <a [routerLink]="routes.user" class="btn btn-primary next_btn" data-bs-toggle="modal" data-bs-target="#successmodal">Save</a -->
+              >
+            </div>
+          </div>
+        </fieldset>
+        <!-- /SEO -->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Succss -->
+<div class="modal fade add-user-modal" id="successmodal" tabindex="-1" aria-labelledby="successmodal" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content">
+    <div class="modal-body">
+      <span>
+        <i class="fa-regular fa-circle-check"></i>
+      </span>
+      <h3>Success</h3>
+      <p>User has been created succeessfully</p>
+      <div class="popup-btn">
+        <!-- <a [routerLink]="routes.user" class="btn btn-primary">Go to Dashboard <i class="fa-solid fa-arrow-right"></i></a> -->
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+<!-- Modal Succss -->

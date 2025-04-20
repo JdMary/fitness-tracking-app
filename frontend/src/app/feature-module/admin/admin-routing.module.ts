@@ -643,6 +643,13 @@ const routes: Routes = [
         loadChildren: () =>
           import('./buddy/buddy.module').then((m) => m.BuddyModule),
       },
+      {
+        path: 'add-user',
+        loadChildren: () =>
+          import('./add-user/add-user.module').then(
+            (m) => m.AddUserModule
+          ),
+      },
     ],
   },
 ];

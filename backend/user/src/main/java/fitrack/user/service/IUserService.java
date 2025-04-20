@@ -1,6 +1,7 @@
 package fitrack.user.service;
 
 import fitrack.user.entity.User;
+import fitrack.user.payload.ResetPasswordRequest;
 
 import java.util.List;
 
@@ -16,4 +17,10 @@ public interface IUserService {
     void removeUser(String idUser);
 
     List<User> addUsers (List<User> Users);
+    void sendForgotPasswordEmail(String email);
+    String generateOTP();
+    void verifyOTP(String email, String otp);
+    void resetPassword(String NewPassword, String email);
+    void updateLastLogin(String email);
+    void updateInactiveStatus(String email);
 }
