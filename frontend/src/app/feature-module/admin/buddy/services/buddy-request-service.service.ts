@@ -6,6 +6,7 @@ import { TokenService } from '../../../token/token.service';
 export interface BuddyRequestFull {
   id: number;
   userEmail: string;
+  userName: string;
   potentialMatch: number;
   status: string;         
   goal: string;           
@@ -30,6 +31,8 @@ export interface BuddyMatchFull {
   requestId: number;
   email1: string;
   email2: string;
+  name1: string;
+  name2: string;
   creationDate: string;      
 }
 

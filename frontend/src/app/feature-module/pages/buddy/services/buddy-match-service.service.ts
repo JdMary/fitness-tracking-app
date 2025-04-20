@@ -9,6 +9,8 @@ export interface BuddyMatch {
   id: number;
   email1: string;
   email2: string;
+  name1: string;
+  name2: string;
   goal: string;           
   workoutStartTime: Date;  
   duration: number;

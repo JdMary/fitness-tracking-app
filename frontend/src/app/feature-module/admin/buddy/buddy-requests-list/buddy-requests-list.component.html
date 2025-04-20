@@ -202,7 +202,7 @@
                         <tbody>
                             <tr *ngFor="let request of paginatedRequests">
                                 <td>{{request.id}}</td>
-                                <td>{{request.userEmail.split('@')[0]}}</td>
+                                <td>{{request.userName}}</td>
                                 <td>{{request.userEmail}}</td>
                                 <td>
                                     <span [ngClass]="{

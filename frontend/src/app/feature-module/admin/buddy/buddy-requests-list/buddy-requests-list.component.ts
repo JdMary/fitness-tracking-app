@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BuddyRequestService, BuddyRequestFull } from '../services/buddy-request-service.service';
 import { ChartOptions } from '../../dashboard/dashboard.component';
 import { DataService } from 'src/app/shared/data/data.service';
+import { AuthService } from '../../../backend-services/user/auth.service';
 
 @Component({
   selector: 'app-buddy-requests-list',
@@ -21,7 +22,7 @@ export class BuddyRequestsListComponent implements OnInit {
   totalItems: number = 0;
   pageSizeOptions: number[] = [10, 25, 50, 100];
 
-  constructor(private buddyService: BuddyRequestService, private data: DataService) {
+  constructor(private buddyService: BuddyRequestService, private data: DataService, private authService: AuthService) {
     this.chart = {
       series: [0, 0, 0, 0, 0],
       chart: {
@@ -110,6 +111,18 @@ export class BuddyRequestsListComponent implements OnInit {
     this.buddyService.getBuddyRequests().subscribe(
       requests => {
         this.buddyRequests = requests;
+        this.buddyRequests.forEach(request => {
+          if (request.userEmail) {
+            this.authService.extractNameFromEmail(request.userEmail).subscribe(
+              (name) => {
+                request.userName = name;
+              },
+              (error) => {
+                console.error('Error extracting name from email:', error);
+              }
+            );
+          }
+        });
         this.filterByStatus(this.selectedStatus);
       }
     );

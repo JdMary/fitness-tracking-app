@@ -22,203 +22,7 @@
 <div class="page-wrapper">
   <div class="content">
       <div class="container">
-          <div class="row">
-              <div class="col-xl-3 col-lg-4 theiaStickySidebar">
-                  <div class="card">
-                      <div class="card-body">
-                          <form [action]="routes.search">
-                              <div class="d-flex align-items-center justify-content-between mb-3 pb-3 border-bottom">
-                                  <h5><i class="ti ti-filter-check me-2"></i>Filters</h5>
-                                  <a href="javascript:void(0);">Reset Filter</a>
-                              </div>
-                              <div class="mb-3 pb-3 border-bottom">
-                                  <label class="form-label">Search By Keyword</label>
-                                  <input type="text" class="form-control" placeholder="What are you looking for?">
-                              </div>
-                              <div class="accordion border-bottom mb-3">
-                                  <div class="accordion-item mb-3">
-                                      <div class="accordion-header" id="accordion-headingThree">
-                                          <div class="accordion-button p-0 mb-3" data-bs-toggle="collapse" data-bs-target="#accordion-collapseThree" aria-expanded="true" aria-controls="accordion-collapseThree" role="button">
-                                              Categories
-                                          </div>
-                                      </div>
-                                      <div id="accordion-collapseThree" class="accordion-collapse collapse show" aria-labelledby="accordion-headingThree">
-                                          <div class="content-list mb-3" id="fill-more" [ngStyle]="">
-                                              <div class="form-check mb-2" >
-                                                  <label class="form-check-label">
-                                                      <input class="form-check-input" type="checkbox" checked>
-                                                      All Categories
-                                                  </label>
-                                              </div>
-                                              <div class="form-check mb-2">
-                                                  <label class="form-check-label">
-                                                      <input class="form-check-input" type="checkbox">
-                                                      Construction
-                                                  </label>
-                                              </div>
-                                              <div class="form-check mb-2">
-                                                  <label class="form-check-label">
-                                                      <input class="form-check-input" type="checkbox">
-                                                      Car Wash
-                                                  </label>
-                                              </div>
-                                              <div class="form-check mb-2">
-                                                  <label class="form-check-label">
-                                                      <input class="form-check-input" type="checkbox">
-                                                      Electrical
-                                                  </label>
-                                              </div>
-                                              <div class="form-check mb-2">
-                                                  <label class="form-check-label">
-                                                      <input class="form-check-input" type="checkbox">
-                                                      Cleaning
-                                                  </label>
-                                              </div>
-                                              <div class="form-check mb-2">
-                                                  <label class="form-check-label">
-                                                      <input class="form-check-input" type="checkbox">
-                                                      Plumbing
-                                                  </label>
-                                              </div>
-                                              <div class="form-check mb-2">
-                                                  <label class="form-check-label">
-                                                      <input class="form-check-input" type="checkbox">
-                                                      Designing
-                                                  </label>
-                                              </div>
-                                          </div>
-                                          <a href="javascript:void(0);" id="more" class="more-view text-primary fs-14"> <i class="ti ti-chevron-down ms-1"></i></a>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="accordion border-bottom mb-3">
-                                  <div class="accordion-header" id="accordion-headingFour">
-                                      <div class="accordion-button p-0 mb-3" data-bs-toggle="collapse" data-bs-target="#accordion-collapseFour" aria-expanded="true" aria-controls="accordion-collapseFour" role="button">
-                                          Sub Category
-                                      </div>
-                                  </div>
-                                  <div id="accordion-collapseFour" class="accordion-collapse collapse show" aria-labelledby="accordion-headingFour">
-                                      <div class="mb-3">
-                                        <mat-select  panelClass="dependentSelect"  class="form-control select"  placeholder="All Sub Category">
-                                          <mat-option  >
-                                          
-                                          </mat-option>
-                                      </mat-select>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="accordion border-bottom mb-3">
-                                  <div class="accordion-header" id="accordion-headingFive">
-                                      <div class="accordion-button p-0 mb-3" data-bs-toggle="collapse" data-bs-target="#accordion-collapseFive" aria-expanded="true" aria-controls="accordion-collapseFive" role="button">
-                                          Location
-                                      </div>
-                                  </div>
-                                  <div id="accordion-collapseFive" class="accordion-collapse collapse show" aria-labelledby="accordion-headingFive">
-                                      <div class="mb-3">
-                                          <div class="position-relative">
-                                              <input type="text" class="form-control" placeholder="Select Location">
-                                              <span class="icon-addon"><i class="ti ti-map-pin"></i></span>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="accordion border-bottom mb-3">
-                                  <div class="accordion-header" id="accordion-headingSix">
-                                      <div class="accordion-button p-0 mb-3" data-bs-toggle="collapse" data-bs-target="#accordion-collapseSix" aria-expanded="true" aria-controls="accordion-collapseSix" role="button">
-                                          Price Range
-                                      </div>
-                                  </div>
-                                  <div id="accordion-collapseSix" class="accordion-collapse collapse show" aria-labelledby="accordion-headingSix">
-                                      <div class="filter-range">
-                                        <mat-slider min="200" max="500"  discrete>
-                                          <input value="300" matSliderStartThumb>
-                                          <input value="400" matSliderEndThumb>
-                                        </mat-slider>
-                                      </div>
-                                      <div class="filter-range-amount mb-3">
-                                          <p class="fs-14">Price: <span>$5 - $210</span></p>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="accordion">
-                                  <div class="accordion-item mb-3">
-                                      <div class="accordion-header" id="accordion-headingTwo">
-                                          <div class="accordion-button fs-18 p-0 mb-3" data-bs-toggle="collapse" data-bs-target="#accordion-collapseTwo" aria-expanded="true" aria-controls="accordion-collapseTwo" role="button">
-                                              Ratings
-                                          </div>
-                                      </div>
-                                      <div id="accordion-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="accordion-headingTwo">
-                                          <div class="mb-3">
-                                              <div class="form-check mb-2">
-                                                  <label class="form-check-label d-block">
-                                                      <input class="form-check-input" type="checkbox" checked>
-                                                      <span class="rating">
-                                                          <i class="fas fa-star filled"></i>
-                                                          <i class="fas fa-star filled"></i>
-                                                          <i class="fas fa-star filled"></i>
-                                                          <i class="fas fa-star filled"></i>
-                                                          <i class="fas fa-star filled"></i><span class="float-end">(55)</span>
-                                                      </span>
-                                                  </label>
-                                              </div>
-                                              <div class="form-check mb-2">
-                                                  <label class="form-check-label d-block">
-                                                      <input class="form-check-input" type="checkbox">
-                                                      <span class="rating">
-                                                          <i class="fas fa-star filled"></i>
-                                                          <i class="fas fa-star filled"></i>
-                                                          <i class="fas fa-star filled"></i>
-                                                          <i class="fas fa-star filled"></i>
-                                                          <i class="fa-regular fa-star filled"></i><span class="float-end">(48)</span>
-                                                      </span>
-                                                  </label>
-                                              </div>
-                                              <div class="form-check mb-2">
-                                                  <label class="form-check-label d-block">
-                                                      <input class="form-check-input" type="checkbox">
-                                                      <span class="rating">
-                                                          <i class="fas fa-star filled"></i>
-                                                          <i class="fas fa-star filled"></i>
-                                                          <i class="fas fa-star filled"></i>
-                                                          <i class="fa-regular fa-star filled"></i>
-                                                          <i class="fa-regular fa-star filled"></i><span class="float-end">(13)</span>
-                                                      </span>
-                                                  </label>
-                                              </div>
-                                              <div class="form-check mb-2">
-                                                  <label class="form-check-label d-block">
-                                                      <input class="form-check-input" type="checkbox">
-                                                      <span class="rating">
-                                                          <i class="fas fa-star filled"></i>
-                                                          <i class="fas fa-star filled"></i>
-                                                          <i class="fa-regular fa-star filled"></i>
-                                                          <i class="fa-regular fa-star filled"></i>
-                                                          <i class="fa-regular fa-star filled"></i><span class="float-end">(05)</span>
-                                                      </span>
-                                                  </label>
-                                              </div>
-                                              <div class="form-check mb-2">
-                                                  <label class="form-check-label d-block">
-                                                      <input class="form-check-input" type="checkbox">
-                                                      <span class="rating">
-                                                          <i class="fas fa-star filled"></i>
-                                                          <i class="fa-regular fa-star filled"></i>
-                                                          <i class="fa-regular fa-star filled"></i>
-                                                          <i class="fa-regular fa-star filled"></i>
-                                                          <i class="fa-regular fa-star filled"></i><span class="float-end">(00)</span>
-                                                      </span>
-                                                  </label>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <button type="submit" class="btn btn-dark w-100">Search</button>
-                          </form>
-                      </div>
-                  </div>
-              </div>
-              <div class="col-xl-9 col-lg-8">
+              <div class="col-xl-12 col-lg-8">
                   <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
                       <h4 >Found <span class="text-primary">{{ buddyRequestsCount }} Requests</span></h4>
                       <div class="d-flex align-items-center">
@@ -228,16 +32,15 @@
                                   Sort by
                               </a>
                               <div class="dropdown-menu">
-                                  <a href="javascript:void(0);" class="dropdown-item active">Status</a>
-                                  <a href="javascript:void(0);" class="dropdown-item">Time</a>
+                                  <a href="javascript:void(0);" class="dropdown-item" [class.active]="currentFilter === 'ALL'" (click)="filterRequests('ALL')">All</a>
+                                  <a href="javascript:void(0);" class="dropdown-item" [class.active]="currentFilter === 'PENDING'" (click)="filterRequests('PENDING')">Pending</a>
+                                  <a href="javascript:void(0);" class="dropdown-item" [class.active]="currentFilter === 'WAITING'" (click)="filterRequests('WAITING')">Waiting</a>
                               </div>
                           </div>
-                          <a [routerLink]="routes.serviceGrid" class="tags d-flex justify-content-center align-items-center bg-primary rounded me-2"><i class="ti ti-layout-grid"></i></a>
-                          <a [routerLink]="routes.serviceList" class="tags d-flex justify-content-center align-items-center border rounded"><i class="ti ti-list"></i></a>
                       </div>
                   </div>
                   <div class="row justify-content-center align-items-center">
-                    <div class="col-xl-4 col-md-6" *ngFor="let request of paginatedBuddyRequests">
+                    <div class="col-xl-3 col-md-6" *ngFor="let request of paginatedBuddyRequests">
                       <div class="card p-0">
                           <div class="card-body p-0">
                               <div class="img-sec w-100">
@@ -306,11 +109,8 @@
                     </nav>
                   </div>
               </div>
-          </div>
+
       </div>
   </div>
 </div>
 <!-- /Page Wrapper -->
-<ng-template #noRequests>
-  <p>No buddy requests available.</p>
-</ng-template>

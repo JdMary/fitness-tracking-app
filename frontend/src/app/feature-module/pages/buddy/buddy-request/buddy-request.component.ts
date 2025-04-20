@@ -4,6 +4,8 @@ import { routes } from 'src/app/shared/routes/routes';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../../../backend-services/user/auth.service';
+
 
 
 @Component({
@@ -21,6 +23,9 @@ export class BuddyRequestComponent implements OnInit {
   editMode: boolean = false;
   editRequestId: number | null = null;
   submitValue: string = 'Create Request';
+
+  currentFilter: string = 'ALL';
+  filteredRequests: BuddyRequestFull[] = [];
 
   minDurationValidator(control: any) {
     const value = Number(control.value);
@@ -60,11 +65,11 @@ export class BuddyRequestComponent implements OnInit {
   get paginatedBuddyRequests(): BuddyRequestFull[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
-    return this.buddyRequests.slice(startIndex, endIndex);
+    return this.filteredRequests.slice(startIndex, endIndex);
   }
 
   get totalPages(): number {
-    return Math.ceil(this.buddyRequests.length / this.itemsPerPage);
+    return Math.ceil(this.filteredRequests.length / this.itemsPerPage);
   }
 
   changePage(page: number): void {
@@ -85,7 +90,7 @@ export class BuddyRequestComponent implements OnInit {
     }
   }
   
-  constructor(private buddyRequestService: BuddyRequestService,private fb: FormBuilder, private http: HttpClient, private toastr: ToastrService) {}
+  constructor(private buddyRequestService: BuddyRequestService,private fb: FormBuilder, private http: HttpClient, private toastr: ToastrService, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.buddyRequestForm = this.fb.group({
@@ -100,9 +105,33 @@ export class BuddyRequestComponent implements OnInit {
     this.buddyRequestService.getMyBuddyRequests().subscribe(
       (data) => {
         this.buddyRequests = data;
+        this.buddyRequests.forEach(request => {
+          if (request.userEmail) {
+            this.authService.extractNameFromEmail(request.userEmail).subscribe(
+              (name) => {
+                request.userName = name;
+              },
+              (error) => {
+                console.error('Error extracting name from email:', error);
+              }
+            );
+          }
+        });
         this.buddyRequestsCount = data.length;
+        this.filterRequests(this.currentFilter); // Apply initial filter
       }
     );
+  }
+
+  filterRequests(status: string): void {
+    this.currentFilter = status;
+    if (status === 'ALL') {
+      this.filteredRequests = this.buddyRequests;
+    } else {
+      this.filteredRequests = this.buddyRequests.filter(request => request.status === status);
+    }
+    this.buddyRequestsCount = this.filteredRequests.length;
+    this.currentPage = 1; // Reset to first page when filtering
   }
   
   get totalPagesArray(): number[] {

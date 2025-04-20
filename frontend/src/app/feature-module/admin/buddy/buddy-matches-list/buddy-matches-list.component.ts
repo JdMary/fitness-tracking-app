@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BuddyRequestService, BuddyMatchFull } from '../services/buddy-request-service.service';
+import { AuthService } from '../../../backend-services/user/auth.service';
+
 
 @Component({
   selector: 'app-buddy-matches-list',
@@ -12,16 +14,32 @@ export class BuddyMatchesListComponent implements OnInit {
   currentPage: number = 1;
   pageSizeOptions: number[] = [10, 25, 50, 100];
 
-  constructor(private buddyService: BuddyRequestService) {}
+  constructor(private buddyService: BuddyRequestService, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.loadBuddyMatches();
   }
 
   loadBuddyMatches() {
-    this.buddyService.getBuddyMatches().subscribe(
-      matches => this.buddyMatches = matches
-    );
+    this.buddyService.getBuddyMatches().subscribe({
+      next: (matches) => {
+        this.buddyMatches = matches;
+        this.buddyMatches.forEach(match => {
+          if (match.email1 && match.email2) {
+            this.authService.extractNameFromEmail(match.email1).subscribe(
+              (name) => {
+                match.name1 = name;
+              }
+            );
+            this.authService.extractNameFromEmail(match.email2).subscribe(
+              (name) => {
+                match.name2 = name;
+              }
+            );
+          }
+        });
+      }
+    });
   }
 
   onPageChange(page: number) {

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BuddyMatchServiceService, BuddyMatch } from '../services/buddy-match-service.service';
+import { AuthService } from '../../../backend-services/user/auth.service';
+
 
 @Component({
   selector: 'app-buddy-match',
@@ -12,8 +14,10 @@ export class BuddyMatchComponent implements OnInit {
   currentUserEmail: string = '';
   currentPage: number = 1;
   itemsPerPage: number = 4;
+  userName1 : string = '';
+  userName2 : string = '';
 
-  constructor(private buddyMatchService: BuddyMatchServiceService) {}
+  constructor(private buddyMatchService: BuddyMatchServiceService, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.loadBuddyMatches();
@@ -31,10 +35,21 @@ export class BuddyMatchComponent implements OnInit {
           ...match,
           reminderSet: match.reminder1 || match.reminder2
         }));
+        this.buddyMatches.forEach(match => {
+          if (match.email1 && match.email2) {
+            this.authService.extractNameFromEmail(match.email1).subscribe(
+              (name) => {
+                match.name1 = name;
+              }
+            );
+            this.authService.extractNameFromEmail(match.email2).subscribe(
+              (name) => {
+                match.name2 = name;
+              }
+            );
+          }
+        });
         this.matchesCount = matches.length;
-      },
-      error: (error) => {
-        console.error('Error fetching buddy matches:', error);
       }
     });
   }
