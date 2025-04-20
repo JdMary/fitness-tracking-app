@@ -40,7 +40,7 @@ public class BuddyRequestService implements IBuddyRequestService {
         buddyRequest.setUserEmail(username);
         buddyRequest.setStatus(Status.PENDING);
         //smsService.sendSms("+21628323353", "Hey Mahdi, your buddy request was accepted!");
-        //emailService.sendEmail("mahdi.khadher@esprit.tn","aaa","bbbb");
+        //emailService.createEmail("mahdi.khadher@esprit.tn","Request Created",username);
         return repository.save(buddyRequest);
     }
 
@@ -62,6 +62,7 @@ public class BuddyRequestService implements IBuddyRequestService {
                 .orElseThrow(() -> new RuntimeException(BUDDY_REQUEST_NOT_FOUND));
         buddyRequest.setPotentialMatch(username);
         buddyRequest.setStatus(Status.WAITING);
+        //emailService.subscribeEmail("mahdi.khadher@esprit.tn", "Potential Match",buddyRequest.getUserEmail(), username);
         return repository.save(buddyRequest);
     }
 
@@ -92,7 +93,10 @@ public class BuddyRequestService implements IBuddyRequestService {
                 .goal(buddyRequest.getGoal())
                 .workoutStartTime(buddyRequest.getWorkoutStartTime())
                 .duration(buddyRequest.getDuration())
+                .reminder1(false)
+                .reminder2(false)
                 .build();
+        //emailService.acceptEmail("mahdi.khadher@esprit.tn", "Request Accepted", buddyRequest.getPotentialMatch(), buddyRequest.getUserEmail());
         return matchRepository.save(buddyMatch);
     }
 
@@ -130,18 +134,6 @@ public class BuddyRequestService implements IBuddyRequestService {
         return map;
     }
 
-    @Override
-    public Map<String, Long> countByAcceptedOrRejected() {
-        List<Object[]> results = repository.countByAcceptedOrRejected();
-        Object[] row = results.get(0);
-
-        Map<String, Long> map = new HashMap<>();
-        map.put("ACCEPTED", ((Number) row[0]).longValue());
-        map.put("REJECTED OR EXPIRED", ((Number) row[1]).longValue());
-        return map;
-    }
-
-
     @Scheduled(fixedRate = 3600000)
     @Override
     public void setExpired() {
@@ -154,7 +146,8 @@ public class BuddyRequestService implements IBuddyRequestService {
         });
     }
 
-    @Scheduled(cron = "0 0 0 * * *")
+    //@Scheduled(cron = "0 0 0 * * *")
+    @Scheduled(fixedRate = 3600000)
     @Override
     public void logDailyRequestCount() {
         Long count = repository.countRequestsToday();
@@ -163,7 +156,6 @@ public class BuddyRequestService implements IBuddyRequestService {
                 .count(count.intValue())
                 .date(LocalDate.now())
                 .build();
-
         r.save(stat);
     }
 }

@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface BuddyMatchRepository extends JpaRepository<BuddyMatch, Long> {
-    @Query("SELECT b FROM BuddyMatch b WHERE b.email1 = :email or b.email2 = :email")
+    @Query("SELECT b FROM BuddyMatch b WHERE (b.email1 = :email or b.email2 = :email)")
     List<BuddyMatch> findAllByEmail(String email);
 }

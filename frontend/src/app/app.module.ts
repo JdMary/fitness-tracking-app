@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({ declarations: [
         AppComponent
@@ -13,5 +14,11 @@ import { HttpClientModule } from '@angular/common/http';
     bootstrap: [AppComponent], imports: [BrowserModule,
         HttpClientModule,
         AppRoutingModule,
-        BrowserAnimationsModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
+        ToastrModule.forRoot({
+            positionClass: 'toast-top-right',
+            timeOut: 3000,
+            preventDuplicates: true
+        }),
+        BrowserAnimationsModule],
+         providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }

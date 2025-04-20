@@ -3,6 +3,8 @@ import { BuddyRequestService, BuddyRequest, BuddyRequestFull } from '../services
 import { routes } from 'src/app/shared/routes/routes';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-buddy-request',
@@ -83,7 +85,7 @@ export class BuddyRequestComponent implements OnInit {
     }
   }
   
-  constructor(private buddyRequestService: BuddyRequestService,private fb: FormBuilder, private http: HttpClient) {}
+  constructor(private buddyRequestService: BuddyRequestService,private fb: FormBuilder, private http: HttpClient, private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.buddyRequestForm = this.fb.group({
@@ -149,6 +151,7 @@ onSubmit() {
       this.buddyRequestService.addBuddyRequest(buddyRequest).subscribe(
         (response) => {
           console.log('Buddy request added successfully:', response);
+          this.toastr.success('Your request has been successfully made', 'Success');
           this.resetForm();
         }
       );

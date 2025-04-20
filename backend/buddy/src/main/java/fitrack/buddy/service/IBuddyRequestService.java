@@ -20,7 +20,6 @@ public interface IBuddyRequestService {
     String displayUser(String userEmail);
     List<BuddyRequest> findAllNotOwnedByUser(String token);
     Map<String, Long> countByStatus();
-    Map<String, Long> countByAcceptedOrRejected();
     void setExpired();
     void logDailyRequestCount();
 

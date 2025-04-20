@@ -2,11 +2,8 @@ package fitrack.buddy.controller;
 
 import fitrack.buddy.entity.BuddyMatch;
 import fitrack.buddy.entity.BuddyRequest;
-import fitrack.buddy.entity.BuddyRequestResponseDTO;
-import fitrack.buddy.entity.UserDTO;
 import fitrack.buddy.service.BuddyRequestService;
 import fitrack.buddy.service.IBuddyRequestService;
-import org.apache.catalina.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -70,10 +67,6 @@ public class BuddyRequestController {
     @GetMapping("countByStatus")
     public Map<String, Long> countByStatus() {
         return buddyRequestService.countByStatus();
-    }
-    @GetMapping("countByAcceptedOrRejected")
-    public Map<String, Long> countByAcceptedOrRejected() {
-        return buddyRequestService.countByAcceptedOrRejected();
     }
 
 }

@@ -56,6 +56,13 @@ export class BuddyRequestService {
     });
     return this.http.get<BuddyMatchFull[]>(`${this.apiUrlforMatch}/retrieve`, { headers });
   }
+  
+  getCountByStatus(): Observable<{ [status: string]: number }> {
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<{ [status: string]: number }>(`${this.apiUrlforRequest}/countByStatus`, { headers });
+  }
 
 }
 

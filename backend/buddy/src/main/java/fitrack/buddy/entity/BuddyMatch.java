@@ -25,6 +25,9 @@ public class BuddyMatch {
 
     private String email2;
 
+    private boolean reminder1;
+    private boolean reminder2;
+
     @Enumerated(EnumType.STRING)
     private Goals goal;
 

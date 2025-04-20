@@ -6,11 +6,15 @@ import { TokenService } from '../../../token/token.service';
 
 
 export interface BuddyMatch {
+  id: number;
   email1: string;
   email2: string;
   goal: string;           
   workoutStartTime: Date;  
-  duration: number; 
+  duration: number;
+  reminder1: boolean;
+  reminder2: boolean;
+  reminderSet?: boolean;
 }
 
 @Injectable({
@@ -25,6 +29,27 @@ export class BuddyMatchServiceService {
   getBuddyMatches(): Observable<BuddyMatch[]> {
     const headers = { 'Authorization': `Bearer ${this.token}` };
     return this.http.get<any[]>(`${this.apiUrl}/retrieveByEmail`, { headers });
+  }
+
+  getBuddyMatcheByID(id: number): Observable<BuddyMatch> {
+    const headers = { 'Authorization': `Bearer ${this.token}` };
+    return this.http.get<BuddyMatch>(`${this.apiUrl}/findbyId/${id}`, { headers });
+  }
+  setReminder(id: number): Observable<any> {
+    const headers = { 'Authorization': `Bearer ${this.token}` };
+    return this.http.post<any>(`${this.apiUrl}/setReminder/${id}`, null, { headers });
+  }
+
+  unsetReminder(id: number): Observable<any> {
+    const headers = { 'Authorization': `Bearer ${this.token}` };
+    return this.http.post(`${this.apiUrl}/unsetReminder/${id}`, null, { headers });
+  }
+  getEmail(): Observable<String> {
+    const headers = { 'Authorization': `Bearer ${this.token}` };
+    return this.http.get(`${this.apiUrl}/getEmail`, { 
+      headers, 
+      responseType: 'text' 
+    });
   }
 
 }

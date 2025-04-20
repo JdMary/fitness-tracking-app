@@ -2,7 +2,6 @@ package fitrack.buddy.controller;
 
 
 import fitrack.buddy.entity.BuddyMatch;
-import fitrack.buddy.entity.BuddyRequest;
 import fitrack.buddy.service.IBuddyMatchService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -29,11 +28,29 @@ public class BuddyMatchController {
     public List<BuddyMatch> retrieveBuddyMatchesByUserEmail(@RequestHeader("Authorization") String token) {
         return buddyMatchService.findAllByUserEmail(token);
     }
+    @GetMapping("findbyId/{id}")
+    public BuddyMatch findBuddyMatchById(@PathVariable Long id) {
+        return buddyMatchService.getBuddyMatchById(id);
+    }
 
     @DeleteMapping("delete/{id}")
     public ResponseEntity<String> deleteBuddyMatch(@PathVariable Long id) {
         buddyMatchService.removeBuddyMatch(id);
         return ResponseEntity.ok("Buddy match with ID " + id + " has been deleted.");
+    }
+
+    @PostMapping("setReminder/{id}")
+    public void setReminder(@PathVariable Long id, @RequestHeader("Authorization") String token) {
+        buddyMatchService.setReminder(id, token);
+    }
+    @PostMapping("unsetReminder/{id}")
+    public void unsetReminder(@PathVariable Long id, @RequestHeader("Authorization") String token) {
+        buddyMatchService.unsetReminder(id, token);
+    }
+
+    @GetMapping("getEmail")
+    public String getEmail(@RequestHeader("Authorization") String token) {
+        return buddyMatchService.getEmail(token);
     }
 
 }
