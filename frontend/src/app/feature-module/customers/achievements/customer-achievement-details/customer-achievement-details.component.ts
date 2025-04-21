@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CustomerAchievementService } from '../customer-achievements/customer-achievement.service';
-import { Achievement } from '../customer-achievements/achievement.model';
+import { CustomerAchievementService } from '../services/customer-achievement.service';
+import { Achievement } from '../models/achievement.model';
 
 @Component({
   selector: 'app-customer-achievement-details',
@@ -25,5 +25,4 @@ export class CustomerAchievementDetailsComponent implements OnInit {
         error: (error) => console.error('Error loading achievement:', error)
       });
     }
-  }
-}
+  }}

@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Challenge } from '../customer-challenge/challenge.model';
-import { CustomerChallengeService } from '../customer-challenge/customer-challenge.service';
-import { ChallengeStatus } from '../customer-challenge/challenge-status.enum';
+import { Challenge } from '../models/challenge.model';
+import { CustomerChallengeService } from '../services/customer-challenge.service';
+import { ChallengeStatus } from '../models/challenge-status.enum';
 
 @Component({
   selector: 'app-customer-challenge-details',
   templateUrl: './customer-challenge-details.component.html',
   styleUrls: ['./customer-challenge-details.component.css'],
 })
-export class CustomerChallengeDetailsComponent implements OnInit {
+export class CustomerChallengeDetailsComponent implements OnInit, OnDestroy {
   challengeId!: string;
   challenge?: Challenge;
   ChallengeStatus = ChallengeStatus;
@@ -25,11 +25,8 @@ export class CustomerChallengeDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.challengeId = this.route.snapshot.paramMap.get('challengeId')!;
-    console.log('✅ Challenge ID récupéré depuis URL :', this.challengeId);
-
     this.fetchChallengeDetails();
 
-    // ⏱️ Mise à jour dynamique du temps restant toutes les secondes
     this.intervalId = setInterval(() => {
       if (this.challenge && this.challenge.status === 'ACTIVE' && !this.challenge.participation) {
         this.remainingParticipationTime = this.calculateRemainingParticipationTime();
@@ -42,20 +39,15 @@ export class CustomerChallengeDetailsComponent implements OnInit {
   }
 
   fetchChallengeDetails(): void {
-    this.challengeService.getChallengeById(this.challengeId).subscribe(
-      (data: Challenge) => {
+    this.challengeService.getChallengeById(this.challengeId).subscribe({
+      next: (data: Challenge) => {
         this.challenge = data;
-        console.log('✅ Détail du challenge :', data);
-
-        // Initialisation du temps de participation au chargement
         if (this.challenge.status === 'ACTIVE' && !this.challenge.participation) {
           this.remainingParticipationTime = this.calculateRemainingParticipationTime();
         }
       },
-      (error) => {
-        console.error('❌ Erreur lors de la récupération du challenge :', error);
-      }
-    );
+      error: (error) => console.error('❌ Erreur lors de la récupération du challenge :', error),
+    });
   }
 
   getBadgeClass(status: ChallengeStatus): string {
@@ -79,13 +71,8 @@ export class CustomerChallengeDetailsComponent implements OnInit {
     if (!this.challenge) return;
 
     this.challengeService.validateChallenge(this.challenge.challengeId).subscribe({
-      next: (response) => {
-        console.log(response.message);
-        this.fetchChallengeDetails(); // ✅ Refresh après action
-      },
-      error: (error) => {
-        console.error('❌ Erreur lors de la validation :', error);
-      }
+      next: () => this.fetchChallengeDetails(),
+      error: (error) => console.error('❌ Erreur lors de la validation :', error),
     });
   }
 
@@ -93,59 +80,49 @@ export class CustomerChallengeDetailsComponent implements OnInit {
     if (!this.challenge) return;
 
     this.challengeService.participate(this.challenge.challengeId).subscribe({
-      next: (response) => {
-        console.log(response.message);
-        this.fetchChallengeDetails(); // ✅ Refresh après action
-      },
-      error: (error) => {
-        console.error('❌ Erreur lors de la participation :', error);
-      }
+      next: () => this.fetchChallengeDetails(),
+      error: (error) => console.error('❌ Erreur lors de la participation :', error),
     });
   }
 
   goBack(): void {
     this.router.navigate(['/customers/customer-challenge', this.challenge?.userId]);
   }
-  
 
-  // ⏳ Calcul du temps restant global jusqu'à la fin du challenge
-  calculateRemainingTime(endDate: string): string {
-    const now = new Date().getTime();
-    const end = new Date(endDate).getTime();
-    const diff = end - now;
-
-    if (diff <= 0) {
-      return 'Time is over';
-    }
-
-    const minutes = Math.floor((diff / 1000 / 60) % 60);
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-
-    let result = '';
-    if (days > 0) result += `${days}d `;
-    if (hours > 0 || days > 0) result += `${hours}h `;
-    result += `${minutes}min`;
-
-    return result;
-  }
-
-  // ⏱️ Calcul du temps restant pour participer (avant annulation automatique après 5min)
   calculateRemainingParticipationTime(): string {
     if (!this.challenge?.startDate) return '';
 
     const startTime = new Date(this.challenge.startDate).getTime();
-    const cancelTime = startTime + 5 * 60 * 1000; // +5 minutes
+    const cancelTime = startTime + 5 * 60 * 1000;
     const now = new Date().getTime();
     const timeDiff = cancelTime - now;
 
-    if (timeDiff <= 0) {
-      return '⛔ Time is over!';
-    }
+    if (timeDiff <= 0) return '⛔ Time is over!';
 
     const minutes = Math.floor(timeDiff / 1000 / 60);
     const seconds = Math.floor((timeDiff / 1000) % 60);
-
     return `${minutes} minute(s) and ${seconds} second(s)`;
+  }
+
+  formatDuration(ms: number): string {
+    const totalSeconds = Math.floor(ms / 1000);
+    const days = Math.floor(totalSeconds / (3600 * 24));
+    const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+  
+    return `${days}d ${hours}h ${minutes}m`;
+  }
+  
+
+  getRemainingGeneralTime(): string | null {
+    if (!this.challenge) return null;
+
+    const now = new Date();
+    const start = new Date(this.challenge.startDate);
+    const end = new Date(this.challenge.endDate);
+
+    if (start > now) return this.formatDuration(start.getTime() - now.getTime()) + ' until start';
+    if (end > now) return this.formatDuration(end.getTime() - now.getTime()) + ' until end';
+    return null;
   }
 }

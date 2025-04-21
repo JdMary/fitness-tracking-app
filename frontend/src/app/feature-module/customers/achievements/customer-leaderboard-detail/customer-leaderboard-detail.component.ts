@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CustomerLeaderboardService } from '../customer-leaderboard/customer-leaderboard.service';
+import { CustomerLeaderboardService } from '../services/customer-leaderboard.service';
 import { FullBoardResponse } from './board-response.model';
 
 @Component({

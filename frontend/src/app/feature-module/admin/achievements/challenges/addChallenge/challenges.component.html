@@ -24,7 +24,7 @@
                     class="form-control"
                     placeholder="Enter title"
                   />
-                  <div *ngIf="errors['title']" class="text-danger">
+                  <div *ngIf="errors['title']" class="text-danger" style="font-size: 0.75rem">
                     {{ errors['title'] }}
                   </div>
                 </div>
@@ -40,28 +40,13 @@
                     class="form-control"
                     placeholder="Enter description"
                   ></textarea>
-                  <div *ngIf="errors['description']" class="text-danger">
+                  <div *ngIf="errors['description']" class="text-danger" style="font-size: 0.75rem">
                     {{ errors['description'] }}
                   </div>
                 </div>
               </div>
 
-              <!-- XP Points -->
-              <div class="col-md-6">
-                <div class="form-group">
-                  <label>XP Points</label>
-                  <input
-                    type="number"
-                    [(ngModel)]="challenge.xpPoints"
-                    (input)="errors['xpPoints'] = ''"
-                    class="form-control"
-                    placeholder="Enter XP Points"
-                  />
-                  <div *ngIf="errors['xpPoints']" class="text-danger">
-                    {{ errors['xpPoints'] }}
-                  </div>
-                </div>
-              </div>
+             
 
               <!-- Start Date -->
               <div class="col-md-6">
@@ -73,7 +58,7 @@
                     (input)="errors['startDate'] = ''"
                     class="form-control"
                   />
-                  <div *ngIf="errors['startDate']" class="text-danger">
+                  <div *ngIf="errors['startDate']" class="text-danger" style="font-size: 0.75rem">
                     {{ errors['startDate'] }}
                   </div>
                 </div>
@@ -89,8 +74,24 @@
                     (input)="errors['endDate'] = ''"
                     class="form-control"
                   />
-                  <div *ngIf="errors['endDate']" class="text-danger">
+                  <div *ngIf="errors['endDate']" class="text-danger" style="font-size: 0.75rem">
                     {{ errors['endDate'] }}
+                  </div>
+                </div>
+              </div>
+               <!-- XP Points -->
+               <div class="col-md-6">
+                <div class="form-group">
+                  <label>XP Points</label>
+                  <input
+                    type="number"
+                    [(ngModel)]="challenge.xpPoints"
+                    (input)="errors['xpPoints'] = ''"
+                    class="form-control"
+                    placeholder="Enter XP Points"
+                  />
+                  <div *ngIf="errors['xpPoints']" class="text-danger" style="font-size: 0.75rem">
+                    {{ errors['xpPoints'] }}
                   </div>
                 </div>
               </div>

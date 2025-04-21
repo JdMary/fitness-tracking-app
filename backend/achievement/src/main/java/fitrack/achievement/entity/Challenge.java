@@ -32,8 +32,10 @@ public class Challenge {
 
 
     @JsonProperty("description")
-    @Column(name = "description")
+    @Column(name = "description", length = 2000)
     private String description;
+
+
 
     @JsonProperty("xpPoints")
     @Column(name = "xp_points")

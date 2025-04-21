@@ -697,21 +697,21 @@ export class DataService {
         },
         {
           menuValue: 'Rewards',
-          routes: routes.customerBooking, // badalha 7asb l route mte3k
+          routes: '/customer/leaderboard', // badalha 7asb l route mte3k
           hasSubRoute: false,
           showSubRoute: false,
           subMenus: [],
         },
         {
           menuValue: 'Challenges',
-          routes: routes.customerBooking, // badalha 7asb l route mte3k
+          routes:'/customers/customer-challenge', // badalha 7asb l route mte3k
           hasSubRoute: false,
           showSubRoute: false,
           subMenus: [],
         },
         {
           menuValue: 'Achievements',
-          routes: routes.customerBooking, // badalha 7asb l route mte3k
+          routes: '/customers/customer-achievements', 
           hasSubRoute: false,
           showSubRoute: false,
           subMenus: [],
@@ -1526,16 +1526,16 @@ export class DataService {
           menuValue: 'Leaderboard',
           hasSubRoute: true,
           showSubRoute: false,
-          route: routes.service, //badl 7asb l route mte3k
+          route: '/admin/liste-leaderboard', 
           icon: 'icon-briefcase',
           subMenus: [
             {
-              menuValue: 'Add Service',
-              route: routes. addServices, //badl 7asb l route mte3k
+              menuValue: 'Add Leaderboard',
+              route:'/admin/add-leaderboard',
             },
             {
-              menuValue: 'Services',
-              route: routes.service, //badl 7asb l route mte3k
+              menuValue: 'All Leaderboard',
+              route: '/admin/liste-leaderboard', 
             },
             {
               menuValue: 'Service Settings',
@@ -1543,6 +1543,46 @@ export class DataService {
             },
           ],
         },
+        {
+          menuValue: 'Challenges',
+          hasSubRoute: true,
+          showSubRoute: false,
+          route: '/admin/liste-challenges', 
+          icon: 'fa-solid fa-bolt', 
+          subMenus: [
+            {
+              menuValue: 'Add Challenge',
+              route: '/admin/add-challenge',
+            },
+            {
+              menuValue: 'All Challenges',
+              route: '/admin/liste-challenges',
+            },
+            {
+              menuValue: 'Challenge Settings',
+              route: '/admin/challenge-settings', // si t'as une page pour ça
+            },
+          ],
+        }
+,        
+{
+  menuValue: 'Achievements',
+  hasSubRoute: true,
+  showSubRoute: false,
+  route: '/admin/liste-achievements', 
+  icon: 'fa-solid fa-bolt', 
+  subMenus: [
+   
+    {
+      menuValue: 'All Achievements',
+      route: '/admin/liste-achievements',
+    },
+    {
+      menuValue: 'Challenge Settings',
+      route: '/admin/challenge-settings', // si t'as une page pour ça
+    },
+  ],
+},
         {
           menuValue: 'User',
           hasSubRoute: true,

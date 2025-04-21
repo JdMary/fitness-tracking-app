@@ -8,7 +8,7 @@ export interface Challenge {
   description: string;
   xpPoints: number;
   userId: string;
-  status: ChallengeStatus; // ✅ Ici on utilise l'enum
+  status: ChallengeStatus; 
   reminder15: boolean;
   participation: boolean;
   validation: boolean;

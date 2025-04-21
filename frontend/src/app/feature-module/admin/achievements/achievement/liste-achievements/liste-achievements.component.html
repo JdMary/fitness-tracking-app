@@ -9,11 +9,10 @@
         {{ errorMessage }}
       </div>
   
-      <!-- ✅ Filtres et actions -->
+      
       <div class="content-page-header mb-4">
         <div class="d-flex flex-wrap align-items-center gap-3">
   
-          <!-- Tri par XP -->
           <div>
             <select [(ngModel)]="selectedSort" (change)="applySort(selectedSort)" class="form-select">
               <option *ngFor="let option of sortOptions" [value]="option">{{ option }}</option>
@@ -67,16 +66,21 @@
                   <td>{{ achievement.exerciseId }}</td>
                   <td>
                     <div class="action-language">
-                      <a [routerLink]="['/admin/edit-achievement', achievement.achieveId]" class="btn btn-sm btn-primary btn-action">
+                      <a [routerLink]="['/admin/view-achievement', achievement.achieveId]" class="btn-action-icon view" title="View">
+                        <i class="fa-solid fa-eye"></i>
+                      </a>
+                      <a [routerLink]="['/admin/edit-achievement', achievement.achieveId]" class="btn-action-icon edit" title="Edit">
                         <i class="fa-regular fa-pen-to-square"></i>
-                        <span>Edit</span>
                       </a>
-                      <a href="javascript:void(0);" (click)="openDeleteModal(achievement)" class="btn btn-sm btn-danger btn-action">
+                  
+                      <a href="javascript:void(0);" (click)="openDeleteModal(achievement)" class="btn-action-icon delete" title="Delete">
                         <i class="fa-solid fa-trash-can"></i>
-                        <span>Delete</span>
                       </a>
+                  
+                    
                     </div>
                   </td>
+                  
                 </tr>
               </tbody>
             </table>

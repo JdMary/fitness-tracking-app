@@ -2,9 +2,9 @@ import { Component, ElementRef, Renderer2, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { routes } from 'src/app/shared/routes/routes';
-import { CustomerChallengeService } from './customer-challenge.service';
-import { Challenge } from './challenge.model';
-import { ChallengeStatus } from './challenge-status.enum';
+import { CustomerChallengeService } from '../services/customer-challenge.service';
+import { Challenge } from '../models/challenge.model';
+import { ChallengeStatus } from '../models/challenge-status.enum';
 
 @Component({
   selector: 'app-customer-challenge',

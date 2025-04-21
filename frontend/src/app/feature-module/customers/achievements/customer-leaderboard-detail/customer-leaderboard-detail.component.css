@@ -1,26 +1,30 @@
 .table {
-    width: 100%;
-    margin-top: 20px;
-    border-collapse: collapse;
-  }
-  
-  .table th,
-  .table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-  }
-  
-  .table th {
-    background-color: #f2f2f2;
-  }
-  
-  /* ✅ Pour réduire la taille et ajouter un effet plus arrondi et horizontal */
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+}
+
+/* ✅ Allègement des bordures */
+.table th,
+.table td {
+  border: 1px solid #e0e0e0;
+  padding: 8px;
+}
+
+/* ✅ Forcer fond blanc sur le header */
+.table th {
+  background-color: white !important;
+  color: #333;
+  font-weight: bold;
+}
+
+/* ✅ Rank & XP cards plus petits et élégants */
 .rank-xp-card {
   border: 1px solid #dee2e6;
   border-radius: 15px;
-  padding: 15px;
+  padding: 8px;
   margin-bottom: 10px;
-  width: 150px;
+  width: 120px;
   text-align: center;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -32,7 +36,7 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-/* ✅ Pour aligner Rank et XP points horizontalement */
+/* ✅ Aligner horizontalement Rank et XP */
 .rank-xp-container {
   display: flex;
   justify-content: center;
@@ -40,12 +44,33 @@
   margin-bottom: 20px;
 }
 
-/* ✅ Pour rendre le titre + description plus élégant */
+
 h2.text-success.fw-bold {
   font-size: 28px;
+  color: #28a745;
 }
 
 p.text-center.mb-4 {
   font-size: 16px;
   color: #6c757d;
 }
+.badge-large {
+  font-size: 1.5rem;
+  line-height: 1.5; 
+  display: inline-block;
+}
+.congrats-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.congrats-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+
+.table tbody tr:hover {
+  background-color: #afaaaa;
+  transform: scale(1.02); 
+  transition: background-color 0.3s ease, transform 0.3s ease; 
+  cursor: pointer; }

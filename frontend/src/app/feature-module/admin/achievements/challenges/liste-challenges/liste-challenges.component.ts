@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { CustomerChallengeService } from 'src/app/feature-module/customers/achievements/customer-challenge/customer-challenge.service';
-import { Challenge } from 'src/app/feature-module/customers/achievements/customer-challenge/challenge.model';
+import { CustomerChallengeService } from 'src/app/feature-module/customers/achievements/services/customer-challenge.service';
+import { Challenge } from 'src/app/feature-module/customers/achievements/models/challenge.model';
 
 // Bootstrap declaration
 declare var bootstrap: any;

@@ -1,20 +1,17 @@
-<div class="container mt-5">
-
+<div class="container mt-5" style="max-width: 700px;">
   <h2 class="text-center mb-4 fw-bold">Edit Challenge</h2>
 
-  <!-- ✅ Message de succès -->
   <div *ngIf="successMessage" class="alert alert-success text-center" role="alert">
     {{ successMessage }}
   </div>
 
-  <!-- ❌ Message d'erreur -->
   <div *ngIf="errorMessage" class="alert alert-danger text-center" role="alert">
     {{ errorMessage }}
   </div>
 
   <form (ngSubmit)="updateChallenge()" #challengeForm="ngForm">
 
-    <!-- Title -->
+   
     <div class="mb-3">
       <label class="form-label fw-bold">Title</label>
       <input
@@ -23,23 +20,24 @@
         name="title"
         class="form-control"
         required
-        [ngModelOptions]="{standalone: true}"
+        [ngModelOptions]="{ standalone: true }"
       />
     </div>
 
-    <!-- Description -->
     <div class="mb-3">
       <label class="form-label fw-bold">Description</label>
       <textarea
         [(ngModel)]="challenge.description"
         name="description"
         class="form-control"
+        rows="6"
         required
-        [ngModelOptions]="{standalone: true}"
+        [ngModelOptions]="{ standalone: true }"
+        style="white-space: pre-wrap; resize: vertical; font-family: Arial, sans-serif;"
       ></textarea>
     </div>
 
-    <!-- XP Points -->
+  
     <div class="mb-3">
       <label class="form-label fw-bold">XP Points</label>
       <input
@@ -49,11 +47,11 @@
         class="form-control"
         min="1"
         required
-        [ngModelOptions]="{standalone: true}"
+        [ngModelOptions]="{ standalone: true }"
       />
     </div>
 
-    <!-- Start Date -->
+   
     <div class="mb-3">
       <label class="form-label fw-bold">Start Date</label>
       <input
@@ -62,11 +60,10 @@
         name="startDate"
         class="form-control"
         required
-        [ngModelOptions]="{standalone: true}"
+        [ngModelOptions]="{ standalone: true }"
       />
     </div>
 
-    <!-- End Date -->
     <div class="mb-3">
       <label class="form-label fw-bold">End Date</label>
       <input
@@ -75,11 +72,10 @@
         name="endDate"
         class="form-control"
         required
-        [ngModelOptions]="{standalone: true}"
+        [ngModelOptions]="{ standalone: true }"
       />
     </div>
 
-    <!-- Status -->
     <div class="mb-3">
       <label class="form-label fw-bold">Status</label>
       <select
@@ -88,7 +84,7 @@
         class="form-select"
         required
         (change)="onStatusChange(challenge.status)"
-        [ngModelOptions]="{standalone: true}"
+        [ngModelOptions]="{ standalone: true }"
       >
         <option *ngFor="let option of statusOptions" [value]="option.value">
           {{ option.label }}
@@ -96,10 +92,9 @@
       </select>
     </div>
 
-    <!-- Buttons -->
     <div class="d-flex justify-content-between mt-4">
-      <button type="button" class="btn btn-secondary" (click)="navigateToList()">Cancel</button>
-      <button type="submit" class="btn btn-primary">Save Changes</button>
+      <button type="button" class="btn btn-secondary px-4" (click)="navigateToList()">Cancel</button>
+      <button type="submit" class="btn btn-primary px-4">Save Changes</button>
     </div>
 
   </form>

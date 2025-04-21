@@ -9,7 +9,7 @@
       {{ errorMessage }}
     </div>
 
-    <!-- ✅ Filtres et actions -->
+    <!-- ✅ Barre de recherche + ajout -->
     <div class="content-page-header mb-4">
       <div class="d-flex flex-wrap align-items-center gap-3">
         <div>
@@ -23,33 +23,37 @@
       </div>
     </div>
 
-    <!-- ✅ Table des Leaderboards -->
+    <!-- ✅ Tableau des Leaderboards -->
     <div class="row">
       <div class="col-12">
         <div class="table-responsive table-div">
           <table class="table datatable">
             <thead>
               <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Action</th>
+                <th class="text-center">#</th>
+                <th class="text-start">Name</th>
+                <th class="text-start">Description</th>
+                <th class="text-center">Action</th>
               </tr>
             </thead>
+            
             <tbody>
               <tr *ngFor="let board of displayedLeaderboards; let i = index">
                 <td>{{ serialNumberArray[i] }}</td>
-                <td>{{ board.name }}</td>
-                <td>{{ board.description }}</td>
+                <td class="text-start" [title]="board.name">
+                  {{ board.name.length > 30 ? (board.name | slice:0:20) + '...' : board.name }}
+                </td>
+                <td class="text-start" [title]="board.description">
+                  {{ board.description.length > 30 ? (board.description | slice:0:20) + '...' : board.description }}
+                </td>
+                
                 <td>
                   <div class="action-language">
-                    <a [routerLink]="['/admin/edit-leaderboard', board.boardId]" class="btn btn-sm btn-primary btn-action">
+                    <a [routerLink]="['/admin/edit-leaderboard', board.boardId]" class="btn-action-icon edit" title="Edit">
                       <i class="fa-regular fa-pen-to-square"></i>
-                      <span>Edit</span>
                     </a>
-                    <a href="javascript:void(0);" (click)="openDeleteModal(board)" class="btn btn-sm btn-danger btn-action">
+                    <a href="javascript:void(0);" (click)="openDeleteModal(board)" class="btn-action-icon delete" title="Delete">
                       <i class="fa-solid fa-trash-can"></i>
-                      <span>Delete</span>
                     </a>
                   </div>
                 </td>

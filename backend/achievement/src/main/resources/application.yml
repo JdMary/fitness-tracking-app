@@ -3,3 +3,8 @@ spring:
     name: achievements
   config:
     import: optional:configserver:http://localhost:8888
+
+api:
+  ninjas:
+    key: iUTuQVFduU7RUWK2ebibKw==erI4l2tOLf9Cn1mL
+    url: https://api.api-ninjas.com/v1/exercises

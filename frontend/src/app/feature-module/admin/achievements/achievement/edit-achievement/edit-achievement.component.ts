@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CustomerAchievementService } from 'src/app/feature-module/customers/achievements/customer-achievements/customer-achievement.service';
-import { Achievement } from 'src/app/feature-module/customers/achievements/customer-achievements/achievement.model';
+import { CustomerAchievementService } from 'src/app/feature-module/customers/achievements/services/customer-achievement.service';
+import { Achievement } from 'src/app/feature-module/customers/achievements/models/achievement.model';
 
 @Component({
   selector: 'app-edit-achievement',

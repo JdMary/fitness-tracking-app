@@ -1,0 +1,68 @@
+<div class="container py-4" *ngIf="challenge">
+    <h2 class="fw-bold mb-4 text-success text-center">Challenge Details</h2>
+  
+    <ul class="list-group mb-4">
+      <!-- ✅ Titre + Statut -->
+      <li class="list-group-item d-flex justify-content-between align-items-start flex-wrap">
+        <div class="d-flex align-items-center gap-2">
+          <strong>🏷️ Title:</strong>
+          <span>{{ challenge.title }}</span>
+        </div>
+        <span 
+          class="badge px-3 py-2 mt-1"
+          [ngClass]="{
+            'bg-warning text-dark': challenge.status === 'PENDING',
+            'bg-success': challenge.status === 'ACTIVE',
+            'bg-primary': challenge.status === 'COMPLETED',
+            'bg-danger': challenge.status === 'CANCELED',
+            'bg-secondary': challenge.status === 'FAILED'
+          }"
+          style="margin-right: 6px;"
+        >
+          {{ challenge.status }}
+        </span>
+      </li>
+  
+      <!-- ✅ Description -->
+      <li class="list-group-item">
+        <strong>📄 Description:</strong>
+        <p class="mt-2 mb-0" style="white-space: pre-line;">
+          {{ showFullDescription ? challenge.description : (challenge.description | slice:0:200) + '...' }}
+          <a 
+            class="ms-2"
+            href="javascript:void(0)"
+            (click)="toggleDescription()"
+            style="font-size: 13px; color: #6c757d; text-decoration: none;"
+          >
+            {{ showFullDescription ? 'Show Less ▲' : 'Read More ▼' }}
+          </a>
+        </p>
+      </li>
+  
+      <!-- ✅ XP -->
+      <li class="list-group-item">
+        <strong>⭐ XP Points:</strong> {{ challenge.xpPoints }}
+      </li>
+  
+      <!-- ✅ Dates -->
+      <li class="list-group-item">
+        <strong>📅 Start Date:</strong> {{ challenge.startDate | date: 'dd/MM/yyyy hh:mm a' }}
+      </li>
+      <li class="list-group-item">
+        <strong>📅 End Date:</strong> {{ challenge.endDate | date: 'dd/MM/yyyy hh:mm a' }}
+      </li>
+    </ul>
+  
+    <!-- ✅ Retour -->
+    <div class="text-center">
+      <a routerLink="/admin/liste-challenges" class="btn btn-outline-secondary">
+        ⬅ Back To Challenge List
+      </a>
+    </div>
+  </div>
+  
+  <!-- ✅ Challenge introuvable -->
+  <div class="alert alert-warning text-center mt-4" *ngIf="!challenge">
+    Challenge not found.
+  </div>
+  

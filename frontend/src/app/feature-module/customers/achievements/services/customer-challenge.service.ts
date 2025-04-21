@@ -1,14 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { Challenge } from './challenge.model';
+import { Challenge } from '../models/challenge.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CustomerChallengeService {
   private apiUrl = 'http://localhost:8222/api/v1/challenges';
-  token= "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImZhcmFoQGVzcHJpdC50biIsImV4cCI6MTc0NDY0MTM3MH0.DxUXt6kNGs_eeHb8kWJ9-dp8_fPxj-LLcsqCaAK4erE"
+  token= "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImZhcmFoQGVzcHJpdC50biIsImV4cCI6MTc0NTI2MTMzMn0.srjTDec-DtfN-l4-zJPLAL0ZRy-I2KUt2z8_iQ2MQ2o";
   
   constructor(private http: HttpClient) {}
 
@@ -107,6 +107,21 @@ updateChallenge(challengeId: string, updatedChallenge: any): Observable<any> {
       { headers, responseType: 'text' as 'json' }
   );
 }
-  
+
+//generer un challenge a partie d'un user
+generateChallengeFromUser(user: {
+  fitnessGoals: string;
+  height: number;
+  weight: number;
+  xpPoints: number;
+}): Observable<Challenge> {
+  const headers = { Authorization: `Bearer ${this.token}` };
+  return this.http.post<Challenge>(
+    `${this.apiUrl}/generate`,
+    user,
+    { headers }
+  );
+}
+
 
 }

@@ -6,7 +6,7 @@ import { ChallengesRoutingModule } from './challenges-routing.module';
 
 @NgModule({
   declarations: [
-    ChallengesComponent // ✅ Déclaration classique
+    ChallengesComponent 
   ],
   imports: [
     CommonModule,

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { LeaderBoard } from './customer-leaderboard.model';
+import { LeaderBoard } from '../models/customer-leaderboard.model';
 import { FullBoardResponse } from '../customer-leaderboard-detail/board-response.model';
 
 
@@ -12,8 +12,7 @@ import { FullBoardResponse } from '../customer-leaderboard-detail/board-response
 export class CustomerLeaderboardService {
 
   private apiUrl = 'http://localhost:8222/api/v1/leaderBoard';
-  token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImZhcmFoQGVzcHJpdC50biIsImV4cCI6MTc0NDY0MTM3MH0.DxUXt6kNGs_eeHb8kWJ9-dp8_fPxj-LLcsqCaAK4erE";
-
+  token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImZhcmFoQGVzcHJpdC50biIsImV4cCI6MTc0NTI1Mzk0OH0.HLIVYx5lbwNhGw6uzvDFDRHCzAG35gU4eRUkDaU6u9Y";
   constructor(private http: HttpClient) {}
 
   getAllLeaderboards(): Observable<LeaderBoard[]> {

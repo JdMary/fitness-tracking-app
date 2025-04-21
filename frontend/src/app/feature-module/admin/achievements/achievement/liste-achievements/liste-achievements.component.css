@@ -1,76 +1,133 @@
-/* Container général tableau : largeur complète */
+/* 🌐 Structure globale */
+.page-settings {
+  padding-top: 100px;
+}
+
+.content-page-header {
+  margin-bottom: 10px;
+  padding-top: 10px;
+}
+
+.content-page-header .d-flex {
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* 📊 Table */
 .table-div {
-    width: 100%;
-    overflow-x: auto; /* Ajoute un scroll si besoin sur petits écrans */
-    margin-top: 20px; /* Espace entre filtres et tableau */
-  }
-  
-  .table {
-    width: 100%;
-    text-align: center;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  }
-  
-  .table th,
-  .table td {
-    vertical-align: middle !important;
-    text-align: center;
-    font-size: 14px;
-    padding: 8px 12px;
-  }
-  
-  /* Pagination et sélection du nombre d'entrées en largeur pleine */
-  .pagination-main-class {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 20px;
-  }
-  
-  .pagination-section ul.pagination {
-    display: flex;
-    justify-content: flex-end;
-  }
-  
-  .pagination li a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 32px;
-    width: 32px;
-    font-size: 13px;
-  }
-  
-  /* Boutons d'action */
-  .action-language {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
-  }
-  
-  .btn-action {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    padding: 5px 10px; /* Légèrement plus grand que avant */
-    font-size: 13px; /* Légèrement plus grand */
-    line-height: 1.2;
-  }
-  
-  /* Filtres à droite, propre et avec bon espacement */
-  .content-page-header.mb-4 {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 40px; /* Espace au-dessus */
-    margin-bottom: 10px; /* Moins d'espace avec le tableau */
-  }
-  
-  .content-page-header.mb-4 .d-flex {
-    gap: 20px; /* Un peu plus d'espace entre les filtres */
-    align-items: center;
-    flex-wrap: wrap;
-  }
-  
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 20px;
+}
+
+.table {
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.table th,
+.table td {
+  vertical-align: middle !important;
+  text-align: center;
+  font-size: 14px;
+  padding: 8px 12px;
+}
+
+/* 🧩 Alignement gauche pour les textes longs */
+.table td.text-start,
+.table th.text-start {
+  text-align: left !important;
+  padding-left: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+}
+
+/* ✅ Alignement centré spécifique */
+.table td.text-center,
+.table th.text-center {
+  text-align: center !important;
+}
+
+/* 📑 Pagination */
+.pagination-main-class {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination-section ul.pagination {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.pagination li a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  width: 32px;
+  font-size: 13px;
+}
+
+/* 🔔 Alertes */
+.alert {
+  margin-top: 20px;
+  font-size: 13px;
+  padding: 6px 10px;
+}
+
+/* 🎯 Actions en icônes */
+.action-language {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+/* Icônes mini stylisées */
+.btn-action-icon {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.btn-action-icon i {
+  font-size: 16px;
+}
+
+/* 🎨 Couleurs spécifiques */
+.btn-action-icon.edit i {
+  color: #0d6efd;
+}
+
+.btn-action-icon.delete i {
+  color: #dc3545;
+}
+
+.btn-action-icon.view {
+  color: #78b7f1 !important;
+}
+
+.btn-action-icon.view i {
+  color: inherit !important;
+  font-size: 14px;
+}
+
+/* 🌟 Animation hover */
+.btn-action-icon:hover i {
+  transform: scale(1.15);
+  transition: transform 0.2s ease;
+}

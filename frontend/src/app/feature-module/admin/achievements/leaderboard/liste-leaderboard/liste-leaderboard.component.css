@@ -1,4 +1,4 @@
-/* Container général tableau : largeur complète */
+jai deja css /* Container général tableau : largeur complète */
 .table-div {
     width: 100%;
     overflow-x: auto; /* Ajoute un scroll si besoin sur petits écrans */
@@ -73,4 +73,35 @@
     align-items: center;
     flex-wrap: wrap;
   }
-  
+  .table th,
+ .table td.text-start {
+  text-align: left !important;
+  padding-left: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+}
+
+/* Centrer l'action */
+.table td.text-center, .table th.text-center {
+  text-align: center !important;
+}
+/* ✅ Icônes plus visibles dans la colonne Action */
+.btn-action-icon i {
+  font-size: 16px !important; /* Taille plus grande */
+  color: #007bff;
+}
+
+.btn-action-icon.edit i {
+  color: #0d6efd; /* Bleu clair pour Edit */
+}
+
+.btn-action-icon.delete i {
+  color: #dc3545; /* Rouge pour Delete */
+}
+
+.btn-action-icon:hover i {
+  transform: scale(1.15); /* Effet zoom au survol */
+  transition: 0.2s ease;
+}

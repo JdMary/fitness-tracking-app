@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CustomerLeaderboardService } from 'src/app/feature-module/customers/achievements/customer-leaderboard/customer-leaderboard.service';
-import { LeaderBoard } from 'src/app/feature-module/customers/achievements/customer-leaderboard/customer-leaderboard.model';
+import { CustomerLeaderboardService } from 'src/app/feature-module/customers/achievements/services/customer-leaderboard.service';
+import { LeaderBoard } from 'src/app/feature-module/customers/achievements/models/customer-leaderboard.model';
 
 @Component({
   selector: 'app-edit-leaderboard',
@@ -70,7 +70,7 @@ export class EditLeaderboardComponent implements OnInit {
       next: (updated: LeaderBoard) => {
         this.successMessage = 'Leaderboard updated successfully!';
         setTimeout(() => {
-          this.router.navigate(['/admin/achievements/liste-leaderboard']);
+          this.router.navigate(['/admin/liste-leaderboard']);
         }, 1500);
       },
       error: (err) => {
@@ -80,6 +80,6 @@ export class EditLeaderboardComponent implements OnInit {
   }
 
   cancel(): void {
-    this.router.navigate(['/admin/achievements/liste-leaderboard']);
+    this.router.navigate(['/admin/liste-leaderboard']);
   }
 }

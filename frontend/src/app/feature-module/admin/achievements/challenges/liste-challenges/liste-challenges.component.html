@@ -63,8 +63,13 @@
             <tbody>
               <tr *ngFor="let challenge of displayedChallenges; let i = index">
                 <td>{{ serialNumberArray[i] }}</td>
-                <td>{{ challenge.title }}</td>
-                <td>{{ challenge.description }}</td>
+                <td [title]="challenge.title">
+                  {{ challenge.title.length > 10 ? (challenge.title | slice:0:10) + '...' : challenge.title }}
+                </td>
+                <td [title]="challenge.description">
+                  {{ challenge.description.length > 10 ? (challenge.description | slice:0:10) + '...' : challenge.description }}
+                </td>
+                
                 <td>{{ challenge.xpPoints }}</td>
                 <td>{{ challenge.startDate | date: 'dd/MM/yyyy hh:mm a' }}</td>
                 <td>{{ challenge.endDate | date: 'dd/MM/yyyy hh:mm a' }}</td>
@@ -79,24 +84,45 @@
                   </h6>
                 </td>
                 <td>{{ challenge.userId }}</td>
+                <!-- ✅ Action column (HTML modifié) -->
                 <td>
                   <div class="action-language">
-                    <a [routerLink]="['/admin/edit-challenge', challenge.challengeId]" class="btn btn-sm btn-primary btn-action">
+                    <a 
+                    [routerLink]="['/admin/challenges/details', challenge.challengeId]" 
+                    class="btn-action-icon view" 
+                    title="Details"
+                  >
+                    <i class="fa-solid fa-eye"></i>
+                  </a>
+                  
+                    <a 
+                      [routerLink]="['/admin/edit-challenge', challenge.challengeId]" 
+                      class="btn-action-icon edit" 
+                      title="Edit"
+                    >
                       <i class="fa-regular fa-pen-to-square"></i>
-                      <span>Edit</span>
                     </a>
-                    <a href="javascript:void(0);" (click)="openDeleteModal(challenge)" class="btn btn-sm btn-danger btn-action">
+            
+                    <a 
+                      href="javascript:void(0);" 
+                      (click)="openDeleteModal(challenge)" 
+                      class="btn-action-icon delete" 
+                      title="Delete"
+                    >
                       <i class="fa-solid fa-trash-can"></i>
-                      <span>Delete</span>
                     </a>
+              
+                   
                   </div>
                 </td>
+                
+
+
               </tr>
             </tbody>
           </table>
         </div>
 
-        <!-- ✅ Pagination -->
         <div class="pagination-main-class mt-4">
           <div class="table_footer">
             <div class="row align-items-center">

@@ -39,7 +39,7 @@ export class ShareOnFacebookComponent implements OnInit {
   }
 
   shareMessage(): void {
-    const urlToShare = 'http://localhost:4200/'; // ✅ Remplace par ton URL réelle
+    const urlToShare = ''; // ✅ Remplace par ton URL réelle
     const message = `🎉 J'ai terminé le challenge "${this.achievementTitle}" sur FitRack ! Venez voir mes progrès 💪`;
 
     FB.ui({

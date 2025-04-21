@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
-import { LeaderBoard } from 'src/app/feature-module/customers/achievements/customer-leaderboard/customer-leaderboard.model';
-import { CustomerLeaderboardService } from 'src/app/feature-module/customers/achievements/customer-leaderboard/customer-leaderboard.service';
+import { LeaderBoard } from 'src/app/feature-module/customers/achievements/models/customer-leaderboard.model';
+import { CustomerLeaderboardService } from 'src/app/feature-module/customers/achievements/services/customer-leaderboard.service';
 
 @Component({
   selector: 'app-add-leaderboard',

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CustomerAchievementService } from './customer-achievement.service';
-import { Achievement } from './achievement.model';
+import { CustomerAchievementService } from '../services/customer-achievement.service';
+import { Achievement } from '../models/achievement.model';
 
 @Component({
   selector: 'app-customer-achievements',

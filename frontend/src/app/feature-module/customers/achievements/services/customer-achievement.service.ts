@@ -1,14 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { Achievement } from './achievement.model'; 
+import { Achievement } from '../models/achievement.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CustomerAchievementService {
   private apiUrl = 'http://localhost:8222/api/v1/achievements'; 
-  private token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImZhcmFoQGVzcHJpdC50biIsImV4cCI6MTc0NDY0MTM3MH0.DxUXt6kNGs_eeHb8kWJ9-dp8_fPxj-LLcsqCaAK4erE";
+  private token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImZhcmFoQGVzcHJpdC50biIsImV4cCI6MTc0NTI1Mzk0OH0.HLIVYx5lbwNhGw6uzvDFDRHCzAG35gU4eRUkDaU6u9Y";
 
   constructor(private http: HttpClient) {}
 

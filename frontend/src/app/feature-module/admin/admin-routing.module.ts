@@ -408,6 +408,14 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'generate-challenge',
+        loadChildren: () =>
+          import('./achievements/challenges/generate-challenge/generate-challenge.module').then(
+            (m) => m.GenerateChallengeModule
+          ),
+      }
+  ,  
+      {
       path: 'liste-achievements',
       loadChildren: () =>
         import('./achievements/achievement/liste-achievements/liste-achievements.module').then(
@@ -421,7 +429,16 @@ const routes: Routes = [
         import('./achievements/achievement/edit-achievement/edit-achievement.module').then(
           (m) => m.EditAchievementModule
         )
-    },    
+    },  
+    {
+      path: 'challenges/details',
+      loadChildren: () =>
+        import('./achievements/challenges/details-challenge/details-challenge.module')
+          .then(m => m.DetailsChallengeModule)
+    }
+    
+    
+       ,
     {
       path: 'liste-leaderboard',
       loadChildren: () =>

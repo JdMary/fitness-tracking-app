@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CustomerChallengeService } from 'src/app/feature-module/customers/achievements/customer-challenge/customer-challenge.service';
-import { Challenge } from 'src/app/feature-module/customers/achievements/customer-challenge/challenge.model';
-import { ChallengeStatus } from 'src/app/feature-module/customers/achievements/customer-challenge/challenge-status.enum';
+import { CustomerChallengeService } from 'src/app/feature-module/customers/achievements/services/customer-challenge.service';
+import { Challenge } from 'src/app/feature-module/customers/achievements/models//challenge.model';
+import { ChallengeStatus } from 'src/app/feature-module/customers/achievements/models/challenge-status.enum';
 
 @Component({
   selector: 'app-add-challenge',
@@ -61,19 +61,19 @@ export class ChallengesComponent implements OnInit {
 
           errorsArray.forEach((error: string) => {
             const trimmedError = error.trim();
-            if (trimmedError.includes('titre')) {
+            if (trimmedError.includes('title')) {
               this.errors['title'] = trimmedError;
             }
             if (trimmedError.includes('description')) {
               this.errors['description'] = trimmedError;
             }
-            if (trimmedError.includes('expérience')) {
+            if (trimmedError.includes('points')) {
               this.errors['xpPoints'] = trimmedError;
             }
-            if (trimmedError.includes('début')) {
+            if (trimmedError.includes('start')) {
               this.errors['startDate'] = trimmedError;
             }
-            if (trimmedError.includes('fin')) {
+            if (trimmedError.includes('end')) {
               this.errors['endDate'] = trimmedError;
             }
           });

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CustomerChallengeService } from 'src/app/feature-module/customers/achievements/customer-challenge/customer-challenge.service';
-import { Challenge } from 'src/app/feature-module/customers/achievements/customer-challenge/challenge.model';
-import { ChallengeStatus } from 'src/app/feature-module/customers/achievements/customer-challenge/challenge-status.enum';
+import { CustomerChallengeService } from 'src/app/feature-module/customers/achievements/services/customer-challenge.service';
+import { Challenge } from 'src/app/feature-module/customers/achievements/models/challenge.model';
+import { ChallengeStatus } from 'src/app/feature-module/customers/achievements/models/challenge-status.enum';
 
 @Component({
   selector: 'app-edit-challenge',

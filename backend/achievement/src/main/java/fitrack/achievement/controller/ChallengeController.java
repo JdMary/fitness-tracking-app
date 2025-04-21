@@ -1,14 +1,14 @@
 package fitrack.achievement.controller;
 
-import fitrack.achievement.entity.Achievement;
 import fitrack.achievement.entity.Challenge;
-import fitrack.achievement.entity.LeaderBoard;
+import fitrack.achievement.entity.User;
+import fitrack.achievement.entity.dtos.AIChallengeReponse;
 import fitrack.achievement.entity.dtos.ChallengeUpdateRequest;
 import fitrack.achievement.scheduler.ChallengeScheduler;
-import fitrack.achievement.service.AchievementService;
+
+
 
 import fitrack.achievement.service.ChallengeService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -32,10 +32,14 @@ public class ChallengeController {
     }
     @Autowired
     private  final ChallengeService service;
+
     private final ChallengeScheduler challengeScheduler;
-    public ChallengeController(ChallengeService service, ChallengeScheduler challengeScheduler) {
+
+    public ChallengeController(ChallengeService service,  ChallengeScheduler challengeScheduler) {
         this.service = service;
+
         this.challengeScheduler = challengeScheduler;
+
     }
 
     @PostMapping("/addChallenge")
@@ -45,7 +49,7 @@ public class ChallengeController {
             Challenge savedChallenge = service.addChallenge(challenge);
             return ResponseEntity.status(HttpStatus.CREATED).body(savedChallenge);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("❌ Erreur lors de l'ajout du défi : " + e.getMessage());
+            return ResponseEntity.badRequest().body( e.getMessage());
         }
     }
 
@@ -144,4 +148,9 @@ public class ChallengeController {
       //  return "⏱️ Scheduler exécuté manuellement !";
   //  }
 
+    @PostMapping("/generate")
+    public ResponseEntity<AIChallengeReponse> generateChallengeFromUser(@RequestBody User user) {
+        AIChallengeReponse challenge = service.generateChallenge(user);
+        return ResponseEntity.ok(challenge);
+    }
 }

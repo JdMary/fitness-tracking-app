@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { CustomerLeaderboardService } from 'src/app/feature-module/customers/achievements/customer-leaderboard/customer-leaderboard.service';
-import { LeaderBoard } from 'src/app/feature-module/customers/achievements/customer-leaderboard/customer-leaderboard.model';
+import { CustomerLeaderboardService } from 'src/app/feature-module/customers/achievements/services/customer-leaderboard.service';
+import { LeaderBoard } from 'src/app/feature-module/customers/achievements/models/customer-leaderboard.model';
 import { HttpErrorResponse } from '@angular/common/http';
 
 declare var bootstrap: any;

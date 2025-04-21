@@ -1,9 +1,13 @@
 package fitrack.achievement.service;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import fitrack.achievement.entity.Challenge;
 import fitrack.achievement.entity.ChallengeStatus;
+import fitrack.achievement.entity.User;
+import fitrack.achievement.entity.dtos.AIChallengeReponse;
 import fitrack.achievement.entity.dtos.ChallengeUpdateRequest;
 import fitrack.achievement.repository.ChallengeRepository;
+import fitrack.achievement.utils.FitnessGoalMuscleMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +17,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,29 +39,29 @@ public class ChallengeService {
 
         // Validation du titre
         if (challenge.getTitle() == null || challenge.getTitle().trim().isEmpty()) {
-            errors.add("Le titre est obligatoire.");
+            errors.add("The title is required.");
         }
 
         // Validation de la description
         if (challenge.getDescription() == null || challenge.getDescription().trim().isEmpty()) {
-            errors.add("La description est obligatoire.");
+            errors.add("The description is required.");
         }
 
         // Validation des points d'XP
         if (challenge.getXpPoints() <= 0) {
-            errors.add("Le nombre de points d'expérience doit être supérieur à 0.");
+            errors.add("The number of XP points must be greater than 0.");
         }
 
         // Validation des dates
         if (challenge.getStartDate().isBefore(now)) {
-            errors.add("La date de début doit être supérieure à la date actuelle.");
+            errors.add("The start date must be greater than the current date.");
         }
 
         if (challenge.getEndDate() != null && challenge.getEndDate().isBefore(challenge.getStartDate())) {
-            errors.add("La date de fin doit être supérieure à la date de début.");
+            errors.add("The end date must be greater than the start date.");
         }
 
-        // Si erreurs -> on les retourne toutes
+
         if (!errors.isEmpty()) {
             throw new IllegalArgumentException(String.join(" | ", errors));
         }
@@ -67,7 +72,8 @@ public class ChallengeService {
         return challengeRepository.save(challenge);
     }
 
-    public List<Challenge> findAllChallenge() { return repository.findAll();
+    public List<Challenge> findAllChallenge() {
+        return repository.findAll();
     }
 
     public Challenge findChallengeById(String challengeId) {
@@ -86,8 +92,6 @@ public class ChallengeService {
         challengeRepository.delete(existing);
         return "✅ Challenge supprimé avec succès.";
     }
-
-
 
 
     public void updateChallenge(String challengeId, ChallengeUpdateRequest request) {
@@ -145,8 +149,6 @@ public class ChallengeService {
     }
 
 
-
-
     public List<Challenge> findBy(String keyword, LocalDateTime startDate) {
         List<Challenge> results = challengeRepository.findby(keyword, startDate);
 
@@ -181,7 +183,7 @@ public class ChallengeService {
         if (challenge.getStatus() == ChallengeStatus.CANCELED || challenge.getStatus() == ChallengeStatus.FAILED) {
             throw new RuntimeException("❌ Ce défi est annulé ou échoué, vous ne pouvez pas y participer.");
         }
-        if (challenge.getStatus() == ChallengeStatus.COMPLETED ) {
+        if (challenge.getStatus() == ChallengeStatus.COMPLETED) {
             throw new RuntimeException("✅ Vous avez déjà Completé  !");
         }
 
@@ -219,9 +221,102 @@ public class ChallengeService {
     }
 
 
-
     public List<Challenge> getChallengesByUserId(String userId) {
         return challengeRepository.findByUserId(userId);
     }
 
+    @Autowired
+    private ExerciseApiService exerciseApiService;
+
+    private List<String> inferMusclesFromUser(User user) {
+        List<String> muscles = FitnessGoalMuscleMapper.getMusclesForGoal(user.getFitnessGoals());
+
+        // S'il n'y a pas de muscles associés à ce goal, on retourne une valeur par défaut
+        if (muscles == null || muscles.isEmpty()) {
+            return List.of("abdominals"); // Par défaut : muscle "centre du corps"
+        }
+
+        return muscles;
+    }
+
+    private String inferDifficultyFromXpPoints(int xp) {
+        if (xp < 1000) return "beginner";
+        if (xp < 3000) return "intermediate";
+        return "expert";
+    }
+
+    private int calculateXpFromDifficulty(String difficulty) {
+        return switch (difficulty.toLowerCase()) {
+            case "beginner" -> 400;
+            case "intermediate" -> 500;
+            case "expert" -> 600;
+            default -> 300;
+        };
+    }
+
+    public AIChallengeReponse generateChallenge(User user) {
+        List<String> muscles = inferMusclesFromUser(user);
+        Collections.shuffle(muscles); // Pour ne pas toujours choisir le même
+        String[] difficulties = {"beginner", "intermediate", "expert"};
+        String userLevel = inferDifficultyFromXpPoints(user.getXpPoints());
+
+        JsonNode selectedExercise = null;
+        String selectedMuscle = null;
+        String usedDifficulty = null;
+
+        // Essai avec le niveau de l'utilisateur d'abord
+        for (String muscle : muscles) {
+            JsonNode exercises = exerciseApiService.getExercises(muscle, userLevel);
+            if (exercises != null && !exercises.isEmpty()) {
+                selectedExercise = selectBestExercise(exercises);
+                selectedMuscle = muscle;
+                usedDifficulty = userLevel;
+                break;
+            }
+        }
+
+        // Si aucun résultat, on essaye avec d'autres niveaux
+        if (selectedExercise == null) {
+            for (String diff : difficulties) {
+                if (diff.equals(userLevel)) continue;
+
+                for (String muscle : muscles) {
+                    JsonNode exercises = exerciseApiService.getExercises(muscle, diff);
+                    if (exercises != null && !exercises.isEmpty()) {
+                        selectedExercise = selectBestExercise(exercises);
+                        selectedMuscle = muscle;
+                        usedDifficulty = diff;
+                        break;
+                    }
+                }
+                if (selectedExercise != null) break;
+            }
+        }
+
+        if (selectedExercise == null) {
+            throw new RuntimeException("Aucun exercice trouvé pour " + muscles + " à tous niveaux.");
+        }
+
+        // Description + XP
+        String name = selectedExercise.get("name").asText();
+        String instructions = selectedExercise.has("instructions") ? selectedExercise.get("instructions").asText() : "";
+        String description = FitnessGoalMuscleMapper.formatChallengeDescription(selectedMuscle, usedDifficulty, instructions);
+
+        int xp = calculateXpFromDifficulty(usedDifficulty);
+
+        // Construction du challenge
+        AIChallengeReponse challenge = new AIChallengeReponse();
+        challenge.setTitle(name + " - " + selectedMuscle.toUpperCase());
+
+        challenge.setDescription(description);
+        challenge.setXpPoints(xp);
+        challenge.setStartDate(LocalDate.now().plusDays(1).toString());
+        challenge.setEndDate(LocalDate.now().plusDays(7).toString());
+
+
+        return challenge;
+    }
+    private JsonNode selectBestExercise(JsonNode exercises) {
+        return exercises.get(0);
+    }
 }
