@@ -147,8 +147,7 @@ public class BuddyRequestService implements IBuddyRequestService {
         });
     }
 
-    //@Scheduled(cron = "0 0 0 * * *")
-    @Scheduled(fixedRate = 3600000)
+    @Scheduled(cron = "0 0 0 * * *")
     @Override
     public void logDailyRequestCount() {
         Long count = repository.countRequestsToday();
