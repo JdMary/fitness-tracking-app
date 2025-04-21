@@ -1,0 +1,99 @@
+<div class="page-wrapper">
+    <div class="content">
+      <div class="row">
+        <div class="col-lg-12 m-auto">
+          <div class="progressbar-card">
+            <ul id="progress-head">
+              <li class="active">Add Event - Event Information</li>
+            </ul>
+          </div>
+  
+          <form (ngSubmit)="submitEvent()">
+            <div class="container-service space-service">
+              <div class="sub-title">
+                <h6>Event Information</h6>
+              </div>
+  
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group mat">
+                    <label for="name">Event Name</label>
+                    <input type="text" class="form-control" [(ngModel)]="event.name" name="name" required />
+                  </div>
+                </div>
+  
+                <div class="col-md-6">
+                  <div class="form-group mat">
+                    <label for="description">Description</label>
+                    <input type="text" class="form-control" [(ngModel)]="event.description" name="description" required />
+                  </div>
+                </div>
+  
+                <div class="col-md-6">
+                  <div class="form-group mat">
+                    <label for="eventDate">Event Date</label>
+                    <input type="date" class="form-control" [(ngModel)]="event.eventDate" name="eventDate" required />
+                  </div>
+                </div>
+  
+                <div class="col-md-6">
+                  <div class="form-group mat">
+                    <label for="startTime">Start Time</label>
+                    <input type="time" class="form-control" [(ngModel)]="event.startTime" name="startTime" required />
+                  </div>
+                </div>
+  
+                <div class="col-md-6">
+                  <div class="form-group mat">
+                    <label for="endTime">End Time</label>
+                    <input type="time" class="form-control" [(ngModel)]="event.endTime" name="endTime" required />
+                  </div>
+                </div>
+  
+                <div class="col-md-6">
+                  <div class="form-group mat">
+                    <label for="price">Price</label>
+                    <input type="number" class="form-control" [(ngModel)]="event.price" name="price" required />
+                  </div>
+                </div>
+  
+                <div class="col-md-6">
+                  <div class="form-group mat">
+                    <label for="maxParticipation">Max Participants</label>
+                    <input type="number" class="form-control" [(ngModel)]="event.maxParticipation" name="maxParticipation" required />
+                  </div>
+                </div>
+  
+                <div class="col-md-6">
+                  <div class="form-group mat">
+                    <label for="facilityId">Select Facility</label>
+                    <select class="form-control" [(ngModel)]="event.sportFacility.id" name="facilityId" required>
+                      <option value="" disabled selected>Select a facility</option>
+                      <option *ngFor="let facility of facilities" [value]="facility.id">
+                        {{ facility.name }}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <!-- Submit Button -->
+            <div class="row">
+              <div class="col-md-12">
+                <div class="bottom-btn">
+                  <div class="field-btns">
+                    <button class="btn btn-primary" type="submit">
+                      Create Event <i class="fas fa-arrow-right"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+  
+        </div>
+      </div>
+    </div>
+  </div>
+  

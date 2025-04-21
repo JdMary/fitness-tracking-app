@@ -1,0 +1,125 @@
+<div class="page-wrapper">
+    <div class="content">
+      <div class="row">
+        <div class="col-lg-12 m-auto">
+          <div class="progressbar-card">
+            <ul id="progress-head">
+              <li class="active">Add SportFacility - Facility Information</li>
+            </ul>
+          </div>
+  
+          <form (ngSubmit)="submitFacility()">
+            <div class="container-service space-service">
+              <div class="sub-title">
+                <h6>SportFacility Information</h6>
+              </div>
+  
+              <div class="row">
+                <!-- Facility Name -->
+                <div class="col-md-6">
+                  <div class="form-group mat">
+                    <label for="name">Facility Name</label>
+                    <input type="text" class="form-control" [(ngModel)]="sportFacility.name" name="name" required />
+                  </div>
+                </div>
+  
+                <!-- Location -->
+                <div class="col-md-6">
+                  <div class="form-group mat">
+                    <label for="location">Location</label>
+                    <input type="text" class="form-control" [(ngModel)]="sportFacility.location" name="location" required />
+                  </div>
+                </div>
+  
+                <!-- Sport Type -->
+                <div class="col-md-6">
+                  <div class="form-group mat">
+                    <label for="sportType">Sport Type</label>
+                    <input type="text" class="form-control" [(ngModel)]="sportFacility.sportType" name="sportType" required />
+                  </div>
+                </div>
+  
+                <!-- Max Subscription -->
+                <div class="col-md-6">
+                  <div class="form-group mat">
+                    <label for="maxSubscription">Max Subscription</label>
+                    <input type="number" class="form-control" [(ngModel)]="sportFacility.maxSubscription" name="maxSubscription" required />
+                  </div>
+                </div>
+  
+                <!-- Normal Price -->
+                <div class="col-md-6">
+                  <div class="form-group mat">
+                    <label for="normalPrice">Normal Price</label>
+                    <input type="number" class="form-control" [(ngModel)]="sportFacility.normalPrice" name="normalPrice" required />
+                  </div>
+                </div>
+  
+                <!-- Premium Price -->
+                <div class="col-md-6">
+                  <div class="form-group mat">
+                    <label for="premiumPrice">Premium Price</label>
+                    <input type="number" class="form-control" [(ngModel)]="sportFacility.premiumPrice" name="premiumPrice" required />
+                  </div>
+                </div>
+  
+                <!-- Availability -->
+                <div class="col-md-6">
+                  <div class="form-group mat">
+                    <label for="availability">Availability</label>
+                    <select class="form-control" [(ngModel)]="sportFacility.availability" name="availability">
+                      <option [ngValue]="true">Available</option>
+                      <option [ngValue]="false">Not Available</option>
+                    </select>
+                  </div>
+                </div>
+                <!-- image -->
+                <div class="col-md-12">
+                  <div class="form-group mat">
+                    <label for="image">Facility Image</label>
+                    <input type="file" class="form-control" (change)="onFileSelected($event)" accept="image/*" />
+                  </div>
+                </div>
+  
+                <!-- Description -->
+                <div class="col-md-12">
+                  <div class="form-group mat">
+                    <label for="description">Description</label>
+                    <textarea class="form-control" [(ngModel)]="sportFacility.description" name="description" rows="4"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <!-- Submit Button -->
+            <div class="row">
+              <div class="col-md-12">
+                <div class="bottom-btn">
+                  <div class="field-btns">
+                    <button class="btn btn-primary" type="submit">
+                      Create Facility <i class="fas fa-arrow-right"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+  
+          <!-- Success Modal (optional) -->
+          <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-body text-center">
+                  <h3>Success 🎉</h3>
+                  <p>Your facility has been created successfully!</p>
+                  <button class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+  </div>
+  

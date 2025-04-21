@@ -148,6 +148,26 @@ const routes: Routes = [
             (m) => m.ServiceRequestModule
           ),
       },
+      ///////////////add
+      {
+        path: 'sport-facility',
+        loadChildren: () => import('./sport-facility/sport-facility.module').then(m => m.SportFacilityModule)
+
+      },
+      {
+        path: 'promotion',
+        loadChildren: () => import('./promotion/promotion.module').then(m => m.PromotionModule)
+      },
+      {
+        path: 'subscription',
+        loadChildren: () => import('./subscription/subscription.module').then(m => m.SubscriptionModule)
+      },
+      {
+        path: 'events',
+        loadChildren: () => import('./event/event.module').then(m => m.EventModule)
+      }
+      
+      
     ],
   },
 ];
