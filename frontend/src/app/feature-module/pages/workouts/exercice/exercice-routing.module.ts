@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { WorkoutsComponent } from "../workouts.component";
 import { ExerciceDetailsComponent } from './exercice-details/exercice-details.component';
+import { ExerciseFormComponent } from '../exercise-form/exercise-form.component';
 
 const routes: Routes = [
   {

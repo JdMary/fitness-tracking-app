@@ -37,7 +37,9 @@ public class ExerciseMapper {
         dto.setVideoUrl(exercise.getVideoUrl());
         dto.setInstructions(exercise.getInstructions());
         dto.setStatus(exercise.isStatus());
-
+        dto.setTrainingSessionId(exercise.getTrainingSession().getTrainingSessionId());
+        dto.setExerciseId(exercise.getExerciseId());
+        dto.setUsername(exercise.getUsername());
         return dto;
     }
 }

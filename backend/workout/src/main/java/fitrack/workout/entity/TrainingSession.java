@@ -25,6 +25,12 @@ import java.util.List;
             private LocalDateTime entryTime;
             private LocalDateTime exitTime;
             private String username;
+            private boolean isCompleted;
+
+
+
+
+
             @ManyToOne
             @JoinColumn(name = "workplan_id")
             @JsonBackReference
@@ -47,6 +53,13 @@ import java.util.List;
                 '}';
     }
 
+    public boolean isCompleted() {
+        return isCompleted;
+    }
+
+    public void setCompleted(boolean completed) {
+        isCompleted = completed;
+    }
     public String getUsername() {
         return username;
     }

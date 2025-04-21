@@ -12,6 +12,7 @@ import { WorkoutPlanListComponent } from './workout-plan-list/workout-plan-list.
 import { WorkoutPlanFormComponent } from './workout-plan-form/workout-plan-form.component';
 import { TrainingSessionFormComponent } from './training-session-form/training-session-form.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { ExerciseFormModule } from './exercise-form/exercise-form.module';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     ReactiveFormsModule,
     WorkoutsRoutingModule,
     WorkoutWizardModule,
-    SharedModule
+    SharedModule,
+    ExerciseFormModule
   ]
 })
 export class WorkoutsModule { }

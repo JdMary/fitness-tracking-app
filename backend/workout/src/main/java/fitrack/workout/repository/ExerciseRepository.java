@@ -13,5 +13,10 @@ public interface ExerciseRepository extends JpaRepository<Exercise,Long> {
             @Param("sessionId") Long trainingSessionId,
             @Param("username") String username
     );
+    @Query("SELECT e FROM Exercise e WHERE e.exerciseId = :exerciseId AND e.username = :username")
+    Exercise findExercisesByExerciseIdAndUsername(
+            @Param("exerciseId") Long exerciseId,
+            @Param("username") String username
+    );
     List<Exercise> findExercisesByUsername(String  username);
 }

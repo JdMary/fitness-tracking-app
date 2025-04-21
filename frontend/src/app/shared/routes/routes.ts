@@ -877,5 +877,17 @@ export class routes {
   public static get exercises(): string {
     return this.baseUrl + '/workouts/exercice';
   }
- 
+  public static get adminWorkout(): string {
+    return this.baseUrl + '/admin/workout';
+  }
+  public static get adminWorkoutPlansList(): string {
+    return this.baseUrl + '/admin/workout/workout-plans-list';
+  }
+  public static get adminTrainingSessionList(): string {
+    return this.baseUrl + '/admin/workout/training-session-list';
+  }
+  public static get adminExercicesList(): string {
+    return this.baseUrl + '/admin/workout/exercices-list';
+  }
 }
+  

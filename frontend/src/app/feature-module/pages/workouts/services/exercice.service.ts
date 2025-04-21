@@ -8,7 +8,7 @@ import { Exercise, TrainingSession } from '../models/entities';
 })
 export class ExerciceService {
   private baseUrl = 'http://localhost:8222/api/v1/workouts';
-  private readonly authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im1haGRpQGdtYWlsLnRuIiwiZXhwIjoxNzQ0Nzk5MDQyfQ.4dtkvKWPgR1_vSvKLTWLjfMbLjm9L6s4bvFz4pNk_Og';
+  private readonly authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im1haGRpQGdtYWlsLnRuIiwiZXhwIjoxNzQ1MjY0OTU1fQ.dbheTBiB7Fo_1h1PjTUaOfLj0a3byABSXYrnXPwf43w';
 
   constructor(private http: HttpClient) { }
 
@@ -22,4 +22,11 @@ export class ExerciceService {
     getAllExercices(): Observable<Exercise[]> {
         return this.http.get<Exercise[]>(`${this.baseUrl}/exercises/get-exercices`, { headers: this.getHeaders() });
         }
+  updateExerciseStatus(exerciseId: number, status: boolean): Observable<any> {
+    return this.http.put(`${this.baseUrl}/exercises/update-status/${exerciseId}`, status, { headers: this.getHeaders() });
+  }
+  addExercise(exercise: Exercise, id: number): Observable<Exercise> {
+    return this.http.post<Exercise>(`${this.baseUrl}/exercises/add-exercice-by-session/${id}`, exercise, { headers: this.getHeaders() });
+  }
+  
 }

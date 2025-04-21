@@ -1,7 +1,9 @@
 package fitrack.workout.controller;
 
 import fitrack.workout.entity.ProgressTracker;
+import fitrack.workout.entity.TrainingSession;
 import fitrack.workout.service.IProgressTracker;
+import fitrack.workout.service.ITrainingSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,8 @@ import java.util.List;
 public class ProgressTrackerController {
     @Autowired
     private IProgressTracker service;
+    @Autowired
+    private ITrainingSession trainingSessionService;
 
     @GetMapping("/test")
     public String test() {
@@ -59,4 +63,12 @@ public class ProgressTrackerController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+    @PutMapping("/update-progress/{trainingSessionId}")
+    public ResponseEntity<Void> updateProgress(@PathVariable Long trainingSessionId,
+                                               @RequestHeader("Authorization") String token) {
+        TrainingSession session = trainingSessionService.getSessionById(trainingSessionId,token);
+        service.updateProgressTrackerCompletion(session, token);
+        return ResponseEntity.ok().build();
+    }
+
 }

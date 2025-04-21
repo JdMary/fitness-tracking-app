@@ -1,5 +1,6 @@
 package fitrack.workout.controller;
 
+import fitrack.workout.dto.entity.ExerciseDTO;
 import fitrack.workout.entity.Exercise;
 import fitrack.workout.entity.WorkoutPlan;
 import fitrack.workout.service.ExerciseService;
@@ -27,6 +28,13 @@ public class ExerciseController {
         Long trainingSessionId = exercise.getTrainingSession().getTrainingSessionId(); // From request body
         return ResponseEntity.ok(service.createFullExercise(exercise, trainingSessionId, token));
     }
+    @PostMapping("/add-exercice-by-session/{sessionId}")
+    public ResponseEntity<Exercise> addExerciseToSession(@RequestBody Exercise exercise,
+                                                         @PathVariable Long sessionId,
+                                                         @RequestHeader("Authorization") String token) {
+        Exercise createdExercise = service.createExerciseWithSession(exercise, sessionId, token);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdExercise);
+    }
 
 
 
@@ -38,9 +46,17 @@ public class ExerciseController {
     public ResponseEntity<List<Exercise>> getExercisesBySessions(@PathVariable Long id, @RequestHeader("Authorization") String token) {
         return ResponseEntity.ok(service.getExercisesByTrainingSessionId(id, token));
     }
+    @GetMapping("/get-exercices-by-session-admin/{id}")
+    public ResponseEntity<List<ExerciseDTO>> getExercisesBySessionsDTO(@PathVariable Long id, @RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(service.getExercisesByTrainingSessionIdDTO(id, token));
+    }
     @GetMapping("/get-exercices")
     public ResponseEntity<List<Exercise>> getExercises(@RequestHeader("Authorization") String token) {
         return ResponseEntity.ok(service.getAllExercises(token));
+    }
+    @GetMapping("/get-exercices-admin")
+    public ResponseEntity<List<ExerciseDTO>> getExercisesDTO(@RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(service.getAllExercisesDTO(token));
     }
 
     @PutMapping("/update/{id}")
@@ -56,6 +72,25 @@ public class ExerciseController {
 
 
     }
+
+    @PutMapping("/update-status/{id}")
+    public ResponseEntity<Exercise> updateExerciseStatus( @PathVariable Long id, @RequestBody Boolean status
+                                                        , @RequestHeader("Authorization") String token) {
+        Exercise existingExercise = service.getExerciseById(id);
+
+        if (existingExercise!=null) {
+            Exercise updatedExercise = service.markExerciseAsCompleted(id,status,token);
+            return ResponseEntity.ok(updatedExercise);
+        }else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+
+    }
+
+
+
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteExercise(@PathVariable Long id) {
         Exercise existingExercise = service.getExerciseById(id);

@@ -1506,20 +1506,20 @@ export class DataService {
           menuValue: 'Workout',
           hasSubRoute: true,
           showSubRoute: false,
-          route: routes.service, //badl 7asb l route mte3k
+          route: routes.adminWorkout, //badl 7asb l route mte3k
           icon: 'icon-briefcase',
           subMenus: [
             {
-              menuValue: 'Add Service',
-              route: routes. addServices, //badl 7asb l route mte3k
+              menuValue: 'Workout Plans List',
+              route: routes.adminWorkoutPlansList, //badl 7asb l route mte3k
             },
             {
-              menuValue: 'Services',
-              route: routes.service, //badl 7asb l route mte3k
+              menuValue: 'Training Sessions List',
+              route: routes.adminTrainingSessionList, //badl 7asb l route mte3k
             },
             {
-              menuValue: 'Service Settings',
-              route: routes.serviceSettings, //badl 7asb l route mte3k
+              menuValue: 'Exercices List',
+              route: routes.adminExercicesList, //badl 7asb l route mte3k
             },
           ],
         },

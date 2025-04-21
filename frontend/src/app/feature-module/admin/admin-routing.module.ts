@@ -638,6 +638,11 @@ const routes: Routes = [
             (m) => m.ProviderSalesModule
           ),
       },
+      {
+        path: 'workout',
+        loadChildren: () =>
+          import('./workout/workout.module').then((m) => m.WorkoutModule),
+      }
     ],
   },
 ];

@@ -1,0 +1,19 @@
+.container-service {
+  padding: 1.5rem;
+
+  .card {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .form-group.mat {
+    margin-bottom: 1rem;
+    
+    label {
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .form-check.form-switch {
+    padding-top: 0.5rem;
+  }
+}

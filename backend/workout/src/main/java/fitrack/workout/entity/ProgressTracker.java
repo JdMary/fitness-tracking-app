@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 @Entity
 @Getter
@@ -21,7 +22,8 @@ public class ProgressTracker {
     private Integer totalSetsCompleted;
     private Integer TotalExercisesCompleted;
     private Integer burnedCalories;
-    private Date date;
+    private Integer completionPercentage;
+    private LocalDate date;
     private String username;
     @OneToOne(mappedBy = "progressTracker")
     @JsonIgnore
@@ -67,11 +69,11 @@ public class ProgressTracker {
         this.burnedCalories = burnedCalories;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

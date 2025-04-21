@@ -1,5 +1,6 @@
 package fitrack.workout.controller;
 
+import fitrack.workout.dto.entity.TrainingSessionDTO;
 import fitrack.workout.entity.Exercise;
 import fitrack.workout.entity.TrainingSession;
 import fitrack.workout.service.ITrainingSession;
@@ -46,9 +47,23 @@ public class TrainingSessionController {
     public ResponseEntity<List<TrainingSession>> getAllTrainingSessions(@RequestHeader("Authorization") String token) {
         return ResponseEntity.ok(service.getAllSessions(token));
     }
-   @GetMapping("/get-sessions-by-workout/{workoutPlanId}")
+   /* @GetMapping("/get-sessions-admin")
+    public ResponseEntity<List<TrainingSession>> getAllTrainingSessionsAdmin(@RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(service.getAllSessionsAdmin(token));
+    }*/
+    @GetMapping("/get-sessions-admin")
+    public ResponseEntity<List<TrainingSessionDTO>> getAllSessions() {
+        List<TrainingSessionDTO> sessions = service.getAllTrainingSessionsDTO();
+        return ResponseEntity.ok(sessions);
+    }
+
+    @GetMapping("/get-sessions-by-workout/{workoutPlanId}")
     public ResponseEntity<List<TrainingSession>> getTrainingSessionsByWorkouPlan(@PathVariable Long workoutPlanId,@RequestHeader("Authorization") String token) {
         return ResponseEntity.ok(service.getTrainingSessionsByWorkoutPlanId(workoutPlanId,token));
+    }
+    @GetMapping("/get-sessions-by-workout-admin/{workoutPlanId}")
+    public ResponseEntity<List<TrainingSessionDTO>> getTrainingSessionsByWorkouPlanDTO(@PathVariable Long workoutPlanId,@RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(service.getTrainingSessionsByWorkoutPlanIdDTO(workoutPlanId,token));
     }
 
     @PutMapping("/update/{id}")

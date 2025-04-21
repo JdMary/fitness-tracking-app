@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { WorkoutComponent } from './workout.component';
 import { WorkoutRoutingModule } from './workout-routing.module';
@@ -12,6 +13,7 @@ import { WorkoutRoutingModule } from './workout-routing.module';
   ],
   imports: [
     CommonModule,
+    FormsModule,
     WorkoutRoutingModule
   ],
 

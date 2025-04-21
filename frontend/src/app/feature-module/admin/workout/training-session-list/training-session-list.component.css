@@ -1,0 +1,31 @@
+.table-div {
+    margin-top: 20px;
+}
+
+.action-items {
+    white-space: nowrap;
+}
+
+.tab-contents-count {
+    margin: 20px 0;
+}
+
+.filter-sorting ul {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    padding: 0;
+}
+
+.custom-select {
+    min-width: 120px;
+}
+
+.table th {
+    font-weight: 600;
+    vertical-align: middle;
+}
+
+.table td {
+    vertical-align: middle;
+}

@@ -1,6 +1,7 @@
 package fitrack.workout.repository;
 
 
+import fitrack.workout.entity.ProgressTracker;
 import fitrack.workout.entity.TrainingSession;
 import fitrack.workout.entity.WorkoutPlan;
 import jakarta.transaction.Transactional;
@@ -22,5 +23,5 @@ public interface WorkoutPlanRepository extends JpaRepository<WorkoutPlan,Long> {
             @Param("username") String username
     );
     Optional<WorkoutPlan> findByWorkoutPlanIdAndUsername(Long workoutPlanId, String username);
-
+    //ProgressTracker findByWorkoutPlanIdAndUsername(Long workoutPlanId,String username);
 }

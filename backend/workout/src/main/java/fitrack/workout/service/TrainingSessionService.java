@@ -1,6 +1,8 @@
 package fitrack.workout.service;
 
 import fitrack.workout.client.AuthClient;
+import fitrack.workout.dto.entity.TrainingSessionDTO;
+import fitrack.workout.dto.mapper.TrainingSessionMapper;
 import fitrack.workout.entity.Exercise;
 import fitrack.workout.entity.TrainingSession;
 import fitrack.workout.entity.WorkoutPlan;
@@ -29,6 +31,8 @@ public class TrainingSessionService implements ITrainingSession{
     private ExerciseRepository exerciseRepository;
     @Autowired
     private AuthClient authClient;
+    @Autowired
+    private TrainingSessionMapper trainingSessionMapper;
 
 
     @Override
@@ -50,6 +54,20 @@ public class TrainingSessionService implements ITrainingSession{
     public List<TrainingSession> getAllSessions(String token) {
         String username = String.valueOf(authClient.extractUsername(token).getBody());
         return repository.findByUsername(username);
+    }
+
+    @Override
+    public List<TrainingSession> getAllSessionsAdmin(String token) {
+        return repository.findAll();
+
+    }
+
+    @Override
+    public List<TrainingSessionDTO> getAllTrainingSessionsDTO() {
+        List<TrainingSession> sessions = repository.findAll();
+        return sessions.stream()
+                .map(trainingSessionMapper::toDTO)
+                .toList();
     }
 
 
@@ -129,6 +147,16 @@ public class TrainingSessionService implements ITrainingSession{
         String username = String.valueOf(authClient.extractUsername(token).getBody());
         return repository.findByWorkoutPlanAndUsername(workoutPlanId, username);
     }
+
+    @Override
+    public List<TrainingSessionDTO> getTrainingSessionsByWorkoutPlanIdDTO(Long workoutPlanId, String token) {
+        String username = String.valueOf(authClient.extractUsername(token).getBody());
+        List<TrainingSession> sessions= repository.findByWorkoutPlanAndUsername(workoutPlanId, username);
+        return sessions.stream()
+                .map(trainingSessionMapper::toDTO)
+                .toList();
+    }
+
 
     @Override
     public void deleteSession(Long id, String token) {

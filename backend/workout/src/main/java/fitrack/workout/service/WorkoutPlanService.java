@@ -21,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +45,20 @@ public class WorkoutPlanService implements IWorkoutPlan {
     public WorkoutPlan createWorkoutPlan(WorkoutPlan plan, String token) {
         String username = String.valueOf(authClient.extractUsername(token).getBody());
         plan.setUsername(username);
-        return repository.save(plan);
+        WorkoutPlan savedplan=repository.save(plan);
+        ProgressTracker progressTracker = new ProgressTracker();
+        progressTracker.setUsername(username);
+        progressTracker.setWorkoutPlan(plan);
+        progressTracker.setBurnedCalories(0);
+        progressTracker.setCompletionPercentage(0);
+        progressTracker.setTotalExercisesCompleted(0);
+        progressTracker.setTotalSetsCompleted(0);
+        progressTracker.setTotalRepsCompleted(0);
+        progressTracker.setDate(LocalDate.now());
+        plan.setProgressTracker(progressTracker);
+        repositoryProgress.save(progressTracker);
+        savedplan.setProgressTracker(progressTracker);
+        return repository.save(savedplan);
     }
 
     @Override
@@ -75,6 +89,11 @@ public class WorkoutPlanService implements IWorkoutPlan {
     public List<WorkoutPlan> getAllPlans(String token) {
         String username = String.valueOf(authClient.extractUsername(token).getBody());
         return repository.findByUsername(username);
+    }
+
+    @Override
+    public List<WorkoutPlan> getAllPlansAdmin(String token) {
+       return repository.findAll();
     }
 
     @Transactional

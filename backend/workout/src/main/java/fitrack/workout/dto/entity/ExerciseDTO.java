@@ -1,6 +1,8 @@
 package fitrack.workout.dto.entity;
 
 public class ExerciseDTO {
+    private Long exerciseId;
+
     private String category;
     private int sets;
     private int reps;
@@ -8,7 +10,32 @@ public class ExerciseDTO {
     private String videoUrl;
     private String instructions;
     private boolean status;
-    //private Long trainingSessionId;
+    private Long trainingSessionId;
+    private String username;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Long getExerciseId() {
+        return exerciseId;
+    }
+
+    public void setExerciseId(Long exerciseId) {
+        this.exerciseId = exerciseId;
+    }
+
+    public Long getTrainingSessionId() {
+        return trainingSessionId;
+    }
+
+    public void setTrainingSessionId(Long trainingSessionId) {
+        this.trainingSessionId = trainingSessionId;
+    }
 
 
     public String getCategory() {

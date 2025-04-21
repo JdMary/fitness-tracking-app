@@ -2,12 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { WorkoutsComponent } from './workouts.component';
 import { TrainingSessionComponent } from './training-session/training-session.component';
-import { ExerciceComponent } from './exercice/exercice.component';
 import { WorkoutWizardComponent } from './workout-wizard/workout-wizard.component';
 import { WorkoutPlanListComponent } from './workout-plan-list/workout-plan-list.component';
 import { WorkoutPlanFormComponent } from './workout-plan-form/workout-plan-form.component';
 import { TrainingSessionFormComponent } from './training-session-form/training-session-form.component';
-
+import { E } from '@angular/cdk/keycodes';
+import { ExerciceComponent } from './exercice/exercice.component';
+import { ExerciseFormComponent } from './exercise-form/exercise-form.component';
 const routes: Routes = [
   {
     path: '',
@@ -16,13 +17,9 @@ const routes: Routes = [
       {
         path: 'plans',
         children: [
-          { path: 'list', component: WorkoutPlanListComponent,
-           /* children: [
-              { 
-                path: ':id/training-session', 
-                component: TrainingSessionFormComponent 
-              }
-            ]*/
+          { 
+            path: 'list', 
+            component: WorkoutPlanListComponent 
           },
           { path: 'create', component: WorkoutPlanFormComponent },
           { path: ':id/training-session', component: TrainingSessionFormComponent }
@@ -30,11 +27,17 @@ const routes: Routes = [
       },
       {
         path: 'training-session',
-        component: TrainingSessionComponent
+        component: TrainingSessionComponent,
+        children: [
+          { path: ':id/exercise-form', component: ExerciseFormComponent }
+        ]
       },
       {
         path: 'exercice',
-        component: ExerciceComponent
+        children: [
+          { path: '', component: ExerciceComponent },
+          { path: 'form', component: ExerciseFormComponent }
+        ]
       },
       {
         path: 'wizard',

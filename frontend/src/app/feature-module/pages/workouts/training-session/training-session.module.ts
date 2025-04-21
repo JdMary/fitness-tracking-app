@@ -4,11 +4,13 @@ import {TrainingSessionComponent} from "./training-session.component";
 import {TrainingSessionRoutingModule} from "./training-session-routing.module";
 import {SharedModule} from "../../../../shared/shared.module";
 import {WorkoutPlanComponent} from "../workout-plan/workout-plan.component";
+import { E } from '@angular/cdk/keycodes';
 
 
 @NgModule({
   declarations: [
-    TrainingSessionComponent,
+    TrainingSessionComponent
+
     ],
   exports: [
     TrainingSessionComponent

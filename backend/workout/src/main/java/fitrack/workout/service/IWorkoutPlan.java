@@ -13,6 +13,7 @@ public interface IWorkoutPlan {
    WorkoutPlan getWorkoutPlanById(Long id);
     WorkoutPlan updateWorkoutPlan(Long id, WorkoutPlan plan);
     List<WorkoutPlan> getAllPlans(String token);
+    List<WorkoutPlan> getAllPlansAdmin(String token);
     void deleteWorkoutPlan(Long id,String token);
     WorkoutPlan assignWorkoutPlanToTrainingSession(WorkoutPlan wp,String token);
     WorkoutPlan assignProgressToWorkoutPlanToUser(ProgressTracker progress, Long idWorkoutPlan ,String token);

@@ -1,6 +1,9 @@
 package fitrack.workout.service;
 
 import fitrack.workout.client.AuthClient;
+import fitrack.workout.dto.entity.ExerciseDTO;
+import fitrack.workout.dto.entity.TrainingSessionDTO;
+import fitrack.workout.dto.mapper.ExerciseMapper;
 import fitrack.workout.entity.Exercise;
 import fitrack.workout.entity.TrainingSession;
 import fitrack.workout.repository.ExerciseRepository;
@@ -22,10 +25,23 @@ public class ExerciseService implements IExercise{
     private AuthClient authClient;
     @Autowired
     private TrainingSessionRepository trainingSessionRepository;
+    @Autowired
+    private ExerciseMapper exerciseMapper;
 
     @Override
     public Exercise createExercise(Exercise exercise) {
         return repository.save(exercise);
+    }
+
+    @Override
+    public Exercise createExerciseWithSession(Exercise exercise, Long sessionId, String token) {
+        String username = String.valueOf(authClient.extractUsername(token).getBody());
+        TrainingSession trainingSession=trainingSessionRepository.findByTrainingSessionIdAndUsername(sessionId,username).get();
+        exercise.setUsername(username);
+        exercise.setTrainingSession(trainingSession);
+        trainingSession.getExercises().add(exercise);
+        return repository.save(exercise);
+
     }
 
     @Override
@@ -38,6 +54,14 @@ public class ExerciseService implements IExercise{
         String username = String.valueOf(authClient.extractUsername(token).getBody());
         return repository.findExercisesByUsername(username);
     }//ghalta
+
+    @Override
+    public List<ExerciseDTO> getAllExercisesDTO(String token) {
+        List<Exercise> exercises = repository.findAll();
+        return exercises.stream()
+                .map(exerciseMapper::toDTO)
+                .toList();
+    }
 
 
     @Override
@@ -68,5 +92,23 @@ public class ExerciseService implements IExercise{
     public List<Exercise> getExercisesByTrainingSessionId(Long trainingSessionId, String token) {
         String username = String.valueOf(authClient.extractUsername(token).getBody());
         return repository.findExercisesBySessionAndUsername(trainingSessionId, username);
+    }
+
+    @Override
+    public List<ExerciseDTO> getExercisesByTrainingSessionIdDTO(Long trainingSessionId, String token) {
+        String username = String.valueOf(authClient.extractUsername(token).getBody());
+        List<Exercise> sessions= repository.findExercisesBySessionAndUsername(trainingSessionId, username);
+        return sessions.stream()
+                .map(exerciseMapper::toDTO)
+                .toList();
+    }
+
+    @Override
+    public Exercise markExerciseAsCompleted(Long exerciseId, boolean isCompleted, String token) {
+        String username = String.valueOf(authClient.extractUsername(token).getBody());
+        Exercise exercise = repository.findExercisesByExerciseIdAndUsername(exerciseId,username);
+        exercise.setStatus(isCompleted);
+       return repository.save(exercise);
+        //updateProgressTracker(exercise.getTrainingSession());
     }
 }

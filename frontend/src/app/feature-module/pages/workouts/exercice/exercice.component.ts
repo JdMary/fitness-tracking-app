@@ -21,6 +21,7 @@ export class ExerciceComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private exerciceService: ExerciceService,
+    private router: Router
   ) {
     this.exerciseForm = this.fb.group({
       category: ['', Validators.required],
@@ -39,7 +40,14 @@ export class ExerciceComponent implements OnInit {
     });
   }
 
-  
+  addExercise() {
+    if (this.trainingSessionId) {
+      this.router.navigate(['/workouts/exercice/form'], {
+        queryParams: { trainingSessionId: this.trainingSessionId }
+      });
+    }
+  }
+
   loadTrainingSessions(): void {
     this.loading = true;
     if (this.trainingSessionId) {
@@ -68,5 +76,21 @@ export class ExerciceComponent implements OnInit {
         }
       });
     }
+  }
+
+  updateExerciseStatus(exercise: Exercise) {
+    const newStatus = !exercise.status;
+    this.exerciceService.updateExerciseStatus(exercise.exerciseId, newStatus).subscribe({
+      next: (updatedExercise: any) => {
+        if (updatedExercise) {
+          exercise.status = newStatus;
+          console.log('Exercise status updated successfully');
+        }
+      },
+      error: (error) => {
+        console.error('Error updating exercise status:', error);
+        // Optionally show an error message to the user
+      }
+    });
   }
 }

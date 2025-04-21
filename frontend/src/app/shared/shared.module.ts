@@ -21,6 +21,7 @@ import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { LightgalleryModule } from 'lightgallery/angular'; 
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { ExerciceComponent } from '../feature-module/pages/workouts/exercice/exercice.component';
 
 
 @NgModule({ declarations: [],

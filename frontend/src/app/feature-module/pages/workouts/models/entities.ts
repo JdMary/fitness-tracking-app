@@ -1,4 +1,5 @@
 export interface Exercise {
+  id: number;
   exerciseId: number;
   category: string;
   sets: number;

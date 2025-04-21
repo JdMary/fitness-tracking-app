@@ -51,6 +51,10 @@ public class WorkoutPlanController {
     public ResponseEntity<List<WorkoutPlan>> getAllWorkoutPlans(@RequestHeader("Authorization") String token) {
         return ResponseEntity.ok(service.getAllPlans(token));
     }
+    @GetMapping("/get-plans-admin")
+    public ResponseEntity<List<WorkoutPlan>> getAllWorkoutPlansAdmin(@RequestHeader("Authorization") String token) {
+        return ResponseEntity.ok(service.getAllPlansAdmin(token));
+    }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<WorkoutPlan> updateWorkoutPlan(@PathVariable Long id, @RequestBody WorkoutPlan plan) {

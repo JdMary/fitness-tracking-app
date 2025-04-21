@@ -35,20 +35,29 @@ public class TrainingSessionMapper{
             return session;
         }
 
-        public TrainingSessionDTO toDTO(TrainingSession session) {
-            TrainingSessionDTO dto = new TrainingSessionDTO();
-            dto.setGuided(session.isGuided());
-            dto.setEntryTime(session.getEntryTime());
-            dto.setExitTime(session.getExitTime());
+    public TrainingSessionDTO toDTO(TrainingSession session) {
+        TrainingSessionDTO dto = new TrainingSessionDTO();
+        dto.setTrainingSessionId(session.getTrainingSessionId());
+        dto.setGuided(session.isGuided());
+        dto.setEntryTime(session.getEntryTime());
+        dto.setExitTime(session.getExitTime());
 
-            if (session.getExercises() != null) {
-                dto.setExercises(
-                        session.getExercises().stream()
-                                .map(exerciseMapper::toDTO)
-                                .toList()
-                );
-            }
-
-            return dto;
+        if (session.getWorkoutPlan() != null) {
+            dto.setWorkoutPlanId(session.getWorkoutPlan().getWorkoutPlanId());
         }
+
+        if (session.getExercises() != null) {
+            dto.setExercises(
+                    session.getExercises().stream()
+                            .map(exerciseMapper::toDTO)
+                            .toList()
+            );
+            dto.setExercisesCount(session.getExercises().size());
+        } else {
+            dto.setExercisesCount(0);
+        }
+
+        return dto;
+    }
+
 }
