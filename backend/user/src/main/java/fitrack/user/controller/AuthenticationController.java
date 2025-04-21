@@ -152,4 +152,22 @@ public class AuthenticationController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
         }
     }
+
+    @PostMapping("/update-coins")
+    public ResponseEntity<String> updateCoins(@RequestParam String email, @RequestParam int coins, @RequestParam int type) {
+        try {
+            User user = userRepository.findByEmail(email);
+            if (user == null) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+            }
+            if (type == 1) user.setCoins(user.getCoins() - coins);
+            else user.setCoins(user.getCoins() + coins);
+             // Assuming `coins` is a field in the `User` entity
+            userRepository.save(user);
+
+            return ResponseEntity.ok("Coins updated successfully");
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
+        }
+    }
 }

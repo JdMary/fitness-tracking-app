@@ -9,6 +9,7 @@ import fitrack.facility.entity.enums.RegistrationStatus;
 import fitrack.facility.repository.EventRegistrationRepository;
 import fitrack.facility.repository.EventRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -62,17 +63,20 @@ public class EventRegistrationService implements IEventRegistrationService {
         // 🎯 Prix de l'événement
         float eventPrice = event.getPrice();
 
-// 🎯 Simuler la récupération des XP (à remplacer par Feign vers User plus tard)
-        int xpPoints = 100; // TODO: utiliser Feign vers le microservice user pour récupérer les vrais XP
+// 🎯 Simuler la récupération des coins (à remplacer par Feign vers User plus tard)
+
+        User u= authClient.extractUserDetails(token).getBody();
+        final int coins = u.getCoins();
 
         int priceInt = Math.round(eventPrice);
-        if (xpPoints < priceInt) {
-            throw new RuntimeException("XP insuffisants pour s'inscrire à cet événement.");
+        if (coins < priceInt) {
+            throw new RuntimeException("Coins insuffisants pour s'inscrire à cet événement.");
         }
 
-// TODO: Envoyer requête vers UserService pour décrémenter les XP du user (Feign)
-        int updatedXp = xpPoints - priceInt;
-        System.out.println("XP après enregistrement : " + updatedXp);
+// TODO: Envoyer requête vers UserService pour décrémenter les coins du user (Feign)
+        int updatedCoins = coins - priceInt;
+        ResponseEntity<String> re = authClient.updateCoins(user.getUsername(), priceInt, 1);
+        System.out.println("Coins après enregistrement : " + updatedCoins);
 
 
         // ✅ Créer l'enregistrement
@@ -115,12 +119,15 @@ public class EventRegistrationService implements IEventRegistrationService {
         // ✅ Mise à jour de l'enregistrement
         registration.setStatus(RegistrationStatus.CANCELLED);
         registrationRepository.save(registration);
+        System.out.println("Enregistrement annulé : " + registration.getUserEmail());
+        User u= authClient.extractUserDetails(token).getBody();
+        final int coins = u.getCoins();
 
-        // 💰 Simuler remboursement d'XP
-        int refundedXP = Math.round(event.getPrice());
-        int initialXp = 100;
-        int updatedXp = initialXp + refundedXP;
-        System.out.println("XP après annulation : " + updatedXp);
+        // 💰 Simuler remboursement d' coins
+        int refundedCoins = Math.round(event.getPrice());
+        int updatedCoins = coins + refundedCoins;
+        ResponseEntity<String> re = authClient.updateCoins(user.getUsername(), refundedCoins, 2);
+        System.out.println("Coins après annulation : " + updatedCoins);
 
         // 🔁 Promouvoir un utilisateur de la waiting list
         List<EventRegistration> waitingList = registrationRepository.findByEventAndStatusOrderByRegistrationDateAsc(

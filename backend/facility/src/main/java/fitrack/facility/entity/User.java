@@ -10,4 +10,6 @@ import lombok.*;
 public class User {
     private String username;
     private String role;
+    private int coins;
+    private int number;
 }

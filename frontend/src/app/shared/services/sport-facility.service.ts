@@ -71,7 +71,7 @@ export class SportFacilityService {
     sportType?: string,
     availability?: boolean
   }) {
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImF5YUBlc3ByaXQudG4iLCJleHAiOjE3NDQ3NjQzNDN9.ALi_VxNhp_P-QdbnJByXntkFY4S_8IMqA92H_TqMp1c';
+    const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
   
     let query = [];
@@ -83,13 +83,13 @@ export class SportFacilityService {
     return this.http.get<any[]>(`http://localhost:8222/api/v1/facilities/search${queryString}`, { headers });
   }
   getAllLocations() {
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImF5YUBlc3ByaXQudG4iLCJleHAiOjE3NDQ3NjQzNDN9.ALi_VxNhp_P-QdbnJByXntkFY4S_8IMqA92H_TqMp1c';
+    const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     
     return this.http.get<string[]>(`http://localhost:8222/api/v1/facilities/locations`, { headers });
   }
   getAllSportTypes() {
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImF5YUBlc3ByaXQudG4iLCJleHAiOjE3NDQ3NjQzNDN9.ALi_VxNhp_P-QdbnJByXntkFY4S_8IMqA92H_TqMp1c';
+    const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     
     return this.http.get<string[]>(`http://localhost:8222/api/v1/facilities/sport-types`, { headers });

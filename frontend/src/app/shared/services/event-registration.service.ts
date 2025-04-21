@@ -13,7 +13,7 @@ export class EventRegistrationService {
   constructor(private http: HttpClient) {}
 
   private getAuthHeaders(): HttpHeaders {
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im5hc3NpbUBlc3ByaXQudG4iLCJleHAiOjE3NDUxOTkxNzV9.c8ZPjjorjoWCvcfgCp-zcf8ZfEGrL0eWSfZla_ZR8SA'; // Remplace par celui dynamique si besoin
+    const token = localStorage.getItem('authToken'); // Retrieve token from local storage
     return new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });

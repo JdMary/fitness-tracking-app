@@ -14,6 +14,8 @@ public interface AuthClient {
     public ResponseEntity<String> extractUsername(@RequestHeader("Authorization") String bearerToken); //he4i t'extracti l username (email) mta3 l3ab mil token
 
     @GetMapping("/extract-user-details")
-    public ResponseEntity<?> extractUserDetails(@RequestHeader("Authorization") String bearerToken); //he4i t'extracti details lkol mta3 l3abd mil token
+    public ResponseEntity<User> extractUserDetails(@RequestHeader("Authorization") String bearerToken); //he4i t'extracti details lkol mta3 l3abd mil token
 
+    @PostMapping("/update-coins")
+    public ResponseEntity<String> updateCoins(@RequestParam String email, @RequestParam int coins, @RequestParam int type);
 }

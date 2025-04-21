@@ -28,7 +28,7 @@ export class FacilityDetailComponent implements OnInit {
   routes = routes;
 
  
-  token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImF5YUBlc3ByaXQudG4iLCJleHAiOjE3NDQ3OTk5NzN9.XFO55qL4IR9aW6VqXkCEUmLvMjiLGJQyKk4uJDQQw80';
+  token = localStorage.getItem('authToken') || ''; // Retrieve token from local storage
   ///
   paidPrice: number | null = null;
 

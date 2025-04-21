@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SportFacilityService } from 'src/app/shared/services/sport-facility.service';
 import { routes } from 'src/app/shared/routes/routes';
+import { HttpHeaders } from '@angular/common/http';
 
 
 @Component({
@@ -25,8 +26,14 @@ export class SportFacilityComponent implements OnInit {
   ngOnInit(): void {}
   selectedFile!: File;
 
+  private getHeaders(): HttpHeaders {
+    const token = localStorage.getItem('authToken'); // Retrieve token from local storage
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  }
   submitFacility(): void {
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im5hc3NpbUBlc3ByaXQudG4iLCJleHAiOjE3NDQ5NDA4NjR9.0eAVy7Xb88Ke2086jHk8J2htFaxWz4IBVx2VCWF9L-I'; 
+    const token = localStorage.getItem('authToken') || ''; // Retrieve token from local storage 
   
     const formData = new FormData();
     formData.append('facility', new Blob([JSON.stringify(this.sportFacility)], { type: 'application/json' }));

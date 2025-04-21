@@ -25,7 +25,7 @@ export class EditPromotionComponent implements OnInit {
     }
   };
 
-  token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im5hc3NpbUBlc3ByaXQudG4iLCJleHAiOjE3NDQ3NTY2MDB9.UXwXQWM1s3W2c0iy_Ymsp2A-4XEu5Ek4EwOnkRtsguM'; 
+  token = localStorage.getItem('authToken') || ''; // Retrieve token from local storage
   routes = routes;
   sportFacilities: any[] = []; 
 

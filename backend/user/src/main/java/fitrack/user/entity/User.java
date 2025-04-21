@@ -58,6 +58,9 @@ public class User implements UserDetails {
     @Column
     private LocalDateTime signupDate;
 
+    @Column
+    private int coins;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Order> orders;
     public User() {
@@ -71,6 +74,7 @@ public class User implements UserDetails {
         this.imageUrl = imageUrl;
         this.imageId = imageId;
         this.signupDate = LocalDateTime.now();
+        this.coins = 0;
     }
 
     @Override

@@ -48,8 +48,7 @@ export class SubscriptionComponent implements OnInit {
     fill: { opacity: 1 }
   };
 
-  private token: string =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im5hc3NpbUBlc3ByaXQudG4iLCJleHAiOjE3NDQ4MDgwNzN9.KjmPiaecEZcHa2tJYPJjkrdLZu_dN9eZFo9Er_0fXs4';
+  token = localStorage.getItem('authToken') || ''; // Retrieve token from local storage
 
   constructor(private subscriptionService: SubscriptionService) {}
 
@@ -60,8 +59,7 @@ export class SubscriptionComponent implements OnInit {
 
   // 🔁 Ne pas modifier
   fetchSubscriptions(): void {
-    const token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im5hc3NpbUBlc3ByaXQudG4iLCJleHAiOjE3NDQ4MDgwNzN9.KjmPiaecEZcHa2tJYPJjkrdLZu_dN9eZFo9Er_0fXs4';
+    const token = localStorage.getItem('authToken') || ''; // Retrieve token from local storage
     this.subscriptionService.getAllSubscriptions(token).subscribe({
       next: (res) => (this.subscriptions = res),
       error: (err) => console.error('Erreur lors du chargement des abonnements', err)

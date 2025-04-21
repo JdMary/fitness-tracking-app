@@ -14,7 +14,7 @@ export class EventService {
   constructor(private http: HttpClient) {}
 
   private getAuthHeaders(): HttpHeaders {
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im5hc3NpbUBlc3ByaXQudG4iLCJleHAiOjE3NDUxOTkxNzV9.c8ZPjjorjoWCvcfgCp-zcf8ZfEGrL0eWSfZla_ZR8SA'; 
+    const token = localStorage.getItem('authToken'); // Retrieve token from local storage
     return new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
@@ -38,7 +38,7 @@ export class EventService {
   }
 
   createEvent(event: Event): Observable<Event> {
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im5hc3NpbUBlc3ByaXQudG4iLCJleHAiOjE3NDUxOTkxNzV9.c8ZPjjorjoWCvcfgCp-zcf8ZfEGrL0eWSfZla_ZR8SA';
+    const token = localStorage.getItem('authToken') || ''; // Retrieve token from local storage
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.post<Event>(`${this.baseUrl}/create`, event, { headers });
   }

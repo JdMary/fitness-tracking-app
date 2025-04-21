@@ -9,7 +9,12 @@ export class SubscriptionService {
   private baseUrl = 'http://localhost:8222/api/v1/facilities/subscriptions';
 
   constructor(private http: HttpClient) {}
-
+  private getHeaders(): HttpHeaders {
+    const token = localStorage.getItem('authToken'); // Retrieve token from local storage
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  }
   getUserSubscriptions(token: string): Observable<any[]> {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`); // ✅ CORRIGÉ
     return this.http.get<any[]>(`${this.baseUrl}/my`, { headers });
@@ -30,9 +35,7 @@ export class SubscriptionService {
     return this.http.get<any[]>(`http://localhost:8222/api/v1/facilities/subscriptions/all`, { headers });
   }
   deleteSubscription(id: number): Observable<any> {
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im5hc3NpbUBlc3ByaXQudG4iLCJleHAiOjE3NDQ3NjY5NzZ9.uUvZIi45ACLfRKJxVyDqnkbxnxAubOsbn4bZfZT_7Xs';
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.delete(`${this.baseUrl}/delete/${id}`, { headers });
+    return this.http.delete(`${this.baseUrl}/delete/${id}`, { headers: this.getHeaders() });
   }
   getMonthlyRevenue(token: string) {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);

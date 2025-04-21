@@ -27,7 +27,7 @@ export class UserSubscriptionsComponent implements OnInit {
     this.isCollapsed = !this.isCollapsed;
   }
   loadSubscriptions(): void {
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImF5YUBlc3ByaXQudG4iLCJleHAiOjE3NDQ3OTk5NzN9.XFO55qL4IR9aW6VqXkCEUmLvMjiLGJQyKk4uJDQQw80'; 
+    const token = localStorage.getItem('authToken') || ''; // Retrieve token from local storage
     if (token) {
       this.subscriptionService.getUserSubscriptions(token).subscribe({
         next: (subs) => {
@@ -41,7 +41,7 @@ export class UserSubscriptionsComponent implements OnInit {
     }
   }
   cancelSubscription(subId: number): void {
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImF5YUBlc3ByaXQudG4iLCJleHAiOjE3NDQ3OTk5NzN9.XFO55qL4IR9aW6VqXkCEUmLvMjiLGJQyKk4uJDQQw80'; 
+    const token = localStorage.getItem('authToken') || ''; // Retrieve token from local storage
   
     this.subscriptionService.cancelSubscription(subId, token).subscribe({
       next: (res) => {

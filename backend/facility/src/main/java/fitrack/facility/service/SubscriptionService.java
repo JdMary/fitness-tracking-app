@@ -11,6 +11,7 @@ import fitrack.facility.repository.PromotionRepository;
 import fitrack.facility.repository.SportFacilityRepository;
 import fitrack.facility.repository.SubscriptionRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -74,14 +75,15 @@ public class SubscriptionService implements ISubscriptionService {
             selectedPrice = applyPromotionIfValid(promotionId, facility, subscription, selectedPrice);
         }
 
-        // 🎯 Vérifie les points XP (simulation)
-        final int xpPoints = 100;
+        // 🎯 Vérifie les points coins (simulation)
+        User u= authClient.extractUserDetails(token).getBody();
+        final int coins = u.getCoins();
         int priceInt = Math.round(selectedPrice);
-        if (xpPoints < priceInt) {
-            throw new RuntimeException("xpPoints insuffisants pour cet abonnement.");
+        if (coins < priceInt) {
+            throw new RuntimeException("coins insuffisants pour cet abonnement.");
         }
-        int updatedXp = xpPoints - priceInt;
-        System.out.println("XP après achat : " + updatedXp);
+        ResponseEntity<String> re = authClient.updateCoins(user.getUsername(), priceInt, 1);
+        System.out.println("coins après achat : " + (coins - priceInt));
 
         // 💾 Finalisation des données d'abonnement
 
@@ -169,6 +171,9 @@ public class SubscriptionService implements ISubscriptionService {
         List<Subscription> existingSubscriptions = repository.findBySportFacility(facility);
 
         for (Subscription sub : existingSubscriptions) {
+            if (sub.getStatus() == SubscriptionStatus.CANCELLED) {
+                continue; // Ignore cancelled subscriptions
+            }
             if (desiredStartDate != null && !desiredStartDate.isAfter(sub.getEndDate())) {
                 throw new RuntimeException("Vous avez déjà une souscription active ou prévue pour cette période.");
             }
@@ -252,13 +257,12 @@ public class SubscriptionService implements ISubscriptionService {
         subscription.setStatus(SubscriptionStatus.CANCELLED);
         repository.save(subscription);
 
-        // 🔁 Simuler le remboursement d'XP
-        int refundedXP = Math.round(subscription.getPricePaid());
-        int initialXp = 100;
-        int updatedXp = initialXp + refundedXP;
-        System.out.println("XP après annulation : " + updatedXp);
+        // 🔁 Simuler le remboursement d' coins
+        int refundedcoins = Math.round(subscription.getPricePaid());
+        ResponseEntity<?> re = authClient.updateCoins(user.getUsername(), refundedcoins, 2);
+        System.out.println("coins après annulation : " + refundedcoins);
 
-        return refundedXP;
+        return refundedcoins;
     }
     @Scheduled(cron = "0 0 0 * * *")
     public void ExpiredSubscription()
