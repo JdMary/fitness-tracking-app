@@ -43,6 +43,10 @@ public class PreferenceService implements IPreferenceService {
 
             if (existingPreference != null) {
                 preference.setPreferenceId(existingPreference.getPreferenceId());
+                existingPreference.setDietLabel(preference.getDietLabel());
+                existingPreference.setMealTypes(preference.getMealTypes());
+                existingPreference.setHealthLabels(preference.getHealthLabels());
+                existingPreference.setDishTypes(preference.getDishTypes());
                 System.out.println("Updating existing preference for user: " + username);
             } else {
                 System.out.println("Creating new preference for user: " + username);
@@ -72,6 +76,8 @@ public class PreferenceService implements IPreferenceService {
         existingPreference.setDietLabel(preference.getDietLabel());
         existingPreference.setMealTypes(preference.getMealTypes());
         existingPreference.setHealthLabels(preference.getHealthLabels());
+        existingPreference.setDishTypes(preference.getDishTypes());
+
 
         // Add more fields if needed like:
         // existingPreference.setMinCalories(preference.getMinCalories());

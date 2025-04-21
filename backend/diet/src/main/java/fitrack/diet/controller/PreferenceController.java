@@ -20,6 +20,7 @@ public class PreferenceController {
 
     @PostMapping("/add")
     public ResponseEntity<?> createPreference(@RequestBody Preference preference, @RequestHeader("Authorization") String token) {
+        System.out.println("Preference successfully updated: " + preference);
         try {
             if (preference == null) {
                 return ResponseEntity.badRequest().body("Preference object cannot be null");
@@ -36,6 +37,7 @@ public class PreferenceController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error processing preference: " + e.getMessage());
         }
+
     }
 
     @GetMapping("/PreferenceByUsername")

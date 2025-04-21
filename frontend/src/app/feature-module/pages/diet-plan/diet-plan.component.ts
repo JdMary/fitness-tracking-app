@@ -29,9 +29,9 @@ export class DietPlanComponent implements OnInit {
   // Diet Plan
   dietPlan: DietPlan = {
     numberOfDays: 1,
-    calorieTarget: 2000,
-    targetProtein: 100,
-    targetCarbs: 250,
+    calorieTarget: 0,
+    targetProtein: 0,
+    targetCarbs: 0,
     meals: [],
     status: PlanStatus.DRAFT
   };
@@ -133,9 +133,9 @@ export class DietPlanComponent implements OnInit {
         if (existingPlan) {
           console.log('Loaded existing diet plan:', existingPlan);
           this.dietPlan.numberOfDays = existingPlan.numberOfDays || 1; // Ensure numberOfDays is set
-          // this.dietPlan.calorieTarget = existingPlan.calorieTarget;
-          // this.dietPlan.targetProtein = existingPlan.targetProtein;
-          // this.dietPlan.targetCarbs = existingPlan.targetCarbs;
+           this.dietPlan.calorieTarget = existingPlan.calorieTarget;
+           this.dietPlan.targetProtein = existingPlan.targetProtein;
+           this.dietPlan.targetCarbs = existingPlan.targetCarbs;
         }
       },
       error: (error) => {

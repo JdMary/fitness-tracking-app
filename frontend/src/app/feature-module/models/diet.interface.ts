@@ -31,11 +31,24 @@ export enum CuisineType {
 }
 
 export enum DishType {
-  BREAD = 'Bread',
-  CEREALS = 'Cereals',
-  DESSERTS = 'Desserts',
-  // ...other dish types from backend
+  MAIN_COURSE = 'MAIN_COURSE',
+  BISCUITS_AND_COOKIES = 'BISCUITS_AND_COOKIES',
+  BREAD = 'BREAD',
+  CEREALS = 'CEREALS',
+  DRINKS = 'DRINKS',
+  EGG = 'EGG',
+  PANCAKE = 'PANCAKE',
+  PASTRY = 'PASTRY',
+  PIES_AND_TARTS = 'PIES_AND_TARTS',
+  SANDWICHES = 'SANDWICHES',
+  SALAD = 'SALAD',
+  SEAFOOD = 'SEAFOOD',
+  SOUP = 'SOUP',
+  STARTER = 'STARTER',
+  PIZZA = 'PIZZA',
+  PASTA = 'PASTA',
 }
+
 
 export enum PlanStatus {
   DRAFT = 'DRAFT',
