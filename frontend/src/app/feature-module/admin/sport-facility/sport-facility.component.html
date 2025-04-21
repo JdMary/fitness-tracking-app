@@ -73,6 +73,13 @@
                     </select>
                   </div>
                 </div>
+                <!-- image -->
+                <div class="col-md-12">
+                  <div class="form-group mat">
+                    <label for="image">Facility Image</label>
+                    <input type="file" class="form-control" (change)="onFileSelected($event)" accept="image/*" />
+                  </div>
+                </div>
   
                 <!-- Description -->
                 <div class="col-md-12">

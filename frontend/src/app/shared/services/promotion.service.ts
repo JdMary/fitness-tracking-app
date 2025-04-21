@@ -7,11 +7,11 @@ export interface Promotion {
   promoCode: string;
   description: string;
   discountPercentage: number;
-  startDate: string; 
+  startDate: string;  // ISO string
   endDate: string;
   active: boolean;
   sportFacility: {
-    id: number; 
+    id: number;
     name: string;
   };
 }
@@ -20,41 +20,65 @@ export interface Promotion {
   providedIn: 'root'
 })
 export class PromotionService {
-  private baseUrl = 'http://localhost:8070/api/v1/promotion';
+  // On suppose ici que ton gateway expose les promotions sous "/api/v1/facilities/promotions"
+  private baseUrl = 'http://localhost:8222/api/v1/facilities/promotions';
 
   constructor(private http: HttpClient) { }
 
-  private getHeaders(token: string): HttpHeaders {
+  // Méthode pour générer les headers avec token pour les appels qui en nécessitent.
+  private getAuthHeaders(token: string): HttpHeaders {
     return new HttpHeaders().set('Authorization', token);
   }
 
-
-  getAllPromotions(token: string): Observable<Promotion[]> {
-    return this.http.get<Promotion[]>(this.baseUrl, { headers: this.getHeaders(token) });
-  }
-
-  deletePromotion(promotionId: number, token: string): Observable<any> {
-    return this.http.delete<any>(`${this.baseUrl}/${promotionId}`, { headers: this.getHeaders(token) });
-  }
-
-
-  addPromotion(promotion: Promotion, token: string): Observable<Promotion> {
-    return this.http.post<Promotion>(this.baseUrl, promotion, { headers: this.getHeaders(token) });
-  }
-
-
-  getPromotionById(promotionId: number, token: string): Observable<Promotion> {
-    return this.http.get<Promotion>(`${this.baseUrl}/${promotionId}`, { headers: this.getHeaders(token) });
-  }
-
-  updatePromotion(promotion: Promotion, token: string): Observable<Promotion> {
-    return this.http.put<Promotion>(`${this.baseUrl}/${promotion.id}`, promotion, { headers: this.getHeaders(token) });
+  /**
+   * Récupère toutes les promotions publiquement (aucun token requis)
+   */
+  getAllPromotions(): Observable<Promotion[]> {
+    return this.http.get<Promotion[]>(`${this.baseUrl}/all`);
   }
   
-  getSportFacilities(token: string): Observable<any[]> {
-    return this.http.get<any[]>('http://localhost:8070/api/v1/facility', { headers: this.getHeaders(token) });
+  
+
+  /**
+   * Supprime une promotion (nécessite un token valide)
+   */
+  deletePromotion(promotionId: number, token: string): Observable<any> {
+    return this.http.delete<any>(`${this.baseUrl}/delete/${promotionId}`, { headers: this.getAuthHeaders(token) });
   }
-  getActivePromotions(): Observable<Promotion[]> {
-    return this.http.get<Promotion[]>(`${this.baseUrl}/active`);
+
+  /**
+   * Crée une promotion (nécessite un token)
+   */
+  addPromotion(promotion: Promotion, token: string): Observable<Promotion> {
+    return this.http.post<Promotion>(`${this.baseUrl}/add`, promotion, { headers: this.getAuthHeaders(token) });
+  }
+
+  /**
+   * Récupère une promotion par son ID (token requis)
+   */
+  getPromotionById(promotionId: number, token: string): Observable<Promotion> {
+    return this.http.get<Promotion>(`${this.baseUrl}/${promotionId}`, { headers: this.getAuthHeaders(token) });
+  }
+
+  /**
+   * Met à jour une promotion (token requis)
+   */
+  updatePromotion(promotion: Promotion, token: string): Observable<Promotion> {
+    return this.http.put<Promotion>(`${this.baseUrl}/update/${promotion.id}`, promotion, { headers: this.getAuthHeaders(token) });
+  }
+
+  /**
+   * Récupère la liste des facilities (pour alimenter un dropdown, par exemple)
+   * Ici on suppose que l'endpoint est public, sinon ajoute le token.
+   */
+  getSportFacilities(): Observable<any[]> {
+    // Par exemple, si ton endpoint public pour récupérer toutes les facilities est /api/v1/facilities/all :
+    return this.http.get<any[]>('http://localhost:8222/api/v1/facilities/all');
+  }
+  getActivePromotions(token: string): Observable<Promotion[]> {
+    return this.http.get<Promotion[]>(
+      `${this.baseUrl}/active`,
+      { headers: this.getAuthHeaders(token) }
+    );
   }
 }

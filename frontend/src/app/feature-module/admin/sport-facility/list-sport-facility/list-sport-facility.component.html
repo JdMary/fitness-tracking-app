@@ -70,6 +70,7 @@
                       [ngClass]="{
                         'badge-success': facility.availability,
                         'badge-danger': !facility.availability
+                        
                       }">
                       {{ facility.availability ? 'Available' : 'Not Available' }}
                     </span>
@@ -84,6 +85,7 @@
                       <a class="table-delete" href="javascript:void(0);" (click)="openDeleteModal(facility.id)">
                         <i class="fa-solid fa-trash-can"></i><span>Delete</span>
                       </a>  
+                      
                     </div>
                   </td>
                 </tr>

@@ -106,7 +106,7 @@ public class PromotionService implements IPromotionService {
         return objectMapper.convertValue(response, User.class);
     }
 
-    @Scheduled(cron = "0 0 0 * * *") // 🕛 Tous les jours à minuit
+    @Scheduled(cron = "0 0 0 * * *")
     public void disableExpiredPromotions() {
         List<Promotion> promotions = repository.findAll();
 
@@ -114,6 +114,7 @@ public class PromotionService implements IPromotionService {
             if (promotion.getEndDate().isBefore(LocalDate.now()) && promotion.isActive()) {
                 promotion.setActive(false);
                 repository.save(promotion);
+                System.out.println("🔔 Promotion désactivée : ID = " + promotion.getId());
             }
         });
     }

@@ -152,7 +152,16 @@ const routes: Routes = [
       {
         path: 'promotion',
         loadChildren: () => import('./promotion/promotion.module').then(m => m.PromotionModule)
+      },
+      {
+        path: 'subscription',
+        loadChildren: () => import('./subscription/subscription.module').then(m => m.SubscriptionModule)
+      },
+      {
+        path: 'events',
+        loadChildren: () => import('./event/event.module').then(m => m.EventModule)
       }
+      
       
     ],
   },

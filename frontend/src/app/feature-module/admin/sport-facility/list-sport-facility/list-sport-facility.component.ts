@@ -8,7 +8,7 @@ import { routes } from 'src/app/shared/routes/routes';
   styleUrls: ['./list-sport-facility.component.css']
 })
 export class ListSportFacilityComponent implements OnInit {
-  
+
   facilities: any[] = []; 
   selectedValue = '';
   selectedList = [
@@ -26,33 +26,31 @@ export class ListSportFacilityComponent implements OnInit {
   }
 
   fetchFacilities(): void {
-    const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im5hc3NpbUBlc3ByaXQudG4iLCJleHAiOjE3NDQyNzkyOTl9.2BpGPYAL-NLlykkI-Yu8Nt2EkNL8UdPSeiRwVVXuOmw'; 
-
-    this.sportFacilityService.getAllFacilities(token).subscribe({
+    this.sportFacilityService.getAllFacilitiesPublic().subscribe({
       next: (response) => {
         this.facilities = response;
         console.log('Facilities loaded:', this.facilities);
       },
       error: (error) => {
-        console.error(' Error loading facilities', error);
+        console.error('Error loading facilities', error);
       }
     });
   }
+
   openDeleteModal(id: number): void {
     const confirmDelete = confirm('Are you sure you want to delete this facility?');
     if (confirmDelete) {
-      const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im5hc3NpbUBlc3ByaXQudG4iLCJleHAiOjE3NDQyNzkyOTl9.2BpGPYAL-NLlykkI-Yu8Nt2EkNL8UdPSeiRwVVXuOmw'; 
+      const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im5hc3NpbUBlc3ByaXQudG4iLCJleHAiOjE3NDQ5MzkyMzh9.U9JqAVlLjPAe753G-3z8OQcKnufg1L90AcfMST4e5sE'; 
       this.sportFacilityService.deleteFacility(id, token).subscribe({
         next: () => {
-          alert('Facility deleted successfully ');
-          this.fetchFacilities(); 
+          alert('Facility deleted successfully');
+          this.fetchFacilities();
         },
         error: (error) => {
           console.error('Error deleting facility', error);
-          alert('Error deleting facility ');
+          alert('Error deleting facility');
         }
       });
     }
   }
-  
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PromotionService } from 'src/app/shared/services/promotion.service';
+import { PromotionService, Promotion } from 'src/app/shared/services/promotion.service';
 import { routes } from 'src/app/shared/routes/routes';
 
 @Component({
@@ -9,8 +9,8 @@ import { routes } from 'src/app/shared/routes/routes';
 })
 export class ListPromotionComponent implements OnInit {
 
-  promotions: any[] = [];
-  selectedValue = '';
+  promotions: Promotion[] = [];
+  selectedValue: string = '';
   selectedList = [
     { value: 'A - Z' },
     { value: 'Z - A' },
@@ -18,7 +18,8 @@ export class ListPromotionComponent implements OnInit {
   ];
   routes = routes;
 
-  token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im5hc3NpbUBlc3ByaXQudG4iLCJleHAiOjE3NDQyNzkyOTl9.2BpGPYAL-NLlykkI-Yu8Nt2EkNL8UdPSeiRwVVXuOmw';
+
+  token: string = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im5hc3NpbUBlc3ByaXQudG4iLCJleHAiOjE3NDQ3NTY2MDB9.UXwXQWM1s3W2c0iy_Ymsp2A-4XEu5Ek4EwOnkRtsguM';
 
   constructor(private promotionService: PromotionService) { }
 
@@ -27,7 +28,7 @@ export class ListPromotionComponent implements OnInit {
   }
 
   loadPromotions(): void {
-    this.promotionService.getAllPromotions(this.token).subscribe({
+    this.promotionService.getAllPromotions().subscribe({
       next: (response) => {
         this.promotions = response;
         console.log('Promotions loaded:', this.promotions);
@@ -41,9 +42,10 @@ export class ListPromotionComponent implements OnInit {
   openDeleteModal(promotionId: number): void {
     const confirmDelete = confirm('Are you sure you want to delete this promotion?');
     if (confirmDelete) {
+    
       this.promotionService.deletePromotion(promotionId, this.token).subscribe({
         next: () => {
-          alert('Promotion deleted successfully ');
+          alert('Promotion deleted successfully');
           this.loadPromotions();
         },
         error: (error) => {

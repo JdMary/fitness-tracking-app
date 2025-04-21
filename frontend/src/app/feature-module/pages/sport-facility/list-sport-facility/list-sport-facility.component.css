@@ -1,0 +1,4 @@
+.fixed-height-img {
+    height: 220px;       /* ou la hauteur que tu veux */
+    object-fit: cover;   /* coupe l’image proprement sans déformer */
+  }

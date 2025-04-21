@@ -29,5 +29,6 @@ public class SportFacility {
 
     private String ownerEmail;
     private String description;
+    private String image;
 
 }

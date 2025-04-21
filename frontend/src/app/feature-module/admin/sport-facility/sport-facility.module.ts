@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SportFacilityComponent } from './sport-facility.component';
 import { RouterModule, Routes } from '@angular/router';
-import { FormsModule } from '@angular/forms'; // ✅ nécessaire pour ngModel
+import { FormsModule } from '@angular/forms'; 
 import { SportFacilityRoutingModule } from './sport-facility-routing.module';
 
 const routes: Routes = [

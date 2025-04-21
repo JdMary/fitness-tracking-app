@@ -58,6 +58,13 @@
                   <input type="number" class="form-control" [(ngModel)]="sportFacility.premiumPrice" name="premiumPrice" required />
                 </div>
               </div>
+              <div class="col-md-12" *ngIf="sportFacility.image">
+                <div class="form-group mat">
+                  <label>Current Image</label>
+                  <img [src]="sportFacility.image" alt="Facility Image" class="img-fluid" style="max-height: 200px;"/>
+                </div>
+              </div>
+              
   
               <!-- Availability -->
               <div class="col-md-6">

@@ -9,6 +9,8 @@ import { routes } from 'src/app/shared/routes/routes';
   styleUrls: ['./edit-promotion.component.css']
 })
 export class EditPromotionComponent implements OnInit {
+  isEditMode: boolean = true; 
+
   promotionId!: number;
   promotion: Promotion = {
     promoCode: '',
@@ -23,10 +25,9 @@ export class EditPromotionComponent implements OnInit {
     }
   };
 
-  token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im5hc3NpbUBlc3ByaXQudG4iLCJleHAiOjE3NDQyNzkyOTl9.2BpGPYAL-NLlykkI-Yu8Nt2EkNL8UdPSeiRwVVXuOmw';
+  token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im5hc3NpbUBlc3ByaXQudG4iLCJleHAiOjE3NDQ3NTY2MDB9.UXwXQWM1s3W2c0iy_Ymsp2A-4XEu5Ek4EwOnkRtsguM'; 
   routes = routes;
   sportFacilities: any[] = []; 
-
 
   constructor(
     private route: ActivatedRoute,
@@ -39,14 +40,12 @@ export class EditPromotionComponent implements OnInit {
     this.fetchSportFacilities();
     this.loadPromotion();
   }
+
   fetchSportFacilities(): void {
-    const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im5hc3NpbUBlc3ByaXQudG4iLCJleHAiOjE3NDQyNzkyOTl9.2BpGPYAL-NLlykkI-Yu8Nt2EkNL8UdPSeiRwVVXuOmw'; 
-    this.promotionService.getSportFacilities(token).subscribe({
+    this.promotionService.getSportFacilities().subscribe({
       next: (response) => {
         this.sportFacilities = response;
         console.log('Sport facilities loaded:', this.sportFacilities);
-  
-        
         this.loadPromotion();
       },
       error: (error) => {
@@ -59,8 +58,6 @@ export class EditPromotionComponent implements OnInit {
     this.promotionService.getPromotionById(this.promotionId, this.token).subscribe({
       next: (data) => {
         this.promotion = data;
-  
-        
         const facilityFromList = this.sportFacilities.find(f => f.id === this.promotion.sportFacility.id);
         if (facilityFromList) {
           this.promotion.sportFacility = facilityFromList;
@@ -71,24 +68,21 @@ export class EditPromotionComponent implements OnInit {
       }
     });
   }
-  
 
   updatePromotion(): void {
     this.promotionService.updatePromotion(this.promotion, this.token).subscribe({
       next: () => {
-        alert('Promotion updated successfully ');
+        alert('Promotion updated successfully');
         this.router.navigate([routes.listPromotion]);
       },
       error: (error) => {
         console.error('Error updating promotion', error);
-        alert('Error updating promotion ');
+        alert('Error updating promotion');
       }
     });
   }
-  isEditMode = true; 
 
-onSubmit(): void {
-  this.updatePromotion(); 
-}
-
+  onSubmit(): void {
+    this.updatePromotion();
+  }
 }

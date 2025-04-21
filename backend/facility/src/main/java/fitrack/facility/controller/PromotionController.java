@@ -9,21 +9,21 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/promotion")
+@RequestMapping("/api/v1/facilities/promotions")
 @RequiredArgsConstructor
 public class PromotionController {
 
     private final PromotionService service;
 
     // Créer une promotion
-    @PostMapping
+    @PostMapping("/add")
     public ResponseEntity<Promotion> createPromotion(@RequestBody Promotion promotion,
                                                      @RequestHeader("Authorization") String token) {
         return ResponseEntity.ok(service.createPromotion(promotion, token));
     }
 
     // Récupérer toutes les promotions
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<Promotion>> getAllPromotions() {
         return ResponseEntity.ok(service.getAllPromotions());
     }
@@ -35,7 +35,7 @@ public class PromotionController {
     }
 
     // Modifier une promotion
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<Promotion> updatePromotion(@PathVariable Long id,
                                                      @RequestBody Promotion promotion,
                                                      @RequestHeader("Authorization") String token) {
@@ -44,7 +44,7 @@ public class PromotionController {
     }
 
     // Supprimer une promotion
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deletePromotion(@PathVariable Long id,
                                                 @RequestHeader("Authorization") String token) {
         service.deletePromotion(id, token);

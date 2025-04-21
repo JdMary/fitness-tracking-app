@@ -9,6 +9,7 @@ const routes: Routes = [
         (m) => m.FeatureModuleModule
       ),
   },
+  { path: 'admin-subscription', loadChildren: () => import('./feature-module/admin/subscription/subscription.module').then(m => m.SubscriptionModule) },
 ];
 
 @NgModule({

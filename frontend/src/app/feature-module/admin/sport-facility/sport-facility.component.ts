@@ -23,22 +23,31 @@ export class SportFacilityComponent implements OnInit {
   constructor(private sportFacilityService: SportFacilityService) {}
 
   ngOnInit(): void {}
+  selectedFile!: File;
 
   submitFacility(): void {
-    const token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im5hc3NpbUBlc3ByaXQudG4iLCJleHAiOjE3NDQyNzkyOTl9.2BpGPYAL-NLlykkI-Yu8Nt2EkNL8UdPSeiRwVVXuOmw'; 
-
-    this.sportFacilityService.createFacility(this.sportFacility, token).subscribe({
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im5hc3NpbUBlc3ByaXQudG4iLCJleHAiOjE3NDQ5NDA4NjR9.0eAVy7Xb88Ke2086jHk8J2htFaxWz4IBVx2VCWF9L-I'; 
+  
+    const formData = new FormData();
+    formData.append('facility', new Blob([JSON.stringify(this.sportFacility)], { type: 'application/json' }));
+    
+    if (this.selectedFile) {
+      formData.append('image', this.selectedFile);
+    }
+  
+    this.sportFacilityService.createFacility(formData, token).subscribe({
       next: (response) => {
-        console.log('✅Facility created successfully', response);
-        alert('Facility created successfully ');
+        console.log('✅ Facility created successfully', response);
+        alert('Facility created successfully');
         this.resetForm();
       },
       error: (error) => {
         console.error('Error creating facility', error);
-        alert('Error creating facility ');
+        alert('Error creating facility');
       }
     });
   }
+  
 
   resetForm(): void {
     this.sportFacility = {
@@ -51,5 +60,11 @@ export class SportFacilityComponent implements OnInit {
       premiumPrice: 0,
       description: ''
     };
+  }
+  onFileSelected(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedFile = file;
+    }
   }
 }

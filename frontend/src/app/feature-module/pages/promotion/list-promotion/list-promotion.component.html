@@ -32,7 +32,16 @@
             <div class="card p-0">
               <div class="card-body p-0">
                 <div class="img-sec w-100">
-                  <img src="assets/img/providers/provider-15.jpg" class="img-fluid rounded-top w-100" alt="promotion image">
+                  
+                  <img 
+                  [src]="getImageByDiscount(promo.discountPercentage)" 
+                  class="img-fluid rounded-top w-100" 
+                  [style.width.px]="600" 
+                  [style.height.px]="400" 
+                  style="object-fit: cover;" 
+                  alt="Promotion image"
+                />
+
                   <div class="image-tag d-flex justify-content-end align-items-center">
                     <span class="trend-tag">{{ promo.sportFacility.name }}</span>
                   </div>

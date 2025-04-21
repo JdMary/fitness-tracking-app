@@ -4,7 +4,7 @@ import fitrack.facility.entity.enums.RegistrationStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -16,20 +16,16 @@ public class EventRegistration {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long registrationId;
 
-    // L'identifiant de l'utilisateur inscrit
-    private Long userId;
+    private LocalDate registrationDate;
 
-    // Relation ManyToOne avec Event
-    @ManyToOne(fetch = FetchType.LAZY)
+    @Enumerated(EnumType.STRING)
+    private RegistrationStatus status;
+
+    @ManyToOne
     @JoinColumn(name = "event_id", nullable = false)
     private Event event;
 
-    // Date de l'inscription
-    private LocalDateTime registrationDate;
-
-    // Statut de l'inscription : CONFIRMED, CANCELLED, etc.
-    @Enumerated(EnumType.STRING)
-    private RegistrationStatus status;
+    private String userEmail; // Pour représenter le participant (via Feign plus tard)
 }

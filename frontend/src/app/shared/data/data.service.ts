@@ -588,6 +588,29 @@ export class DataService {
           showSubRoute: false,
           subMenus: [],
         },
+        {
+          menuValue: 'Events',
+          routes: routes.userEvents, // badalha 7asb l route mte3k
+          hasSubRoute: false,
+          showSubRoute: false,
+          subMenus: [],
+        },
+
+        {
+          menuValue: 'My Subscriptions',
+          routes: routes.userSubscription, // 🔁 on utilise le getter qu'on vient d'ajouter
+          hasSubRoute: false,
+          showSubRoute: false,
+          subMenus: [],
+        },
+        {
+          menuValue: 'My Regestrations',
+          routes: routes.registrationEvent, // 🔁 on utilise le getter qu'on vient d'ajouter
+          hasSubRoute: false,
+          showSubRoute: false,
+          subMenus: [],
+        },
+
       ],
     },
     {
@@ -1446,10 +1469,6 @@ export class DataService {
           icon: 'icon-briefcase',
           subMenus: [
             {
-              menuValue: 'Add Sport Facility',
-              route: routes.addSportFacility, // ✅ dynamique depuis routes.ts
-            },
-            {
               menuValue: 'Sport Facility',
               route: routes.listSportFacility, // ✅ dynamique depuis routes.ts
             },
@@ -1457,6 +1476,18 @@ export class DataService {
               menuValue: 'Promotions',
               route: routes.listPromotion, //badl 7asb l route mte3k
             },
+            {
+              menuValue: 'Subscription',
+              route: routes.listSubscription, //badl 7asb l route mte3k
+            },
+           
+            {
+              menuValue: 'Event',
+              route: routes.listEvent
+            },
+            
+
+
           ],
         },
         {

@@ -10,8 +10,9 @@ import { SportFacilityService } from 'src/app/shared/services/sport-facility.ser
 export class EditSportFacilityComponent implements OnInit {
 
   sportFacility: any = {}; 
-  facilityId: string = '';
-  token = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im5hc3NpbUBlc3ByaXQudG4iLCJleHAiOjE3NDQyNzkyOTl9.2BpGPYAL-NLlykkI-Yu8Nt2EkNL8UdPSeiRwVVXuOmw';
+  facilityId: number = 0;
+  selectedFile!: File;
+  token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im5hc3NpbUBlc3ByaXQudG4iLCJleHAiOjE3NDQ3NTY2MDB9.UXwXQWM1s3W2c0iy_Ymsp2A-4XEu5Ek4EwOnkRtsguM';
 
   constructor(
     private route: ActivatedRoute,
@@ -20,7 +21,7 @@ export class EditSportFacilityComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.facilityId = this.route.snapshot.paramMap.get('id')!;
+    this.facilityId = +this.route.snapshot.paramMap.get('id')!;
     this.loadFacility();
   }
 
@@ -30,15 +31,29 @@ export class EditSportFacilityComponent implements OnInit {
         this.sportFacility = response;
       },
       error: (error) => {
-        console.error(' Error loading facility', error);
+        console.error('Error loading facility', error);
       }
     });
   }
 
+  onFileSelected(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedFile = file;
+    }
+  }
+
   updateFacility(): void {
-    this.sportFacilityService.updateFacility(this.sportFacility, this.token).subscribe({
+    const formData = new FormData();
+    formData.append('facility', new Blob([JSON.stringify(this.sportFacility)], { type: 'application/json' }));
+
+    if (this.selectedFile) {
+      formData.append('image', this.selectedFile);
+    }
+
+    this.sportFacilityService.updateFacilityWithImage(formData, this.token, this.sportFacility.id).subscribe({
       next: (response) => {
-        alert('Facility updated successfully ');
+        alert('Facility updated successfully');
         this.router.navigate(['/admin/list-sport-facility']);
       },
       error: (error) => {

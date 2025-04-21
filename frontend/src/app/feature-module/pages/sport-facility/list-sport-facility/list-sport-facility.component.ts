@@ -12,6 +12,14 @@ export class ListSportFacilityComponent implements OnInit {
   routes = routes;
   isCollapsed = false;
 
+  // Filtres
+  locations: string[] = [];
+  sportTypes: string[] = [];
+
+  selectedLocation: string = '';
+  selectedSportType: string = '';
+  selectedAvailability: boolean | null = null;
+
   selectedValue1 = '';
   selectedList1 = [
     { value: 'All Sub Category' },
@@ -26,6 +34,8 @@ export class ListSportFacilityComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchFacilities();
+    this.loadLocations();
+    this.loadSportTypes();
   }
 
   fetchFacilities(): void {
@@ -38,7 +48,46 @@ export class ListSportFacilityComponent implements OnInit {
         console.error('Error loading facilities', error);
       }
     });
-    
+  }
+
+  loadLocations(): void {
+    this.sportFacilityService.getAllLocations().subscribe({
+      next: (locations) => {
+        this.locations = locations;
+        console.log('Locations:', this.locations);
+      },
+      error: (err) => console.error('Error loading locations', err)
+    });
+  }
+
+  loadSportTypes(): void {
+    this.sportFacilityService.getAllSportTypes().subscribe({
+      next: (types) => {
+        this.sportTypes = types;
+        console.log('Sport types:', this.sportTypes);
+      },
+      error: (err) => console.error('Error loading sport types', err)
+    });
+  }
+
+  applyFilters(): void {
+    const filters = {
+      location: this.selectedLocation || undefined,
+      sportType: this.selectedSportType || undefined,
+      availability: this.selectedAvailability !== null ? this.selectedAvailability : undefined
+    };
+
+    this.sportFacilityService.getFilteredFacilities(filters).subscribe({
+      next: (res) => this.facilities = res,
+      error: (err) => console.error('Error applying filters', err)
+    });
+  }
+
+  resetFilters(): void {
+    this.selectedLocation = '';
+    this.selectedSportType = '';
+    this.selectedAvailability = null;
+    this.applyFilters();
   }
 
   toggleCollapse(): void {

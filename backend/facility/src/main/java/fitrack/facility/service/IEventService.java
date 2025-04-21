@@ -7,13 +7,15 @@ import java.util.List;
 public interface IEventService {
     List<Event> retrieveAllEvents();
 
-    Event addEvent(Event event);
+    Event createEvent(Event event, String token);
 
-    Event updateEvent(Event event);
+
+    Event updateEvent(Event event, Long id, String token);
+
 
     Event retrieveEvent(Long id);
 
-    void removeEvent(Long id);
+    void deleteEvent(Long id, String token);
     Event cancelEvent(Long id);
     List<Event> findEventsByFacility(Long facilityId);
     List<Event> findUpcomingEvents();

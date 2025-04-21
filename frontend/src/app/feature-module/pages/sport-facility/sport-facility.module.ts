@@ -6,6 +6,10 @@ import { SportFacilityRoutingModule } from './sport-facility-routing.module';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { FacilityDetailComponent } from './sport-facility-details/sport-facility-details.component'; 
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatOptionModule } from '@angular/material/core';
+
 
 
 @NgModule({
@@ -17,7 +21,11 @@ import { FacilityDetailComponent } from './sport-facility-details/sport-facility
     CommonModule,
     FormsModule,
     RouterModule,
-    SportFacilityRoutingModule
+    SportFacilityRoutingModule,
+    FormsModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatOptionModule,
   ]
 })
 export class SportFacilityModule { }

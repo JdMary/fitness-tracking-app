@@ -879,6 +879,24 @@ export class routes {
   public static get editPromotion(): string {
     return this.baseUrl + '/admin/promotion/edit';
   }
+  public static get listSubscription(): string {
+    return this.baseUrl + '/admin/subscription';
+  }
+  public static get addEvent(): string {
+    return this.baseUrl + '/admin/event/add';
+  }
+  
+  public static get listEvent(): string {
+    return this.baseUrl + '/admin/event/list';
+  }
+  public static get listEventRegistration(): string {
+    return this.baseUrl + '/admin/event/registrations'; 
+  }
+  
+  
+  public static get editEvent(): string {
+    return this.baseUrl + '/admin/event/edit';
+  }
   ///////////frontend
   public static get userSportFacility(): string {
     return this.baseUrl + '/sport-facility';
@@ -888,6 +906,16 @@ export class routes {
   }
   public static get userPromotion(): string {
     return this.baseUrl + '/promotion';
+  }
+  public static get userSubscription(): string {
+    return this.baseUrl + '/subscription/my-subscriptions';
+  }
+  public static get userEvents(): string {
+    return this.baseUrl + '/events';
+  }
+  
+  public static get registrationEvent(): string {
+    return this.baseUrl + '/events/list-user-registrations';
   }
 
   
