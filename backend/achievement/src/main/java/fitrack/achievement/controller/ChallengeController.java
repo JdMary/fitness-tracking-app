@@ -43,10 +43,10 @@ public class ChallengeController {
     }
 
     @PostMapping("/addChallenge")
-    public ResponseEntity<?> save(@RequestBody Challenge challenge) {
+    public ResponseEntity<?> save(@RequestBody Challenge challenge, @RequestHeader("Authorization") String token) {
         try {
             System.out.println("Received Challenge: " + challenge);
-            Challenge savedChallenge = service.addChallenge(challenge);
+            Challenge savedChallenge = service.addChallenge(challenge, token);
             return ResponseEntity.status(HttpStatus.CREATED).body(savedChallenge);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body( e.getMessage());

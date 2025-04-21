@@ -40,7 +40,7 @@
     <tbody>
       <tr
         *ngFor="let user of boardDetails?.users"
-        [class.table-active]="user.userId === userId"
+        [class.table-active]="user.id === userId"
         class="table-row-hover"
       >
         <td class="text-center">
@@ -51,7 +51,7 @@
             <span *ngSwitchDefault>{{ user.rank }}</span>
           </ng-container>
         </td>
-        <td>{{ user.userId }}</td>
+        <td>{{ user.name }}</td>
         <td>{{ user.xpPoints }}</td>
       </tr>
     </tbody>

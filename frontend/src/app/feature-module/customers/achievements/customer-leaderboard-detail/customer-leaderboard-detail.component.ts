@@ -35,7 +35,7 @@ export class CustomerLeaderboardDetailComponent implements OnInit {
     this.leaderboardService.getBoardByUserId(userId).subscribe({
       next: (data) => {
         this.boardDetails = data;
-
+        console.log('Board Details:', this.boardDetails.users);
         if (this.boardDetails.users && this.boardDetails.users.length > 0) {
           // ✅ Trie par XP décroissant
           this.boardDetails.users.sort((a, b) => b.xpPoints - a.xpPoints);
@@ -43,7 +43,7 @@ export class CustomerLeaderboardDetailComponent implements OnInit {
           // ✅ Attribue les rangs
           this.boardDetails.users.forEach((user, index) => {
             user.rank = index + 1;
-            if (user.userId === this.userId) {
+            if (user.id === this.userId) {
               this.currentUserRank = user.rank;
               this.currentUserXP = user.xpPoints;
             }

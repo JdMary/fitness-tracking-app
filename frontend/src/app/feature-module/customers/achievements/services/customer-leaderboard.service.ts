@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { LeaderBoard } from '../models/customer-leaderboard.model';
@@ -12,40 +12,38 @@ import { FullBoardResponse } from '../customer-leaderboard-detail/board-response
 export class CustomerLeaderboardService {
 
   private apiUrl = 'http://localhost:8222/api/v1/leaderBoard';
-  token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImZhcmFoQGVzcHJpdC50biIsImV4cCI6MTc0NTI1Mzk0OH0.HLIVYx5lbwNhGw6uzvDFDRHCzAG35gU4eRUkDaU6u9Y";
+  private getHeaders(): HttpHeaders {
+      const token = localStorage.getItem('authToken'); // Retrieve token from local storage
+      return new HttpHeaders({
+        'Authorization': `Bearer ${token}`
+      });
+    }
   constructor(private http: HttpClient) {}
 
   getAllLeaderboards(): Observable<LeaderBoard[]> {
-    const headers = { Authorization: `Bearer ${this.token}` }; 
-    return this.http.get<LeaderBoard[]>(`${this.apiUrl}/liste`, { headers });
+    return this.http.get<LeaderBoard[]>(`${this.apiUrl}/liste`, { headers : this.getHeaders() });
 }
 getLeaderboardWithUsers(boardId: string): Observable<any> {
-  const headers = { Authorization: `Bearer ${this.token}` }; 
-  return this.http.get(`${this.apiUrl}/withUsers/${boardId}`, { headers });
+  return this.http.get(`${this.apiUrl}/withUsers/${boardId}`, { headers: this.getHeaders() });
 }
 
   addLeaderboard(board: LeaderBoard): Observable<void> {
-    const headers = { Authorization: `Bearer ${this.token}` };
-    return this.http.post<void>(`${this.apiUrl}/addBoard`, board);
+    return this.http.post<void>(`${this.apiUrl}/addBoard`, board ,{ headers: this.getHeaders() });
   }
 
   deleteLeaderboard(boardId: string): Observable<string> {
-    const headers = { Authorization: `Bearer ${this.token}` };
-    return this.http.delete(`${this.apiUrl}/delete/${boardId}`, { responseType: 'text' });
+    return this.http.delete(`${this.apiUrl}/delete/${boardId}`,{ headers: this.getHeaders(), responseType: 'text' });
   }
 
 
   updateLeaderboard(leaderboard: LeaderBoard): Observable<LeaderBoard> {
-    const headers = { Authorization: `Bearer ${this.token}` }; // Ajout du token
-    return this.http.put<LeaderBoard>(`${this.apiUrl}/update/${leaderboard.boardId}`, leaderboard, { headers });
+    return this.http.put<LeaderBoard>(`${this.apiUrl}/update/${leaderboard.boardId}`, leaderboard, { headers: this.getHeaders() });
 }
 
 getLeaderboardById(id: string): Observable<LeaderBoard> {
-    const headers = { Authorization: `Bearer ${this.token}` }; // Ajout du token
-    return this.http.get<LeaderBoard>(`${this.apiUrl}/getById/${id}`, { headers });
+    return this.http.get<LeaderBoard>(`${this.apiUrl}/getById/${id}`, { headers: this.getHeaders() });
 }
 
 getBoardByUserId(userId: string): Observable<FullBoardResponse> {
-    const headers = { Authorization: `Bearer ${this.token}` }; // Ajout du token
-    return this.http.get<FullBoardResponse>(`${this.apiUrl}/byUser/${userId}`, { headers });
+    return this.http.get<FullBoardResponse>(`${this.apiUrl}/byUser/${userId}`, { headers: this.getHeaders() });
 }}

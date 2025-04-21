@@ -1,6 +1,7 @@
 package fitrack.achievement.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import fitrack.achievement.client.AuthClient;
 import fitrack.achievement.entity.Challenge;
 import fitrack.achievement.entity.ChallengeStatus;
 import fitrack.achievement.entity.User;
@@ -28,12 +29,12 @@ public class ChallengeService {
 
     @Autowired
     private ChallengeRepository repository;
-
+    private AuthClient authClient;
 
     @Autowired
     private ChallengeRepository challengeRepository;
 
-    public Challenge addChallenge(Challenge challenge) {
+    public Challenge addChallenge(Challenge challenge, String token) {
         List<String> errors = new ArrayList<>();
         LocalDateTime now = LocalDateTime.now();
 
@@ -65,9 +66,9 @@ public class ChallengeService {
         if (!errors.isEmpty()) {
             throw new IllegalArgumentException(String.join(" | ", errors));
         }
-
+        User u = authClient.extractUserDetails(token).getBody();
         // Sinon on continue
-        challenge.setUserId("98df1738-1a67-4166-80cf-0b78c992f9bdvd");
+        challenge.setUserId(u.getId());
         challenge.setStatus(ChallengeStatus.PENDING);
         return challengeRepository.save(challenge);
     }
@@ -76,6 +77,9 @@ public class ChallengeService {
         return repository.findAll();
     }
 
+    public List<Challenge> findByUserId(String userId) {
+        return challengeRepository.findByUserId(userId);
+    }
     public Challenge findChallengeById(String challengeId) {
         return challengeRepository.findById(challengeId)
                 .orElseThrow(() -> new RuntimeException("❌ Défi avec l'ID " + challengeId + " introuvable."));

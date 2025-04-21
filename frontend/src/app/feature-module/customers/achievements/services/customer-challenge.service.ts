@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { Challenge } from '../models/challenge.model';
@@ -8,14 +8,18 @@ import { Challenge } from '../models/challenge.model';
 })
 export class CustomerChallengeService {
   private apiUrl = 'http://localhost:8222/api/v1/challenges';
-  token= "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImZhcmFoQGVzcHJpdC50biIsImV4cCI6MTc0NTI2MTMzMn0.srjTDec-DtfN-l4-zJPLAL0ZRy-I2KUt2z8_iQ2MQ2o";
+  private getHeaders(): HttpHeaders {
+        const token = localStorage.getItem('authToken'); // Retrieve token from local storage
+        return new HttpHeaders({
+          'Authorization': `Bearer ${token}`
+        });
+      }
   
   constructor(private http: HttpClient) {}
 
   getAllChallenges(): Observable<Challenge[]> {
     console.log('📞 Appel API pour récupérer les challenges...');
-    const headers = { Authorization: `Bearer ${this.token}` };
-    return this.http.get<any[]>(`${this.apiUrl}/liste`, { headers }).pipe(
+    return this.http.get<any[]>(`${this.apiUrl}/liste`, { headers: this.getHeaders() }).pipe(
       map(data =>
         data.map(item => ({
           challengeId: item.challenge_id,
@@ -40,8 +44,7 @@ export class CustomerChallengeService {
     if (startDate) {
       params.startDate = startDate;
     }
-    const headers = { Authorization: `Bearer ${this.token}` };
-    return this.http.get<any[]>(`${this.apiUrl}/findBy`, { headers, params }).pipe(
+    return this.http.get<any[]>(`${this.apiUrl}/findBy`, { headers : this.getHeaders(), params }).pipe(
       map(data =>
         data.map(item => ({
           challengeId: item.challenge_id,
@@ -63,48 +66,41 @@ export class CustomerChallengeService {
   // ✅ Participer à un challenge
   participate(challengeId: string): Observable<any> {
     console.log('🚀 Appel participation pour challengeId:', challengeId);
-    const headers = { Authorization: `Bearer ${this.token}` }; // Ajout du token dans les en-têtes
-    return this.http.put(`${this.apiUrl}/participate/${challengeId}`, {}, { headers });
+    return this.http.put(`${this.apiUrl}/participate/${challengeId}`, {}, { headers: this.getHeaders() });
 }
 
   // ✅ Valider un challenge
 validateChallenge(challengeId: string): Observable<any> {
-  const headers = { Authorization: `Bearer ${this.token}` }; // Ajout du token dans les en-têtes
-  return this.http.put(`${this.apiUrl}/validate/${challengeId}`, {}, { headers });
+  return this.http.put(`${this.apiUrl}/validate/${challengeId}`, {}, { headers: this.getHeaders() });
 }
 
 // ✅ Récupérer les détails d'un challenge
 getChallengeById(challengeId: string): Observable<Challenge> {
-  const headers = { Authorization: `Bearer ${this.token}` }; // Ajout du token dans les en-têtes
   console.log(`Fetching challenge with ID: ${challengeId}`);
-  return this.http.get<Challenge>(`${this.apiUrl}/getById/${challengeId}`, { headers });
+  return this.http.get<Challenge>(`${this.apiUrl}/getById/${challengeId}`, { headers: this.getHeaders() });
 }
 
 // ✅ Récupérer les challenges par utilisateur
 getChallengesByUserId(userId: string): Observable<Challenge[]> {
-  const headers = { Authorization: `Bearer ${this.token}` }; // Ajout du token dans les en-têtes
-  return this.http.get<Challenge[]>(`${this.apiUrl}/user/${userId}`, { headers });
+  return this.http.get<Challenge[]>(`${this.apiUrl}/user/${userId}`, { headers: this.getHeaders() });
 }
 
 // ✅ Ajouter un challenge
 addChallenge(challenge: Challenge): Observable<Challenge> {
-  const headers = { Authorization: `Bearer ${this.token}` }; // Ajout du token dans les en-têtes
-  return this.http.post<Challenge>(`${this.apiUrl}/addChallenge`, challenge, { headers });
+  return this.http.post<Challenge>(`${this.apiUrl}/addChallenge`, challenge, { headers: this.getHeaders() });
 }
 
 // ✅ Supprimer un challenge
 deleteChallenge(challengeId: string): Observable<any> {
-  const headers = { Authorization: `Bearer ${this.token}` }; // Ajout du token dans les en-têtes
-  return this.http.delete(`${this.apiUrl}/deleteChallenge/${challengeId}`, { headers });
+  return this.http.delete(`${this.apiUrl}/deleteChallenge/${challengeId}`, { headers: this.getHeaders() });
 }
 
 // ✅ Mettre à jour un challenge
 updateChallenge(challengeId: string, updatedChallenge: any): Observable<any> {
-  const headers = { Authorization: `Bearer ${this.token}` }; // Ajout du token dans les en-têtes
   return this.http.put<any>(
       `${this.apiUrl}/update/${challengeId}`,
       updatedChallenge,
-      { headers, responseType: 'text' as 'json' }
+      {headers: this.getHeaders() , responseType: 'text' as 'json' }
   );
 }
 
@@ -115,11 +111,10 @@ generateChallengeFromUser(user: {
   weight: number;
   xpPoints: number;
 }): Observable<Challenge> {
-  const headers = { Authorization: `Bearer ${this.token}` };
   return this.http.post<Challenge>(
     `${this.apiUrl}/generate`,
     user,
-    { headers }
+    { headers: this.getHeaders() }
   );
 }
 

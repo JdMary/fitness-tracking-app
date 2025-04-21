@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -166,6 +167,65 @@ public class AuthenticationController {
             userRepository.save(user);
 
             return ResponseEntity.ok("Coins updated successfully");
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
+        }
+    }
+    @GetMapping("/users-by-board/{boardId}")
+    public ResponseEntity<?> getUsersByBoardId(@PathVariable String boardId) {
+        try {
+            List<User> users = userService.findAllUsersByBoardId(boardId);
+            return ResponseEntity.ok(users);
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
+        }
+    }
+
+    @GetMapping("/user-by-board/{boardId}")
+    public ResponseEntity<?> getUserByBoardId(@PathVariable String boardId) {
+        try {
+            User user = userService.findUserByBoardId(boardId);
+            return ResponseEntity.ok(user);
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
+        }
+    }
+
+    @GetMapping("/board-id-by-user/{userId}")
+    public ResponseEntity<String > getBoardIdByUserId(@PathVariable String userId) {
+        try {
+            String boardId = userService.findBoardIdByUserId(userId);
+            return ResponseEntity.ok(boardId);
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
+        }
+    }
+    @PostMapping("/update-rank")
+    public ResponseEntity<String> updateUserRank(@RequestParam String id, @RequestParam int rank) {
+            try {
+                Optional<User> userOptional = userRepository.findById(id);
+                if (userOptional.isEmpty()) {
+                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+                }
+                User user = userOptional.get();
+                user.setRank(rank);
+                userRepository.save(user);
+                return ResponseEntity.ok("User rank updated successfully");
+            } catch (Exception ex) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
+            }
+        }
+    @PostMapping("/update-xp")
+    public ResponseEntity<String> updateUserXp(@RequestParam String id, @RequestParam int xpPoints) {
+        try {
+            Optional<User> userOptional = userRepository.findById(id);
+            if (userOptional.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+            }
+            User user = userOptional.get();
+            user.setXpPoints(user.getXpPoints() + xpPoints);
+            userRepository.save(user);
+            return ResponseEntity.ok("User XP updated successfully");
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
         }

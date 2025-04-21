@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { Achievement } from '../models/achievement.model';
@@ -8,14 +8,18 @@ import { Achievement } from '../models/achievement.model';
 })
 export class CustomerAchievementService {
   private apiUrl = 'http://localhost:8222/api/v1/achievements'; 
-  private token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6ImZhcmFoQGVzcHJpdC50biIsImV4cCI6MTc0NTI1Mzk0OH0.HLIVYx5lbwNhGw6uzvDFDRHCzAG35gU4eRUkDaU6u9Y";
+  private getHeaders(): HttpHeaders {
+    const token = localStorage.getItem('authToken'); // Retrieve token from local storage
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+  }
 
   constructor(private http: HttpClient) {}
 
   getAllAchievements(): Observable<Achievement[]> {
     console.log('📞 Appel API pour récupérer les achievements...');
-    const headers = { Authorization: `Bearer ${this.token}` }; // Ajout du token
-    return this.http.get<any[]>(`${this.apiUrl}/liste`, { headers }).pipe(
+    return this.http.get<any[]>(`${this.apiUrl}/liste`, { headers: this.getHeaders() }).pipe(
       map(data =>
         data.map(item => ({
           achieveId: item.achieveId ?? item.achieve_id ?? '',
@@ -30,22 +34,18 @@ export class CustomerAchievementService {
   }
 
   deleteAchievement(achieveId: string): Observable<void> {
-    const headers = { Authorization: `Bearer ${this.token}` }; // Ajout du token
-    return this.http.delete<void>(`${this.apiUrl}/delete/${achieveId}`, { headers });
+    return this.http.delete<void>(`${this.apiUrl}/delete/${achieveId}`, { headers: this.getHeaders() });
   }
 
   updateAchievement(achievement: Achievement): Observable<Achievement> {
-    const headers = { Authorization: `Bearer ${this.token}` }; // Ajout du token
-    return this.http.put<Achievement>(`${this.apiUrl}/update/${achievement.achieveId}`, achievement, { headers });
+    return this.http.put<Achievement>(`${this.apiUrl}/update/${achievement.achieveId}`, achievement, { headers: this.getHeaders() });
   }
   
   getAchievementById(achieveId: string): Observable<Achievement> {
-    const headers = { Authorization: `Bearer ${this.token}` }; // Ajout du token
-    return this.http.get<Achievement>(`${this.apiUrl}/getById/${achieveId}`, { headers });
+    return this.http.get<Achievement>(`${this.apiUrl}/getById/${achieveId}`,  { headers: this.getHeaders() });
   }
   
   updateProgress(exerciseId: string, totalSets: number): Observable<string> {
-    const headers = { Authorization: `Bearer ${this.token}` }; // Ajout du token
-    return this.http.put<string>(`${this.apiUrl}/updateProgress/${exerciseId}/${totalSets}`, {}, { headers });
+    return this.http.put<string>(`${this.apiUrl}/updateProgress/${exerciseId}/${totalSets}`, {}, { headers: this.getHeaders() });
   }
 }

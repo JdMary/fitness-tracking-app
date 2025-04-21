@@ -23,4 +23,9 @@ public interface IUserService {
     void resetPassword(String NewPassword, String email);
     void updateLastLogin(String email);
     void updateInactiveStatus(String email);
+    List<User> findAllUsersByBoardId(String boardId);
+
+    public User findUserByBoardId(String boardId);
+
+    public String findBoardIdByUserId(String userId);
 }

@@ -1,12 +1,15 @@
 package fitrack.achievement.service;
 
+import fitrack.achievement.client.AuthClient;
 import fitrack.achievement.client.UserClient;
+import fitrack.achievement.entity.User;
 import fitrack.achievement.entity.dtos.FullBoardResponse;
 import fitrack.achievement.entity.LeaderBoard;
 import fitrack.achievement.repository.LeaderBoardRepository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +20,8 @@ import java.util.Optional;
 public class LeaderBoardService {
     @Autowired
     private LeaderBoardRepository repository;
+
+    private final AuthClient authClient;
 
   //  private UserClient client;
 
@@ -45,7 +50,7 @@ public class LeaderBoardService {
         LeaderBoard board = optionalBoard.get();
 
         // 🔥 Récupération des utilisateurs via le repository
-        var users = repository.findUsersByBoardId(boardId);
+        List<User> users = authClient.getUsersByBoardId(boardId).getBody();
 
         if (!users.isEmpty()) {
             users.sort((u1, u2) -> Integer.compare(u2.getXpPoints(), u1.getXpPoints()));
@@ -65,7 +70,9 @@ public class LeaderBoardService {
 
     public FullBoardResponse findByUserId(String userId) {
         // 🔥 Récupération du LeaderBoard via le userId
-        LeaderBoard board = repository.findLeaderBoardByUserId(userId);
+        ResponseEntity<String> boardId= authClient.getBoardIdByUserId(userId);
+        System.out.println("boardId: " + boardId.getBody());
+        LeaderBoard board= repository.findById(boardId.getBody()).orElse(null);
 
         if (board == null || board.getBoardId() == null) {
             FullBoardResponse response = new FullBoardResponse();

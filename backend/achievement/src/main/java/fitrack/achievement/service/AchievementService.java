@@ -1,6 +1,5 @@
 package fitrack.achievement.service;
 
-import fitrack.achievement.client.ExerciseClient;
 import fitrack.achievement.entity.Achievement;
 import fitrack.achievement.entity.dtos.ExerciseDTO;
 import fitrack.achievement.repository.AchievementRepository;

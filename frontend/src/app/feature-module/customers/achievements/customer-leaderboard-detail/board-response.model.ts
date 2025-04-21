@@ -1,5 +1,6 @@
 export interface User {
-    userId: string;
+    id: string;
+    name: string;
     boardId: string;
     xpPoints: number;
     rank: number;

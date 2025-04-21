@@ -60,6 +60,18 @@ public class User implements UserDetails {
 
     @Column
     private int coins;
+    @Column
+    private String boardId;
+    @Column
+    private int xpPoints;
+    @Column
+    private int rank;
+    @Column
+    private String fitnessGoals;
+    @Column
+    private float height;
+    @Column
+    private float weight;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Order> orders;
@@ -75,6 +87,30 @@ public class User implements UserDetails {
         this.imageId = imageId;
         this.signupDate = LocalDateTime.now();
         this.coins = 0;
+    }
+    public User(String name, int number, String email, String password, UserRole role, String imageUrl, String imageId, String boardId,
+                String otp, LocalDateTime lastLogin, Boolean inactive, LocalDateTime otpExpiry, LocalDateTime signupDate, int coins,
+                int xpPoints, int rank, String fitnessGoals, float height, float weight, List<Order> orders) {
+        this.name = name;
+        this.number = number;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.imageUrl = imageUrl;
+        this.imageId = imageId;
+        this.boardId = boardId;
+        this.otp = otp;
+        this.lastLogin = lastLogin;
+        this.inactive = inactive;
+        this.otpExpiry = otpExpiry;
+        this.signupDate = signupDate != null ? signupDate : LocalDateTime.now();
+        this.coins = coins;
+        this.xpPoints = xpPoints;
+        this.rank = rank;
+        this.fitnessGoals = fitnessGoals;
+        this.height = height;
+        this.weight = weight;
+        this.orders = orders != null ? orders : new ArrayList<>();
     }
 
     @Override

@@ -20,4 +20,11 @@ public interface UserRepository extends JpaRepository<User, String> {
             "WHERE FUNCTION('DATE_FORMAT', u.signupDate, '%M') = :month " +
             "GROUP BY FUNCTION('DATE_FORMAT', u.signupDate, '%Y-%M')")
     List<Object[]> countUsersBySignupMonth(@Param("month") String month);
+
+
+    List<User> findUsersByBoardId(String boardId);
+    User findByBoardId(String boardId);
+    @Query("SELECT u.boardId FROM User u WHERE u.id = :userId")
+    String findBoardIdByUserId(@Param("userId") String userId);
+
 }

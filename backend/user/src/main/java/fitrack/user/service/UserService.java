@@ -154,4 +154,24 @@ public class UserService implements IUserService {
             }
         });
     }
+
+    public List<User> findAllUsersByBoardId(String boardId) {
+        List<User> users = repository.findUsersByBoardId(boardId);
+        if (users == null || users.isEmpty()) {
+            throw new RuntimeException("No users found for board ID: " + boardId);
+        }
+        return users;
+    }
+
+    public User findUserByBoardId(String boardId) {
+        User user = repository.findByBoardId(boardId);
+        if (user == null) {
+            throw new RuntimeException("No user found for board ID: " + boardId);
+        }
+        return user;
+    }
+
+    public String findBoardIdByUserId(String userId) {
+        return repository.findBoardIdByUserId(userId);
+    }
 }
