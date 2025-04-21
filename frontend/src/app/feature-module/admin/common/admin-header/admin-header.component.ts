@@ -38,4 +38,18 @@ public toggleSideBar(): void {
 public toggleAdminMobileSideBar(): void {
   this.sideBar.switchAdminMobileSideBarPosition();
   }
+  public isLoggedIn: boolean = false;
+
+  
+
+  private checkAuthToken(): void {
+    this.isLoggedIn = !!localStorage.getItem('authToken'); // Check if token exists
+  }
+
+  
+  public logout(): void {
+    localStorage.removeItem('authToken'); // Remove token
+    this.isLoggedIn = false; // Update state
+    this.router.navigate(['/login']); // Navigate to login page
+  }
 }

@@ -711,10 +711,51 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'sport-facility',
+        loadChildren: () => import('./sport-facility/sport-facility.module').then(m => m.SportFacilityModule)
+      },
+      {
+        path: 'list-sport-facility',
+        loadChildren: () =>
+          import('./sport-facility/list-sport-facility/list-sport-facility.module').then(m => m.ListSportFacilityModule)
+      },
+      {
+        path: 'edit-sport-facility',
+        loadChildren: () =>
+          import('./sport-facility/edit-sport-facility/edit-sport-facility.module').then(m => m.EditSportFacilityModule)
+      },
+      {
+        path: 'promotion',
+        loadChildren: () => import('./promotion/promotion.module').then(m => m.PromotionModule)
+      },
+      {
+        path: 'subscription',
+        loadChildren: () =>
+          import('./subscription/subscription.module').then(m => m.SubscriptionModule)
+      },
+      {
+        path: 'event',
+        loadChildren: () => import('./event/event.module').then(m => m.EventModule)
+      },
+
+      
+      {
         path: 'provider-sales',
         loadChildren: () =>
           import('./provider-sales/provider-sales.module').then(
             (m) => m.ProviderSalesModule
+          ),
+      },
+      {
+        path: 'buddy',
+        loadChildren: () =>
+          import('./buddy/buddy.module').then((m) => m.BuddyModule),
+      },
+      {
+        path: 'add-user',
+        loadChildren: () =>
+          import('./add-user/add-user.module').then(
+            (m) => m.AddUserModule
           ),
       },
     ],

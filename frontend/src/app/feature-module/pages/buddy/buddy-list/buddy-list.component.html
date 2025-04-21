@@ -1,0 +1,118 @@
+<div class="breadcrumb-bar text-center">
+  <div class="container">
+      <div class="row">
+          <div class="col-md-12 col-12">
+              <h2 class="breadcrumb-title mb-2">Requests List</h2>
+              <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb justify-content-center mb-0">
+                      <li class="breadcrumb-item"><a [routerLink]="routes.home"><i class="ti ti-home-2"></i></a></li>
+                      <li class="breadcrumb-item active" aria-current="page">Browse buddy requests</li>
+                  </ol>
+              </nav>
+          </div>
+      </div>
+      <div class="breadcrumb-bg">
+          <img src="assets/img/bg/breadcrumb-bg-01.png" class="breadcrumb-bg-1" alt="Img">
+          <img src="assets/img/bg/breadcrumb-bg-02.png" class="breadcrumb-bg-2" alt="Img">
+      </div>
+  </div>
+</div>
+
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+  <div class="content">
+      <div class="container">
+              <div class="col-xl-12 col-lg-8">
+                  <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
+                      <h4 >Found <span class="text-primary">{{ buddyRequestsCount }} Requests</span></h4>
+                      <div class="d-flex align-items-center">
+                          <span class="text-dark me-2">Sort</span>
+                          <div class="dropdown me-2">
+                              <a href="javascript:void(0);" class="dropdown-toggle bg-light-300 " data-bs-toggle="dropdown">
+                                  Sort by
+                              </a>
+                              <div class="dropdown-menu">
+                                  <a href="javascript:void(0);" class="dropdown-item" [class.active]="currentFilter === 'ALL'" (click)="filterRequests('ALL')">All</a>
+                                  <a href="javascript:void(0);" class="dropdown-item" [class.active]="currentFilter === 'PENDING'" (click)="filterRequests('PENDING')">Pending</a>
+                                  <a href="javascript:void(0);" class="dropdown-item" [class.active]="currentFilter === 'WAITING'" (click)="filterRequests('WAITING')">Waiting</a>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row justify-content-center align-items-center">
+                    <div class="col-xl-3 col-md-6" *ngFor="let request of paginatedBuddyRequests">
+                      <div class="card p-0">
+                          <div class="card-body p-0">
+                              <div class="img-sec w-100">
+                                  <a [routerLink]="routes.serviceDetails">
+                                      <img src="assets/img/providers/provider-13.jpg" class="img-fluid rounded-top w-100" alt="img">
+                                  </a>
+                                  <div class="image-tag d-flex justify-content-end align-items-center">
+                                    <span class="trend-tag">{{ request.goal | formatGoal }}</span>                                    
+                                  </div>
+                                  <span class="image-logo avatar avatar-md border rounded-circle">
+                                      <img src="assets/img/providers/provider-01.jpg" class="img-fluid rounded-circle " alt="logo">
+                                  </span>
+                              </div>
+                              <div class="p-3">
+                                  <h5 class="mb-2">
+                                      <a [routerLink]="routes.serviceDetails">{{ request.userName }}</a>
+                                  </h5>
+                                  <div class="d-flex align-items-center mb-3">
+                                    <p class="fs-15 mb-0 text-dark fw-semibold">
+                                        <i class="ti ti-calendar-clock text-primary me-2"></i>
+                                        Day and Time: {{ request.workoutStartTime }}
+                                    </p>
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <div class="d-flex align-items-center">
+                                        <p class="fs-15 mb-0 text-dark fw-semibold">
+                                            <i class="ti ti-clock text-primary me-2"></i>
+                                            Duration: {{ request.duration }} minutes
+                                        </p>
+                                    </div>
+                                    <span 
+                                    class="badge" 
+                                    [ngClass]="{
+                                      'badge-soft-warning': request.status === 'PENDING',
+                                      'badge-soft-info': request.status === 'WAITING',
+                                    }">
+                                  {{ request.status }}
+                                    </span>
+                                </div>
+                                  <div class="d-flex justify-content-between align-items-center">
+                                      <a [routerLink]="routes.booking" class="btn bg-primary-transparent">View Profile</a>
+                                      <button class="btn btn-info-light" 
+                                              (click)="subscribe(request.id)"
+                                              [disabled]="request.status !== 'PENDING'">
+                                        Subscribe
+                                      </button>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                    <nav aria-label="Page navigation">
+                      <ul class="paginations d-flex justify-content-center align-items-center">
+                        <li class="page-item me-3" [class.disabled]="currentPage === 1">
+                          <a class="page-link" (click)="prevPage()"><i class="ti ti-arrow-left me-2"></i>Prev</a>
+                        </li>
+                        <li class="page-item me-2" *ngFor="let page of pages">
+                          <a class="page-link-1 d-flex justify-content-center align-items-center"
+                             [class.active]="currentPage === page"
+                             (click)="changePage(page)">
+                            {{page}}
+                          </a>
+                        </li>
+                        <li class="page-item" [class.disabled]="currentPage === totalPages">
+                          <a class="page-link" (click)="nextPage()">Next<i class="ti ti-arrow-right ms-2"></i></a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
+              </div>
+
+      </div>
+  </div>
+</div>
+<!-- /Page Wrapper -->

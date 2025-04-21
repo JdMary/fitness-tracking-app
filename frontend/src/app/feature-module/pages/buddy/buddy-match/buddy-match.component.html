@@ -1,0 +1,334 @@
+<!-- Breadcrumb -->
+<div class="breadcrumb-bar text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-12">
+                <h2 class="breadcrumb-title mb-2">List of Matches</h2>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center mb-0">
+                        <li class="breadcrumb-item"><a><i class="ti ti-home-2"></i></a></li>
+                        <li class="breadcrumb-item active" aria-current="page">View Matches</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="breadcrumb-bg">
+            <img src="assets/img/bg/breadcrumb-bg-01.png" class="breadcrumb-bg-1" alt="Img">
+            <img src="assets/img/bg/breadcrumb-bg-02.png" class="breadcrumb-bg-2" alt="Img">
+        </div>
+    </div>
+</div>
+<!-- /Breadcrumb -->
+
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-3 col-lg-4 theiaStickySidebar">
+                    <div class="card">
+                        <div class="card-body">
+                            <form>
+                                <div class="d-flex align-items-center justify-content-between mb-3 pb-3 border-bottom">
+                                    <h5><i class="ti ti-filter-check me-2"></i>Filters</h5>
+                                    <a href="javascript:void(0);">Reset Filter</a>
+                                </div>
+                                <div class="mb-3 pb-3 border-bottom">
+                                    <label class="form-label">Search By Keyword</label>
+                                    <input type="text" class="form-control" placeholder="What are you looking for?">
+                                </div>
+                                <div class="accordion border-bottom mb-3">
+                                    <div class="accordion-item mb-3">
+                                        <div class="accordion-header" id="accordion-headingThree">
+                                            <div class="accordion-button p-0 mb-3" data-bs-toggle="collapse" data-bs-target="#accordion-collapseThree" aria-expanded="true" aria-controls="accordion-collapseThree" role="button">
+                                                Categories
+                                            </div>
+                                        </div>
+                                        <div id="accordion-collapseThree" class="accordion-collapse collapse show" aria-labelledby="accordion-headingThree">
+                                            <div class="content-list mb-3" id="fill-more">
+                                                <div class="form-check mb-2">
+                                                    <label class="form-check-label">
+                                                        <input class="form-check-input" type="checkbox" checked>
+                                                        All Categories
+                                                    </label>
+                                                </div>
+                                                <div class="form-check mb-2">
+                                                    <label class="form-check-label">
+                                                        <input class="form-check-input" type="checkbox">
+                                                        Construction
+                                                    </label>
+                                                </div>
+                                                <div class="form-check mb-2">
+                                                    <label class="form-check-label">
+                                                        <input class="form-check-input" type="checkbox">
+                                                        Car Wash
+                                                    </label>
+                                                </div>
+                                                <div class="form-check mb-2">
+                                                    <label class="form-check-label">
+                                                        <input class="form-check-input" type="checkbox">
+                                                        Electrical
+                                                    </label>
+                                                </div>
+                                                <div class="form-check mb-2">
+                                                    <label class="form-check-label">
+                                                        <input class="form-check-input" type="checkbox">
+                                                        Cleaning
+                                                    </label>
+                                                </div>
+                                                <div class="form-check mb-2">
+                                                    <label class="form-check-label">
+                                                        <input class="form-check-input" type="checkbox">
+                                                        Plumbing
+                                                    </label>
+                                                </div>
+                                                <div class="form-check mb-2">
+                                                    <label class="form-check-label">
+                                                        <input class="form-check-input" type="checkbox">
+                                                        Designing
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <a href="javascript:void(0);" id="more" class="more-view text-primary fs-14"> <i class="ti ti-chevron-down ms-1"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion border-bottom mb-3">
+                                    <div class="accordion-header" id="accordion-headingFour">
+                                        <div class="accordion-button p-0 mb-3" data-bs-toggle="collapse" data-bs-target="#accordion-collapseFour" aria-expanded="true" aria-controls="accordion-collapseFour" role="button">
+                                            Sub Category
+                                        </div>
+                                    </div>
+                                    <div id="accordion-collapseFour" class="accordion-collapse collapse show" aria-labelledby="accordion-headingFour">
+                                        <div class="mb-3">
+                                            <select class="form-control select" name="subCategory">
+                                                <option value="">All Sub Category</option>
+                                                <option>
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion border-bottom mb-3">
+                                    <div class="accordion-header" id="accordion-headingFive">
+                                        <div class="accordion-button p-0 mb-3" data-bs-toggle="collapse" data-bs-target="#accordion-collapseFive" aria-expanded="true" aria-controls="accordion-collapseFive" role="button">
+                                            Location
+                                        </div>
+                                    </div>
+                                    <div id="accordion-collapseFive" class="accordion-collapse collapse show" aria-labelledby="accordion-headingFive">
+                                        <div class="mb-3">
+                                            <div class="position-relative">
+                                                <input type="text" class="form-control" placeholder="Select Location">
+                                                <span class="icon-addon"><i class="ti ti-map-pin"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion border-bottom mb-3">
+                                    <div class="accordion-header" id="accordion-headingSix">
+                                        <div class="accordion-button p-0 mb-3" data-bs-toggle="collapse" data-bs-target="#accordion-collapseSix" aria-expanded="true" aria-controls="accordion-collapseSix" role="button">
+                                            Price Range
+                                        </div>
+                                    </div>
+                                    <div id="accordion-collapseSix" class="accordion-collapse collapse show" aria-labelledby="accordion-headingSix">
+                                        <div class="filter-range">
+                                            <input type="range" class="form-range" min="200" max="500">
+                                        </div>
+                                        <div class="filter-range-amount mb-3">
+                                            <p class="fs-14">Price: <span></span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion">
+                                    <div class="accordion-item mb-3">
+                                        <div class="accordion-header" id="accordion-headingTwo">
+                                            <div class="accordion-button fs-18 p-0 mb-3" data-bs-toggle="collapse" data-bs-target="#accordion-collapseTwo" aria-expanded="true" aria-controls="accordion-collapseTwo" role="button">
+                                                Ratings
+                                            </div>
+                                        </div>
+                                        <div id="accordion-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="accordion-headingTwo">
+                                            <div class="mb-3">
+                                                <div class="form-check mb-2">
+                                                    <label class="form-check-label d-block">
+                                                        <input class="form-check-input" type="checkbox" checked>
+                                                        <span class="rating">
+                                                            <i class="fas fa-star filled"></i>
+                                                            <i class="fas fa-star filled"></i>
+                                                            <i class="fas fa-star filled"></i>
+                                                            <i class="fas fa-star filled"></i>
+                                                            <i class="fas fa-star filled"></i><span class="float-end">(55)</span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                                <div class="form-check mb-2">
+                                                    <label class="form-check-label d-block">
+                                                        <input class="form-check-input" type="checkbox">
+                                                        <span class="rating">
+                                                            <i class="fas fa-star filled"></i>
+                                                            <i class="fas fa-star filled"></i>
+                                                            <i class="fas fa-star filled"></i>
+                                                            <i class="fas fa-star filled"></i>
+                                                            <i class="fa-regular fa-star filled"></i><span class="float-end">(48)</span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                                <div class="form-check mb-2">
+                                                    <label class="form-check-label d-block">
+                                                        <input class="form-check-input" type="checkbox">
+                                                        <span class="rating">
+                                                            <i class="fas fa-star filled"></i>
+                                                            <i class="fas fa-star filled"></i>
+                                                            <i class="fas fa-star filled"></i>
+                                                            <i class="fa-regular fa-star filled"></i>
+                                                            <i class="fa-regular fa-star filled"></i><span class="float-end">(13)</span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                                <div class="form-check mb-2">
+                                                    <label class="form-check-label d-block">
+                                                        <input class="form-check-input" type="checkbox">
+                                                        <span class="rating">
+                                                            <i class="fas fa-star filled"></i>
+                                                            <i class="fas fa-star filled"></i>
+                                                            <i class="fa-regular fa-star filled"></i>
+                                                            <i class="fa-regular fa-star filled"></i>
+                                                            <i class="fa-regular fa-star filled"></i><span class="float-end">(05)</span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                                <div class="form-check mb-2">
+                                                    <label class="form-check-label d-block">
+                                                        <input class="form-check-input" type="checkbox">
+                                                        <span class="rating">
+                                                            <i class="fas fa-star filled"></i>
+                                                            <i class="fa-regular fa-star filled"></i>
+                                                            <i class="fa-regular fa-star filled"></i>
+                                                            <i class="fa-regular fa-star filled"></i>
+                                                            <i class="fa-regular fa-star filled"></i><span class="float-end">(00)</span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-dark w-100">Search</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-9 col-lg-8">
+                    <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
+                        <h4>Found <span class="text-primary">{{ matchesCount }} Matches</span></h4>
+                        <div class="d-flex align-items-center">
+                            <span class="text-dark me-2">Sort</span>
+                            <div class="dropdown me-2">
+                                <a href="javascript:void(0);" class="dropdown-toggle bg-light-300" data-bs-toggle="dropdown">
+                                    Price Low to High
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a href="javascript:void(0);" class="dropdown-item active">Price Low to High</a>
+                                    <a href="javascript:void(0);" class="dropdown-item">Price High to Low</a>
+                                </div>
+                            </div>
+                            <a class="tags d-flex justify-content-center align-items-center rounded me-2"><i class="ti ti-layout-grid"></i></a>
+                            <a class="tags d-flex justify-content-center align-items-center border bg-primary rounded"><i class="ti ti-list"></i></a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="service-list" *ngFor="let match of paginatedBuddyMatches">
+                                <div class="service-cont">
+                                    <div class="service-cont-img">
+                                        <a>
+                                            <img class="img-fluid serv-img">
+                                        </a>
+                                    </div>
+                                    <div class="service-cont-info">
+                                        <div class="d-flex justify-content-between align-items-center flex-wrap">
+                                            <div class="d-flex align-items-center" style="flex: 1;">
+                                                <h3 class="title mb-0">
+                                                    <i class="feather icon-user me-2"></i>
+                                                    <a>{{ match.name1}}</a>
+                                                </h3>
+                                            </div>
+                                            <div class="d-flex align-items-center" style="flex: 1;">
+                                                <h3 class="title mb-0">
+                                                    <i class="feather icon-user ms-2"></i>
+                                                    <a>{{ match.name2 }}</a>
+                                                </h3>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex flex-wrap align-items-center gap-4 mt-3">
+                                            <div class="d-flex align-items-center" style="white-space: nowrap;">
+                                                <i class="feather icon-clock text-primary me-1"></i>
+                                                <strong>Start Time:</strong>&nbsp;{{ match.workoutStartTime | date:'short' }}
+                                            </div>
+                                            <div class="d-flex align-items-center" style="white-space: nowrap;">
+                                                <i class="feather icon-clock text-primary me-1"></i>
+                                                <strong>Duration:</strong>&nbsp;{{ match.duration }} minutes
+                                            </div>
+                                            <div class="d-flex align-items-center" style="white-space: nowrap;">
+                                                <i class="feather icon-target text-success me-1"></i>
+                                                <strong>Goal:</strong>&nbsp;{{ match.goal | formatGoal }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="service-action" style="margin-top: auto ;margin-right: auto">
+                                    <a class="btn btn-primary-light px-4">Message</a>
+                                </div>
+                                <div class="fav-item" style="margin-bottom: auto;">
+                                    <a
+                                      class="reminder-icon d-inline-flex align-items-center justify-content-center rounded-circle shadow-sm ms-2"
+                                      (click)="setReminder(match)"
+                                      style="
+                                        width: 40px;
+                                        height: 40px;
+                                        background-color: #f8f9fa;
+                                        transition: all 0.2s ease-in-out;
+                                        cursor: pointer;
+                                      "
+                                      [ngClass]="{
+                                        'bg-light': !match.reminderSet,
+                                        'bg-secondary bg-opacity-10': match.reminderSet
+                                      }"
+                                      title="Toggle Reminder"
+                                    >
+                                      <i
+                                        class="feather"
+                                        [ngClass]="{
+                                          'icon-bell text-success': !match.reminderSet,
+                                          'icon-bell-off text-muted': match.reminderSet
+                                        }"
+                                        style="font-size: 20px;"
+                                      ></i>
+                                    </a>
+                                  </div>
+                                  
+                            </div>
+                        </div>
+                    </div>
+                    <nav aria-label="Page navigation">
+                        <ul class="paginations d-flex justify-content-center align-items-center">
+                            <li class="page-item me-3" [class.disabled]="currentPage === 1">
+                                <a class="page-link" (click)="prevPage()"><i class="ti ti-arrow-left me-2"></i>Prev</a>
+                            </li>
+                            <li class="page-item me-2" *ngFor="let page of [].constructor(totalPages); let i = index">
+                                <a class="page-link-1" 
+                                   [class.active]="currentPage === i + 1"
+                                   (click)="changePage(i + 1)">
+                                    {{ i + 1 }}
+                                </a>
+                            </li>
+                            <li class="page-item" [class.disabled]="currentPage === totalPages">
+                                <a class="page-link" (click)="nextPage()">Next<i class="ti ti-arrow-right ms-2"></i></a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Page Wrapper -->

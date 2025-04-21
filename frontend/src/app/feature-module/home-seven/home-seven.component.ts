@@ -148,6 +148,7 @@ export class HomeSevenComponent implements OnInit{
   }
   ngOnInit(): void {
     this.calculateScrollPercentage();
+    this.checkAuthToken();
   }
   // scroll the page to top position
   public scrollToTop(): void {
@@ -182,5 +183,16 @@ export class HomeSevenComponent implements OnInit{
       }
     });
   }
+  public isLoggedIn: boolean = false;
+
   
+
+  private checkAuthToken(): void {
+    this.isLoggedIn = !!localStorage.getItem('authToken'); // Check if token exists
+  }
+
+  public logout(): void {
+    localStorage.removeItem('authToken'); // Remove token
+    this.isLoggedIn = false; // Update state
+  }
 }

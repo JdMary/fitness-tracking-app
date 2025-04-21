@@ -1,0 +1,223 @@
+<div class="breadcrumb-bar text-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-12">
+                <h2 class="breadcrumb-title mb-2">My Requests</h2>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center mb-0">
+                        <li class="breadcrumb-item"><a [routerLink]="routes.home"><i class="ti ti-home-2"></i></a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Review my Requests</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="breadcrumb-bg">
+            <img src="assets/img/bg/breadcrumb-bg-01.png" class="breadcrumb-bg-1" alt="Img">
+            <img src="assets/img/bg/breadcrumb-bg-02.png" class="breadcrumb-bg-2" alt="Img">
+        </div>
+    </div>
+  </div>
+  
+  <!-- Page Wrapper -->
+  <div class="page-wrapper">
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                <!-- Form Start -->
+                <div class="col-xl-3 col-lg-4 theiaStickySidebar">
+                    <div class="card">
+                        <div class="card-body">
+                            <form [formGroup]="buddyRequestForm" (ngSubmit)="onSubmit()">
+                                <div class="d-flex align-items-center justify-content-between mb-3 pb-3 border-bottom">
+                                    <h5><i class="ti ti-pencil-plus me-2"></i>Create your Request</h5>
+                                </div>
+                                <div class="accordion border-bottom mb-3">
+                                    <div class="accordion-item mb-3">
+                                      <div class="accordion-header" id="accordion-headingThree">
+                                        <div class="accordion-button p-0 mb-3" data-bs-toggle="collapse" data-bs-target="#accordion-collapseThree" aria-expanded="true" aria-controls="accordion-collapseThree" role="button">
+                                          Workout Goal
+                                        </div>
+                                      </div>
+                                      <div id="accordion-collapseThree" class="accordion-collapse collapse show" aria-labelledby="accordion-headingThree">
+                                        <div class="content-list mb-3" id="fill-more">
+                                          <div class="form-check mb-2" *ngFor="let goal of goals">
+                                            <label class="form-check-label">
+                                              <input class="form-check-input" type="checkbox" [value]="goal" [checked]="selectedGoal === goal" (change)="selectGoal(goal)">                                            
+                                              {{ goal | formatGoal }}
+                                            </label>
+                                          </div>
+                                          <div *ngIf="goalError" class="text-danger mb-2">
+                                            Please select at least one workout goal.
+                                          </div>  
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <div class="accordion border-bottom mb-3" id="accordionExample">
+                                    <div class="accordion-item mb-3">
+                                      <h2 class="accordion-header" id="accordion-headingFive">
+                                        <button 
+                                          class="accordion-button p-0 mb-3" 
+                                          type="button" 
+                                          data-bs-toggle="collapse" 
+                                          data-bs-target="#accordion-collapseFive" 
+                                          aria-expanded="true" 
+                                          aria-controls="accordion-collapseFive">
+                                          Workout Day and Time
+                                        </button>
+                                      </h2>
+                                      
+                                      <div id="accordion-collapseFive" class="accordion-collapse collapse show" aria-labelledby="accordion-headingFive">
+                                        <div class="accordion-body">
+                                          <label for="date">Date:</label>
+                                          <input type="date" formControlName="date" required class="form-control mb-2" />
+                                          <div *ngIf="date!.hasError('pastDate') && date!.touched" class="text-danger">
+                                            The selected date cannot be in the past.
+                                          </div>                                
+                                  
+                                          <label for="time">Time:</label>
+                                          <input type="time" formControlName="time" required class="form-control" />
+                                          <div *ngIf="time!.hasError('invalidTime') && time!.touched" class="text-danger">
+                                            The selected time cannot be between 10 PM and 8 AM.
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                  
+                                  <div class="accordion border-bottom mb-3" id="accordionExample">
+                                    <div class="accordion-item mb-3">
+                                      <h2 class="accordion-header" id="accordion-headingSix">
+                                        <button 
+                                          class="accordion-button p-0 mb-3" 
+                                          type="button" 
+                                          data-bs-toggle="collapse" 
+                                          data-bs-target="#accordion-collapseSix" 
+                                          aria-expanded="true" 
+                                          aria-controls="accordion-collapseSix">
+                                          Workout Duration
+                                        </button>
+                                      </h2>
+                                  
+                                      <div id="accordion-collapseSix" class="accordion-collapse collapse show" aria-labelledby="accordion-headingSix">
+                                        <div class="accordion-body">
+                                          <div class="mb-3">
+                                            <label for="duration" class="form-label">Workout Duration (minutes):</label>
+                                            <input type="number" id="duration" formControlName="duration" class="form-control" min="30"step="10"placeholder="Enter duration in minutes"  required />
+                                            <div *ngIf="duration!.hasError('min') && duration!.touched" class="text-danger">
+                                                The duration must be at least 30 minutes.
+                                              </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                <button type="submit" class="btn btn-dark w-100">{{ submitValue }}</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- Form End -->
+                <div class="col-xl-9 col-lg-8">
+                    <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
+                        <h4 >Found <span class="text-primary">{{ buddyRequestsCount }} Requests</span></h4>
+                        <div class="d-flex align-items-center">
+                            <span class="text-dark me-2">Sort</span>
+                            <div class="dropdown me-2">
+                                <a href="javascript:void(0);" class="dropdown-toggle bg-light-300 " data-bs-toggle="dropdown">
+                                    Sort by
+                                </a>
+                                <div class="dropdown-menu">
+                                    <a href="javascript:void(0);" class="dropdown-item" [class.active]="currentFilter === 'ALL'" (click)="filterRequests('ALL')">All</a>
+                                    <a href="javascript:void(0);" class="dropdown-item" [class.active]="currentFilter === 'PENDING'" (click)="filterRequests('PENDING')">Pending</a>
+                                    <a href="javascript:void(0);" class="dropdown-item" [class.active]="currentFilter === 'WAITING'" (click)="filterRequests('WAITING')">Waiting</a>
+                                </div>
+                            </div>
+                            <a [routerLink]="routes.serviceGrid" class="tags d-flex justify-content-center align-items-center bg-primary rounded me-2"><i class="ti ti-layout-grid"></i></a>
+                            <a [routerLink]="routes.serviceList" class="tags d-flex justify-content-center align-items-center border rounded"><i class="ti ti-list"></i></a>
+                        </div>
+                    </div>
+                    <div class="row justify-content-start align-items-stretch g-3">
+                      <div class="col-xl-4 col-md-6 d-flex" *ngFor="let request of filteredRequests">
+                        <div class="card p-0 w-100" *ngIf="request.status === 'PENDING' || request.status === 'WAITING'">
+                            <div class="card-body p-0">
+                                <div class="img-sec w-100">
+                                  <div class="image-tag d-flex justify-content-end align-items-center">
+                                    <span class="trend-tag">{{ request.goal | formatGoal }}</span>
+                                  </div>
+                                    <a [routerLink]="routes.serviceDetails">
+                                        <img src="assets/img/providers/provider-13.jpg" class="img-fluid rounded-top w-100" alt="img">
+                                    </a>
+                                    
+                                </div>
+                                <div class="p-3">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <p class="fs-15 mb-0 text-dark fw-semibold">
+                                            <i class="ti ti-calendar-clock text-primary me-2"></i>
+                                            Day and Time: {{ request.workoutStartTime }}
+                                        </p>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <div class="d-flex align-items-center">
+                                            <p class="fs-15 mb-0 text-dark fw-semibold">
+                                                <i class="ti ti-clock text-primary me-2"></i>
+                                                Duration: {{ request.duration }} minutes
+                                            </p>
+                                        </div>
+                                        <span 
+                                        class="badge" 
+                                        [ngClass]="{
+                                          'badge-soft-warning': request.status === 'PENDING',
+                                          'badge-soft-info': request.status === 'WAITING',
+                                        }">
+                                      {{ request.status }}
+                                        </span>
+                                    </div>
+                                    <div class="d-flex align-items-center mb-3">
+                                      <h5 class="fs-14 mb-0 waiting-message" *ngIf="request.status === 'WAITING'">
+                                        <i class="ti ti-user-plus text-primary me-2"></i>
+                                        <span class="text-primary fw-bold">{{ request.userName }}</span>
+                                        <span class="text-dark"> requested to join</span>
+                                      </h5>
+                                      <h5 class="fs-14 mb-0 waiting-message" *ngIf="request.status === 'PENDING'">
+                                        <i class="ti ti-user-plus text-primary me-2"></i>
+                                        <span class="text-dark">Waiting for someone to Join!</span>
+                                      </h5>                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center" style="min-height: 38px;">
+                                      <button class="btn btn-danger-light" *ngIf="request.status === 'WAITING'" (click)="rejectRequest(request.id)">Reject</button>
+                                      <button class="btn btn-info-light" *ngIf="request.status === 'WAITING'">View Profile</button>
+                                        <button class="btn btn-primary-light" *ngIf="request.status === 'WAITING'" (click)="acceptRequest(request.id)">Accept</button>
+                                        <div class="w-100 text-center" *ngIf="request.status === 'PENDING'">
+                                            <button class="btn btn-warning-light" (click)="findBuddyRequestById(request.id)">Edit Request</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                    <nav aria-label="Page navigation">
+                        <ul class="paginations d-flex justify-content-center align-items-center">
+                          <li class="page-item me-3" [class.disabled]="currentPage === 1">
+                            <a class="page-link" (click)="prevPage()"><i class="ti ti-arrow-left me-2"></i>Prev</a>
+                          </li>
+                          <li class="page-item me-2" *ngFor="let page of [].constructor(totalPages); let i = index">
+                            <a class="page-link-1" 
+                               [class.active]="currentPage === i + 1"
+                               (click)="changePage(i + 1)">
+                              {{ i + 1 }}
+                            </a>
+                          </li>
+                          <li class="page-item" [class.disabled]="currentPage === totalPages">
+                            <a class="page-link" (click)="nextPage()">Next<i class="ti ti-arrow-right ms-2"></i></a>
+                          </li>
+                        </ul>
+                      </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+  <!-- /Page Wrapper -->
+  <ng-template #noRequests>
+    <p>No buddy requests available.</p>
+  </ng-template>

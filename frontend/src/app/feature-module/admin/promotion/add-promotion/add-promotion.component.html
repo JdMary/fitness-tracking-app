@@ -1,0 +1,95 @@
+<div class="page-wrapper">
+    <div class="content">
+      <div class="col-lg-12 m-auto">
+        <h3>Create Promotion</h3>
+  
+        <form (ngSubmit)="submitPromotion()">
+          <div class="container-service space-service">
+            <div class="sub-title">
+              <h6>Promotion Information</h6>
+            </div>
+  
+            <div class="row">
+              <!-- Promo Code -->
+              <div class="col-md-6">
+                <div class="form-group mat">
+                  <label for="promoCode">Promo Code</label>
+                  <input type="text" class="form-control" [(ngModel)]="promotion.promoCode" name="promoCode" required />
+                </div>
+              </div>
+  
+              <!-- Description -->
+              <div class="col-md-6">
+                <div class="form-group mat">
+                  <label for="description">Description</label>
+                  <input type="text" class="form-control" [(ngModel)]="promotion.description" name="description" required />
+                </div>
+              </div>
+  
+              <!-- Discount Percentage -->
+              <div class="col-md-6">
+                <div class="form-group mat">
+                  <label for="discountPercentage">Discount (%)</label>
+                  <input type="number" class="form-control" [(ngModel)]="promotion.discountPercentage" name="discountPercentage" required />
+                </div>
+              </div>
+  
+              <!-- Start Date -->
+              <div class="col-md-6">
+                <div class="form-group mat">
+                  <label for="startDate">Start Date</label>
+                  <input type="date" class="form-control" [(ngModel)]="promotion.startDate" name="startDate" required />
+                </div>
+              </div>
+  
+              <!-- End Date -->
+              <div class="col-md-6">
+                <div class="form-group mat">
+                  <label for="endDate">End Date</label>
+                  <input type="date" class="form-control" [(ngModel)]="promotion.endDate" name="endDate" required />
+                </div>
+              </div>
+  
+              <!-- Active -->
+              <div class="col-md-6">
+                <div class="form-group mat">
+                  <label for="active">Active</label>
+                  <select class="form-control" [(ngModel)]="promotion.active" name="active">
+                    <option [ngValue]="true">Active</option>
+                    <option [ngValue]="false">Inactive</option>
+                  </select>
+                </div>
+              </div>
+  
+              <!-- Sport Facility -->
+              <div class="col-md-6">
+                <div class="form-group mat">
+                  <label for="sportFacility">Sport Facility</label>
+                  <select class="form-control" [(ngModel)]="promotion.sportFacility" name="sportFacility" required>
+                    <option *ngFor="let facility of sportFacilities" [ngValue]="facility">
+                      {{ facility.name }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+  
+            </div>
+          </div>
+  
+          <!-- Submit Button -->
+          <div class="row">
+            <div class="col-md-12">
+              <div class="bottom-btn">
+                <div class="field-btns">
+                  <button class="btn btn-primary" type="submit">
+                    Create Promotion <i class="fas fa-arrow-right"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  

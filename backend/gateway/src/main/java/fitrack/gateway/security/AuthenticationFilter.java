@@ -25,17 +25,20 @@ public class AuthenticationFilter implements WebFilter {
 
         System.out.println("Incoming Request: " + request.getMethod() + " " + path);
 
-        if (path.startsWith("/api/v1/auth/login") || path.startsWith("/api/v1/auth/register")|| request.getMethod().equals(HttpMethod.OPTIONS)) {
+        if (path.startsWith("/api/v1/auth/")|| path.equals("/api/v1/facilities/all") || path.equals("/api/v1/facilities/promotions/all")  || request.getMethod().equals(HttpMethod.OPTIONS)) {
             System.out.println("Bypassing authentication for: " + path);
             return chain.filter(exchange);
         }
 
         if (!request.getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
             System.out.println("Unauthorized Request: " + path + " - Missing Authorization Header");
+            System.out.println(request.getHeaders());
             return this.onError(exchange, "Missing Authorization Header", HttpStatus.UNAUTHORIZED);
         }
 
+
         String token = request.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
+        System.out.println("Token: " + token);
         if (token != null && token.startsWith("Bearer ")) {
             token = token.substring(7);
         }

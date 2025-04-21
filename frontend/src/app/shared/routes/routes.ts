@@ -1,6 +1,21 @@
 export class routes {
   private static Url = '';
 
+  public static get adminRequestList(): string {
+    return this.baseUrl + '/admin/buddy/requests-list';
+  }
+  public static get adminMatchList(): string {
+    return this.baseUrl + '/admin/buddy/matches-list';
+  }
+  public static get buddyList(): string {
+    return this.baseUrl + '/buddy/buddy-list';
+  }
+  public static get buddyRequest(): string {
+    return this.baseUrl + '/buddy/buddy-request';
+  }
+  public static get buddyMatch(): string {
+    return this.baseUrl + '/buddy/buddy-match';
+  }
   public static get baseUrl(): string {
     return this.Url;
   }
@@ -64,6 +79,12 @@ export class routes {
   public static get customerBooking(): string {
     return this.baseUrl + '/customers/customer-booking';
   }
+  public static get poseAi(): string {
+    return this.baseUrl + '/customers/pose-ai';
+  }
+  public static get profile(): string {
+    return this.baseUrl + '/user/profile';
+  }
   public static get customerChat(): string {
     return this.baseUrl + '/customers/customer-chat';
   }
@@ -107,7 +128,7 @@ export class routes {
     return this.baseUrl + '/error-page/error500';
   }
   public static get homeOne(): string {
-    return this.baseUrl + '/home-one';
+    return this.baseUrl + '/home';
   }
   public static get home(): string {
     return this.baseUrl + '/home';
@@ -649,6 +670,9 @@ export class routes {
   public static get addServices(): string {
     return this.baseUrl + '/admin/add-service';
   }
+  public static get addUsers(): string {
+    return this.baseUrl + '/admin/add-user';
+  }
   public static get pendingServices(): string {
     return this.baseUrl + '/admin/pending-services';
   }
@@ -859,4 +883,64 @@ export class routes {
   public static get verificationRequest(): string {
     return this.baseUrl + '/admin/verification-request';
   }
+  ///////////////////////////dashboard
+  public static get addSportFacility(): string {
+    return this.baseUrl + '/admin/sport-facility';
+  }
+
+  public static get listSportFacility(): string {
+    return this.baseUrl + '/admin/list-sport-facility';
+  }
+  public static get editSportFacility(): string {
+    return this.baseUrl + '/admin/edit-sport-facility';
+  }
+  public static get addPromotion(): string {
+    return this.baseUrl + '/admin/promotion/add';
+  }
+  public static get listPromotion(): string {
+    return this.baseUrl + '/admin/promotion/list';
+  }
+  public static get editPromotion(): string {
+    return this.baseUrl + '/admin/promotion/edit';
+  }
+  public static get listSubscription(): string {
+    return this.baseUrl + '/admin/subscription';
+  }
+  public static get addEvent(): string {
+    return this.baseUrl + '/admin/event/add';
+  }
+  
+  public static get listEvent(): string {
+    return this.baseUrl + '/admin/event/list';
+  }
+  public static get listEventRegistration(): string {
+    return this.baseUrl + '/admin/event/registrations'; 
+  }
+  
+  
+  public static get editEvent(): string {
+    return this.baseUrl + '/admin/event/edit';
+  }
+  ///////////frontend
+  public static get userSportFacility(): string {
+    return this.baseUrl + '/sport-facility';
+  }
+  public static get sportFacilityDetails(): string {
+    return this.baseUrl + '/sport-facility/details';
+  }
+  public static get userPromotion(): string {
+    return this.baseUrl + '/promotion';
+  }
+  public static get userSubscription(): string {
+    return this.baseUrl + '/subscription/my-subscriptions';
+  }
+  public static get userEvents(): string {
+    return this.baseUrl + '/events';
+  }
+  
+  public static get registrationEvent(): string {
+    return this.baseUrl + '/events/list-user-registrations';
+  }
+
+  
 }

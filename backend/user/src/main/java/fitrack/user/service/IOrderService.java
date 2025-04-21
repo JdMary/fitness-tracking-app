@@ -11,9 +11,9 @@ public interface IOrderService {
 
     Order updateOrder(Order o);
 
-    Order retrieveOrder(String idOrder);
+    Order retrieveOrder(Long idOrder);
 
-    void removeOrder(String idOrder);
+    void removeOrder(Long idOrder);
 
     List<Order> addOrders (List<Order> Orders);
 }

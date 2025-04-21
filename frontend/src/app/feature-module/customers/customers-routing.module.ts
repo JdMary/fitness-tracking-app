@@ -74,15 +74,14 @@ const routes: Routes = [
    
       (m) => m.ShareOnFacebookModule
     )
-},
-
-
-
-
-
-
-      
-      
+},    
+      {
+        path: 'pose-ai',
+        loadChildren: () =>
+          import('./pose-ai/pose-ai.module').then(
+            (m) => m.PoseAiModule
+          ),
+      },
       {
         path: 'customer-favourite',
         loadChildren: () =>
