@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PagesComponent } from './pages.component';
+import { MealDetailsComponent } from './diet-plan/meal-details/meal-details.component';
 
 const routes: Routes = [
   {
@@ -142,6 +143,17 @@ const routes: Routes = [
           import('./service-request/service-request.module').then(
             (m) => m.ServiceRequestModule
           ),
+      },
+      {
+        path: 'diet-plan',
+        loadChildren: () =>
+          import('./diet-plan/diet-plan-routing.module').then(
+            (m) => m.DietPlanRoutingModule,
+          ),
+      },
+      {
+        path: 'diet-plan/meal/:id',
+        component: MealDetailsComponent,
       },
     ],
   },

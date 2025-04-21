@@ -4,24 +4,25 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum CuisineType implements ApiEnum<CuisineType> {
-    AMERICAN("American"),
-    ASIAN("Asian"),
-    BRITISH("British"),
-    CARIBBEAN("Caribbean"),
-    CENTRAL_EUROPE("Central Europe"),
-    CHINESE("Chinese"),
-    EASTERN_EUROPE("Eastern Europe"),
-    FRENCH("French"),
-    INDIAN("Indian"),
-    ITALIAN("Italian"),
-    JAPANESE("Japanese"),
-    KOSHER("Kosher"),
-    MEDITERRANEAN("Mediterranean"),
-    MEXICAN("Mexican"),
-    MIDDLE_EASTERN("Middle Eastern"),
-    NORDIC("Nordic"),
-    SOUTH_AMERICAN("South American"),
-    SOUTH_EAST_ASIAN("South East Asian");
+    AMERICAN("american"),
+    ASIAN("asian"),
+    BRITISH("british"),
+    CARIBBEAN("caribbean"),
+    CENTRAL_EUROPE("central europe"),
+    CHINESE("chinese"),
+    EASTERN_EUROPE("eastern europe"),
+    FRENCH("french"),
+    GREEK("greek"),
+    INDIAN("indian"),
+    ITALIAN("italian"),
+    JAPANESE("japanese"),
+    KOREAN("korean"),
+    KOSHER("kosher"),
+    MEDITERRANEAN("mediterranean"),
+    MEXICAN("mexican"),
+    MIDDLE_EASTERN("middle eastern"),
+    NORDIC("nordic"),
+    UNKNOWN("Unknown");
 
     private final String apiValue;
 

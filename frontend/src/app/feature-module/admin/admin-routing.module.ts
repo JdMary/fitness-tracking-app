@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin.component';
+import { MealDetailsComponent } from './diet-plan/meal-details/meal-details.component';
 
 const routes: Routes = [
   {
@@ -638,6 +639,28 @@ const routes: Routes = [
             (m) => m.ProviderSalesModule
           ),
       },
+      //////////////dietplan/////////////
+        {
+          path: 'diet-plan',
+          loadChildren: () =>
+            import('./diet-plan/diet-plan.module').then((m) => m.DietPlanModule),
+        },
+        {
+          path: 'buddy',
+          loadChildren: () =>
+            import('./buddy/buddy.module').then((m) => m.BuddyModule),
+        },
+        //////test
+        {
+          path: 'diet-plans',
+          loadChildren: () =>
+            import('./diet-plan/diet-plan.module').then((m) => m.DietPlanModule),
+        },
+     
+        {
+          path: 'diet-plan/meal-details/:id',
+          component: MealDetailsComponent,
+        },
     ],
   },
 ];

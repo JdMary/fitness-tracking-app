@@ -2,6 +2,8 @@ package fitrack.diet.service;
 
 import fitrack.diet.entity.Preference;
 
+import java.util.UUID;
+
 public interface IPreferenceService {
 //    Preference savePreference(Preference preference);
 //    Preference updatePreference(String preferenceId, Preference preference);
@@ -14,4 +16,5 @@ public interface IPreferenceService {
 //    ResponseEntity<String> getMealPlan(String userId);
     Preference addPreference(Preference preference,String token);
 
+    Preference updatePreference(String preferenceId, Preference preference, String token);
 }

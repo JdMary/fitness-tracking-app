@@ -21,7 +21,7 @@ public class Preference {
     @Column(name = "preference_id")
     private String preferenceId;
 
-    //@Column(nullable = false)
+    @Column(unique = true)
     private String username;
 
     //@Column(nullable = false)
@@ -50,6 +50,7 @@ public class Preference {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "preference_dish_types", joinColumns = @JoinColumn(name = "preference_id"))
+    @Column(name = "dish_types", length = 255) // Specify VARCHAR(255) for the column
     @Enumerated(EnumType.STRING)
     private Set<DishType> dishTypes = new HashSet<>();
 

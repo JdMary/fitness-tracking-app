@@ -24,6 +24,7 @@ public class DietPlan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long dietPlanId;
 
+    @Column(unique = true)
     private String username;
 
     @OneToMany(mappedBy = "dietPlan", cascade = CascadeType.ALL, orphanRemoval = true)

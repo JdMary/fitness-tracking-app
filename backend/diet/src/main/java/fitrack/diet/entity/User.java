@@ -12,6 +12,11 @@ import lombok.*;
         private String name;
         private String email;
         private UserRole role;
+        private double weightKg;
+        private double heightCm;
+        private int age;
+        private String gender;
+        private String goal;
     }
 
 

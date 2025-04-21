@@ -1,0 +1,26 @@
+<div class="container mt-4">
+  
+  <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+      <h5 class="mb-0">{{ meal?.name }}</h5>
+    </div>
+    <div class="card-body">
+      <img [src]="meal?.imageUrl" [alt]="meal?.name" class="img-fluid rounded mb-3">
+      <p><strong>Calories:</strong> {{ meal?.calories }} kcal</p>
+      <p><strong>Protein:</strong> {{ meal?.protein }}g</p>
+      <p><strong>Carbs:</strong> {{ meal?.carbs }}g</p>
+      <p><strong>Fat:</strong> {{ meal?.fat }}g</p>
+      <p><strong>Fiber:</strong> {{ meal?.fiber || 'N/A' }}g</p>
+      <p><strong>Sugar:</strong> {{ meal?.sugar || 'N/A' }}g</p>
+      <p><strong>Calcium:</strong> {{ meal?.calcium || 'N/A' }} mg</p>
+      <p><strong>Iron:</strong> {{ meal?.iron || 'N/A' }} mg</p>
+      <p><strong>Magnesium:</strong> {{ meal?.magnesium || 'N/A' }} mg</p>
+      <p><strong>Potassium:</strong> {{ meal?.potassium || 'N/A' }} mg</p>
+      <p><strong>Vitamin A:</strong> {{ meal?.vitaminA || 'N/A' }} IU</p>
+      <p><strong>Vitamin C:</strong> {{ meal?.vitaminC || 'N/A' }} mg</p>
+      <p><strong>Vitamin K:</strong> {{ meal?.vitaminK || 'N/A' }} µg</p>
+      <p><strong>Source:</strong> {{ meal?.source }}</p>
+      <a [href]="meal?.recipeUrl" target="_blank" class="btn btn-primary">View Recipe</a>
+    </div>
+  </div>
+</div>

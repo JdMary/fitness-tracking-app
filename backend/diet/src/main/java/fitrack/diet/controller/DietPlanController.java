@@ -1,17 +1,16 @@
 package fitrack.diet.controller;
 
-import fitrack.diet.entity.DTO.EdamamPlanResponse;
 import fitrack.diet.entity.DietPlan;
 import fitrack.diet.service.DietPlanService;
 import fitrack.diet.service.EdamamService;
+import jakarta.ws.rs.HeaderParam;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/diets/plan")
@@ -61,6 +60,37 @@ public class DietPlanController<DietPlanRequest> {
     public ResponseEntity<DietPlan> createDietPlan(@RequestBody DietPlan dietPlan,@RequestHeader("Authorization") String token) {
         DietPlan createdDietPlan = dietPlanService.createDietPlan(dietPlan,token);
         return new ResponseEntity<>(createdDietPlan, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/DietPlanList")
+    public ResponseEntity<List<DietPlan>> getDietPlanList() {
+        List<DietPlan> dietPlans = dietPlanService.getDietPlanList();
+        return new ResponseEntity<>(dietPlans, HttpStatus.OK);
+    }
+
+    @GetMapping("/DietPlanDetail/{id}")
+    public ResponseEntity<Optional<DietPlan>> getDietPlanDetail(@PathVariable Long id) {
+        Optional<DietPlan> dietPlan = dietPlanService.getDietPlanById(id);
+        return new ResponseEntity<>(dietPlan, HttpStatus.OK);
+    }
+
+    @GetMapping("/DietPlanByUsername")
+    public ResponseEntity<DietPlan> getDietPlanByUserId(
+            @RequestHeader("Authorization") String token) {
+        try {
+            if (token == null || !token.startsWith("Bearer ")) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
+            DietPlan dietPlan = dietPlanService.getDietPlanByUserId(token);
+            if (dietPlan == null) {
+                return ResponseEntity.notFound().build();
+            }
+            return ResponseEntity.ok(dietPlan);
+        } catch (Exception e) {
+            System.err.println("Error getting dietPlan: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
 }

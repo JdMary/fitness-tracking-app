@@ -22,6 +22,7 @@ public class Meal {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long mealId;
 
+    private Boolean completed;
     @JsonBackReference("dietPlan-meals")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "diet_plan_id")

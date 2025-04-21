@@ -8,7 +8,9 @@ public enum MealType  implements ApiEnum<MealType> {
     LUNCH("lunch"),
     DINNER("dinner"),
     SNACK("snack"),
-    TEATIME("teatime");
+    TEATIME("teatime"),
+    UNKNOWN("Unknown");
+
 
 
     private final String apiValue;

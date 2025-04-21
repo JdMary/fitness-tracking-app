@@ -2,6 +2,7 @@ package fitrack.gateway.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
@@ -24,26 +25,31 @@ public class AuthenticationFilter implements WebFilter {
 
         System.out.println("Incoming Request: " + request.getMethod() + " " + path);
 
-        if (path.startsWith("/api/v1/auth/login") || path.startsWith("/api/v1/auth/register")) {
-            System.out.println("Bypassing authentication for: " + path);
+        if (request.getMethod() == HttpMethod.OPTIONS || 
+            path.startsWith("/api/v1/auth/login") || 
+            path.startsWith("/api/v1/auth/register")) {
             return chain.filter(exchange);
         }
 
-        if (!request.getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
-            System.out.println("Unauthorized Request: " + path + " - Missing Authorization Header");
-            return this.onError(exchange, "Missing Authorization Header", HttpStatus.UNAUTHORIZED);
+        String authHeader = request.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
+        System.out.println("Auth Header: " + authHeader);
+
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            System.out.println("Invalid Authorization header format");
+            return this.onError(exchange, "Invalid Authorization header format", HttpStatus.UNAUTHORIZED);
         }
 
-        String token = request.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
-        if (token != null && token.startsWith("Bearer ")) {
-            token = token.substring(7);
-        }
-
+        String token = authHeader.substring(7);
         System.out.println("Extracted Token: " + token);
 
-        if (!jwtUtil.validateToken(token)) {
-            System.out.println("Invalid Token for request: " + path);
-            return this.onError(exchange, "Invalid Token", HttpStatus.UNAUTHORIZED);
+        try {
+            if (!jwtUtil.validateToken(token)) {
+                System.out.println("Token validation failed");
+                return this.onError(exchange, "Invalid Token", HttpStatus.UNAUTHORIZED);
+            }
+        } catch (Exception e) {
+            System.out.println("Token validation error: " + e.getMessage());
+            return this.onError(exchange, "Token validation error", HttpStatus.UNAUTHORIZED);
         }
 
         System.out.println("Token Validated Successfully for: " + path);

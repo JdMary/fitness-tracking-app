@@ -9,4 +9,5 @@ import java.util.List;
 public interface DietPlanRepository extends JpaRepository<DietPlan, Long> {
     DietPlan findByUsername(String username);
 
+
 }

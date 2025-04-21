@@ -65,8 +65,8 @@ public class EdamamService {
         if (preference == null) {
             throw new RuntimeException("User preferences not found for user: " + token);
         }
+        System.out.println("Using preference for meal plan generation: " + preference);
         DietPlan existingPlan = dietPlanRepository.findByUsername(dietPlan.getUsername());
-
         EdamamPlanResponse response = requestMealPlanFromEdamam(preference, dietPlan, token);
         try {
             System.out.println("Edamam raw response: " + new ObjectMapper().writeValueAsString(response));
@@ -86,7 +86,6 @@ public class EdamamService {
 
             existingPlan.setStatus(PlanStatus.COMPLETED);
         }
-
         return dietPlanRepository.save(existingPlan);
     }
 

@@ -1,0 +1,349 @@
+<div class="page-wrapper">
+    <div class="content container-fluid">
+        <!-- Page Header with improved styling -->
+        <div class="page-header mb-4">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h2 class="page-title text-primary font-weight-bold">Diet Plan Details</h2>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb bg-transparent p-0">
+                            <li class="breadcrumb-item"><a href="javascript:void(0)" class="text-muted">Diet Plans</a></li>
+                            <li class="breadcrumb-item active text-primary" aria-current="page">Details</li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="col-auto">
+                    <button class="btn btn-primary">
+                        <i class="fas fa-print mr-1"></i> Print
+                    </button>
+                </div>
+            </div>
+        </div>
+
+      <!-- Overview Section with perfectly centered stats -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-white ">
+                        <h5 class="card-title mb-0">
+                            &nbsp;&nbsp;   <i class="fas fa-chart-pie text-primary mr-2"></i>Nutrition Overview
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row justify-content-center">
+                            <div class="col-xl-3 col-sm-6 col-12 mb-4 mb-xl-0">
+                                <div class="stat-card text-center p-3">
+                                    <div class="stat-icon mx-auto mb-3 rounded-circle bg-primary-light">
+                                        <i class="fas fa-fire text-primary"></i>
+                                    </div>
+                                    <h6 class="text-muted mb-2">Daily Calories</h6>
+                                    <h3 class="mb-0">{{ dietPlan.calorieTarget }}</h3>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-sm-6 col-12 mb-4 mb-xl-0">
+                                <div class="stat-card text-center p-3">
+                                    <div class="stat-icon mx-auto mb-3 rounded-circle bg-success-light">
+                                        <i class="fas fa-dumbbell text-success"></i>
+                                    </div>
+                                    <h6 class="text-muted mb-2">Protein Goal</h6>
+                                    <h3 class="mb-0">{{ dietPlan.targetProtein }}g</h3>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-sm-6 col-12 mb-4 mb-sm-0">
+                                <div class="stat-card text-center p-3">
+                                    <div class="stat-icon mx-auto mb-3 rounded-circle bg-warning-light">
+                                        <i class="fas fa-bread-slice text-warning"></i>
+                                    </div>
+                                    <h6 class="text-muted mb-2">Carbs Goal</h6>
+                                    <h3 class="mb-0">{{ dietPlan.targetCarbs }}g</h3>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-sm-6 col-12">
+                                <div class="stat-card text-center p-3">
+                                    <div class="stat-icon mx-auto mb-3 rounded-circle bg-info-light">
+                                        <i class="fas fa-cheese text-info"></i>
+                                    </div>
+                                    <h6 class="text-muted mb-2">Fats Goal</h6>
+                                    <!-- <h3 class="mb-0">{{ dietPlan.targetFat }}g</h3> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="progress-container mt-4 px-4">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="text-muted">Plan Completion</span>
+                                <span [ngClass]="{
+                                    'badge badge-warning': dietPlan.status === 'DRAFT',
+                                    'badge badge-success': dietPlan.status === 'COMPLETED'
+                                }">{{ dietPlan.status }}</span>
+                            </div>
+                            <div class="progress" style="height: 10px;">
+                                <div class="progress-bar bg-success" 
+                                     [style.width]="dietPlan.status === 'COMPLETED' ? '100%' : '50%'"
+                                     role="progressbar" 
+                                     aria-valuenow="dietPlan.status === 'COMPLETED' ? 100 : 50" 
+                                     aria-valuemin="0" 
+                                     aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Improved Meals Section with tabs for days -->
+        <div class="card shadow-sm">
+            <div class="card-header bg-white">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-utensils text-primary mr-2">&nbsp;</i>Meal Plan
+                    </h5>
+                    <div class="btn-group btn-group-sm" role="group">
+                        <button type="button" class="btn btn-outline-primary">
+                            &nbsp;&nbsp;    <i class="fas fa-download mr-1"></i> Export
+                        </button>
+                        <button type="button" class="btn btn-outline-primary">
+                            <i class="fas fa-share-alt mr-1"></i> Share
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <!-- Tabs for days -->
+                <ul class="nav nav-pills mb-4" id="dietPlanTab" role="tablist">
+                    <li class="nav-item" *ngFor="let day of getDaysGroupedMeals(); let i = index">
+                        <a class="nav-link" [ngClass]="{'active': i === 0}" id="day-{{day.dayNumber}}-tab" data-toggle="pill" 
+                           href="#day-{{day.dayNumber}}" role="tab" [attr.aria-selected]="i === 0">
+                           Day {{day.dayNumber}}
+                        </a>
+                    </li>
+                </ul>
+                
+                <!-- Tab content -->
+                <div class="tab-content" id="dietPlanTabContent">
+                    <div class="tab-pane fade" *ngFor="let day of getDaysGroupedMeals(); let i = index"
+                         [ngClass]="{'show active': i === 0}" id="day-{{day.dayNumber}}" role="tabpanel">
+                        
+                        <!-- Meal types organized by time -->
+                        <div class="meal-timeline">
+                            <!-- Breakfast -->
+                            <div class="meal-time-section mb-4">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="meal-icon mr-3">
+                                        <i class="fas fa-coffee text-warning"></i>
+                                    </div>
+                                    &nbsp;  &nbsp;<h5 class="mb-0">Breakfast</h5>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-6" *ngFor="let meal of filterByType(day.meals, day.dayNumber, 'BREAKFAST')">
+                                        <div class="meal-card mb-4">
+                                            <div class="meal-img position-relative">
+                                                <img [src]="meal.imageUrl || 'assets/img/default-meal.jpg'" class="img-fluid rounded-top" alt="Meal Image">
+                                                <span class="meal-time-badge">7:00 AM</span>
+                                            </div>
+                                            <div class="meal-details p-3">
+                                                <h6 class="mb-2">{{ meal.name }}</h6>
+                                                <div class="d-flex flex-wrap mb-3">
+                                                    <span class="nutrition-pill mr-2 mb-1"><i class="fas fa-fire"></i> {{ meal.calories }} kcal</span>
+                                                    <span class="nutrition-pill mr-2 mb-1"><i class="fas fa-dumbbell"></i> {{ meal.protein }}g</span>
+                                                    <span class="nutrition-pill mr-2 mb-1"><i class="fas fa-bread-slice"></i> {{ meal.carbs }}g</span>
+                                                    <span class="nutrition-pill mb-1"><i class="fas fa-cheese"></i> {{ meal.fat }}g</span>
+                                                </div>
+                                                <a [routerLink]="['/admin/diet-plan/meal-details', meal.mealId]" class="btn btn-sm btn-outline-primary btn-block">
+                                                    <i class="fas fa-info-circle mr-1"></i> View Details
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Lunch -->
+                            <div class="meal-time-section mb-4">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="meal-icon mr-3">
+                                        <i class="fas fa-hamburger text-danger"></i>
+                                    </div>
+                                    &nbsp;&nbsp;<h5 class="mb-0">Lunch</h5>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-6" *ngFor="let meal of filterByType(day.meals, day.dayNumber, 'LUNCH')">
+                                        <div class="meal-card mb-4">
+                                            <div class="meal-img position-relative">
+                                                <img [src]="meal.imageUrl || 'assets/img/default-meal.jpg'" class="img-fluid rounded-top" alt="Meal Image">
+                                                <span class="meal-time-badge">12:30 PM</span>
+                                            </div>
+                                            <div class="meal-details p-3">
+                                                <h6 class="mb-2">{{ meal.name }}</h6>
+                                                <div class="d-flex flex-wrap mb-3">
+                                                    <span class="nutrition-pill mr-2 mb-1"><i class="fas fa-fire"></i> {{ meal.calories }} kcal</span>
+                                                    <span class="nutrition-pill mr-2 mb-1"><i class="fas fa-dumbbell"></i> {{ meal.protein }}g</span>
+                                                    <span class="nutrition-pill mr-2 mb-1"><i class="fas fa-bread-slice"></i> {{ meal.carbs }}g</span>
+                                                    <span class="nutrition-pill mb-1"><i class="fas fa-cheese"></i> {{ meal.fat }}g</span>
+                                                </div>
+                                                <a [routerLink]="['/admin/diet-plan/meal-details', meal.mealId]" class="btn btn-sm btn-outline-primary btn-block">
+                                                    <i class="fas fa-info-circle mr-1"></i> View Details
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Dinner -->
+                            <div class="meal-time-section mb-4">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="meal-icon mr-3">
+                                        <i class="fas fa-utensils text-success"></i>
+                                    </div>
+                                    &nbsp; &nbsp; <h5 class="mb-0">Dinner</h5>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-6" *ngFor="let meal of filterByType(day.meals, day.dayNumber, 'DINNER')">
+                                        <div class="meal-card mb-4">
+                                            <div class="meal-img position-relative">
+                                                <img [src]="meal.imageUrl || 'assets/img/default-meal.jpg'" class="img-fluid rounded-top" alt="Meal Image">
+                                                <span class="meal-time-badge">7:00 PM</span>
+                                            </div>
+                                            <div class="meal-details p-3">
+                                                <h6 class="mb-2">{{ meal.name }}</h6>
+                                                <div class="d-flex flex-wrap mb-3">
+                                                    <span class="nutrition-pill mr-2 mb-1"><i class="fas fa-fire"></i> {{ meal.calories }} kcal</span>
+                                                    <span class="nutrition-pill mr-2 mb-1"><i class="fas fa-dumbbell"></i> {{ meal.protein }}g</span>
+                                                    <span class="nutrition-pill mr-2 mb-1"><i class="fas fa-bread-slice"></i> {{ meal.carbs }}g</span>
+                                                    <span class="nutrition-pill mb-1"><i class="fas fa-cheese"></i> {{ meal.fat }}g</span>
+                                                </div>
+                                                <a [routerLink]="['/admin/diet-plan/meal-details', meal.mealId]" class="btn btn-sm btn-outline-primary btn-block">
+                                                    <i class="fas fa-info-circle mr-1"></i> View Details
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Snacks -->
+                            <div class="meal-time-section">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="meal-icon mr-3">
+                                        <i class="fas fa-apple-alt text-info"></i>
+                                    </div>
+                                    &nbsp;<h5 class="mb-0">Snacks</h5>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-6" *ngFor="let meal of filterByType(day.meals, day.dayNumber, 'SNACK')">
+                                        <div class="meal-card mb-4">
+                                            <div class="meal-img position-relative">
+                                                <img [src]="meal.imageUrl || 'assets/img/default-meal.jpg'" class="img-fluid rounded-top" alt="Meal Image">
+                                                <span class="meal-time-badge">4:00 PM</span>
+                                            </div>
+                                            <div class="meal-details p-3">
+                                                <h6 class="mb-2">{{ meal.name }}</h6>
+                                                <div class="d-flex flex-wrap mb-3">
+                                                    <span class="nutrition-pill mr-2 mb-1"><i class="fas fa-fire"></i> {{ meal.calories }} kcal</span>
+                                                    <span class="nutrition-pill mr-2 mb-1"><i class="fas fa-dumbbell"></i> {{ meal.protein }}g</span>
+                                                    <span class="nutrition-pill mr-2 mb-1"><i class="fas fa-bread-slice"></i> {{ meal.carbs }}g</span>
+                                                    <span class="nutrition-pill mb-1"><i class="fas fa-cheese"></i> {{ meal.fat }}g</span>
+                                                </div>
+                                                <a [routerLink]="['/admin/diet-plan/meal-details', meal.mealId]" class="btn btn-sm btn-outline-primary btn-block">
+                                                    <i class="fas fa-info-circle mr-1"></i> View Details
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div *ngIf="day.meals.length === 0" class="empty-state text-center p-5">
+                            <div class="empty-icon mb-3">
+                                <i class="fas fa-clipboard-list text-light fa-4x"></i>
+                            </div>
+                            <h5 class="text-muted">No meals found for Day {{ day.dayNumber }}</h5>
+                            <p class="text-muted mb-3">Add meals to complete your diet plan.</p>
+                            <button class="btn btn-primary">
+                                <i class="fas fa-plus mr-1"></i> Add Meals
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Daily Nutrition Summary -->
+        <div class="card shadow-sm mt-4">
+            <div class="card-header bg-white">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-chart-bar text-primary mr-2"></i>Daily Nutrition Summary
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="chart-container" style="height: 300px;">
+                            <!-- Angular chart component would go here -->
+                            <div class="chart-placeholder d-flex align-items-center justify-content-center h-100 bg-light rounded">
+                                &nbsp; <p class="text-muted mb-0">Nutrition distribution chart</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <h6 class="mb-3">Summary</h6>
+                        <ul class="nutrition-summary-list">
+                            <li>
+                                <div class="d-flex justify-content-between">
+                                    <span>Total Calories:</span>
+                                    <span class="font-weight-bold">{{ dietPlan.calorieTarget || '1800' }}</span>
+                                </div>
+                                <div class="progress mt-1 mb-2" style="height: 5px;">
+                                    <div class="progress-bar bg-danger" role="progressbar" style="width: 85%"></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="d-flex justify-content-between">
+                                    <span>Total Protein:</span>
+                                    <span class="font-weight-bold">{{ dietPlan.targetProtein || '120' }}g</span>
+                                </div>
+                                <div class="progress mt-1 mb-2" style="height: 5px;">
+                                    <div class="progress-bar bg-success" role="progressbar" style="width: 90%"></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="d-flex justify-content-between">
+                                    <span>Total Carbs:</span>
+                                    <span class="font-weight-bold">{{ dietPlan.targetCarbs || '150' }}g</span>
+                                </div>
+                                <div class="progress mt-1 mb-2" style="height: 5px;">
+                                    <div class="progress-bar bg-warning" role="progressbar" style="width: 75%"></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="d-flex justify-content-between">
+                                    <span>Total Fats:</span>
+                                    <!-- <span class="font-weight-bold">{{ dietPlan.fat || '60' }}g</span> -->
+                                </div>
+                                <div class="progress mt-1 mb-2" style="height: 5px;">
+                                    <div class="progress-bar bg-info" role="progressbar" style="width: 65%"></div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="d-flex justify-content-between">
+                                    <span>Fiber:</span>
+                                    <!-- <span class="font-weight-bold">{{ dietPlan.totalFiber || '25' }}g</span> -->
+                                </div>
+                                <div class="progress mt-1 mb-2" style="height: 5px;">
+                                    <div class="progress-bar bg-primary" role="progressbar" style="width: 70%"></div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    
+                </div>
+            </div>
+        </div>
+        
+       
+       
+    </div>
+</div>
+<router-outlet></router-outlet>
