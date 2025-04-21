@@ -142,35 +142,35 @@
                         <div class="card p-0 w-100" *ngIf="request.status === 'PENDING' || request.status === 'WAITING'">
                             <div class="card-body p-0">
                                 <div class="img-sec w-100">
+                                  <div class="image-tag d-flex justify-content-end align-items-center">
+                                    <span class="trend-tag">{{ request.goal | formatGoal }}</span>
+                                  </div>
                                     <a [routerLink]="routes.serviceDetails">
                                         <img src="assets/img/providers/provider-13.jpg" class="img-fluid rounded-top w-100" alt="img">
                                     </a>
-                                    <div class="image-tag d-flex justify-content-end align-items-center">
-                                        <span class="trend-tag">{{ request.goal | formatGoal }}</span>
-                                    </div>
-                                    <span class="image-logo avatar avatar-md border rounded-circle">
-                                        <img src="assets/img/providers/provider-01.jpg" class="img-fluid rounded-circle " alt="logo">
-                                    </span>
+                                    
                                 </div>
                                 <div class="p-3">
                                     <div class="d-flex align-items-center mb-3">
-                                        <p class="fs-14 mb-0">
-                                            <i class="ti ti-calendar-clock"></i>
+                                        <p class="fs-15 mb-0 text-dark fw-semibold">
+                                            <i class="ti ti-calendar-clock text-primary me-2"></i>
                                             Day and Time: {{ request.workoutStartTime }}
                                         </p>
                                     </div>
                                     <div class="d-flex justify-content-between align-items-center mb-3">
                                         <div class="d-flex align-items-center">
-                                            <p class="fs-14 mb-0"><i class="ti ti-clock"></i>Duration:&nbsp;</p>
-                                            <p class="fs-14 mb-0">{{ request.duration }} minutes</p>
+                                            <p class="fs-15 mb-0 text-dark fw-semibold">
+                                                <i class="ti ti-clock text-primary me-2"></i>
+                                                Duration: {{ request.duration }} minutes
+                                            </p>
                                         </div>
                                         <span 
-                                            class="badge" 
-                                            [ngClass]="{
-                                              'badge-soft-warning': request.status === 'PENDING',
-                                              'badge-soft-info': request.status === 'WAITING',
-                                            }">
-                                          {{ request.status }}
+                                        class="badge" 
+                                        [ngClass]="{
+                                          'badge-soft-warning': request.status === 'PENDING',
+                                          'badge-soft-info': request.status === 'WAITING',
+                                        }">
+                                      {{ request.status }}
                                         </span>
                                     </div>
                                     <div class="d-flex align-items-center mb-3">
