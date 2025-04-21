@@ -591,19 +591,42 @@ export class DataService {
       separateRoute: false,
       menu: [
         {
-          menuValue: 'Browse facilities',
-          routes: routes.customerDashboard,
+          menuValue: 'Browse Facilities',
+          routes: routes.userSportFacility, // badalha 7asb l route mte3k
           hasSubRoute: false,
           showSubRoute: false,
           subMenus: [],
         },
         {
           menuValue: 'Promotions',
-          routes: routes.customerBooking,
+          routes: routes.userPromotion, // badalha 7asb l route mte3k
           hasSubRoute: false,
           showSubRoute: false,
           subMenus: [],
         },
+        {
+          menuValue: 'Events',
+          routes: routes.userEvents, // badalha 7asb l route mte3k
+          hasSubRoute: false,
+          showSubRoute: false,
+          subMenus: [],
+        },
+
+        {
+          menuValue: 'My Subscriptions',
+          routes: routes.userSubscription, // 🔁 on utilise le getter qu'on vient d'ajouter
+          hasSubRoute: false,
+          showSubRoute: false,
+          subMenus: [],
+        },
+        {
+          menuValue: 'My Regestrations',
+          routes: routes.registrationEvent, // 🔁 on utilise le getter qu'on vient d'ajouter
+          hasSubRoute: false,
+          showSubRoute: false,
+          subMenus: [],
+        },
+
       ],
     },
     {
@@ -1469,17 +1492,25 @@ export class DataService {
           icon: 'icon-briefcase',
           subMenus: [
             {
-              menuValue: 'Add Service',
-              route: routes. addServices, //badl 7asb l route mte3k
+              menuValue: 'Sport Facility',
+              route: routes.listSportFacility, // ✅ dynamique depuis routes.ts
             },
             {
-              menuValue: 'Services',
-              route: routes.service, //badl 7asb l route mte3k
+              menuValue: 'Promotions',
+              route: routes.listPromotion, //badl 7asb l route mte3k
             },
             {
-              menuValue: 'Service Settings',
-              route: routes.serviceSettings, //badl 7asb l route mte3k
+              menuValue: 'Subscription',
+              route: routes.listSubscription, //badl 7asb l route mte3k
             },
+           
+            {
+              menuValue: 'Event',
+              route: routes.listEvent
+            },
+            
+
+
           ],
         },
         {

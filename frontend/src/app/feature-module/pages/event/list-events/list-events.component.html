@@ -1,0 +1,57 @@
+<!-- Breadcrumb -->
+<div class="breadcrumb-bar text-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-12">
+          <h2 class="breadcrumb-title mb-2">Événements</h2>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb justify-content-center mb-0">
+              <li class="breadcrumb-item"><a routerLink="/"><i class="ti ti-home-2"></i></a></li>
+              <li class="breadcrumb-item active" aria-current="page">Liste des événements</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Page Wrapper -->
+  <div class="page-wrapper subscription">
+    <div class="content">
+      <div class="container">
+        <div class="row provider-price align-items-center">
+          <div class="col-md-12">
+            <div class="choose-title text-center mb-4">
+              <h4 class="fw-bold">Événements disponibles</h4>
+            </div>
+          </div>
+  
+          <div class="col-md-4 mb-4" *ngFor="let event of events">
+            <div class="card">
+              <div class="card-header">
+                <div class="price-level">
+                  <h6 class="fs-14">{{ event.name }}</h6>
+                </div>
+                <h5 class="text-primary">{{ event.price }} XP</h5>
+              </div>
+              <div class="card-body">
+                <ul class="mb-3">
+                  <li><i class="ti ti-calendar-event me-1 text-success"></i> {{ event.eventDate }}</li>
+                  <li><i class="ti ti-clock me-1 text-success"></i> De {{ event.startTime }} à {{ event.endTime }}</li>
+                  <li><i class="ti ti-users me-1 text-success"></i> Max participants : {{ event.maxParticipation }}</li>
+                  <li><i class="ti ti-info-circle me-1 text-success"></i> {{ event.description }}</li>
+                </ul>
+                <div class="text-center">
+                    <button (click)="registerToEvent(event.id!)" class="btn btn-light w-100 d-flex align-items-center justify-content-center">
+                      S’inscrire <i class="feather icon-arrow-right-circle ms-2"></i>
+                    </button>
+                  </div>
+              </div>
+            </div>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+  </div>
+  

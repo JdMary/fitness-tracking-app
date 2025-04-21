@@ -1,0 +1,99 @@
+<div class="page-wrapper page-settings">
+    <div class="content">
+      <div class="content-page-header content-page-headersplit">
+        <h5>All Sport Facilities</h5>
+        <div class="list-btn">
+          <ul>
+            <li>
+              <div class="filter-sorting">
+                <ul>
+                  <li>
+                    <a href="javascript:void(0);" class="filter-sets">
+                      <i class="feather icon-filter me-2"></i>Filter
+                    </a>
+                  </li>
+                  <li>
+                    <span><img src="assets/admin/img/icons/sort.svg" class="me-2" alt="sort icon"></span>
+                    <div class="custom-select">
+                      <mat-select
+                        [(ngModel)]="selectedValue"
+                        [ngModelOptions]="{standalone: true}"
+                        class="select"
+                        placeholder="A - Z">
+                        <mat-option *ngFor="let data of selectedList" [value]="data.value">
+                          {{ data.value }}
+                        </mat-option>
+                      </mat-select>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <a class="btn btn-primary" [routerLink]="routes.addSportFacility">
+                <i class="fa fa-plus me-2"></i>Create Sport Facility
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-12">
+          <div class="table-resposnive table-div">
+            <table class="table datatable">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Facility Name</th>
+                  <th>Location</th>
+                  <th>Sport Type</th>
+                  <th>Max Subscription</th>
+                  <th>Normal Price</th>
+                  <th>Premium Price</th>
+                  <th>Availability</th>
+                  <th>Description</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let facility of facilities; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ facility.name }}</td>
+                  <td>{{ facility.location }}</td>
+                  <td>{{ facility.sportType }}</td>
+                  <td>{{ facility.maxSubscription }}</td>
+                  <td>{{ facility.normalPrice }}</td>
+                  <td>{{ facility.premiumPrice }}</td>
+                  <td>
+                    <span class="badge"
+                      [ngClass]="{
+                        'badge-success': facility.availability,
+                        'badge-danger': !facility.availability
+                        
+                      }">
+                      {{ facility.availability ? 'Available' : 'Not Available' }}
+                    </span>
+                  </td>
+                  <td>{{ facility.description }}</td>
+                  <td>
+                    <div class="action-language">
+                      
+                      <a class="table-edit" [routerLink]="[routes.editSportFacility, facility.id]"> 
+                        <i class="fa-regular fa-pen-to-square"></i><span>Edit</span>
+                      </a>
+                      <a class="table-delete" href="javascript:void(0);" (click)="openDeleteModal(facility.id)">
+                        <i class="fa-solid fa-trash-can"></i><span>Delete</span>
+                      </a>  
+                      
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -1,0 +1,130 @@
+<!-- Breadcrumb -->
+<div class="breadcrumb-bar text-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-12">
+          <h2 class="breadcrumb-title mb-2">My Event Registrations</h2>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb justify-content-center mb-0">
+              <li class="breadcrumb-item">
+                <a [routerLink]="routes.home"><i class="ti ti-home-2"></i></a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">My Registrations</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+      <div class="breadcrumb-bg">
+        <img src="assets/img/bg/breadcrumb-bg-01.png" class="breadcrumb-bg-1" alt="Img" />
+        <img src="assets/img/bg/breadcrumb-bg-02.png" class="breadcrumb-bg-2" alt="Img" />
+      </div>
+    </div>
+  </div>
+  <!-- /Breadcrumb -->
+  
+  <!-- Page Wrapper -->
+  <div class="page-wrapper">
+    <div class="content">
+      <div class="container">
+        <div class="row">
+          <!-- Filter Sidebar -->
+          <div class="col-xl-3 col-lg-4 theiaStickySidebar">
+            <div class="card">
+              <div class="card-body">
+                <form>
+                  <div class="d-flex align-items-center justify-content-between mb-3 pb-3 border-bottom">
+                    <h5><i class="ti ti-filter-check me-2"></i>Filters</h5>
+                    <a href="javascript:void(0);">Reset Filter</a>
+                  </div>
+                  <div class="mb-3 pb-3 border-bottom">
+                    <label class="form-label">Search By Keyword</label>
+                    <input type="text" class="form-control" placeholder="Search..." />
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+  
+          <!-- Event Registration List -->
+          <div class="col-xl-9 col-lg-8">
+            <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
+              <h4>
+                Found <span class="text-primary">{{ registrations.length }} Registrations</span>
+              </h4>
+            </div>
+  
+            <div class="row">
+              <div class="col-md-12">
+                <div *ngFor="let reg of registrations; let i = index" class="service-list">
+                  <div class="service-cont">
+                    <div class="service-cont-info w-100">
+                      <span class="badge bg-light fs-14 mb-2">{{ reg.event.name }}</span>
+                      <h3 class="title">{{ reg.event.description }}</h3>
+                      <p><i class="feather icon-calendar"></i> {{ reg.event.eventDate }}</p>
+                      <div class="service-pro-img">
+                        <p>{{ reg.event.startTime }} → {{ reg.event.endTime }}</p>
+                      </div>
+                    </div>
+                  </div>
+  
+                  <!-- Action Section -->
+                  <div class="service-action">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <!-- Statut -->
+                      <div class="d-flex align-items-center gap-3">
+                        <span class="badge"
+                              [ngClass]="{
+                                'bg-info text-white': reg.status === 'CONFIRMED',
+                                'bg-warning text-dark': reg.status === 'WAITING_LIST',
+                                'bg-danger text-white': reg.status === 'CANCELLED'
+                              }">
+                          {{ reg.status }}
+                        </span>
+                      </div>
+  
+                      <!-- Bouton Cancel -->
+                      
+                      <button
+                      *ngIf="reg.status === 'CONFIRMED'"
+                      class="btn btn-outline-danger btn-sm"
+                      (click)="cancelRegistration(reg.registrationId)">
+                      <i class="ti ti-x me-1"></i> Cancel
+                    </button>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <!-- Pagination -->
+            <nav aria-label="Page navigation">
+              <ul class="paginations d-flex justify-content-center align-items-center">
+                <li class="page-item me-3">
+                  <a class="page-link" href="javascript:void(0);">
+                    <i class="ti ti-arrow-left me-2"></i>Prev</a>
+                </li>
+                <li class="page-item me-2">
+                  <a class="page-link-1 active d-flex justify-content-center align-items-center" href="javascript:void(0);">1</a>
+                </li>
+                <li class="page-item me-2">
+                  <a class="page-link-1 d-flex justify-content-center align-items-center" href="javascript:void(0);">2</a>
+                </li>
+                <li class="page-item me-2">
+                  <a class="page-link-1 d-flex justify-content-center align-items-center" href="javascript:void(0);">3</a>
+                </li>
+                <li class="page-item">
+                  <a class="page-link" href="javascript:void(0);">
+                    Next<i class="ti ti-arrow-right ms-2"></i></a>
+                </li>
+              </ul>
+            </nav>
+            <!-- /Pagination -->
+  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /Page Wrapper -->
+  

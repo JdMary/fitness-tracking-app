@@ -1,0 +1,69 @@
+<div class="page-wrapper page-settings">
+    <div class="content">
+      <div class="content-page-header content-page-headersplit">
+        <h5>All Event Registrations</h5>
+        <div class="list-btn">
+          <ul>
+            <li>
+              <div class="filter-sorting">
+                <ul>
+                  <li>
+                    <a href="javascript:void(0);" class="filter-sets">
+                      <i class="feather icon-filter me-2"></i>Filter
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-12">
+          <div class="table-resposnive table-div">
+            <table class="table datatable">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Event Name</th>
+                  <th>User Email</th>
+                  <th>Registration Date</th>
+                  <th>Status</th>
+                  <th>Facility</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let registration of registrations; let i = index">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ registration.event.name }}</td>
+                  <td>{{ registration.userEmail }}</td>
+                  <td>{{ registration.registrationDate }}</td>
+                  <td>
+                    <span class="badge"
+                          [ngClass]="{
+                            'badge-success': registration.status === 'CONFIRMED',
+                            'badge-warning': registration.status === 'WAITING_LIST',
+                            'badge-danger': registration.status === 'CANCELLED'
+                          }">
+                      {{ registration.status }}
+                    </span>
+                  </td>
+                  <td>{{ registration.event.sportFacility.name }}</td>
+                  <td>
+                    <div class="action-language">
+                      <a class="table-delete" href="javascript:void(0);" (click)="deleteRegistration(registration.registrationId)">
+                        <i class="fa-solid fa-trash-can"></i><span>Delete</span>
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
