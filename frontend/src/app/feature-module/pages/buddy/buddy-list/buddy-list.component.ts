@@ -11,23 +11,24 @@ import { routes } from 'src/app/shared/routes/routes';
 export class BuddyListComponent implements OnInit {
   public routes = routes;
   buddyRequests: BuddyRequestFull[] = [];
+  filteredRequests: BuddyRequestFull[] = [];
   buddyRequestsCount: number = 0;
   currentPage: number = 1;
-  pageSize: number = 6;
+  pageSize: number = 8;
   totalPages: number = 1;
   userName : string = '';
+  currentFilter: string = 'ALL';
 
   constructor(private buddyRequestService: BuddyRequestService, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.loadBuddyRequests();
-    //console.log(this.getUserNameFromEmail("tabib.rami@esprit.tn"));
   }
 
   get paginatedBuddyRequests(): BuddyRequestFull[] {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
-    return this.buddyRequests.slice(startIndex, endIndex);
+    return this.filteredRequests.slice(startIndex, endIndex);
   }
 
   get pages(): number[] {
@@ -42,7 +43,7 @@ export class BuddyListComponent implements OnInit {
           if (request.userEmail) {
             this.authService.extractNameFromEmail(request.userEmail).subscribe(
               (name) => {
-                request.userName = name; // Assuming `userName` is a property in BuddyRequestFull
+                request.userName = name;
               },
               (error) => {
                 console.error('Error extracting name from email:', error);
@@ -50,13 +51,23 @@ export class BuddyListComponent implements OnInit {
             );
           }
         });
-
-        this.buddyRequestsCount = data.length;
-        this.totalPages = Math.ceil(this.buddyRequestsCount / this.pageSize);
+        this.filterRequests(this.currentFilter); // Apply initial filter
       }
     );
   }
-  
+
+  filterRequests(status: string): void {
+    this.currentFilter = status;
+    if (status === 'ALL') {
+      this.filteredRequests = this.buddyRequests;
+    } else {
+      this.filteredRequests = this.buddyRequests.filter(request => request.status === status);
+    }
+    this.buddyRequestsCount = this.filteredRequests.length;
+    this.totalPages = Math.ceil(this.buddyRequestsCount / this.pageSize);
+    this.currentPage = 1; // Reset to first page when filtering
+  }
+
   getUserNameFromEmail(email: string): void {
     this.authService.extractNameFromEmail(email).subscribe(
       (name) => {
@@ -69,7 +80,6 @@ export class BuddyListComponent implements OnInit {
       }
     );
   }
-
 
   changePage(page: number): void {
     if (page >= 1 && page <= this.totalPages) {
@@ -92,7 +102,6 @@ export class BuddyListComponent implements OnInit {
   subscribe(requestId: number): void {
     this.buddyRequestService.addPotentialMatch(requestId).subscribe(
       (response) => {
-        // Update the local buddy request to reflect the change
         this.buddyRequests = this.buddyRequests.map(request => 
           request.id === requestId 
             ? { ...request, status: 'WAITING' } 
@@ -101,7 +110,6 @@ export class BuddyListComponent implements OnInit {
       },
       (error) => {
         console.error('Error subscribing to buddy request:', error);
-        // Handle error (show message to user, etc.)
       }
     );
   }
