@@ -19,24 +19,12 @@ public class PreferenceController {
     private PreferenceService preferenceService;
 
     @PostMapping("/add")
-    public ResponseEntity<?> createPreference(@RequestBody Preference preference, @RequestHeader("Authorization") String token) {
+    public ResponseEntity<Preference> createPreference(@RequestBody Preference preference, @RequestHeader("Authorization") String token) {
         System.out.println("Preference successfully updated: " + preference);
-        try {
-            if (preference == null) {
-                return ResponseEntity.badRequest().body("Preference object cannot be null");
-            }
-            
-            System.out.println("Processing preference update for token: " + token);
+        Preference savedPreference = preferenceService.addPreference(preference, token);
 
-            Preference updatedPreference = preferenceService.addPreference(preference, token);
-            System.out.println("Preference successfully updated: " + updatedPreference);
-            
-            return ResponseEntity.ok(updatedPreference);
-        } catch (Exception e) {
-            System.err.println("Error processing preference: " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Error processing preference: " + e.getMessage());
-        }
+        System.out.println("Saved Preference: " + savedPreference);
+        return ResponseEntity.ok(savedPreference);
 
     }
 

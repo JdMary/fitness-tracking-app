@@ -35,33 +35,17 @@ public class PreferenceService implements IPreferenceService {
 
     @Override
     @Transactional
-    public Preference addPreference(Preference preference, String token) {
-        try {
-            String username = String.valueOf(authClient.extractUsername(token).getBody());
-            preference.setUsername(username);
-            Preference existingPreference = preferenceRepository.findByUsername(username);
-
-            if (existingPreference != null) {
-                preference.setPreferenceId(existingPreference.getPreferenceId());
-                existingPreference.setDietLabel(preference.getDietLabel());
-                existingPreference.setMealTypes(preference.getMealTypes());
-                existingPreference.setHealthLabels(preference.getHealthLabels());
-                existingPreference.setDishTypes(preference.getDishTypes());
-                System.out.println("Updating existing preference for user: " + username);
-            } else {
-                System.out.println("Creating new preference for user: " + username);
-            }
-
+        public Preference addPreference(Preference preference ,String token) {
             Preference savedPreference = preferenceRepository.save(preference);
-
-
-            return savedPreference;
-        } catch (Exception e) {
-            System.err.println("Error in addPreference: " + e.getMessage());
-            e.printStackTrace();
-            throw e;
-        }
+            String username = String.valueOf(authClient.extractUsername(token).getBody());
+            savedPreference.setUsername(username);
+            savedPreference.setMealTypes(preference.getMealTypes());
+        savedPreference.setDietLabel(preference.getDietLabel());
+        savedPreference.setHealthLabels(preference.getHealthLabels());
+        savedPreference.setDishTypes(preference.getDishTypes());
+            return preferenceRepository.save(savedPreference);
     }
+
 
     @Override
     public Preference updatePreference(String preferenceId, Preference preference, String token) {

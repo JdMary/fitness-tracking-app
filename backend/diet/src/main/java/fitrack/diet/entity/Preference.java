@@ -89,6 +89,10 @@ public class Preference {
     public boolean hasCaloriePreferences() {
         return this.minCalories != null || this.maxCalories != null;
     }
+    public boolean hasProteinPreferences() {
+        return this.minCalories != null || this.maxCalories != null;
+    }
+
 
 
 }

@@ -1,7 +1,7 @@
 package fitrack.diet.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import feign.FeignException;
 import fitrack.diet.client.EdamamClient;
 import fitrack.diet.entity.DTO.EdamamPlanResponse;
 import fitrack.diet.entity.DTO.MealPlanRequest;
@@ -12,22 +12,19 @@ import fitrack.diet.entity.enumPreference.MealType;
 import fitrack.diet.entity.enumPreference.PlanStatus;
 import fitrack.diet.repository.DietPlanRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.util.StringUtils;
 
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 @EnableFeignClients
+@RequiredArgsConstructor
 public class EdamamService {
 
     private final EdamamClient edamamClient;
@@ -36,46 +33,37 @@ public class EdamamService {
     private final DietPlanRepository dietPlanRepository;
     private final MealService mealService;
 
-    private final String edamamAppId;
-    private final String edamamAppKey;
-    private final String edamamAccountUser;
+    @Value("${edamam.app.id}")
+    private String edamamAppId;
 
-    public EdamamService(
-            EdamamClient edamamClient,
-            PreferenceService preferenceService,
-            DietPlanService dietPlanService,
-            DietPlanRepository dietPlanRepository,
-            MealService mealService,
-            @Value("${edamam.app.id}") String edamamAppId,
-            @Value("${edamam.app.key}") String edamamAppKey,
-            @Value("${edamam.account.user}") String edamamAccountUser) {
-        this.edamamClient = edamamClient;
-        this.preferenceService = preferenceService;
-        this.dietPlanService = dietPlanService;
-        this.dietPlanRepository = dietPlanRepository;
-        this.mealService = mealService;
-        this.edamamAppId = edamamAppId;
-        this.edamamAppKey = edamamAppKey;
-        this.edamamAccountUser = edamamAccountUser;
-    }
+    @Value("${edamam.app.key}")
+    private String edamamAppKey;
+
+    @Value("${edamam.account.user}")
+    private String edamamAccountUser;
 
     @Transactional
     public DietPlan generateAndSaveMealPlan(String token, DietPlan dietPlan) {
-        Preference preference = preferenceService.getPreferencesByUserId(token);
-        if (preference == null) {
-            throw new RuntimeException("User preferences not found for user: " + token);
-        }
-        System.out.println("Using preference for meal plan generation: " + preference);
+        System.out.println("Starting meal plan generation for user: " + dietPlan.getUsername());
+
         DietPlan existingPlan = dietPlanRepository.findByUsername(dietPlan.getUsername());
-        EdamamPlanResponse response = requestMealPlanFromEdamam(preference, dietPlan, token);
+        System.out.println("Existing plan found: " + (existingPlan != null));
+
         try {
-            System.out.println("Edamam raw response: " + new ObjectMapper().writeValueAsString(response));
-        } catch (JsonProcessingException e) {
-            System.err.println("Failed to serialize Edamam response: " + e.getMessage());
-        }
-        if (response == null || response.getSelection() == null || response.getSelection().isEmpty()) {
-            existingPlan.setStatus(PlanStatus.DRAFT);
-        } else {
+            Preference preference = preferenceService.getPreferencesByUserId(token);
+            if (preference == null) {
+                System.out.println("⚠️ No preferences found for user: " + dietPlan.getUsername());
+                throw new RuntimeException("User preferences not configured");
+            }
+
+            EdamamPlanResponse response = requestMealPlanFromEdamam(preference, dietPlan, token);
+
+            if (response == null || response.getSelection() == null || response.getSelection().isEmpty()) {
+                System.out.println("⚠️ Edamam returned empty meal plan");
+                existingPlan.setStatus(PlanStatus.DRAFT);
+                return dietPlanRepository.save(existingPlan);
+            }
+
             List<Meal> newMeals = mealService.processMealsFromResponse(response, existingPlan);
 
             existingPlan.getMeals().clear();
@@ -85,31 +73,32 @@ public class EdamamService {
             });
 
             existingPlan.setStatus(PlanStatus.COMPLETED);
+            return dietPlanRepository.save(existingPlan);
+
+        } catch (Exception e) {
+            System.out.println("⚠️ Fallback triggered: " + e.getMessage());
+            if (existingPlan == null) throw new RuntimeException("No existing plan available");
+            existingPlan.setStatus(PlanStatus.DRAFT);
+            return dietPlanRepository.save(existingPlan);
         }
-        return dietPlanRepository.save(existingPlan);
     }
 
     private EdamamPlanResponse requestMealPlanFromEdamam(Preference preference, DietPlan dietPlan, String token) {
-        List<String> dietLabels = preference.getDietLabel() != null ?
-                Collections.singletonList(preference.getDietLabel().name()) : null;
-
-        List<String> healthLabels = preference.getHealthLabels() != null && !preference.getHealthLabels().isEmpty() ?
-                preference.getHealthLabels().stream()
-                        .map(Enum::name)
-                        .collect(Collectors.toList()) : null;
-
-        List<String> cuisineTypes = preference.getCuisineTypes() != null && !preference.getCuisineTypes().isEmpty() ?
-                preference.getCuisineTypes().stream()
-                        .map(Enum::name)
-                        .collect(Collectors.toList()) : null;
-
-        List<String> mealTypes = preference.getMealTypes() != null && !preference.getMealTypes().isEmpty() ?
-                preference.getMealTypes().stream()
-                        .map(Enum::name)
-                        .collect(Collectors.toList()) : null;
-
         try {
             MealPlanRequest requestBody = buildRequestBodyFromEntities(preference, token);
+            System.out.println("📦 Request body: " + new ObjectMapper().writeValueAsString(requestBody));
+
+            List<String> dietLabels = preference.getDietLabel() != null ?
+                    Collections.singletonList(preference.getDietLabel().name()) : null;
+
+            List<String> healthLabels = preference.getHealthLabels() != null ?
+                    preference.getHealthLabels().stream().map(Enum::name).collect(Collectors.toList()) : null;
+
+            List<String> cuisineTypes = preference.getCuisineTypes() != null ?
+                    preference.getCuisineTypes().stream().map(Enum::name).collect(Collectors.toList()) : null;
+
+            List<String> mealTypes = preference.getMealTypes() != null ?
+                    preference.getMealTypes().stream().map(Enum::name).collect(Collectors.toList()) : null;
 
             ResponseEntity<EdamamPlanResponse> response = edamamClient.selectMealPlan(
                     edamamAppId,
@@ -123,15 +112,11 @@ public class EdamamService {
                     mealTypes,
                     edamamAccountUser
             );
-            if (response.getStatusCode().is2xxSuccessful()) {
-                return response.getBody();
-            } else {
-                System.err.println("Error response from Edamam API: " + response.getStatusCode());
-                return null;
-            }
+
+            return response.getStatusCode().is2xxSuccessful() ? response.getBody() : null;
+
         } catch (Exception e) {
-            System.err.println("Error while calling Edamam API: " + e.getMessage());
-            e.printStackTrace();
+            System.out.println("❌ API call failed: " + e.getMessage());
             return null;
         }
     }
@@ -153,67 +138,73 @@ public class EdamamService {
 
     private MealPlanRequest.Accept buildAcceptCriteria(Preference preference) {
         MealPlanRequest.Accept accept = new MealPlanRequest.Accept();
-        List<Map<String, List<String>>> allCriteria = new ArrayList<>();
+        List<Map<String, List<String>>> all = new ArrayList<>();
 
         if (!preference.getHealthLabels().isEmpty()) {
-            allCriteria.add(Map.of("health", mapEnumsToStrings(preference.getHealthLabels())));
+            all.add(Map.of("health", mapEnumsToStrings(preference.getHealthLabels())));
         }
-
         if (!preference.getCuisineTypes().isEmpty()) {
-            allCriteria.add(Map.of("cuisine", mapEnumsToStrings(preference.getCuisineTypes())));
+            all.add(Map.of("cuisine", mapEnumsToStrings(preference.getCuisineTypes())));
         }
-
         if (!preference.getDishTypes().isEmpty()) {
-            allCriteria.add(Map.of("dish", mapEnumsToStrings(preference.getDishTypes())));
+            all.add(Map.of("dish", mapEnumsToStrings(preference.getDishTypes())));
         }
 
-        if (!allCriteria.isEmpty()) {
-            accept.setAll(allCriteria);
-        }
+        if (!all.isEmpty()) accept.setAll(all);
         return accept;
-    }
-
-    private List<String> mapEnumsToStrings(Set<? extends Enum<?>> enums) {
-        return enums.stream()
-                .map(Enum::name)
-                .collect(Collectors.toList());
     }
 
     private Map<String, MealPlanRequest.NutrientRange> buildFitCriteria(Preference preference, DietPlan dietPlan) {
         Map<String, MealPlanRequest.NutrientRange> fit = new HashMap<>();
 
+        double calorieTarget = dietPlan.getCalorieTarget() > 0 ? dietPlan.getCalorieTarget() : 2000.0;
+
         MealPlanRequest.NutrientRange calories = new MealPlanRequest.NutrientRange();
-        if (preference.hasCaloriePreferences()) {
-            calories.setMin(preference.getMinCalories());
-            calories.setMax(preference.getMaxCalories());
-        } else {
-            calories.setMin(dietPlan.getCalorieTarget() - 200.0);
-            calories.setMax(dietPlan.getCalorieTarget() + 200.0);
-        }
+        calories.setMin(calorieTarget - 200);
+        calories.setMax(calorieTarget + 200);
         fit.put("ENERC_KCAL", calories);
 
-        MealPlanRequest.NutrientRange protein = new MealPlanRequest.NutrientRange();
-        fit.put("PROCNT", protein);
+        // ✅ Only add PROCNT if both min and max are > 0
+        if (preference.getMinProtein() > 0 && preference.getMaxProtein() > 0
+                && preference.getMaxProtein() >= preference.getMinProtein()) {
+
+            MealPlanRequest.NutrientRange protein = new MealPlanRequest.NutrientRange();
+            protein.setMin(preference.getMinProtein());
+            protein.setMax(preference.getMaxProtein());
+            fit.put("PROCNT", protein);
+        }
 
         return fit;
     }
 
+
     private Map<String, MealPlanRequest.Section> buildSections(Preference preference) {
         Map<String, MealPlanRequest.Section> sections = new HashMap<>();
 
-        for (MealType mealType : preference.getMealTypes()) {
-            MealPlanRequest.Section section = new MealPlanRequest.Section();
-            section.setAccept(Map.of("meal", List.of(mealType.name().toLowerCase())));
-            String sectionKey = StringUtils.capitalize(mealType.name().toLowerCase());
-            sections.put(sectionKey, section);
-        }
-
-        if (sections.isEmpty()) {
-            sections.put("Breakfast", new MealPlanRequest.Section());
-            sections.put("Lunch", new MealPlanRequest.Section());
-            sections.put("Dinner", new MealPlanRequest.Section());
+        if (preference.getMealTypes() != null && !preference.getMealTypes().isEmpty()) {
+            for (MealType mealType : preference.getMealTypes()) {
+                MealPlanRequest.Section section = new MealPlanRequest.Section();
+                section.setAccept(Map.of("meal", List.of(mealType.name().toLowerCase())));
+                String sectionKey = StringUtils.capitalize(mealType.name().toLowerCase());
+                sections.put(sectionKey, section);
+            }
+        } else {
+            // Default meals if none selected
+            sections.put("Breakfast", defaultSection("breakfast"));
+            sections.put("Lunch", defaultSection("lunch"));
+            sections.put("Dinner", defaultSection("dinner"));
         }
 
         return sections;
+    }
+
+    private MealPlanRequest.Section defaultSection(String mealType) {
+        MealPlanRequest.Section section = new MealPlanRequest.Section();
+        section.setAccept(Map.of("meal", List.of(mealType)));
+        return section;
+    }
+
+    private List<String> mapEnumsToStrings(Set<? extends Enum<?>> enums) {
+        return enums.stream().map(Enum::name).collect(Collectors.toList());
     }
 }

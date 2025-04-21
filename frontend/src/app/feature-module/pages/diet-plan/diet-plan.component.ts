@@ -29,7 +29,7 @@ export class DietPlanComponent implements OnInit {
   // Diet Plan
   dietPlan: DietPlan = {
     numberOfDays: 1,
-    calorieTarget: 0,
+    calorieTarget: 2000, // Default value for calorie target
     targetProtein: 0,
     targetCarbs: 0,
     meals: [],
@@ -37,7 +37,7 @@ export class DietPlanComponent implements OnInit {
   };
 
   // Add these properties
-  allHealthLabels = Object.values(HealthLabel);
+  allHealthLabels = Object.keys(HealthLabel);
   allMealTypes = Object.values(MealType);
 
   // Preferences State
@@ -93,7 +93,7 @@ export class DietPlanComponent implements OnInit {
   allergies = ['Gluten', 'Dairy', 'Nuts', 'Shellfish', 'Eggs', 'Soy'];
   dietLabels = ['No Restrictions', 'Vegetarian', 'Vegan', 'Keto', 'Paleo', 'Mediterranean'];
   mealTypes = ['Breakfast', 'Lunch', 'Dinner', 'Snacks'];
-  healthLabels = ['Gluten-Free', 'Dairy-Free', 'Nut-Free', 'Low-Sodium'];
+  healthLabels = [HealthLabel.VEGETARIAN, HealthLabel.VEGAN, HealthLabel.GLUTEN_FREE, HealthLabel.DAIRY_FREE];
 
   // Generated Meals
   generatedMeals: Meal[] = [];
@@ -117,6 +117,8 @@ export class DietPlanComponent implements OnInit {
 
   ngOnInit(): void {
     // Initialize the mealTypes and healthLabels records
+   
+
     this.preferencesState.mealTypes = this.initializeEnumRecord(Object.values(MealType));
     this.preferencesState.healthLabels = this.initializeEnumRecord(Object.values(HealthLabel));
     this.loadExistingDietPlan(); // Add this line
@@ -292,7 +294,7 @@ updateSelectedDayStats(): void {
   generateMealPlan(): void {
     const dietPlan: DietPlan = {
         numberOfDays: this.dietPlan.numberOfDays, // Ensure numberOfDays is included
-        calorieTarget: this.dietPlan.calorieTarget,
+        calorieTarget: this.dietPlan.calorieTarget, // Include calorieTarget
         targetProtein: this.dietPlan.targetProtein,
         targetCarbs: this.dietPlan.targetCarbs,
         meals: [],

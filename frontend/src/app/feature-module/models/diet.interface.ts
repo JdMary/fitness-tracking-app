@@ -17,7 +17,7 @@ export enum MealType {
 
 export enum HealthLabel {
   VEGETARIAN = 'vegetarian',
-  VEGAN = 'vegan',
+  VEGAN = 'VEGAN',
   GLUTEN_FREE = 'gluten-free',
   DAIRY_FREE = 'dairy-free',
   // ...other health labels

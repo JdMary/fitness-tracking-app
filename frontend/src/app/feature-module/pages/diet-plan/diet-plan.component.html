@@ -97,7 +97,19 @@
                                                             Select between 1-30 days for your diet plan
                                                         </div>
                                                     </div>
-
+<div class="mb-4">
+                                                        <label class="form-label fw-medium">Calorie Target</label>
+                                                        <div class="input-group shadow-sm rounded">
+                                                            <input type="number"
+                                                                class="form-control text-center border-0 bg-light"
+                                                                [(ngModel)]="dietPlan.calorieTarget" min="0"
+                                                                placeholder="Enter calorie target">
+                                                            <span class="input-group-text">kcal</span>
+                                                        </div>
+                                                        <div class="form-text text-muted">
+                                                            Specify your daily calorie target
+                                                        </div>
+                                                    </div>
                                                     <!-- Meal Types Selection -->
                                                     <div class="mb-4">
                                                         <h6>Select Meals</h6>

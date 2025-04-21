@@ -105,6 +105,8 @@ public class Meal {
     @ElementCollection
     @CollectionTable(name = "meal_dish_types", joinColumns = @JoinColumn(name = "meal_id"))
     @Enumerated(EnumType.STRING)
+    @Column(name = "dish_types", length = 512)
+
     private Set<DishType> dishTypes = new HashSet<>();
 
 

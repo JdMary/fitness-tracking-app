@@ -5,8 +5,8 @@ spring:
     import: optional:configserver:http://localhost:8888
 edamam:
   app:
-    id: 5d94c6bb
-    key: 2fbeb16837f522ca27251595540ac2d6
+    id: 71f6f999
+    key: 0b6de15adc122976cf970bb25c958d05
   mealplanner:
     url: https://api.edamam.com
   recipe:

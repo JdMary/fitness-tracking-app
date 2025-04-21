@@ -12,7 +12,7 @@ export class DietService {
   private baseUrl = 'http://localhost:8222/api/v1/diets/preference';
   private baseUrl2 = 'http://localhost:8222/api/v1/diets/plan';
   private baseUrl3 = 'http://localhost:8222/api/v1/diets/Meal';
-  private defaultToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im1haGRpQGVzcHJpdC50biIsImV4cCI6MTc0NTI1NzM1NX0.gD4ZMyShPKg5td_fhFfPGuXK34IszkvE-zhyYEPv89I';
+  private defaultToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6InVzZXJAZXNwcml0LnRuIiwiZXhwIjoxNzQ1Mjc3MzE4fQ.NqlFI9F_If69_gemXKC891GJpLRBKRUjF7wBp2_Rfp4';
   geminiPath: string = "http://127.0.0.1:8000/process-image"
 
   constructor(private http: HttpClient) {
@@ -77,48 +77,74 @@ export class DietService {
   }
 
   savePreferences(preferences: Preference): Observable<Preference> {
-    console.log('Processing preferences:', preferences);
-    
-    if (!preferences) {
-      throw new Error('Preferences object cannot be null');
-    }
-
-    return this.getPreferencesByUser().pipe(
-      switchMap(existingPreference => {
-        if (existingPreference && existingPreference.preferenceId) {
-          console.log('Updating existing preference:', existingPreference.preferenceId);
-          return this.http.put<Preference>(
-            `${this.baseUrl}/update/${existingPreference.preferenceId}`,
-            preferences,
-            { headers: this.getHeaders() }
-          ).pipe(
-            tap(response => console.log('Updated preferences:', response))
-          );
-        } else {
-          console.log('Creating new preference');
-          return this.http.post<Preference>(
-            `${this.baseUrl}/add`,
-            preferences,
-            { headers: this.getHeaders() }
-          ).pipe(
-            tap(response => console.log('Created preferences:', response))
-          );
-        }
-      }),
-      catchError(error => {
-        console.error('Error saving preferences:', error);
-        if (error.status === 404) {
-          console.log('No existing preferences found, creating new');
-          return this.http.post<Preference>(
-            `${this.baseUrl}/add`,
-            preferences,
-            { headers: this.getHeaders() }
-          );
-        }
-        throw error;
-      })
-    );
+  console.log('🟡 Starting savePreferences...');
+  
+  if (!preferences) {
+    throw new Error('❌ Preferences object cannot be null');
   }
+
+  console.log('📦 Full preference payload to send:', JSON.stringify(preferences, null, 2));
+
+  return this.getPreferencesByUser().pipe(
+    switchMap(existingPreference => {
+      if (existingPreference && existingPreference.preferenceId) {
+        console.log(`🔁 Updating existing preference with ID: ${existingPreference.preferenceId}`);
+        console.log('📤 PUT payload:', JSON.stringify(preferences, null, 2));
+
+        return this.http.put<Preference>(
+          `${this.baseUrl}/update/${existingPreference.preferenceId}`,
+          preferences,
+          { headers: this.getHeaders() }
+        ).pipe(
+          tap(response => console.log('✅ Updated preferences successfully:', response)),
+          catchError(error => {
+            console.error('❌ Error updating preferences:', error);
+            throw error;
+          })
+        );
+      } else {
+        console.log('🆕 No existing preference found, creating new one');
+        console.log('📤 POST payload:', JSON.stringify(preferences, null, 2));
+
+        return this.http.post<Preference>(
+          `${this.baseUrl}/add`,
+          preferences,
+          { headers: this.getHeaders() }
+        ).pipe(
+          tap(response => console.log('✅ Created new preferences successfully:', response)),
+          catchError(error => {
+            console.error('❌ Error creating preferences:', error);
+            throw error;
+          })
+        );
+      }
+    }),
+    catchError(error => {
+      console.error('❌ General error in savePreferences():', error);
+
+      // Fallback POST if 404 from getPreferencesByUser
+      if (error.status === 404) {
+        console.log('⚠️ No existing preferences (404), falling back to create');
+        console.log('📤 POST payload (fallback):', JSON.stringify(preferences, null, 2));
+
+        return this.http.post<Preference>(
+          `${this.baseUrl}/add`,
+          preferences,
+          { headers: this.getHeaders() }
+        ).pipe(
+          tap(response => console.log('✅ Fallback creation succeeded:', response)),
+          catchError(fallbackError => {
+            console.error('❌ Fallback create also failed:', fallbackError);
+            throw fallbackError;
+          })
+        );
+      }
+
+      throw error;
+    })
+  );
+}
+
 
   generateMealPlan(dietPlan: DietPlan): Observable<DietPlan> {
     console.log('Generating meal plan:', dietPlan);
