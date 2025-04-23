@@ -43,17 +43,11 @@ public class AuthenticationFilter implements WebFilter {
             token = token.substring(7);
         }
 
-        String token = authHeader.substring(7);
         System.out.println("Extracted Token: " + token);
 
-        try {
-            if (!jwtUtil.validateToken(token)) {
-                System.out.println("Token validation failed");
-                return this.onError(exchange, "Invalid Token", HttpStatus.UNAUTHORIZED);
-            }
-        } catch (Exception e) {
-            System.out.println("Token validation error: " + e.getMessage());
-            return this.onError(exchange, "Token validation error", HttpStatus.UNAUTHORIZED);
+        if (!jwtUtil.validateToken(token)) {
+            System.out.println("Invalid Token for request: " + path);
+            return this.onError(exchange, "Invalid Token", HttpStatus.UNAUTHORIZED);
         }
 
         System.out.println("Token Validated Successfully for: " + path);
