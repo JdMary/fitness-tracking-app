@@ -12,7 +12,7 @@ export class DietService {
   private baseUrl = 'http://localhost:8222/api/v1/diets/preference';
   private baseUrl2 = 'http://localhost:8222/api/v1/diets/plan';
   private baseUrl3 = 'http://localhost:8222/api/v1/diets/Meal';
-  private defaultToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6InVzZXJAZXNwcml0LnRuIiwiZXhwIjoxNzQ1Mjc3MzE4fQ.NqlFI9F_If69_gemXKC891GJpLRBKRUjF7wBp2_Rfp4';
+  private defaultToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6InVzZXJAZXNwcml0LnRuIiwiZXhwIjoxNzQ1NDAzNDgzfQ.vwonz7_vtMiwKMPr8rdhuKIkV_noJ8-sZx5YRDS0NLc';
   geminiPath: string = "http://127.0.0.1:8000/process-image"
 
   constructor(private http: HttpClient) {

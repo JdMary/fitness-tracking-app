@@ -12,8 +12,8 @@ import { Router } from '@angular/router';
 })
 export class DietPlanComponent implements OnInit {
   currentStep = 1;
-  subStep = 1; // Added subStep property to track sub-steps within a step
-  day: number = 1; // Add this line to define the 'day' variable
+  subStep = 1; 
+  day: number = 1; 
 
   selectedCategory: string = 'Allergies';
   preferenceCategories = ['Allergies', 'Diet Types', 'Cuisines', 'Nutrients'];
@@ -29,7 +29,7 @@ export class DietPlanComponent implements OnInit {
   // Diet Plan
   dietPlan: DietPlan = {
     numberOfDays: 1,
-    calorieTarget: 2000, // Default value for calorie target
+    calorieTarget: 2000, 
     targetProtein: 0,
     targetCarbs: 0,
     meals: [],
@@ -69,7 +69,7 @@ export class DietPlanComponent implements OnInit {
   };
 
   selectedMealTypes: string[] = [];
-  meals: Meal[] = []; // Store fetched meals
+  meals: Meal[] = []; 
 
   dailyNutrientComparison: { [key: string]: number } | null = null;
 
@@ -80,7 +80,7 @@ export class DietPlanComponent implements OnInit {
     fat: 0,
 },} | null = null;
 
-  dailyNutrientStats: any; // Declare the property to store daily nutrient statst stats
+  dailyNutrientStats: any; 
 
   private initializeEnumRecord<T extends string>(enumValues: T[]): Record<T, boolean> {
     return enumValues.reduce((acc, val) => ({
@@ -116,17 +116,16 @@ export class DietPlanComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // Initialize the mealTypes and healthLabels records
    
 
     this.preferencesState.mealTypes = this.initializeEnumRecord(Object.values(MealType));
     this.preferencesState.healthLabels = this.initializeEnumRecord(Object.values(HealthLabel));
-    this.loadExistingDietPlan(); // Add this line
+    this.loadExistingDietPlan(); 
     this.loadUserPreferences();
     this.fetchMeals();
     // this.fetchAnalytics();
     //this.dailyNutrientStats = this.fetchDailyNutrientStats();
-    this.fetchDailyNutrientStats(); // Fetch stats on component initialization
+    this.fetchDailyNutrientStats(); 
   }
 
   private loadExistingDietPlan(): void {
@@ -134,7 +133,7 @@ export class DietPlanComponent implements OnInit {
       next: (existingPlan) => {
         if (existingPlan) {
           console.log('Loaded existing diet plan:', existingPlan);
-          this.dietPlan.numberOfDays = existingPlan.numberOfDays || 1; // Ensure numberOfDays is set
+          this.dietPlan.numberOfDays = existingPlan.numberOfDays || 1; 
            this.dietPlan.calorieTarget = existingPlan.calorieTarget;
            this.dietPlan.targetProtein = existingPlan.targetProtein;
            this.dietPlan.targetCarbs = existingPlan.targetCarbs;
@@ -182,7 +181,7 @@ fetchDailyNutrientStats(): void {
     next: (stats) => {
       console.log('Daily nutrient stats:', stats);
       this.dailyNutrientStats = stats;
-      this.updateSelectedDayStats(); // Add this line to update stats for the initial day
+      this.updateSelectedDayStats(); 
       //this.loadMealCompletionAnalytics(this.selectedDay)
     },
     error: (error) => {
@@ -204,26 +203,13 @@ selectedDayStats: any = null;
 onDaySelected(day: number): void {
   this.selectedDay = day;
   this.updateSelectedDayStats();
-  //this.loadMealCompletionAnalytics(day);
 }
 updateSelectedDayStats(): void {
   this.selectedDayStats = this.dailyNutrientStats?.find(
     (stat: any) => stat.dayNumber === this.selectedDay
   ) || null;
 }
-// loadMealCompletionAnalytics(day: number): void {
-//     this.dietService.getMealCompletionAnalytics(day).subscribe({
-//         next: (analytics) => {
-//             console.log('Meal completion analytics:', analytics);
-//             this.mealCompletionStats = analytics;
-//         },
-//         error: (error) => {
-//             console.error('Error fetching meal completion analytics:', error);
-//             this.mealCompletionStats = null;
-//         }
-//     });
-// }
-////////////////////////////////////////
+
   loadUserPreferences(): void {
     this.dietService.getPreferencesByUser().subscribe(
       (preference: Preference) => {
@@ -293,8 +279,8 @@ updateSelectedDayStats(): void {
 
   generateMealPlan(): void {
     const dietPlan: DietPlan = {
-        numberOfDays: this.dietPlan.numberOfDays, // Ensure numberOfDays is included
-        calorieTarget: this.dietPlan.calorieTarget, // Include calorieTarget
+        numberOfDays: this.dietPlan.numberOfDays,
+        calorieTarget: this.dietPlan.calorieTarget, 
         targetProtein: this.dietPlan.targetProtein,
         targetCarbs: this.dietPlan.targetCarbs,
         meals: [],
@@ -305,11 +291,11 @@ updateSelectedDayStats(): void {
         next: (response) => {
             console.log('Plan generated successfully:', response);
             this.generatedMeals = response.meals;
+            this.fetchMeals();
             this.currentStep = 3;
         },
         error: (error) => {
             console.error('Error generating meal plan:', error);
-            // Show error to user
             alert('An error occurred while generating the meal plan. Please try again later.');
         }
     });
@@ -317,7 +303,6 @@ updateSelectedDayStats(): void {
 
   handleStepCompletion(): void {
     if (this.currentStep === 1) {
-      // Save initial diet plan parameters
       this.dietService.saveInitialDietPlan(this.dietPlan).subscribe({
         next: (response) => {
           console.log('Initial diet plan saved:', response);

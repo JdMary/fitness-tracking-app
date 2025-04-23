@@ -87,7 +87,8 @@
                                                             </button>
                                                             <input type="number"
                                                                 class="form-control text-center border-0 bg-light"
-                                                                [(ngModel)]="dietPlan.numberOfDays" min="1" max="30">
+                                                                [(ngModel)]="dietPlan.numberOfDays" [readOnly]="true"
+                                                                min="1" max="30">
                                                             <button class="btn btn-outline-primary"
                                                                 (click)="increaseDays()">
                                                                 <i class="ti ti-plus"></i>
@@ -97,19 +98,7 @@
                                                             Select between 1-30 days for your diet plan
                                                         </div>
                                                     </div>
-<div class="mb-4">
-                                                        <label class="form-label fw-medium">Calorie Target</label>
-                                                        <div class="input-group shadow-sm rounded">
-                                                            <input type="number"
-                                                                class="form-control text-center border-0 bg-light"
-                                                                [(ngModel)]="dietPlan.calorieTarget" min="0"
-                                                                placeholder="Enter calorie target">
-                                                            <span class="input-group-text">kcal</span>
-                                                        </div>
-                                                        <div class="form-text text-muted">
-                                                            Specify your daily calorie target
-                                                        </div>
-                                                    </div>
+
                                                     <!-- Meal Types Selection -->
                                                     <div class="mb-4">
                                                         <h6>Select Meals</h6>
@@ -407,126 +396,90 @@
                                                                     </div>
                                                                 </ng-container>
                                                             </div>
-
-                                                            <!-- Daily Nutrition Comparison for Selected Day -->
+                                                            <!-- Daily Nutrition Comparison -->
                                                             <div class="card mt-4 border-0 bg-light shadow-sm">
                                                                 <div class="card-body p-3">
                                                                     <h6 class="card-title fw-bold">Daily Nutrient Stats
                                                                     </h6>
-                                                                    <div *ngIf="selectedDayStats; else noStats">
-                                                                        <div class="card border-0 shadow-sm">
-                                                                            <div class="card-body">
-                                                                                <h6 class="card-title">Day {{
-                                                                                    selectedDayStats.dayNumber }}</h6>
 
-                                                                                <!-- Calories Progress -->
-                                                                                <div class="mb-3">
-                                                                                    <label
-                                                                                        class="form-label d-flex justify-content-between">
-                                                                                        <span>Calories</span>
-                                                                                        <span>
-                                                                                            {{
-                                                                                            selectedDayStats.totalCalories
-                                                                                            | number:'1.0-0' }} /
-                                                                                            {{
-                                                                                            selectedDayStats.calorieTarget
-                                                                                            | number:'1.0-0' }} kcal
-                                                                                        </span>
-                                                                                    </label>
-                                                                                    <div class="progress">
-                                                                                        <div class="progress-bar bg-warning"
-                                                                                            role="progressbar"
-                                                                                            [style.width.%]="(selectedDayStats.totalCalories / selectedDayStats.calorieTarget) * 100">
+                                                                    <div
+                                                                        *ngIf="dailyNutrientStats?.length > 0; else noStats">
+                                                                        <div class="row">
+                                                                            <div *ngFor="let stat of dailyNutrientStats"
+                                                                                class="col-md-6 mb-4">
+                                                                                <div
+                                                                                    class="card border-0 shadow-sm h-100">
+                                                                                    <div class="card-body">
+                                                                                        <h6 class="card-title mb-3">Day
+                                                                                            {{ stat.dayNumber }}</h6>
+
+                                                                                        <!-- Calories -->
+                                                                                        <p class="mb-1">
+                                                                                            <strong>Calories:</strong>
+                                                                                            {{ stat.totalCalories |
+                                                                                            number:'1.0-0' }} / {{
+                                                                                            stat.calorieTarget }} kcal
+                                                                                        </p>
+                                                                                        <div class="progress mb-3">
+                                                                                            <div class="progress-bar bg-warning"
+                                                                                                role="progressbar"
+                                                                                                [style.width.%]="(stat.totalCalories / stat.calorieTarget) * 100">
+                                                                                            </div>
                                                                                         </div>
-                                                                                    </div>
-                                                                                </div>
 
-                                                                                <!-- Protein Progress -->
-                                                                                <div class="mb-3">
-                                                                                    <label
-                                                                                        class="form-label d-flex justify-content-between">
-                                                                                        <span>Protein</span>
-                                                                                        <span>
-                                                                                            {{
-                                                                                            selectedDayStats.totalProtein
-                                                                                            | number:'1.0-0' }} /
-                                                                                            {{
-                                                                                            selectedDayStats.targetProtein
-                                                                                            | number:'1.0-0' }} g
-                                                                                        </span>
-                                                                                    </label>
-                                                                                    <div class="progress">
-                                                                                        <div class="progress-bar bg-info"
-                                                                                            role="progressbar"
-                                                                                            [style.width.%]="(selectedDayStats.totalProtein / selectedDayStats.targetProtein) * 100">
+                                                                                        <!-- Protein -->
+                                                                                        <p class="mb-1">
+                                                                                            <strong>Protein:</strong> {{
+                                                                                            stat.totalProtein |
+                                                                                            number:'1.0-0' }} / {{
+                                                                                            stat.targetProtein }} g
+                                                                                        </p>
+                                                                                        <div class="progress mb-3">
+                                                                                            <div class="progress-bar bg-info"
+                                                                                                role="progressbar"
+                                                                                                [style.width.%]="(stat.totalProtein / stat.targetProtein) * 100">
+                                                                                            </div>
                                                                                         </div>
-                                                                                    </div>
-                                                                                </div>
 
-                                                                                <!-- Carbs Progress -->
-                                                                                <div class="mb-3">
-                                                                                    <label
-                                                                                        class="form-label d-flex justify-content-between">
-                                                                                        <span>Carbs</span>
-                                                                                        <span>
-                                                                                            {{
-                                                                                            selectedDayStats.totalCarbs
-                                                                                            | number:'1.0-0' }} /
-                                                                                            {{
-                                                                                            selectedDayStats.targetCarbs
-                                                                                            | number:'1.0-0' }} g
-                                                                                        </span>
-                                                                                    </label>
-                                                                                    <div class="progress">
-                                                                                        <div class="progress-bar bg-success"
-                                                                                            role="progressbar"
-                                                                                            [style.width.%]="(selectedDayStats.totalCarbs / selectedDayStats.targetCarbs) * 100">
+                                                                                        <!-- Carbs -->
+                                                                                        <p class="mb-1">
+                                                                                            <strong>Carbs:</strong> {{
+                                                                                            stat.totalCarbs |
+                                                                                            number:'1.0-0' }} / {{
+                                                                                            stat.targetCarbs }} g
+                                                                                        </p>
+                                                                                        <div class="progress mb-3">
+                                                                                            <div class="progress-bar bg-success"
+                                                                                                role="progressbar"
+                                                                                                [style.width.%]="(stat.totalCarbs / stat.targetCarbs) * 100">
+                                                                                            </div>
                                                                                         </div>
-                                                                                    </div>
-                                                                                </div>
 
-                                                                                <!-- Fat Progress -->
-                                                                                <div class="mb-3">
-                                                                                    <label
-                                                                                        class="form-label d-flex justify-content-between">
-                                                                                        <span>Fats</span>
-                                                                                        <span>
-                                                                                            {{ selectedDayStats.totalFat
-                                                                                            | number:'1.0-0' }} g
-                                                                                        </span>
-                                                                                    </label>
-                                                                                    <div class="progress">
-                                                                                        <div class="progress-bar bg-danger"
-                                                                                            role="progressbar"
-                                                                                            [style.width.%]="(selectedDayStats.totalFat / (selectedDayStats.calorieTarget * 0.3 / 9)) * 100">
-                                                                                            <!-- Assuming fat target is roughly 30% of calories, divided by 9 calories per gram -->
+                                                                                        <!-- Fat -->
+                                                                                        <p class="mb-1">
+                                                                                            <strong>Fat:</strong> {{
+                                                                                            stat.totalFat |
+                                                                                            number:'1.0-0' }} g
+                                                                                        </p>
+                                                                                        <div class="progress">
+                                                                                            <div class="progress-bar bg-danger"
+                                                                                                role="progressbar"
+                                                                                                [style.width.%]="(stat.totalFat / 70) * 100">
+                                                                                            </div>
                                                                                         </div>
-                                                                                    </div>
-                                                                                </div>
 
-                                                                                <!-- Completion Rate -->
-                                                                                <div *ngIf="mealCompletionStats">
-                                                                                    <p><strong>Completion Rate:</strong>
-                                                                                        {{
-                                                                                        mealCompletionStats.completionRate
-                                                                                        | number: '1.0-0' }}%</p>
-                                                                                    <p><strong>Completed Meals:</strong>
-                                                                                        {{
-                                                                                        mealCompletionStats.completedMeals
-                                                                                        }} / {{
-                                                                                        mealCompletionStats.totalMeals
-                                                                                        }}</p>
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
+
                                                                     <ng-template #noStats>
-                                                                        <p class="text-muted">No nutrient stats
-                                                                            available for Day {{ selectedDay }}.</p>
+                                                                        <p class="text-muted text-center">No nutrient
+                                                                            stats available.</p>
                                                                     </ng-template>
                                                                 </div>
                                                             </div>
-
 
 
                                                             <!-- Meal Completion Analytics -->
@@ -633,38 +586,41 @@
                                                 </div>
                                             </div>
                                         </fieldset>
-
-                                        <!-- Navigation Bar - Fixed at bottom -->
-                                        <div class="navigation-bar sticky-bottom bg-white shadow p-3 rounded-lg mt-4">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <button *ngIf="currentStep > 1" class="btn btn-outline-primary px-4"
-                                                    (click)="previousStep()">
-                                                    <i class="ti ti-arrow-left me-2"></i>
-                                                    Previous
-                                                </button>
-                                                <div *ngIf="currentStep === 1" class="invisible">
-                                                    <button class="btn btn-outline-primary">Placeholder</button>
-                                                </div>
-
-                                                <div class="step-indicator d-flex">
-                                                    <span *ngFor="let step of [1,2,3]" class="step-dot mx-1"
-                                                        [class.active]="currentStep === step"
-                                                        [class.completed]="currentStep > step"></span>
-                                                </div>
-
-                                                <button *ngIf="currentStep < 3" class="btn btn-primary px-4"
-                                                    (click)="nextStep()" [disabled]="!canProceedToNextStep()">
-                                                    {{ currentStep === 2 ? 'Generate Plan' : 'Next' }}
-                                                    <i class="ti ms-2" [class.ti-arrow-right]="currentStep !== 2"
-                                                        [class.ti-wand]="currentStep === 2"></i>
-                                                </button>
-                                                <button *ngIf="currentStep === 3" class="btn btn-success px-4"
-                                                    (click)="savePlan()">
-                                                    <i class="ti ti-download me-2"></i>
-                                                    Save Plan
-                                                </button>
-                                            </div>
-                                        </div>
+<!-- Navigation Bar -->
+<div class="navigation-bar sticky-bottom bg-white shadow p-3 rounded-3 mt-4 border-top">
+    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+  
+      <!-- Previous Button -->
+      <button *ngIf="currentStep > 1" class="btn btn-outline-primary px-4" (click)="previousStep()">
+        <i class="ti ti-arrow-left me-2"></i> Previous
+      </button>
+  
+      <!-- Step Dots -->
+      <div class="step-indicator mx-auto d-flex align-items-center gap-2">
+        <ng-container *ngFor="let step of [1, 2, 3]">
+          <div [ngClass]="{
+              'step-dot': true,
+              'active': currentStep === step,
+              'completed': currentStep > step
+            }">
+          </div>
+        </ng-container>
+      </div>
+  
+      <!-- Next / Generate Button -->
+      <button *ngIf="currentStep < 3" class="btn btn-primary px-4" (click)="nextStep()" [disabled]="!canProceedToNextStep()">
+        {{ currentStep === 2 ? 'Generate Plan' : 'Next' }}
+        <i class="ti ms-2" [class.ti-arrow-right]="currentStep !== 2" [class.ti-wand]="currentStep === 2"></i>
+      </button>
+  
+      <!-- Save Button -->
+      <button *ngIf="currentStep === 3" class="btn btn-success px-4" (click)="savePlan()">
+        <i class="ti ti-download me-2"></i> Save Plan
+      </button>
+  
+    </div>
+  </div>
+  
                                     </div>
 
                                 </div>
