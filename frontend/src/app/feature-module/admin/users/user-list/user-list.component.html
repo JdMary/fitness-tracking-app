@@ -20,35 +20,27 @@
           >
             <thead>
               <tr>
-                <th mat-sort-header="id">#</th>
-                <th mat-sort-header="name">Name</th>
-                <th mat-sort-header="mobile">Mobile</th>
-                <th mat-sort-header="role">Role</th>
-                <th mat-sort-header="lastActivity">Last Activity</th>
-                <th mat-sort-header="created">Created</th>
-                <th mat-sort-header="status">Status</th>
                 <th>Action</th>
+                <th mat-sort-header="id">#</th>
+                <th>Image</th>
+                <th mat-sort-header="name">Name</th>
+                <th mat-sort-header="email">Email</th>
+                <th mat-sort-header="number">Mobile</th>
+                <th mat-sort-header="role">Role</th>
+                <th mat-sort-header="lastLogin">Last Login</th>
+                <th mat-sort-header="signupDate">Signup Date</th>
+                <th mat-sort-header="enabled">Enabled</th>
+                <th mat-sort-header="accountNonLocked">Account Non-Locked</th>
+                <th mat-sort-header="accountNonExpired">Account Non-Expired</th>
+                <th mat-sort-header="credentialsNonExpired">Credentials Non-Expired</th>
+                <th mat-sort-header="rank">Rank</th>
+                <th mat-sort-header="fitnessGoals">Fitness Goals</th>
+                <th mat-sort-header="height">Height</th>
+                <th mat-sort-header="weight">Weight</th> 
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let data of userList">
-                <td>{{ data.id }}</td>
-                <td class="table-namesplit">
-                  <a href="javascript:void(0);" class="table-profileimage">
-                    <img [src]="data.img" class="me-2" alt="img" />
-                  </a>
-                  <a href="javascript:void(0);" class="table-name">
-                    <span>{{ data.name }}</span>
-                    <p>{{ data.email }}</p>
-                  </a>
-                </td>
-                <td>{{ data.mobile }}</td>
-                <td>{{ data.role }}</td>
-                <td>{{ data.lastActivity }}</td>
-                <td>{{ data.created }}</td>
-                <td>
-                  <h6 class="badge-active">{{ data.status }}</h6>
-                </td>
+              <tr *ngFor="let user of userList">
                 <td>
                   <div class="table-actions d-flex">
                     <button
@@ -56,19 +48,39 @@
                       type="button"
                       data-bs-toggle="modal"
                       data-bs-target="#edit-user"
+                      (click)="selectUser(user)"
                     >
                       <i class="feather icon-edit"></i>
                     </button>
                     <button
                       class="btn delete-table"
                       type="button"
-                      data-bs-toggle="modal"
-                      data-bs-target="#delete-user"
+                      (click)="deleteUser(user.id)"
                     >
                       <i class="feather icon-trash-2"></i>
                     </button>
                   </div>
                 </td>
+                <td>{{ user.id }}</td>
+                <td>
+                  <a href="javascript:void(0);" class="table-profileimage">
+                    <img [src]="user.imageUrl" class="me-2" alt="img" />
+                  </a>
+                </td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.number }}</td>
+                <td>{{ user.role }}</td>
+                <td>{{ user.lastLogin | date: 'short' }}</td>
+                <td>{{ user.signupDate | date: 'short' }}</td>
+                <td>{{ user.enabled ? 'Yes' : 'No' }}</td>
+                <td>{{ user.accountNonLocked ? 'Yes' : 'No' }}</td>
+                <td>{{ user.accountNonExpired ? 'Yes' : 'No' }}</td>
+                <td>{{ user.credentialsNonExpired ? 'Yes' : 'No' }}</td>
+                <td>{{ user.rank }}</td>
+                <td>{{ user.fitnessGoals }}</td>
+                <td>{{ user.height }}</td>
+                <td>{{ user.weight }}</td> 
               </tr>
             </tbody>
           </table>
@@ -307,49 +319,36 @@
               </button>
             </div>
             <div class="modal-body pt-0">
-              <form>
+              <form (ngSubmit)="updateUser()">
                 <div class="profile-upload mb-3">
                   <div class="profile-upload-img">
-                    <img
-                      src="assets/img/customer/user-01.jpg"
-                      alt="img"
-                      id="blah"
-                    />
+                    <img [src]="selectedUser.imageUrl || 'assets/img/customer/user-01.jpg'" alt="img" id="blah" />
                   </div>
                   <div class="profile-upload-content">
                     <div class="profile-upload-btn">
                       <div class="profile-upload-file">
-                        <input type="file" id="imgInp" />
-                        <a href="javascript:void(0);" class="btn btn-upload"
-                          >Upload</a
-                        >
+                        <input type="file" id="imgInp" (change)="onImageChange($event)" />
+                        <a href="javascript:void(0);" class="btn btn-upload">Upload</a>
                       </div>
-                      <a href="javascript:void(0);" class="btn btn-remove"
-                        >Remove</a
-                      >
+                      <a href="javascript:void(0);" class="btn btn-remove" (click)="removeImage()">Remove</a>
                     </div>
                     <div class="profile-upload-para">
                       <p>
-                        * Recommends a minimum size of 320 x 320 pixels. Allowed
-                        files .png and .jpg.
+                        * Recommends a minimum size of 320 x 320 pixels. Allowed files .png and .jpg.
                       </p>
                     </div>
                   </div>
                 </div>
                 <div class="mb-3">
                   <label for="" class="form-label">Name</label>
-                  <input type="text" class="form-control" value="Admin" />
-                </div>
-                <div class="mb-3">
-                  <label for="" class="form-label">Username</label>
-                  <input type="text" class="form-control" value="admin" />
+                  <input type="text" class="form-control" [(ngModel)]="selectedUser.name" name="name" />
                 </div>
                 <div class="mb-3">
                   <label for="" class="form-label">Email</label>
                   <input
                     type="text"
                     class="form-control"
-                    value="admin@example.com"
+                    [(ngModel)]="selectedUser.email" name="email"
                   />
                 </div>
                 <div class="mb-3">
@@ -357,26 +356,12 @@
                   <input
                     type="text"
                     class="form-control"
-                    value="518-837-9258"
+                    [(ngModel)]="selectedUser.number" name="number"
                   />
                 </div>
                 <div class="mb-3">
-                  <label for="" class="form-label">Current Password</label>
-                  <div class="pass-group">
-                    <input type="password" class="form-control pass-input" />
-                    <span class="fas toggle-password fa-eye-slash"></span>
-                  </div>
-                </div>
-                <div class="mb-3">
-                  <label for="" class="form-label">New Password</label>
-                  <div class="pass-group">
-                    <input type="password" class="form-control pass-inputs" />
-                    <span class="fas toggle-passwords fa-eye-slash"></span>
-                  </div>
-                </div>
-                <div class="mb-3">
                   <label for="" class="form-label">Role</label>
-                  <mat-select [(ngModel)]="selectedValue" [ngModelOptions]="{standalone: true}" class="setting-select select"  placeholder="Admin">
+                  <mat-select [(ngModel)]="selectedUser.role" name="role" class="setting-select select">
                     <mat-option *ngFor="let data of selectedList" [value]="data.value">
                     {{data.value}}
                     </mat-option>

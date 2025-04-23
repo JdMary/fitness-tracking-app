@@ -56,6 +56,12 @@ public class SubscriptionController {
         return ResponseEntity.ok().build();
     }
 
+    @DeleteMapping("/delete-by-email")
+        public ResponseEntity<?> deleteSubscriptionsByEmail(@RequestParam String ownerEmail) {
+            subscriptionService.deleteSubscriptionsByEmail(ownerEmail);
+            return ResponseEntity.ok().build();
+        }
+
     // ✅ Récupérer les abonnements de l'utilisateur courant
     @GetMapping("/my")
     public ResponseEntity<List<Subscription>> getUserSubscriptions(@RequestHeader("Authorization") String token) {

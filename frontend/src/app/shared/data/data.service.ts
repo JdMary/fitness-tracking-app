@@ -1633,27 +1633,6 @@ export class DataService {
   ],
 },
         {
-          menuValue: 'User',
-          hasSubRoute: true,
-          showSubRoute: false,
-          route: routes.service, //badl 7asb l route mte3k
-          icon: 'icon-briefcase',
-          subMenus: [
-            {
-              menuValue: 'Add Service',
-              route: routes.addUsers, //badl 7asb l route mte3k
-            },
-            {
-              menuValue: 'Services',
-              route: routes.service, //badl 7asb l route mte3k
-            },
-            {
-              menuValue: 'Service Settings',
-              route: routes.serviceSettings, //badl 7asb l route mte3k
-            },
-          ],
-        },
-        {
           menuValue: 'Services',
           hasSubRoute: true,
           showSubRoute: false,
@@ -1703,6 +1682,55 @@ export class DataService {
               route: routes.review,
             },
           ],
+        },
+      ],
+    },
+    {
+      tittle: 'USER MANAGEMENT',
+      showAsTab: false,
+      separateRoute: false,
+      menu: [
+        {
+          menuValue: 'Users',
+          hasSubRoute: true,
+          showSubRoute: false,
+          icon: 'icon-user',
+          subMenus: [
+            {
+              menuValue: 'Users',
+              route: routes.userList,
+            },
+            {
+              menuValue: 'Customers',
+              route: routes.userCustomers,
+            },
+            {
+              menuValue: 'Providers',
+              route: routes.userProviders,
+            },
+
+          ],
+        },
+        {
+          menuValue: 'Roles & Permissions',
+          hasSubRoute: false,
+          showSubRoute: false,
+          route: routes.rolesPermissions,
+          icon: 'icon-file',
+        },
+        {
+          menuValue: 'Delete Account Requests',
+          hasSubRoute: false,
+          showSubRoute: false,
+          route: routes.deleteAccountRequests,
+          icon: 'icon-trash-2',
+        },
+        {
+          menuValue: 'Verification Requests',
+          hasSubRoute: false,
+          showSubRoute: false,
+          route: routes.verificationRequest,
+          icon: 'icon-dollar-sign',
         },
       ],
     },
@@ -1970,55 +1998,7 @@ export class DataService {
         },
       ],
     },
-    {
-      tittle: 'USER MANAGEMENT',
-      showAsTab: false,
-      separateRoute: false,
-      menu: [
-        {
-          menuValue: 'Users',
-          hasSubRoute: true,
-          showSubRoute: false,
-          icon: 'icon-user',
-          subMenus: [
-            {
-              menuValue: 'Users',
-              route: routes.userList,
-            },
-            {
-              menuValue: 'Customers',
-              route: routes.userCustomers,
-            },
-            {
-              menuValue: 'Providers',
-              route: routes.userProviders,
-            },
-
-          ],
-        },
-        {
-          menuValue: 'Roles & Permissions',
-          hasSubRoute: false,
-          showSubRoute: false,
-          route: routes.rolesPermissions,
-          icon: 'icon-file',
-        },
-        {
-          menuValue: 'Delete Account Requests',
-          hasSubRoute: false,
-          showSubRoute: false,
-          route: routes.deleteAccountRequests,
-          icon: 'icon-trash-2',
-        },
-        {
-          menuValue: 'Verification Requests',
-          hasSubRoute: false,
-          showSubRoute: false,
-          route: routes.verificationRequest,
-          icon: 'icon-dollar-sign',
-        },
-      ],
-    },
+    
     {
       tittle: 'MARKETING',
       showAsTab: false,

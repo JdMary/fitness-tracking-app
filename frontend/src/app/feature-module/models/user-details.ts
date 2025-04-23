@@ -11,11 +11,23 @@ export interface Authority {
     role: string;
     orders: any[]; // Replace `any` with the specific type if you have a model for orders
     username: string;
-    authorities: Authority[];
+    //authorities: Authority[];
     enabled: boolean;
     accountNonLocked: boolean;
     accountNonExpired: boolean;
     credentialsNonExpired: boolean;
     imageUrl?: string;
     imageId?: string;
+    boardId?: string;
+    otp?: string;
+    lastLogin?: Date;
+    inactive?: boolean;
+    otpExpiry?: Date;
+    signupDate?: Date;
+    coins?: number;
+    xpPoints?: number;
+    rank?: string;
+    fitnessGoals?: string;
+    height?: number;
+    weight?: number;
   }

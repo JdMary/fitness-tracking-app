@@ -469,6 +469,9 @@ export class routes {
   public static get category(): string {
     return this.baseUrl + '/admin/categories';
   }
+  public static get userwallet(): string {
+    return this.baseUrl + '/user/wallet';
+  }
   public static get wallet(): string {
     return this.baseUrl + '/admin/wallet';
   }

@@ -19,6 +19,10 @@ export class HomeSevenHeaderComponent implements OnInit {
   page = '';
   last = '';
   userImageUrl :string | null = null;
+  dropdownStates: { [key: string]: boolean } = {
+    notificationDropdown: false,
+    calendarDropdown: false,
+  };
   constructor(
     public data: DataService,
     public router: Router,
@@ -43,6 +47,7 @@ export class HomeSevenHeaderComponent implements OnInit {
   ngOnInit(): void {
     this.checkAuthToken();
     this.getUserImageUrl();
+    console.log('logged:', this.isLoggedIn);
   }
   public toggleSidebar(): void {
     this.sidebarService.openSidebar();
@@ -82,5 +87,9 @@ export class HomeSevenHeaderComponent implements OnInit {
         this.userImageUrl = null;
       }
     });
+  }
+
+  toggleDropdown(dropdown: string): void {
+    this.dropdownStates[dropdown] = !this.dropdownStates[dropdown];
   }
 }

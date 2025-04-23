@@ -62,7 +62,7 @@
                   <td>{{ promotion.discountPercentage }}</td>
                   <td>{{ promotion.startDate | date: 'shortDate' }}</td>
                   <td>{{ promotion.endDate | date: 'shortDate' }}</td>
-                  <td>{{ promotion.sportFacility?.name }}</td>
+                  <td>{{ promotion.sportFacility.name }}</td>
                   <td>
                     <div class="action-language">
                       <a class="table-edit" [routerLink]="[routes.editPromotion, promotion.id]">

@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { DataService } from 'src/app/shared/data/data.service';
-import { userList } from 'src/app/shared/models/data-table-model';
 import { pageSelection, apiResultFormat } from 'src/app/shared/models/models';
 import { routes } from 'src/app/shared/routes/routes';
+import { UserService } from 'src/app/feature-module/backend-services/user/user.service';
+import { UserDetails } from 'src/app/feature-module/models/user-details';
 interface data {
   value: string;
 }
@@ -18,8 +19,8 @@ export class UserListComponent implements OnInit{
   public routes = routes;
 
   
- public userList : Array<userList> = []
- dataSource!: MatTableDataSource<userList>;
+ public userList: Array<UserDetails> = [];
+ dataSource!: MatTableDataSource<UserDetails>;
 
  public showFilter = false;
  public searchDataValue = '';
@@ -34,29 +35,20 @@ export class UserListComponent implements OnInit{
  public pageNumberArray: Array<number> = [];
  public pageSelection: Array<pageSelection> = [];
  public totalPages = 0;
+ public selectedUser: UserDetails = {} as UserDetails;
+public selectedFile: File = {} as File;
 
- constructor(public data : DataService){
+ constructor(public userService: UserService){
 
  }
  ngOnInit() {
-   this.getTableData();
+   this.getAllUsers();
  }
- private getTableData(): void {
-   this.userList = [];
-   this.serialNumberArray = [];
-
-   this.data.getUserList().subscribe((data: apiResultFormat) => {
-     this.totalData = data.totalData;
-     data.data.map((res: userList, index: number) => {
-       const serialNumber = index + 1;
-       if (index >= this.skip && serialNumber <= this.limit) {
-         res.id = serialNumber;
-         this.userList.push(res);
-         this.serialNumberArray.push(serialNumber);
-       }
-     });
-     this.dataSource = new MatTableDataSource<userList>(this.userList);
-     this.calculateTotalPages(this.totalData, this.pageSize);
+ private getAllUsers(): void {
+   this.userService.getAllUsers().subscribe((users: UserDetails[]) => {
+     this.userList = users;
+     this.totalData = users.length; // Set totalData to the number of users retrieved 
+     this.dataSource = new MatTableDataSource<UserDetails>(this.userList);
    });
  }
 
@@ -87,13 +79,13 @@ export class UserListComponent implements OnInit{
      this.pageIndex = this.currentPage - 1;
      this.limit += this.pageSize;
      this.skip = this.pageSize * this.pageIndex;
-     this.getTableData();
+     this.getAllUsers();
    } else if (event == 'previous') {
      this.currentPage--;
      this.pageIndex = this.currentPage - 1;
      this.limit -= this.pageSize;
      this.skip = this.pageSize * this.pageIndex;
-     this.getTableData();
+     this.getAllUsers();
    }
  }
 
@@ -106,7 +98,7 @@ export class UserListComponent implements OnInit{
    } else if (pageNumber < this.currentPage) {
      this.pageIndex = pageNumber + 1;
    }
-   this.getTableData();
+   this.getAllUsers();
  }
 
  public PageSize(): void {
@@ -114,7 +106,7 @@ export class UserListComponent implements OnInit{
    this.limit = this.pageSize;
    this.skip = 0;
    this.currentPage = 1;
-   this.getTableData();
+   this.getAllUsers();
  }
 
  private calculateTotalPages(totalData: number, pageSize: number): void {
@@ -134,15 +126,80 @@ export class UserListComponent implements OnInit{
  public passwordClass1 = false;
  public passwordClass2 = false;
 
- selectedList: data[] = [
-   {value: 'Admin'},
-   {value: 'Super Admin'},
- ];
+selectedList: data[] = [
+  { value: 'ADMIN' },
+  { value: 'USER' },
+  { value: 'TRAINER' },
+  { value: 'FACILITY_MANAGER' },
+];
 
  togglePassword1() {
    this.passwordClass1 = !this.passwordClass1;
  }
  togglePassword2() {
    this.passwordClass2 = !this.passwordClass2;
+ }
+
+ selectUser(user: UserDetails): void {
+  console.log(user.role);
+   this.selectedUser = { ...user };
+ }
+
+ onImageChange(event: Event): void {
+   const input = event.target as HTMLInputElement;
+   if (input.files && input.files[0]) {
+     this.selectedFile = input.files[0];
+     const reader = new FileReader();
+     reader.onload = (e: any) => {
+       this.selectedUser.imageUrl = e.target.result;
+     };
+     reader.readAsDataURL(this.selectedFile);
+   }
+ }
+
+ removeImage(): void {
+   this.selectedUser.imageUrl = '';
+   //this.selectedFile = null;
+ }
+
+ updateUser(): void {
+  this.userService.updateUser(this.selectedUser, this.selectedFile).subscribe({
+    next: () => {
+      const index = this.userList.findIndex((user) => user.id === this.selectedUser.id);
+      if (index !== -1) {
+        this.userList[index] = { ...this.selectedUser };
+        this.dataSource.data = [...this.userList];
+      }
+      alert('User updated successfully!');
+      this.selectedUser = {} as UserDetails;
+      this.selectedFile = {} as File;
+      this.getAllUsers();
+      // Hide the modal after successful update
+      const modal = document.getElementById('edit-user');
+      if (modal) {
+        (modal as any).classList.remove('show');
+        document.body.classList.remove('modal-open');
+        const backdrops = document.querySelectorAll('.modal-backdrop');
+        backdrops.forEach((backdrop) => backdrop.remove());
+        document.body.style.overflow = ''; // Reset overflow style
+      }
+
+      // Refresh the page
+      window.location.reload();
+    },
+    error: (err) => {
+      console.error('Error updating user:', err);
+      alert('An error occurred while updating the user. Please try again.');
+    },
+  });
+ }
+
+ deleteUser(userId: string): void {
+  this.userService.removeUser(userId).subscribe(() => {
+    this.userList = this.userList.filter((user) => user.id !== userId);
+    this.dataSource.data = [...this.userList];
+    alert('User deleted successfully!');
+    this.getAllUsers();
+  });
  }
 }

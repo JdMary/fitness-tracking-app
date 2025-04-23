@@ -25,8 +25,12 @@ spring:
     database-platform: org.hibernate.dialect.MySQLDialect
 application:
   config:
-    achievements-url: http://localhost:8073/api/v1/achievements
+    achievement-url: http://localhost:8073/api/v1/achievements
     leaderBoard-url: http://localhost:8073/api/v1/leaderBoard
+    buddy-url: http://localhost:8071/api/v1/buddies
+    workout-url: http://localhost:8074/api/v1/workouts
+    facility-url: http://localhost:8070/api/v1/facilities
+    diet-url: http://localhost:8072/api/v1/diets
 management:
   tracing:
     sampling:

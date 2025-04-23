@@ -1,5 +1,7 @@
 package fitrack.user.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -73,8 +75,13 @@ public class User implements UserDetails {
     @Column
     private float weight;
 
+    @JsonIgnore
+    @Transient
+    private Collection<? extends GrantedAuthority> authorities;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Order> orders;
+    @JsonManagedReference
+    private List<Order> orders = new ArrayList<>();
     public User() {
     }
     public User(String name, int number , String email, String password, UserRole role, String imageUrl, String imageId) {

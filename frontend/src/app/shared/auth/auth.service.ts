@@ -50,11 +50,6 @@ export class UserService {
     return this.http.get<any>(`${this.baseUrl}/retrieve-user-email/${email}`, { headers: this.getHeaders() });
   }
 
-  // Retrieve user details by email
-  getUserDetailsByEmail(email: string): Observable<any> {
-    return this.getUserByEmail(email);
-  }
-
   // Retrieve a user's image by email
   getUserImageByEmail(email: string): Observable<string> {
     return this.http.get(`${this.baseUrl}/retrieve-user-image/${email}`, { headers: this.getHeaders(), responseType: 'text' });

@@ -15,3 +15,5 @@ spring:
           starttls:
             enable: true
         debug: true
+stripe:
+  secretKey: sk_test_51RGsacEEqRVGh0POCa1wzedotiv52N4p2LpoXZNbyEo7jCq1U25lQj4FJdjk9s17KI7YEUHN3GDSlDySCCc5WQVJ001bYVeTvG

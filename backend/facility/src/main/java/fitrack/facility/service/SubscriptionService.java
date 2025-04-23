@@ -336,7 +336,20 @@ public class SubscriptionService implements ISubscriptionService {
         return quarterlyRevenue;
     }
 
+    public void deleteSubscriptionsByEmail(String ownerEmail) {
+        List<Subscription> subscriptions = repository.findByOwnerEmail(ownerEmail);
 
+        if (subscriptions.isEmpty()) {
+            throw new RuntimeException("No subscriptions found for the provided email.");
+        }
+
+        subscriptions.forEach(subscription -> {
+            if (!SubscriptionStatus.EXPIRED.equals(subscription.getStatus())) {
+                throw new RuntimeException("Only expired subscriptions can be deleted.");
+            }
+            repository.delete(subscription);
+        });
+    }
 
 
 

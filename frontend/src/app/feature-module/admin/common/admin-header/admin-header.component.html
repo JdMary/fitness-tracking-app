@@ -193,31 +193,31 @@
             <li class="nav-item dropdown">
                 <a href="javascript:void(0)" class="user-link  nav-link" data-bs-toggle="dropdown">
                     <span class="user-img">
-                        <img class="rounded-circle" src="assets/admin/img/user.jpg" width="40" alt="Admin">
+                        <img class="rounded-circle" [src]="userDetails.imageUrl || 'assets/admin/img/user.jpg'" width="40" alt="Admin">
                         <span class="animate-circle"></span>
                     </span>
                     <span class="user-content">
-                        <span class="user-name">John Smith</span>
-                        <span class="user-details">Demo User</span>
+                        <span class="user-name">{{ userDetails.name || 'User Name' }}</span>
+                        <span class="user-details">{{ userDetails.role || 'User Role' }}</span>
                     </span>
                 </a>
                 <div class="dropdown-menu menu-drop-user">
                     <div class="profilemenu ">
                         <div class="user-detials">
                             <a href="javascript:void(0)">
-                                <span class="profile-image">
-                                    <img src="assets/admin/img/user.jpg" alt="img" class="profilesidebar">
+                                <span class="user-img">
+                                    <img [src]="userDetails.imageUrl || 'assets/admin/img/user.jpg'" alt="img" >
                                 </span>
                                 <span class="profile-content">
-                                    <span>John Smith</span><br>
-                                    <span>John&#64;example.com</span>
+                                    <span>{{ userDetails.name || 'User Name' }}</span><br>
+                                    <span>{{ userDetails.email || 'user@example.com' }}</span>
                                 </span>
                             </a>
                         </div>
                         <div class="subscription-menu">
                             <ul>
                                 <li>
-                                    <a [routerLink]="routes.accountSettings" >Profile</a>
+                                    <a [routerLink]="routes.accountSettings">Profile</a>
                                 </li>
                                 <li>
                                     <a [routerLink]="routes.localization">Settings</a>
