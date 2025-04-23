@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin.component';
+import { MealDetailsComponent } from './diet-plan/meal-details/meal-details.component';
 
 const routes: Routes = [
   {
@@ -758,6 +759,23 @@ const routes: Routes = [
             (m) => m.AddUserModule
           ),
       },
+      //////////////dietplan/////////////
+        {
+          path: 'diet-plan',
+          loadChildren: () =>
+            import('./diet-plan/diet-plan.module').then((m) => m.DietPlanModule),
+        },
+        //////test
+        {
+          path: 'diet-plans',
+          loadChildren: () =>
+            import('./diet-plan/diet-plan.module').then((m) => m.DietPlanModule),
+        },
+     
+        {
+          path: 'diet-plan/meal-details/:id',
+          component: MealDetailsComponent,
+        },
     ],
   },
 ];

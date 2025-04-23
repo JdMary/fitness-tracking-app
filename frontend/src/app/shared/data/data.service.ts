@@ -692,11 +692,11 @@ export class DataService {
       menu: [
         {
           menuValue: 'Diet plan',
-          routes: routes.customerDashboard,
+          routes: routes.dietPlan, // badalha 7asb l route mte3k
           hasSubRoute: false,
           showSubRoute: false,
           subMenus: [
-            {
+           /* {
               menuValue: 'Generate',
               routes: routes.serviceDetails,
               hasSubRoute: false,
@@ -716,13 +716,13 @@ export class DataService {
               hasSubRoute: false,
               showSubRoute: false,
               subMenus: [],
-            }
+            }*/
 
           ],
         },
         {
           menuValue: 'Preferences',
-          routes: routes.customerBooking,
+          routes: routes.dietPlan, // badalha 7asb l route mte3k
           hasSubRoute: false,
           showSubRoute: false,
           subMenus: [],
@@ -1554,20 +1554,20 @@ export class DataService {
           menuValue: 'Healt & diet',
           hasSubRoute: true,
           showSubRoute: false,
-          route: routes.service, //badl 7asb l route mte3k
+           //badl 7asb l route mte3k
           icon: 'icon-briefcase',
           subMenus: [
             {
-              menuValue: 'Add Service',
-              route: routes.addServices, //badl 7asb l route mte3k
+              menuValue: 'Diet Plan List',
+              route: routes.adminDietPlansList, //badl 7asb l route mte3k
             },
             {
-              menuValue: 'Services',
-              route: routes.service, //badl 7asb l route mte3k
+              menuValue: 'detail Diet Plan',
+              route: routes.dietPlanDetails, //badl 7asb l route mte3k
             },
             {
-              menuValue: 'Service Settings',
-              route: routes.serviceSettings, //badl 7asb l route mte3k
+              menuValue: 'Preferences',
+              route: routes.adminPreferences, //badl 7asb l route mte3k
             },
           ],
         },

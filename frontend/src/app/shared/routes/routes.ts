@@ -946,4 +946,28 @@ export class routes {
   }
 
   
+  ////// diet plan routes ////////////////////////////
+  public static get dietPlan(): string {
+    return this.baseUrl + '/diet-plan/generate-diet-plan';
+  }
+ 
+  ///////////// diet plan   admin dashboard ///////////// 
+  
+  public static get adminDietPlansList(): string {
+    return this.baseUrl + '/admin/diet-plan/diet-plan-list';
+  }
+  public static get dietPlanDetails (): string {
+    return this.baseUrl + '/admin/diet-plan/diet-plan-details';
+  }
+  public static get adminPreferences (): string {
+    return this.baseUrl + '/admin/diet-plan/preferences';
+  }
+  // public static get adminRequestList(): string {
+  //   return this.baseUrl + '/admin/buddy/requests-list';
+  // }
+  // public static get adminMatchList(): string {
+  //   return this.baseUrl + '/admin/buddy/matches-list';
+  // }
+ 
+
 }

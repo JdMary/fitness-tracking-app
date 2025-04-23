@@ -8,6 +8,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { AdminHeaderComponent } from './common/admin-header/admin-header.component';
 import { AdminSidebarComponent } from './common/admin-sidebar/admin-sidebar.component';
 import { ModalComponent } from './modal/modal.component';
+import { RouterModule } from '@angular/router';
+import { AdminDietPlanComponent } from './diet-plan/diet-plan.component';
 
 
 @NgModule({
@@ -20,7 +22,8 @@ import { ModalComponent } from './modal/modal.component';
   imports: [
     CommonModule,
     AdminRoutingModule,
-    SharedModule
+    SharedModule,
+    RouterModule.forChild([]) 
   ],
 })
 export class AdminModule { }

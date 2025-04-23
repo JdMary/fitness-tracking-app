@@ -1,0 +1,75 @@
+<div class="page-wrapper">
+  <div class="content">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="content-page-header">
+          <h5>Diet Plans</h5>
+        </div>
+        <div _ngcontent-ng-c3079932914="" class="row">
+          <div _ngcontent-ng-c3079932914="" class="col-12">
+            <div _ngcontent-ng-c3079932914="" class="tab-sets">
+              <div _ngcontent-ng-c3079932914="" class="tab-contents-sets">
+                <ul _ngcontent-ng-c3079932914="">
+                  <li _ngcontent-ng-c3079932914=""><a _ngcontent-ng-c3079932914="" class="active" ng-reflect-router-link="/admin/booking" href="/admin/booking">All Diet Plans</a></li>
+                  <li _ngcontent-ng-c3079932914=""><a _ngcontent-ng-c3079932914="" ng-reflect-router-link="/admin/pending-booking" href="/admin/pending-booking">Pending </a></li>
+                  <li _ngcontent-ng-c3079932914=""><a _ngcontent-ng-c3079932914="" ng-reflect-router-link="/admin/completed-booking" href="/admin/completed-booking">Completed </a></li>
+                </ul>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+        <div class="row mt-4"></div>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Username</th>
+                <th>Number of Days</th>
+                <th>Calorie Target</th>
+                <th>Protein Target</th>
+                <th>Carbs Target</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let dietPlan of dietPlans; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ dietPlan.username }}</td>
+                <td>{{ dietPlan.numberOfDays }}</td>
+                <td>{{ dietPlan.calorieTarget }}</td>
+                <td>{{ dietPlan.targetProtein }}</td>
+                <td>{{ dietPlan.targetCarbs }}</td>
+                <td>
+                    <h6 [ngClass]="{
+                        'badge-pending': dietPlan.status === 'DRAFT',
+                        'badge-active': dietPlan.status === 'COMPLETED'
+                      }">
+                        {{ getStatusText(dietPlan.status) }}
+                      </h6>
+                </td>
+                <td>
+                  <div class="action-items">
+                    <a class="btn btn-sm bg-info-light me-2" [routerLink]="['/admin/diet-plan/diet-plan-details', dietPlan.dietPlanId]">
+                      <i class="far fa-eye me-1"></i> View
+<!-- </a>
+                     <a class="btn btn-sm bg-danger-light" (click)="deleteDietPlan(dietPlan.dietPlanId)"> -->
+                      <i class="far fa-trash-alt me-1"></i> Delete
+                    </a>
+                     
+                  </div>
+                </td>
+              </tr>
+              <tr *ngIf="dietPlans.length === 0">
+                <td colspan="8" class="text-center">No Diet Plans Found</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>

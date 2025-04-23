@@ -1,0 +1,275 @@
+<!-- Breadcrumb -->
+<div class="breadcrumb-bar">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-12">
+                <div class="breadcrumb-title">
+                    <nav aria-label="breadcrumb" class="page-breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/diet-plan">Diet Plan</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Meal Details</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Breadcrumb -->
+
+<div class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <!-- Main Info Card -->
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <div class="row">
+                            <!-- Left Column - Image and Quick Stats -->
+                            <div class="col-lg-5">
+                                <div class="position-relative mb-4">
+                                    <img [src]="meal?.imageUrl" [alt]="meal?.name" 
+                                         class="img-fluid rounded-lg shadow-sm w-100">
+                                    <div class="position-absolute top-0 end-0 p-3 d-flex gap-2">
+                                     
+                                        <span class="badge bg-info rounded-pill">
+                                            <i class="ti ti-category me-1"></i>{{ meal?.mealType }}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- Quick Actions -->
+                                <div class="d-flex gap-2 mb-4">
+                                    <button class="btn btn-outline-primary flex-grow-1">
+                                        <i class="ti ti-heart me-2"></i>Add to Favorites
+                                    </button>
+                                    <a [href]="meal?.recipeUrl" target="_blank" class="btn btn-primary flex-grow-1">
+                                        <i class="ti ti-book me-2"></i>View Recipe
+                                    </a>
+                                </div>
+
+                                <!-- Basic Info Box -->
+                                <div class="card bg-light border-0">
+                                    <div class="card-body">
+                                        <h6 class="mb-3">Basic Information</h6>
+                                        <div class="info-list">
+                                            <div class="d-flex align-items-center mb-2">
+                                                <i class="ti ti-chef-hat text-primary me-2"></i>
+                                                <span class="text-muted me-2">Source:</span>
+                                                <span>{{ meal?.source }}</span>
+                                            </div>
+                                            <div class="d-flex align-items-center mb-2">
+                                                <i class="ti ti-world text-primary me-2"></i>
+                                                <span class="text-muted me-2">Cuisine:</span>
+                                                <span>{{ meal?.cuisineTypes?.join(', ') || 'Not specified' }}</span>
+                                            </div>
+                                            <div class="d-flex align-items-center">
+                                                <i class="ti ti-users text-primary me-2"></i>
+                                                <span class="text-muted me-2">Servings:</span>
+                                                <span>{{ meal?.servings || 4 }} portions</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Right Column - Details -->
+                            <div class="col-lg-7">
+                                <h3 class="mb-4">{{ meal?.name }}</h3>
+                                 <!-- Source & Time -->
+                                 <div class="d-flex align-items-center text-muted mb-4">
+                                    <i class="ti ti-chef-hat me-2"></i>
+                                    <span>{{ meal?.sourceUrl }}</span>
+                                    <span class="mx-2">•</span>
+                                    <i class="ti ti-clock me-2"></i>
+                                    <span>{{ meal?.cookTimeMinutes || '30 mins' }}</span>
+                                </div>
+                                <!-- Nutrition Stats Grid -->
+                                <div class="row g-3 mb-4">
+                                    <div class="col-6 col-md-3">
+                                        <div class="nutrition-stat bg-light-primary rounded p-3 text-center">
+                                            <i class="ti ti-flame text-primary"></i>
+                                            <h4 class="mb-0">{{ meal?.calories }}</h4>
+                                            <small>Calories</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-3">
+                                        <div class="nutrition-stat bg-light-success rounded p-3 text-center">
+                                            <i class="ti ti-meat text-success"></i>
+                                            <h4 class="mb-0">{{ meal?.protein }}g</h4>
+                                            <small>Protein</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-3">
+                                        <div class="nutrition-stat bg-light-warning rounded p-3 text-center">
+                                            <i class="ti ti-bread text-warning"></i>
+                                            <h4 class="mb-0">{{ meal?.carbs }}g</h4>
+                                            <small>Carbs</small>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 col-md-3">
+                                        <div class="nutrition-stat bg-light-info rounded p-3 text-center">
+                                            <i class="ti ti-bottle text-info"></i>
+                                            <h4 class="mb-0">{{ meal?.fat }}g</h4>
+                                            <small>Fat</small>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Ingredients List -->
+                                <div class="card bg-light border-0 mb-4">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <i class="ti ti-list text-primary me-2"></i>Ingredients
+                                        </h5>
+                                        <div class="row">
+                                            <div *ngIf="(meal?.ingredients ?? []).length > 0; else noIngredients">
+                                                <div class="col-md-6" *ngFor="let ingredient of meal?.ingredients">
+                                                    <div class="d-flex align-items-center py-2">
+                                                        <i class="ti ti-point text-primary me-2"></i>
+                                                        <span>{{ ingredient }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <ng-template #noIngredients>
+                                                <p class="text-muted">No ingredients available.</p>
+                                            </ng-template>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Labels and Tags -->
+                                <div class="mb-4">
+                                    <h6 class="mb-3">Diet & Health Labels</h6>
+                                    <div class="mb-3">
+                                        <span *ngFor="let label of meal?.dietLabels || []" 
+      class="badge bg-success me-2 mb-2">
+  <i class="ti ti-check me-1"></i>{{ label }}
+</span>
+                                    </div>
+                                    <div>
+                                        <span *ngFor="let label of meal?.healthLabels || []" 
+                                              class="badge bg-info me-2 mb-2">
+                                            <i class="ti ti-heart me-1"></i>{{ label }}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- Detailed Nutrition -->
+                                <div class="card">
+                                    <div class="card-header bg-light">
+                                        <h5 class="mb-0">
+                                            <i class="ti ti-chart-pie text-primary me-2"></i>
+                                            Detailed Nutrition Facts
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <ul class="list-unstyled">
+                                                    <li class="mb-2 pb-2 border-bottom">
+                                                        <div class="d-flex justify-content-between">
+                                                            <span>Calories</span>
+                                                            <strong>{{ meal?.calories }} kcal</strong>
+                                                        </div>
+                                                    </li>
+                                                    <li class="mb-2 pb-2 border-bottom">
+                                                        <div class="d-flex justify-content-between">
+                                                            <span>Total Fat</span>
+                                                            <strong>{{ meal?.fat }}g</strong>
+                                                        </div>
+                                                    </li>
+                                                    <li class="mb-2 pb-2 border-bottom">
+                                                        <div class="d-flex justify-content-between">
+                                                            <span>Total Carbs</span>
+                                                            <strong>{{ meal?.carbs }}g</strong>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-6">
+                                                <ul class="list-unstyled">
+                                                    <li class="mb-2 pb-2 border-bottom">
+                                                        <div class="d-flex justify-content-between">
+                                                            <span>Protein</span>
+                                                            <strong>{{ meal?.protein }}g</strong>
+                                                        </div>
+                                                    </li>
+                                                    <li class="mb-2 pb-2 border-bottom">
+                                                        <div class="d-flex justify-content-between">
+                                                            <span>Fiber</span>
+                                                            <strong>{{ meal?.fiber }}g</strong>
+                                                        </div>
+                                                    </li>
+                                                    <li class="mb-2 pb-2 border-bottom">
+                                                        <div class="d-flex justify-content-between">
+                                                            <span>Sugar</span>
+                                                            <strong>{{ meal?.sugar }}g</strong>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Additional Nutritional Information -->
+                                <div class="card bg-light border-0 mb-4">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <i class="ti ti-info-circle text-primary me-2"></i>Additional Nutrition Info
+                                        </h5>
+                                        <div class="row g-3">
+                                            <div class="col-6 col-md-4" *ngIf="meal?.calcium">
+                                                <div class="nutrition-stat bg-light-primary rounded p-3 text-center">
+                                                    <strong>Calcium</strong>
+                                                    <p class="mb-0">{{ meal?.calcium }} mg</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-4" *ngIf="meal?.iron">
+                                                <div class="nutrition-stat bg-light-success rounded p-3 text-center">
+                                                    <strong>Iron</strong>
+                                                    <p class="mb-0">{{ meal?.iron }} mg</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-4" *ngIf="meal?.magnesium">
+                                                <div class="nutrition-stat bg-light-warning rounded p-3 text-center">
+                                                    <strong>Magnesium</strong>
+                                                    <p class="mb-0">{{ meal?.magnesium }} mg</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-4" *ngIf="meal?.potassium">
+                                                <div class="nutrition-stat bg-light-info rounded p-3 text-center">
+                                                    <strong>Potassium</strong>
+                                                    <p class="mb-0">{{ meal?.potassium }} mg</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-4" *ngIf="meal?.vitaminA">
+                                                <div class="nutrition-stat bg-light-danger rounded p-3 text-center">
+                                                    <strong>Vitamin A</strong>
+                                                    <p class="mb-0">{{ meal?.vitaminA }} IU</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-4" *ngIf="meal?.vitaminC">
+                                                <div class="nutrition-stat bg-light-secondary rounded p-3 text-center">
+                                                    <strong>Vitamin C</strong>
+                                                    <p class="mb-0">{{ meal?.vitaminC }} mg</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 col-md-4" *ngIf="meal?.vitaminK">
+                                                <div class="nutrition-stat bg-light-dark rounded p-3 text-center">
+                                                    <strong>Vitamin K</strong>
+                                                    <p class="mb-0">{{ meal?.vitaminK }} µg</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

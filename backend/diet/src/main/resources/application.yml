@@ -3,3 +3,13 @@ spring:
     name: diets
   config:
     import: optional:configserver:http://localhost:8888
+edamam:
+  app:
+    id: 71f6f999
+    key: 0b6de15adc122976cf970bb25c958d05
+  mealplanner:
+    url: https://api.edamam.com
+  recipe:
+    url: https://api.edamam.com/api/recipes/v2
+  account:
+    user: fitrackApp

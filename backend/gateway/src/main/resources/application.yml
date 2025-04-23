@@ -18,3 +18,13 @@ spring:
         - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
   config:
     import: optional:configserver:http://localhost:8888
+
+# Disable Zipkin tracing
+management:
+  tracing:
+    enabled: false
+    sampling:
+      probability: 0
+    zipkin:
+      tracing:
+        enabled: false
