@@ -22,7 +22,7 @@ export class DietService {
   }
 
   private getHeaders(): HttpHeaders {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authToken');
     console.log('Current token:', token); 
     
     if (!token) {
