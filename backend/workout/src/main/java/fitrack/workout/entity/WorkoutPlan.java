@@ -27,10 +27,20 @@ public class WorkoutPlan {
     private String status;
     private String difficulty;
     private String username;
+   /* @Enumerated(EnumType.STRING)
+    private Goal goal;*/
+
+     /*public Goal getGoal() {
+        return goal;
+    }
+
+    public void setGoal(Goal goal) {
+        this.goal = goal;
+    }*/
 
 
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private ProgressTracker progressTracker;
 
     @OneToMany(mappedBy = "workoutPlan", cascade = CascadeType.ALL,orphanRemoval = true)
@@ -102,4 +112,5 @@ public class WorkoutPlan {
     public void setUsername(String username) {
         this.username = username;
     }
+
 }

@@ -6,9 +6,11 @@ import { WorkoutWizardComponent } from './workout-wizard/workout-wizard.componen
 import { WorkoutPlanListComponent } from './workout-plan-list/workout-plan-list.component';
 import { WorkoutPlanFormComponent } from './workout-plan-form/workout-plan-form.component';
 import { TrainingSessionFormComponent } from './training-session-form/training-session-form.component';
-import { E } from '@angular/cdk/keycodes';
+import { E, P } from '@angular/cdk/keycodes';
 import { ExerciceComponent } from './exercice/exercice.component';
 import { ExerciseFormComponent } from './exercise-form/exercise-form.component';
+import { ProgressTrackerComponent } from './progress-tracker/progress-tracker.component';
+import { TrainingSessionInsightsComponent } from './training-session-insights/training-session-insights.component';
 const routes: Routes = [
   {
     path: '',
@@ -38,6 +40,16 @@ const routes: Routes = [
           { path: '', component: ExerciceComponent },
           { path: 'form', component: ExerciseFormComponent }
         ]
+      },
+      {
+        path: 'progress-tracker',
+        component: ProgressTrackerComponent,
+       
+      },
+      {
+
+        path: 'training-session-insights',
+        component: TrainingSessionInsightsComponent
       },
       {
         path: 'wizard',

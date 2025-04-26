@@ -13,6 +13,9 @@ import { WorkoutPlanFormComponent } from './workout-plan-form/workout-plan-form.
 import { TrainingSessionFormComponent } from './training-session-form/training-session-form.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ExerciseFormModule } from './exercise-form/exercise-form.module';
+import { P } from '@angular/cdk/keycodes';
+import { ProgressTrackerComponent } from './progress-tracker/progress-tracker.component';
+import { TrainingSessionInsightsComponent } from './training-session-insights/training-session-insights.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,9 @@ import { ExerciseFormModule } from './exercise-form/exercise-form.module';
     TrainingSessionComponent,
     WorkoutPlanListComponent,
     WorkoutPlanFormComponent,
-    TrainingSessionFormComponent
+    TrainingSessionFormComponent,
+    ProgressTrackerComponent,
+    TrainingSessionInsightsComponent
   ],
   imports: [
     CommonModule,

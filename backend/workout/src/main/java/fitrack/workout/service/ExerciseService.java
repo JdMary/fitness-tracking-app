@@ -4,7 +4,9 @@ import fitrack.workout.client.AuthClient;
 import fitrack.workout.dto.entity.ExerciseDTO;
 import fitrack.workout.dto.entity.TrainingSessionDTO;
 import fitrack.workout.dto.mapper.ExerciseMapper;
+import fitrack.workout.dto.mapper.TrainingSessionMapper;
 import fitrack.workout.entity.Exercise;
+import fitrack.workout.entity.ProgressTracker;
 import fitrack.workout.entity.TrainingSession;
 import fitrack.workout.repository.ExerciseRepository;
 import fitrack.workout.repository.TrainingSessionRepository;
@@ -27,6 +29,8 @@ public class ExerciseService implements IExercise{
     private TrainingSessionRepository trainingSessionRepository;
     @Autowired
     private ExerciseMapper exerciseMapper;
+    @Autowired
+    private ProgressTrackerService progressTrackerService;
 
     @Override
     public Exercise createExercise(Exercise exercise) {
@@ -108,7 +112,9 @@ public class ExerciseService implements IExercise{
         String username = String.valueOf(authClient.extractUsername(token).getBody());
         Exercise exercise = repository.findExercisesByExerciseIdAndUsername(exerciseId,username);
         exercise.setStatus(isCompleted);
-       return repository.save(exercise);
+        Exercise savedExercise = repository.save(exercise);
+        progressTrackerService.updateProgressTrackerCompletion(exercise.getTrainingSession(),token);
+       return savedExercise;
         //updateProgressTracker(exercise.getTrainingSession());
     }
 }

@@ -86,7 +86,7 @@ public class ProgressTrackerService implements IProgressTracker {
                 .mapToInt(exercise -> exercise.getReps() * exercise.getSets())
                 .sum() * 2;
     }
-    public void updateProgressTrackerCompletion(TrainingSession session, String token) {
+   /* public void updateProgressTrackerCompletion(TrainingSession session, String token) {
         String username = String.valueOf(authClient.extractUsername(token).getBody());
         WorkoutPlan workoutPlan=workoutPlanRepository.findByWorkoutPlanIdAndUsername(session.getWorkoutPlan().getWorkoutPlanId(),username).get();
 
@@ -99,5 +99,32 @@ public class ProgressTrackerService implements IProgressTracker {
         tracker.setTotalExercisesCompleted((int) completedExercises);
         tracker.setCompletionPercentage((int) ((completedExercises * 100) / totalExercises));
         repository.save(tracker);
-    }
+    }*/
+   public void updateProgressTrackerCompletion(TrainingSession session, String token) {
+       String username = String.valueOf(authClient.extractUsername(token).getBody());
+
+       WorkoutPlan workoutPlan = workoutPlanRepository
+               .findByWorkoutPlanIdAndUsername(session.getWorkoutPlan().getWorkoutPlanId(), username)
+               .orElseThrow(() -> new RuntimeException("Workout plan not found"));
+
+       ProgressTracker tracker = workoutPlan.getProgressTracker();
+       List<Exercise> exercises = session.getExercises();
+
+       long completedExercises = exercises.stream().filter(Exercise::isStatus).count();
+       int totalExercises = exercises.size();
+
+       int totalReps = exercises.stream().mapToInt(Exercise::getReps).sum();
+       int totalSets = exercises.stream().mapToInt(Exercise::getSets).sum();
+
+       int burnedCalories = calculateCaloriesBurned(session, username);
+
+       tracker.setTotalExercisesCompleted((int) completedExercises);
+       tracker.setCompletionPercentage((int) ((completedExercises * 100) / totalExercises));
+       tracker.setTotalRepsCompleted(totalReps);
+       tracker.setTotalSetsCompleted(totalSets);
+       tracker.setBurnedCalories(burnedCalories);
+
+       repository.save(tracker);
+   }
+
 }

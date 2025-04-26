@@ -1,8 +1,7 @@
 package fitrack.workout.repository;
 
-import fitrack.workout.entity.Exercise;
+import fitrack.workout.dto.entity.SessionEfficiencyRawProjection;
 import fitrack.workout.entity.TrainingSession;
-import fitrack.workout.entity.WorkoutPlan;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -21,5 +20,19 @@ public interface TrainingSessionRepository extends JpaRepository<TrainingSession
     @Query("SELECT ts FROM TrainingSession ts WHERE ts.workoutPlan.workoutPlanId = :workoutPlanId")
     List<TrainingSession> findByWorkoutPlanId(@Param("workoutPlanId") Long workoutPlanId);
 
+
+    @Query("""
+    SELECT 
+        ts.trainingSessionId as sessionId,
+        ts.entryTime as entryTime,
+        ts.exitTime as exitTime,
+        pt.burnedCalories as calories
+    FROM TrainingSession ts
+    JOIN ts.workoutPlan wp
+    JOIN wp.progressTracker pt
+    WHERE ts.exitTime IS NOT NULL
+    AND ts.username = :username
+""")
+    List<SessionEfficiencyRawProjection> findSessionRawData(@Param("username") String username);
 
 }

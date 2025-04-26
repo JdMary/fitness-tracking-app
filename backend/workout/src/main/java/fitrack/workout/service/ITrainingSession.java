@@ -1,5 +1,7 @@
 package fitrack.workout.service;
 
+import fitrack.workout.dto.entity.SessionEfficiencyDto;
+import fitrack.workout.dto.entity.SessionInsightsDto;
 import fitrack.workout.dto.entity.TrainingSessionDTO;
 import fitrack.workout.entity.Exercise;
 import fitrack.workout.entity.TrainingSession;
@@ -24,7 +26,8 @@ public interface ITrainingSession {
 
     void deleteSession(Long id,String token);
 
-
+    List<SessionEfficiencyDto> calculateSessionEfficiency(String token);
+    SessionInsightsDto calculateSessionInsights(String token);
 
 }
 

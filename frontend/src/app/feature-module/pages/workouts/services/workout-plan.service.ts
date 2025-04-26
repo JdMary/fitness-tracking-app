@@ -37,7 +37,7 @@ export interface TrainingSessionRequest {
 })
 export class WorkoutPlanService {
   private baseUrl = 'http://localhost:8222/api/v1/workouts';
-  private readonly authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im1haGRpQGdtYWlsLnRuIiwiZXhwIjoxNzQ1MjY0OTU1fQ.dbheTBiB7Fo_1h1PjTUaOfLj0a3byABSXYrnXPwf43w';
+  private readonly authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im1haGRpQGdtYWlsLnRuIiwiZXhwIjoxNzQ1Njc2MzY2fQ.EhBm8HD5JVTI_gFE9YLRf9A4KSKi6D_cXmz6AoFDW2g';
 
   constructor(private http: HttpClient) { }
 

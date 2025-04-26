@@ -73,7 +73,7 @@ public class ProgressTracker {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDate    date) {
         this.date = date;
     }
 

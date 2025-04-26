@@ -1,5 +1,7 @@
 package fitrack.workout.controller;
 
+import fitrack.workout.dto.entity.SessionEfficiencyDto;
+import fitrack.workout.dto.entity.SessionInsightsDto;
 import fitrack.workout.dto.entity.TrainingSessionDTO;
 import fitrack.workout.entity.Exercise;
 import fitrack.workout.entity.TrainingSession;
@@ -118,5 +120,23 @@ public class TrainingSessionController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Erreur interne : " + e.getMessage());
         }
+
+    }
+
+
+
+
+
+    @GetMapping("/efficiency")
+    public ResponseEntity<List<SessionEfficiencyDto>> getSessionEfficiency(
+            @RequestHeader("Authorization") String token) {
+
+        List<SessionEfficiencyDto> efficiencyList = service.calculateSessionEfficiency(token);
+        return ResponseEntity.ok(efficiencyList);
+    }
+    @GetMapping("/insights")
+    public ResponseEntity<SessionInsightsDto> getSessionInsights(@RequestHeader("Authorization") String token) {
+        SessionInsightsDto insights = service.calculateSessionInsights(token);
+        return ResponseEntity.ok(insights);
     }
 }

@@ -1,6 +1,9 @@
 package fitrack.workout.service;
 
 import fitrack.workout.client.AuthClient;
+import fitrack.workout.dto.entity.SessionEfficiencyDto;
+import fitrack.workout.dto.entity.SessionEfficiencyRawProjection;
+import fitrack.workout.dto.entity.SessionInsightsDto;
 import fitrack.workout.dto.entity.TrainingSessionDTO;
 import fitrack.workout.dto.mapper.TrainingSessionMapper;
 import fitrack.workout.entity.Exercise;
@@ -14,10 +17,11 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
+import java.time.temporal.ChronoUnit;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -173,6 +177,50 @@ public class TrainingSessionService implements ITrainingSession{
         exercises.forEach(ex -> ex .setTrainingSession(session));
         return repository.save(session);
     }*/
+
+
+
+    public List<SessionEfficiencyDto> calculateSessionEfficiency(String token) {
+
+        String username = String.valueOf(authClient.extractUsername(token).getBody());
+        List<SessionEfficiencyRawProjection> projections = repository.findSessionRawData(username);
+
+        return projections.stream()
+                .map(proj -> {
+                    long duration = ChronoUnit.MINUTES.between(proj.getEntryTime(), proj.getExitTime());
+                    double caloriesPerMinute = duration > 0 ? (double) proj.getCalories() / duration : 0.0;
+
+                    return new SessionEfficiencyDto(
+                            proj.getSessionId(),
+                            (int) duration,
+                            proj.getCalories(),
+                            caloriesPerMinute
+                    );
+                })
+                .collect(Collectors.toList());
+    }
+    public SessionInsightsDto calculateSessionInsights(String token) {
+        List<SessionEfficiencyDto> sessions = calculateSessionEfficiency(token);
+
+        if (sessions.isEmpty()) {
+            return new SessionInsightsDto(Collections.emptyList(), null, 0.0, "No sessions available. Let's start training!");
+        }
+
+        SessionEfficiencyDto bestSession = sessions.stream()
+                .max(Comparator.comparingDouble(SessionEfficiencyDto::getCaloriesPerMinute))
+                .orElse(null);
+
+        double avgCaloriesPerMinute = sessions.stream()
+                .mapToDouble(SessionEfficiencyDto::getCaloriesPerMinute)
+                .average()
+                .orElse(0.0);
+
+        String recommendation = (avgCaloriesPerMinute > 8) ?
+                "Great job! Keep maintaining high intensity!" :
+                "Try shorter, more intense sessions for better results!";
+
+        return new SessionInsightsDto(sessions, bestSession, avgCaloriesPerMinute, recommendation);
+    }
 
 
 

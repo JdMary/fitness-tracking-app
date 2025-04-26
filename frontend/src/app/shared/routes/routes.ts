@@ -877,6 +877,10 @@ export class routes {
   public static get exercises(): string {
     return this.baseUrl + '/workouts/exercice';
   }
+  public static get progressTracker(): string {
+
+    return this.baseUrl + '/workouts/progress-tracker';
+  }
   public static get adminWorkout(): string {
     return this.baseUrl + '/admin/workout';
   }
