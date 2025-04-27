@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SportFacilityService } from 'src/app/shared/services/sport-facility.service';
 import { routes } from 'src/app/shared/routes/routes';
 import { HttpHeaders } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -21,19 +22,21 @@ export class SportFacilityComponent implements OnInit {
     description: ''
   };
 
-  constructor(private sportFacilityService: SportFacilityService) {}
+  constructor(
+     private route: ActivatedRoute,
+        private router: Router,private sportFacilityService: SportFacilityService) {}
 
   ngOnInit(): void {}
   selectedFile!: File;
 
   private getHeaders(): HttpHeaders {
-    const token = localStorage.getItem('authToken'); // Retrieve token from local storage
+    const token = localStorage.getItem('authToken'); 
     return new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
   }
   submitFacility(): void {
-    const token = localStorage.getItem('authToken') || ''; // Retrieve token from local storage 
+    const token = localStorage.getItem('authToken') || ''; 
   
     const formData = new FormData();
     formData.append('facility', new Blob([JSON.stringify(this.sportFacility)], { type: 'application/json' }));
@@ -44,16 +47,22 @@ export class SportFacilityComponent implements OnInit {
   
     this.sportFacilityService.createFacility(formData, token).subscribe({
       next: (response) => {
-        console.log('✅ Facility created successfully', response);
+        console.log('Facility created successfully', response);
         alert('Facility created successfully');
-        this.resetForm();
+        this.router.navigate(['/admin/list-sport-facility']);
       },
       error: (error) => {
         console.error('Error creating facility', error);
-        alert('Error creating facility');
+        
+        if (error.error && error.error.message) {
+          alert('❌ Error: ' + error.error.message);
+        } else {
+          alert('❌ An unexpected error occurred while creating the facility.');
+        }
       }
     });
   }
+
   
 
   resetForm(): void {

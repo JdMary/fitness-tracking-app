@@ -12,7 +12,7 @@ export class EditSportFacilityComponent implements OnInit {
   sportFacility: any = {}; 
   facilityId: number = 0;
   selectedFile!: File;
-  token = localStorage.getItem('authToken') || ''; // Retrieve token from local storage
+  token = localStorage.getItem('authToken') || '';
 
   constructor(
     private route: ActivatedRoute,
@@ -57,8 +57,9 @@ export class EditSportFacilityComponent implements OnInit {
         this.router.navigate(['/admin/list-sport-facility']);
       },
       error: (error) => {
-        console.error('Error updating facility', error);
+        alert('Error updating facility: ' + (error.error.message || error.error));
       }
+      
     });
   }
 }

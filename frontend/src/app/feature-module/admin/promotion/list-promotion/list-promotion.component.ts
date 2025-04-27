@@ -10,6 +10,13 @@ import { routes } from 'src/app/shared/routes/routes';
 export class ListPromotionComponent implements OnInit {
 
   promotions: Promotion[] = [];
+  displayedPromotions: Promotion[] = [];
+  currentPage: number = 1;
+  pageSize: number = 1;
+  totalData: number = 0;
+  pageNumberArray: number[] = [];
+  serialNumberArray: number[] = [];
+
   selectedValue: string = '';
   selectedList = [
     { value: 'A - Z' },
@@ -18,8 +25,7 @@ export class ListPromotionComponent implements OnInit {
   ];
   routes = routes;
 
-
-  token = localStorage.getItem('authToken') || ''; // Retrieve token from local storage
+  token = localStorage.getItem('authToken') || '';
 
   constructor(private promotionService: PromotionService) { }
 
@@ -31,7 +37,9 @@ export class ListPromotionComponent implements OnInit {
     this.promotionService.getAllPromotions().subscribe({
       next: (response) => {
         this.promotions = response;
-        console.log('Promotions loaded:', this.promotions);
+        this.totalData = this.promotions.length;
+        this.currentPage = 1;
+        this.updateDisplayedPromotions();
       },
       error: (error) => {
         console.error('Error loading promotions', error);
@@ -42,7 +50,6 @@ export class ListPromotionComponent implements OnInit {
   openDeleteModal(promotionId: number): void {
     const confirmDelete = confirm('Are you sure you want to delete this promotion?');
     if (confirmDelete) {
-    
       this.promotionService.deletePromotion(promotionId, this.token).subscribe({
         next: () => {
           alert('Promotion deleted successfully');
@@ -50,9 +57,68 @@ export class ListPromotionComponent implements OnInit {
         },
         error: (error) => {
           console.error('Error deleting promotion', error);
-          alert('Error deleting promotion');
+
+           if (error.error && error.error.message) {
+          alert('❌ Error: ' + error.error.message);
+        } else {
+          alert('❌ An unexpected error occurred while deleting the promotion.');
+        }
         }
       });
     }
   }
+
+  onSearch(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const keyword = input?.value.trim();
+
+    if (keyword) {
+      this.promotionService.searchPromotions(keyword, this.token).subscribe({
+        next: (res) => {
+          this.promotions = res;
+          this.totalData = res.length;
+          this.currentPage = 1;
+          this.updateDisplayedPromotions();
+        },
+        error: (err) => {
+          console.error('Error searching promotions', err);
+        }
+      });
+    } else {
+      this.loadPromotions();
+    }
+  }
+
+  PageSize(): void {
+    this.currentPage = 1;
+    this.updateDisplayedPromotions();
+  }
+
+  moveToPage(page: number): void {
+    this.currentPage = page;
+    this.updateDisplayedPromotions();
+  }
+
+  updateDisplayedPromotions(): void {
+    const start = (this.currentPage - 1) * this.pageSize;
+    const end = start + this.pageSize;
+    this.displayedPromotions = this.promotions.slice(start, end);
+    this.pageNumberArray = Array.from({ length: Math.ceil(this.totalData / this.pageSize) }, (_, i) => i + 1);
+    this.serialNumberArray = this.displayedPromotions.map((_, i) => start + i + 1);
+  }
+
+  sortFacilities(): void {
+    if (this.selectedValue === 'A - Z') {
+      this.promotions.sort((a, b) => a.sportFacility.name.localeCompare(b.sportFacility.name));
+    } else if (this.selectedValue === 'Z - A') {
+      this.promotions.sort((a, b) => b.sportFacility.name.localeCompare(a.sportFacility.name));
+    } else if (this.selectedValue === 'Recently Added') {
+      this.promotions.sort((a, b) => (b.id ?? 0) - (a.id ?? 0));
+
+    }
+
+    this.currentPage = 1;
+    this.updateDisplayedPromotions();
+  }
+
 }

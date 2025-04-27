@@ -23,7 +23,7 @@
         <div class="row">
 <!-- Sidebar Filters -->
 <div class="col-xl-3 col-lg-4">
-  <div class="card"> <!-- ✅ Ajout de la carte -->
+  <div class="card"> 
     <div class="card-body">
       <form (ngSubmit)="applyFilters()">
         <div class="d-flex align-items-center justify-content-between mb-3 pb-3 border-bottom">
@@ -97,7 +97,8 @@
             </div>
   
             <div class="row">
-              <div class="col-xl-4 col-md-6" *ngFor="let facility of facilities; let i = index">
+              <div class="col-xl-4 col-md-6" *ngFor="let facility of paginatedFacilities; let i = index">
+
                 <div class="card p-0">
                   <div class="card-body p-0">
                     <!-- Image section -->
@@ -139,18 +140,29 @@
               </div>
             </div>
             
-            <!-- Pagination (optionnelle) -->
+            <!-- Pagination  -->
             <nav aria-label="Page navigation">
               <ul class="paginations d-flex justify-content-center align-items-center">
-                <li class="page-item me-3">
-                  <a class="page-link" href="javascript:void(0);"><i class="ti ti-arrow-left me-2"></i>Prev</a>
+                <li class="page-item me-3" [class.disabled]="currentPage === 1">
+                  <a class="page-link" (click)="goToPreviousPage()" href="javascript:void(0);">
+                    <i class="ti ti-arrow-left me-2"></i>Prev
+                  </a>
                 </li>
-                <li class="page-item me-2"><a class="page-link-1 active" href="javascript:void(0);">1</a></li>
-                <li class="page-item me-3">
-                  <a class="page-link" href="javascript:void(0);">Next<i class="ti ti-arrow-right ms-2"></i></a>
+            
+                <li *ngFor="let page of [].constructor(totalPages); let i = index" class="page-item me-2">
+                  <a class="page-link-1" [class.active]="currentPage === (i + 1)" (click)="goToPage(i + 1)" href="javascript:void(0);">
+                    {{ i + 1 }}
+                  </a>
+                </li>
+            
+                <li class="page-item me-3" [class.disabled]="currentPage === totalPages">
+                  <a class="page-link" (click)="goToNextPage()" href="javascript:void(0);">
+                    Next<i class="ti ti-arrow-right ms-2"></i>
+                  </a>
                 </li>
               </ul>
             </nav>
+            
           </div>
         </div>
       </div>

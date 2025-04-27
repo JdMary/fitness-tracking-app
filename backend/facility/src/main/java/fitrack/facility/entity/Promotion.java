@@ -17,6 +17,7 @@ public class Promotion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true, nullable = false)
     private String promoCode;
 
     private String description;
@@ -30,7 +31,8 @@ public class Promotion {
 
     private boolean active;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "facility_id")
+
     private SportFacility sportFacility;
 }

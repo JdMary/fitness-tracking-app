@@ -3,104 +3,121 @@
       <div class="col-lg-12 m-auto">
         <h3>Edit Sport Facility</h3>
   
-        <!-- ✅ Formulaire bien structuré -->
-        <form (ngSubmit)="updateFacility()">
-          <div class="container-service space-service">
-            <div class="sub-title">
-              <h6>SportFacility Information</h6>
+        
+        <form (ngSubmit)="updateFacility()" #facilityForm="ngForm">
+          <div class="row">
+            <!-- Name -->
+            <div class="col-md-6">
+              <div class="form-group mat">
+                <label>Facility Name</label>
+                <input type="text" class="form-control" name="name" [(ngModel)]="sportFacility.name" required
+                       pattern="^[A-Z][a-zA-Z\s]*$" #name="ngModel">
+                <div *ngIf="name.invalid && name.touched" class="text-danger">
+                  Name is required and must start with a capital letter.
+                </div>
+              </div>
             </div>
-  
-            <div class="row">
-              <!-- Facility Name -->
-              <div class="col-md-6">
-                <div class="form-group mat">
-                  <label for="name">Facility Name</label>
-                  <input type="text" class="form-control" [(ngModel)]="sportFacility.name" name="name" required />
+        
+            <!-- Location -->
+            <div class="col-md-6">
+              <div class="form-group mat">
+                <label>Location</label>
+                <input type="text" class="form-control" name="location" [(ngModel)]="sportFacility.location" required
+                       pattern="^[A-Z].*" #location="ngModel">
+                <div *ngIf="location.invalid && location.touched" class="text-danger">
+                  Location must start with a capital letter.
                 </div>
               </div>
-  
-              <!-- Location -->
-              <div class="col-md-6">
-                <div class="form-group mat">
-                  <label for="location">Location</label>
-                  <input type="text" class="form-control" [(ngModel)]="sportFacility.location" name="location" required />
+            </div>
+        
+            <!-- Sport Type -->
+            <div class="col-md-6">
+              <div class="form-group mat">
+                <label>Sport Type</label>
+                <input type="text" class="form-control" name="sportType" [(ngModel)]="sportFacility.sportType" required
+                       pattern="^[A-Z].*" #sportType="ngModel">
+                <div *ngIf="sportType.invalid && sportType.touched" class="text-danger">
+                  Sport Type must start with a capital letter.
                 </div>
               </div>
-  
-              <!-- Sport Type -->
-              <div class="col-md-6">
-                <div class="form-group mat">
-                  <label for="sportType">Sport Type</label>
-                  <input type="text" class="form-control" [(ngModel)]="sportFacility.sportType" name="sportType" required />
+            </div>
+        
+            <!-- Max Subscription -->
+            <div class="col-md-6">
+              <div class="form-group mat">
+                <label>Max Subscription</label>
+                <input type="number" class="form-control" name="maxSubscription" [(ngModel)]="sportFacility.maxSubscription"
+                       required min="0" #maxSubscription="ngModel">
+                <div *ngIf="maxSubscription.invalid && maxSubscription.touched" class="text-danger">
+                  Must be greater than or equal to 0.
                 </div>
               </div>
-  
-              <!-- Max Subscription -->
-              <div class="col-md-6">
-                <div class="form-group mat">
-                  <label for="maxSubscription">Max Subscription</label>
-                  <input type="number" class="form-control" [(ngModel)]="sportFacility.maxSubscription" name="maxSubscription" required />
+            </div>
+        
+            <!-- Normal Price -->
+            <div class="col-md-6">
+              <div class="form-group mat">
+                <label>Normal Price</label>
+                <input type="number" class="form-control" name="normalPrice" [(ngModel)]="sportFacility.normalPrice"
+                       required min="0" #normalPrice="ngModel">
+                <div *ngIf="normalPrice.invalid && normalPrice.touched" class="text-danger">
+                  Must be greater than or equal to 0.
                 </div>
               </div>
-  
-              <!-- Normal Price -->
-              <div class="col-md-6">
-                <div class="form-group mat">
-                  <label for="normalPrice">Normal Price</label>
-                  <input type="number" class="form-control" [(ngModel)]="sportFacility.normalPrice" name="normalPrice" required />
+            </div>
+        
+            <!-- Premium Price -->
+            <div class="col-md-6">
+              <div class="form-group mat">
+                <label>Premium Price</label>
+                <input type="number" class="form-control" name="premiumPrice" [(ngModel)]="sportFacility.premiumPrice"
+                       required [min]="sportFacility.normalPrice + 1" #premiumPrice="ngModel">
+                <div *ngIf="premiumPrice.invalid && premiumPrice.touched" class="text-danger">
+                  Must be greater than Normal Price.
                 </div>
               </div>
-  
-              <!-- Premium Price -->
-              <div class="col-md-6">
-                <div class="form-group mat">
-                  <label for="premiumPrice">Premium Price</label>
-                  <input type="number" class="form-control" [(ngModel)]="sportFacility.premiumPrice" name="premiumPrice" required />
-                </div>
+            </div>
+        
+            <!-- Image preview -->
+            <div class="col-md-12" *ngIf="sportFacility.image">
+              <label>Current Image</label>
+              <img [src]="sportFacility.image" class="img-fluid" style="max-height: 200px;">
+            </div>
+        
+            <!-- Upload new image -->
+            <div class="col-md-12">
+              <label>Change Image</label>
+              <input type="file" (change)="onFileSelected($event)" accept="image/*" class="form-control" />
+            </div>
+        
+            <!-- Availability -->
+            <div class="col-md-6">
+              <div class="form-group mat">
+                <label>Availability</label>
+                <select class="form-control" name="availability" [(ngModel)]="sportFacility.availability" required>
+                  <option [ngValue]="true">Available</option>
+                  <option [ngValue]="false">Not Available</option>
+                </select>
               </div>
-              <div class="col-md-12" *ngIf="sportFacility.image">
-                <div class="form-group mat">
-                  <label>Current Image</label>
-                  <img [src]="sportFacility.image" alt="Facility Image" class="img-fluid" style="max-height: 200px;"/>
-                </div>
-              </div>
-              
-  
-              <!-- Availability -->
-              <div class="col-md-6">
-                <div class="form-group mat">
-                  <label for="availability">Availability</label>
-                  <select class="form-control" [(ngModel)]="sportFacility.availability" name="availability">
-                    <option [ngValue]="true">Available</option>
-                    <option [ngValue]="false">Not Available</option>
-                  </select>
-                </div>
-              </div>
-  
-              <!-- Description -->
-              <div class="col-md-12">
-                <div class="form-group mat">
-                  <label for="description">Description</label>
-                  <textarea class="form-control" [(ngModel)]="sportFacility.description" name="description" rows="4"></textarea>
-                </div>
+            </div>
+        
+            <!-- Description -->
+            <div class="col-md-12">
+              <label>Description</label>
+              <textarea class="form-control" name="description" [(ngModel)]="sportFacility.description" required
+                        pattern="^[A-Z].*\.$" rows="4" #description="ngModel"></textarea>
+              <div *ngIf="description.invalid && description.touched" class="text-danger">
+                Description must start with a capital letter and end with a period.
               </div>
             </div>
           </div>
-  
-          <!-- Submit Button -->
-          <div class="row">
-            <div class="col-md-12">
-              <div class="bottom-btn">
-                <div class="field-btns">
-                  <button class="btn btn-primary" type="submit">
-                    Update Facility <i class="fas fa-arrow-right"></i>
-                  </button>
-                </div>
-              </div>
-            </div>
+        
+          <!-- Submit button -->
+          <div class="text-end mt-4">
+            <button type="submit" class="btn btn-primary" [disabled]="facilityForm.invalid">Update Facility</button>
           </div>
         </form>
-  
+        
       </div>
     </div>
   </div>

@@ -5,10 +5,10 @@ import fitrack.facility.client.AuthClient;
 import fitrack.facility.entity.Promotion;
 import fitrack.facility.entity.SportFacility;
 import fitrack.facility.entity.User;
+import fitrack.facility.repository.EventRepository;
 import fitrack.facility.repository.PromotionRepository;
 import fitrack.facility.repository.SportFacilityRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +34,7 @@ public class PromotionService implements IPromotionService {
     @Override
     public Promotion getPromotionById(Long id) {
         Promotion promotion = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Promotion non trouvée"));
+                .orElseThrow(() -> new RuntimeException("Promotion not found"));
         updatePromotionStatusIfNeeded(promotion);
         return promotion;
     }
@@ -44,20 +44,23 @@ public class PromotionService implements IPromotionService {
         User user = getUserFromToken(token);
 
         if (!"FACILITY_MANAGER".equalsIgnoreCase(user.getRole())) {
-            throw new RuntimeException("Seuls les FACILITY_MANAGER peuvent créer une promotion.");
+            throw new RuntimeException("Only FACILITY_MANAGER users can create a promotion.");
         }
 
         SportFacility facility = facilityRepository.findById(promotion.getSportFacility().getId())
-                .orElseThrow(() -> new RuntimeException("Facility non trouvée"));
+                .orElseThrow(() -> new RuntimeException("Facility not found."));
 
         promotion.setSportFacility(facility);
 
         if (promotion.getEndDate().isBefore(promotion.getStartDate())) {
-            throw new RuntimeException("La date de fin doit être après la date de début.");
+            throw new RuntimeException("The end date must be after the start date..");
         }
 
         if (promotion.getDiscountPercentage() <= 0 || promotion.getDiscountPercentage() > 100) {
-            throw new RuntimeException("Le pourcentage de réduction doit être entre 1 et 100.");
+            throw new RuntimeException("The discount percentage must be between 1 and 100.");
+        }
+        if (repository.existsByPromoCode(promotion.getPromoCode())) {
+            throw new RuntimeException("Promotion promo code already exists!");
         }
 
         promotion.setActive(promotion.getEndDate().isAfter(LocalDate.now()));
@@ -70,7 +73,10 @@ public class PromotionService implements IPromotionService {
         User user = getUserFromToken(token);
 
         if (!"FACILITY_MANAGER".equalsIgnoreCase(user.getRole())) {
-            throw new RuntimeException("Seuls les FACILITY_MANAGER peuvent modifier une promotion.");
+            throw new RuntimeException("Only FACILITY_MANAGER users can edit a promotion.");
+        }
+        if (repository.existsByPromoCode(promotion.getPromoCode())) {
+            throw new RuntimeException("Promotion promo code already exists!");
         }
 
         promotion.setActive(promotion.getEndDate().isAfter(LocalDate.now()));
@@ -82,8 +88,9 @@ public class PromotionService implements IPromotionService {
         User user = getUserFromToken(token);
 
         if (!"FACILITY_MANAGER".equalsIgnoreCase(user.getRole())) {
-            throw new RuntimeException("Seuls les FACILITY_MANAGER peuvent supprimer une promotion.");
+            throw new RuntimeException("Only FACILITY_MANAGER users can delete a promotion.");
         }
+
 
         repository.deleteById(id);
     }
@@ -114,8 +121,20 @@ public class PromotionService implements IPromotionService {
             if (promotion.getEndDate().isBefore(LocalDate.now()) && promotion.isActive()) {
                 promotion.setActive(false);
                 repository.save(promotion);
-                System.out.println("🔔 Promotion désactivée : ID = " + promotion.getId());
+                System.out.println("🔔 Promotion disabled: ID = " + promotion.getId());
             }
         });
     }
+    public List<String> getFacilityNamesWithPromotions() {
+        return repository.findDistinctFacilityNames();
+    }
+    public List<Promotion> getPromotionsByFacility(String name) {
+        return repository.findBySportFacility_Name(name);
+    }
+    public List<Promotion> searchPromotionsByFacilityName(String name) {
+        return repository.searchBySportFacilityName(name);
+    }
+
+
+
 }

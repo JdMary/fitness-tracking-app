@@ -8,66 +8,152 @@
             </ul>
           </div>
   
-          <form (ngSubmit)="submitEvent()">
+          <form (ngSubmit)="submitEvent()" #eventForm="ngForm">
             <div class="container-service space-service">
-              <div class="sub-title">
-                <h6>Event Information</h6>
-              </div>
-  
+              
+          
               <div class="row">
+          
+                <!-- Name -->
                 <div class="col-md-6">
                   <div class="form-group mat">
                     <label for="name">Event Name</label>
-                    <input type="text" class="form-control" [(ngModel)]="event.name" name="name" required />
+                    <input
+                      type="text"
+                      class="form-control"
+                      [(ngModel)]="event.name"
+                      name="name"
+                      #name="ngModel"
+                      required
+                      pattern="^[A-Z][a-zA-Z\s]*$"
+                    />
+                    <div *ngIf="name.invalid && name.touched" class="text-danger">
+                      Name must start with a capital letter and contain only letters and spaces.
+                    </div>
                   </div>
                 </div>
-  
+          
+                <!-- Description -->
                 <div class="col-md-6">
                   <div class="form-group mat">
                     <label for="description">Description</label>
-                    <input type="text" class="form-control" [(ngModel)]="event.description" name="description" required />
+                    <input
+                      type="text"
+                      class="form-control"
+                      [(ngModel)]="event.description"
+                      name="description"
+                      #description="ngModel"
+                      required
+                      pattern="^[A-Z].*\.$"
+                    />
+                    <div *ngIf="description.invalid && description.touched" class="text-danger">
+                      Description must start with a capital letter and end with a period.
+                    </div>
                   </div>
                 </div>
-  
+          
+                <!-- Event Date -->
                 <div class="col-md-6">
                   <div class="form-group mat">
                     <label for="eventDate">Event Date</label>
-                    <input type="date" class="form-control" [(ngModel)]="event.eventDate" name="eventDate" required />
+                    <input
+                      type="date"
+                      class="form-control"
+                      [(ngModel)]="event.eventDate"
+                      name="eventDate"
+                      #eventDate="ngModel"
+                      required
+                    />
+                    <div *ngIf="eventDate.invalid && eventDate.touched" class="text-danger">
+                      Event date is required.
+                    </div>
                   </div>
                 </div>
-  
+          
+                <!-- Start Time -->
                 <div class="col-md-6">
                   <div class="form-group mat">
                     <label for="startTime">Start Time</label>
-                    <input type="time" class="form-control" [(ngModel)]="event.startTime" name="startTime" required />
+                    <input
+                      type="time"
+                      class="form-control"
+                      [(ngModel)]="event.startTime"
+                      name="startTime"
+                      #startTime="ngModel"
+                      required
+                    />
                   </div>
                 </div>
-  
+          
+                <!-- End Time -->
                 <div class="col-md-6">
                   <div class="form-group mat">
                     <label for="endTime">End Time</label>
-                    <input type="time" class="form-control" [(ngModel)]="event.endTime" name="endTime" required />
+                    <input
+                      type="time"
+                      class="form-control"
+                      [(ngModel)]="event.endTime"
+                      name="endTime"
+                      #endTime="ngModel"
+                      required
+                    />
+                    <div *ngIf="endTime.invalid && endTime.touched" class="text-danger">
+                      End time is required.
+                    </div>
+                    <div *ngIf="event.startTime && event.endTime && event.startTime >= event.endTime" class="text-danger">
+                      End time must be after start time.
+                    </div>
                   </div>
                 </div>
-  
+          
+                <!-- Price -->
                 <div class="col-md-6">
                   <div class="form-group mat">
                     <label for="price">Price</label>
-                    <input type="number" class="form-control" [(ngModel)]="event.price" name="price" required />
+                    <input
+                      type="number"
+                      class="form-control"
+                      [(ngModel)]="event.price"
+                      name="price"
+                      #price="ngModel"
+                      required
+                      min="0"
+                    />
+                    <div *ngIf="price.invalid && price.touched" class="text-danger">
+                      Price must be greater than 0.
+                    </div>
                   </div>
                 </div>
-  
+          
+                <!-- Max Participation -->
                 <div class="col-md-6">
                   <div class="form-group mat">
                     <label for="maxParticipation">Max Participants</label>
-                    <input type="number" class="form-control" [(ngModel)]="event.maxParticipation" name="maxParticipation" required />
+                    <input
+                      type="number"
+                      class="form-control"
+                      [(ngModel)]="event.maxParticipation"
+                      name="maxParticipation"
+                      #maxParticipation="ngModel"
+                      required
+                      min="1"
+                    />
+                    <div *ngIf="maxParticipation.invalid && maxParticipation.touched" class="text-danger">
+                      Max participation must be greater than 0.
+                    </div>
                   </div>
                 </div>
-  
+          
+                <!-- Facility -->
                 <div class="col-md-6">
                   <div class="form-group mat">
                     <label for="facilityId">Select Facility</label>
-                    <select class="form-control" [(ngModel)]="event.sportFacility.id" name="facilityId" required>
+                    <select
+                      class="form-control"
+                      [(ngModel)]="event.sportFacility.id"
+                      name="facilityId"
+                      required
+                    >
                       <option value="" disabled selected>Select a facility</option>
                       <option *ngFor="let facility of facilities" [value]="facility.id">
                         {{ facility.name }}
@@ -75,15 +161,16 @@
                     </select>
                   </div>
                 </div>
+          
               </div>
             </div>
-  
+          
             <!-- Submit Button -->
             <div class="row">
               <div class="col-md-12">
                 <div class="bottom-btn">
                   <div class="field-btns">
-                    <button class="btn btn-primary" type="submit">
+                    <button class="btn btn-primary" type="submit" [disabled]="eventForm.invalid">
                       Update Event <i class="fas fa-check-circle ms-2"></i>
                     </button>
                   </div>
@@ -91,7 +178,7 @@
               </div>
             </div>
           </form>
-  
+          
         </div>
       </div>
     </div>

@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface SportFacilityRepository extends JpaRepository<SportFacility, Long> {
-    boolean existsByFacilityId(String facilityId);
+
     List<SportFacility> findByAvailability(boolean availability);
     @Query("SELECT f FROM SportFacility f " +
             "WHERE (:location IS NULL OR f.location = :location) " +
@@ -23,6 +23,9 @@ public interface SportFacilityRepository extends JpaRepository<SportFacility, Lo
 
     @Query("SELECT DISTINCT f.sportType FROM SportFacility f WHERE f.sportType IS NOT NULL")
     List<String> findDistinctSportTypes();
+    @Query("SELECT f FROM SportFacility f WHERE LOWER(f.name) LIKE LOWER(CONCAT('%', :keyword, '%'))")
+    List<SportFacility> searchByNameContaining(@Param("keyword") String keyword);
 
+    boolean existsByName(String name);
 
 }

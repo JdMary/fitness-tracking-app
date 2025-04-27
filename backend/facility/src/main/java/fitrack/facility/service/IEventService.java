@@ -19,5 +19,6 @@ public interface IEventService {
     Event cancelEvent(Long id);
     List<Event> findEventsByFacility(Long facilityId);
     List<Event> findUpcomingEvents();
+    List<Event> searchEvents(String keyword);
 
 }

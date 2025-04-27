@@ -32,14 +32,17 @@
             <div class="card">
               <div class="card-body">
                 <form>
-                  <div class="d-flex align-items-center justify-content-between mb-3 pb-3 border-bottom">
-                    <h5><i class="ti ti-filter-check me-2"></i>Filters</h5>
-                    <a href="javascript:void(0);">Reset Filter</a>
-                  </div>
+                  
   
                   <div class="mb-3 pb-3 border-bottom">
                     <label class="form-label">Search By Keyword</label>
-                    <input type="text" class="form-control" placeholder="Search..." />
+                    <input
+  type="text"
+  class="form-control"
+  placeholder="Search by name..."
+  (input)="onSearch($event)"
+/>
+
                   </div>
                 </form>
               </div>
@@ -56,7 +59,7 @@
   
             <div class="row">
               <div class="col-md-12">
-                <div *ngFor="let sub of subscriptions; let i = index" class="service-list">
+                <div *ngFor="let sub of paginatedSubscription; let i = index" class="service-list">
                   <div class="service-cont">
                     <div class="service-cont-img">
                       <img class="img-fluid serv-img" alt="Facility" [src]="sub.sportFacility?.image" />
@@ -118,32 +121,22 @@
             <!-- Pagination -->
             <nav aria-label="Page navigation">
               <ul class="paginations d-flex justify-content-center align-items-center">
-                <li class="page-item me-3">
-                  <a class="page-link" href="javascript:void(0);"
-                    ><i class="ti ti-arrow-left me-2"></i>Prev</a
-                  >
+                <li class="page-item me-3" [class.disabled]="currentPage === 1">
+                  <a class="page-link" (click)="goToPreviousPage()" href="javascript:void(0);">
+                    <i class="ti ti-arrow-left me-2"></i>Prev
+                  </a>
                 </li>
-                <li class="page-item me-2">
-                  <a
-                    class="page-link-1 active d-flex justify-content-center align-items-center"
-                    href="javascript:void(0);"
-                    >1</a
-                  >
+            
+                <li *ngFor="let page of [].constructor(totalPages); let i = index" class="page-item me-2">
+                  <a class="page-link-1" [class.active]="currentPage === (i + 1)" (click)="goToPage(i + 1)" href="javascript:void(0);">
+                    {{ i + 1 }}
+                  </a>
                 </li>
-                <li class="page-item me-2">
-                  <a class="page-link-1 d-flex justify-content-center align-items-center" href="javascript:void(0);"
-                    >2</a
-                  >
-                </li>
-                <li class="page-item me-2">
-                  <a class="page-link-1 d-flex justify-content-center align-items-center" href="javascript:void(0);"
-                    >3</a
-                  >
-                </li>
-                <li class="page-item">
-                  <a class="page-link" href="javascript:void(0);"
-                    >Next<i class="ti ti-arrow-right ms-2"></i
-                  ></a>
+            
+                <li class="page-item me-3" [class.disabled]="currentPage === totalPages">
+                  <a class="page-link" (click)="goToNextPage()" href="javascript:void(0);">
+                    Next<i class="ti ti-arrow-right ms-2"></i>
+                  </a>
                 </li>
               </ul>
             </nav>

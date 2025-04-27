@@ -21,25 +21,30 @@ export class ListEventsComponent implements OnInit {
   loadEvents(): void {
     this.eventService.getAllEvents().subscribe({
       next: (data) => this.events = data,
-      error: (err) => console.error('Erreur de chargement des événements', err)
+      error: (err) => console.error('Error loading events', err)
     });
   }
   registerToEvent(eventId: number) {
     Swal.fire({
       title: 'Confirmation',
-      text: 'Souhaitez-vous vraiment vous inscrire à cet événement ?',
+      text: 'Do you really want to register for this event?',
       icon: 'question',
       showCancelButton: true,
-      confirmButtonText: 'Oui',
-      cancelButtonText: 'Non'
+      confirmButtonText: 'Yes',
+      cancelButtonText: 'No'
     }).then((result) => {
       if (result.isConfirmed) {
         this.eventService.registerToEvent(eventId).subscribe({
-          next: () => Swal.fire('Succès', 'Vous êtes bien inscrit ! 🎉', 'success'),
-          error: err => Swal.fire('Erreur', err.error.message || 'Échec de l\'inscription', 'error')
+          next: (response) => {
+            Swal.fire('Success', response.message, 'success');
+          },
+          error: err => {
+            Swal.fire('Error', err.error.message || 'Registration failed', 'error');
+          }
         });
       }
     });
   }
+  
 
 }

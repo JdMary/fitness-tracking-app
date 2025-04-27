@@ -1,5 +1,6 @@
 package fitrack.facility.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import fitrack.facility.entity.enums.EventStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -7,6 +8,8 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -19,7 +22,7 @@ public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column(unique = true, nullable = false)
     @NotBlank(message = "Event name is required.")
     @Size(min = 3, max = 100, message = "Event name must be between 3 and 100 characters.")
     private String name;
@@ -48,14 +51,13 @@ public class Event {
     @Enumerated(EnumType.STRING)
     private EventStatus status;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "facility_id", nullable = false)
     @NotNull(message = "Sport facility is required.")
     private SportFacility sportFacility;
 
-    @AssertTrue(message = "End time must be after start time.")
-    public boolean isEndTimeAfterStartTime() {
-        if (startTime == null || endTime == null) return true; // skip check if either is null
-        return endTime.isAfter(startTime);
-    }
+
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<EventRegistration> registrations = new ArrayList<>();
 }

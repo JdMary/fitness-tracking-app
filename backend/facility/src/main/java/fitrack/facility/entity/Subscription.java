@@ -1,5 +1,6 @@
 package fitrack.facility.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import fitrack.facility.entity.enums.SubscriptionStatus;
 import jakarta.persistence.*;
 import lombok.*;
@@ -19,7 +20,7 @@ public class Subscription {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String subId; // identifiant personnalisé
+    private String subId;
 
     private LocalDate startDate;
 
@@ -35,9 +36,10 @@ public class Subscription {
     private String ownerEmail;
     private String priceType;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "facility_id")
     private SportFacility sportFacility;
+
     @ManyToOne
     @JoinColumn(name = "promotion_id")
     private Promotion promotion;

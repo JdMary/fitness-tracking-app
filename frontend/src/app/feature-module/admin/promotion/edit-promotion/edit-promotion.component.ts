@@ -25,7 +25,7 @@ export class EditPromotionComponent implements OnInit {
     }
   };
 
-  token = localStorage.getItem('authToken') || ''; // Retrieve token from local storage
+  token = localStorage.getItem('authToken') || ''; 
   routes = routes;
   sportFacilities: any[] = []; 
 
@@ -77,10 +77,15 @@ export class EditPromotionComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error updating promotion', error);
-        alert('Error updating promotion');
+
+        if (error.error && error.error.message) {
+        alert('❌ Error: ' + error.error.message);
+      } else {
+        alert('❌ An unexpected error occurred while updating the promotion.');
       }
-    });
-  }
+    }
+  });
+}
 
   onSubmit(): void {
     this.updatePromotion();

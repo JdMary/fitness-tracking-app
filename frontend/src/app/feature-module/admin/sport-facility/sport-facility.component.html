@@ -8,95 +8,132 @@
             </ul>
           </div>
   
-          <form (ngSubmit)="submitFacility()">
+          <form (ngSubmit)="submitFacility()" #facilityForm="ngForm">
             <div class="container-service space-service">
-              <div class="sub-title">
-                <h6>SportFacility Information</h6>
-              </div>
-  
               <div class="row">
+          
                 <!-- Facility Name -->
                 <div class="col-md-6">
                   <div class="form-group mat">
                     <label for="name">Facility Name</label>
-                    <input type="text" class="form-control" [(ngModel)]="sportFacility.name" name="name" required />
+                    <input type="text" class="form-control" name="name"
+                           [(ngModel)]="sportFacility.name" required
+                           pattern="^[A-Z][a-zA-Z0-9 ]*$"
+                           #name="ngModel">
+                    <div *ngIf="name.invalid && name.touched" class="text-danger">
+                      Facility name must start with a capital letter and be unique.
+                    </div>
                   </div>
                 </div>
-  
+          
                 <!-- Location -->
                 <div class="col-md-6">
                   <div class="form-group mat">
                     <label for="location">Location</label>
-                    <input type="text" class="form-control" [(ngModel)]="sportFacility.location" name="location" required />
+                    <input type="text" class="form-control" name="location"
+                           [(ngModel)]="sportFacility.location" required
+                           pattern="^[A-Z].*"
+                           #location="ngModel">
+                    <div *ngIf="location.invalid && location.touched" class="text-danger">
+                      Location must start with a capital letter.
+                    </div>
                   </div>
                 </div>
-  
+          
                 <!-- Sport Type -->
                 <div class="col-md-6">
                   <div class="form-group mat">
                     <label for="sportType">Sport Type</label>
-                    <input type="text" class="form-control" [(ngModel)]="sportFacility.sportType" name="sportType" required />
+                    <input type="text" class="form-control" name="sportType"
+                           [(ngModel)]="sportFacility.sportType" required
+                           pattern="^[A-Z].*"
+                           #sportType="ngModel">
+                    <div *ngIf="sportType.invalid && sportType.touched" class="text-danger">
+                      Sport type must start with a capital letter.
+                    </div>
                   </div>
                 </div>
-  
+          
                 <!-- Max Subscription -->
                 <div class="col-md-6">
                   <div class="form-group mat">
                     <label for="maxSubscription">Max Subscription</label>
-                    <input type="number" class="form-control" [(ngModel)]="sportFacility.maxSubscription" name="maxSubscription" required />
+                    <input type="number" class="form-control" name="maxSubscription"
+                           [(ngModel)]="sportFacility.maxSubscription" required
+                           min="0" #maxSub="ngModel">
+                    <div *ngIf="maxSub.invalid && maxSub.touched" class="text-danger">
+                      Must be 0 or higher.
+                    </div>
                   </div>
                 </div>
-  
+          
                 <!-- Normal Price -->
                 <div class="col-md-6">
                   <div class="form-group mat">
                     <label for="normalPrice">Normal Price</label>
-                    <input type="number" class="form-control" [(ngModel)]="sportFacility.normalPrice" name="normalPrice" required />
+                    <input type="number" class="form-control" name="normalPrice"
+                           [(ngModel)]="sportFacility.normalPrice" required
+                           min="0" #normal="ngModel">
+                    <div *ngIf="normal.invalid && normal.touched" class="text-danger">
+                      Normal price must be 0 or higher.
+                    </div>
                   </div>
                 </div>
-  
+          
                 <!-- Premium Price -->
                 <div class="col-md-6">
                   <div class="form-group mat">
                     <label for="premiumPrice">Premium Price</label>
-                    <input type="number" class="form-control" [(ngModel)]="sportFacility.premiumPrice" name="premiumPrice" required />
+                    <input type="number" class="form-control" name="premiumPrice"
+                           [(ngModel)]="sportFacility.premiumPrice" required
+                           [min]="sportFacility.normalPrice" #premium="ngModel">
+                    <div *ngIf="premium.invalid && premium.touched" class="text-danger">
+                      Premium price must be higher than normal price.
+                    </div>
                   </div>
                 </div>
-  
+          
                 <!-- Availability -->
                 <div class="col-md-6">
                   <div class="form-group mat">
                     <label for="availability">Availability</label>
-                    <select class="form-control" [(ngModel)]="sportFacility.availability" name="availability">
+                    <select class="form-control" name="availability" required
+                            [(ngModel)]="sportFacility.availability">
                       <option [ngValue]="true">Available</option>
                       <option [ngValue]="false">Not Available</option>
                     </select>
                   </div>
                 </div>
-                <!-- image -->
+          
+                <!-- Image -->
                 <div class="col-md-12">
                   <div class="form-group mat">
                     <label for="image">Facility Image</label>
-                    <input type="file" class="form-control" (change)="onFileSelected($event)" accept="image/*" />
+                    <input type="file" class="form-control" (change)="onFileSelected($event)" accept="image/*" required />
                   </div>
                 </div>
-  
+          
                 <!-- Description -->
                 <div class="col-md-12">
                   <div class="form-group mat">
                     <label for="description">Description</label>
-                    <textarea class="form-control" [(ngModel)]="sportFacility.description" name="description" rows="4"></textarea>
+                    <textarea class="form-control" name="description" rows="4"
+                              [(ngModel)]="sportFacility.description" required
+                              pattern="^[A-Z].*\.$" #desc="ngModel"></textarea>
+                    <div *ngIf="desc.invalid && desc.touched" class="text-danger">
+                      Description must start with a capital letter and end with a period.
+                    </div>
                   </div>
                 </div>
+          
               </div>
             </div>
-  
-            <!-- Submit Button -->
+          
             <div class="row">
               <div class="col-md-12">
                 <div class="bottom-btn">
                   <div class="field-btns">
-                    <button class="btn btn-primary" type="submit">
+                    <button class="btn btn-primary" type="submit" [disabled]="facilityForm.invalid">
                       Create Facility <i class="fas fa-arrow-right"></i>
                     </button>
                   </div>
@@ -104,8 +141,9 @@
               </div>
             </div>
           </form>
+          
   
-          <!-- Success Modal (optional) -->
+          
           <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">

@@ -10,17 +10,17 @@ import { routes } from 'src/app/shared/routes/routes';
   styleUrls: ['./sport-facility-details.component.css']
 })
 export class FacilityDetailComponent implements OnInit {
-  // Facility & promotions
+  
   facility: any;
   activePromotions: any[] = [];
 
-  // Form values
+ 
   startOption: string = 'now';
   customStartDate: string = '';
   priceType: string = 'normal';
   selectedPromotionId: number | null = null;
 
-  // UI states
+
   loading: boolean = false;
   successMessage: string = '';
   errorMessage: string = '';
@@ -28,8 +28,8 @@ export class FacilityDetailComponent implements OnInit {
   routes = routes;
 
  
-  token = localStorage.getItem('authToken') || ''; // Retrieve token from local storage
-  ///
+  token = localStorage.getItem('authToken') || ''; 
+  
   paidPrice: number | null = null;
 
   constructor(
@@ -61,14 +61,18 @@ export class FacilityDetailComponent implements OnInit {
   private loadPromotions(): void {
     this.promotionService.getActivePromotions(this.token).subscribe({
       next: (promotions: any[]) => {
-        this.activePromotions = promotions.filter((promo: any) => promo.sportFacility.id === this.facility.id);
+        this.activePromotions = promotions.filter(
+          (promo: any) => promo.sportFacility.id === this.facility.id
+        );
+  
+        this.selectPromotionBasedOnPriceType(); 
       },
       error: (error: any) => {
         console.error('Error loading promotions', error);
       }
     });
-    
   }
+  
 
   subscribeToFacility(): void {
     this.resetMessages();
@@ -79,26 +83,31 @@ export class FacilityDetailComponent implements OnInit {
       sportFacility: { id: this.facility.id },
       ...(this.startOption === 'choose' && this.customStartDate ? { startDate: this.customStartDate } : {})
     };
-  
+    console.log("facility id: "+ this.facility.id);
     this.sportFacilityService.createSubscription(
       subscriptionData,
       this.token,
       this.priceType,
       this.selectedPromotionId ?? undefined
     ).subscribe({
-      next: (response) => { // ✅ récupère la réponse complète
+      next: (response) => { 
         this.loading = false;
-        this.paidPrice = response.pricePaid; // ✅ récupère le prix payé
+        this.paidPrice = response.pricePaid;
         this.successMessage = 'Subscription created successfully!';
-        setTimeout(() => this.goBack(), 4000); // petite pause plus longue pour voir le prix
+        setTimeout(() => this.goBack(), 4000); 
       },
       error: (error) => {
         this.loading = false;
-        this.errorMessage = error.error.message || 'Failed to create subscription.';
+      
+      
+        const backendMessage = error?.error?.message || error?.error || 'Failed to create subscription.';
+        this.errorMessage = backendMessage;
       }
     });
   }
-  
+  get selectedPromotion(): any | null {
+    return this.activePromotions.find(p => p.id === this.selectedPromotionId) || null;
+  }
 
   private resetMessages(): void {
     this.successMessage = '';

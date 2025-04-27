@@ -4,17 +4,7 @@
         <h5>All Event Registrations</h5>
         <div class="list-btn">
           <ul>
-            <li>
-              <div class="filter-sorting">
-                <ul>
-                  <li>
-                    <a href="javascript:void(0);" class="filter-sets">
-                      <i class="feather icon-filter me-2"></i>Filter
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </li>
+            
           </ul>
         </div>
       </div>
@@ -62,6 +52,61 @@
               </tbody>
             </table>
           </div>
+        </div>
+      </div>
+      <div class="pagination-main-class">
+        <div class="table_footer">
+          <div class="row">
+            <div class="col-sm-12 col-md-6">
+              <div class="dataTables_length">
+                <label>
+                  <select [(ngModel)]="pageSize" (ngModelChange)="PageSize()" class="form-control form-control-sm">
+                    <option value="1">1</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                  </select>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="table_design">
+          <div>
+            <div class="dataTables_info">
+              {{ serialNumberArray[0] }} - {{ serialNumberArray[serialNumberArray.length - 1] }} of {{ totalData }} items
+            </div>
+          </div>
+          <div class="d-flex">
+            <div class="pagination_section">
+              <ul class="pagination">
+                <ng-container *ngFor="let item of pageNumberArray; let i = index">
+                  <li class="page-item" [class.active]="item === currentPage"
+                      [ngClass]="
+                        (pageNumberArray[currentPage - 2] > item && item !== 1 && pageNumberArray.length > 6) ||
+                        (pageNumberArray[currentPage] < item && item !== 1 && pageNumberArray.length > 6 && pageNumberArray.length !== item)
+                        ? 'hide-page-no' : 'show-page-no'">
+                    <a (click)="moveToPage(item)" class="page-link" href="javascript:void(0);">
+                      {{ item }}
+                    </a>
+                  </li>
+                  <li class="page-item" *ngIf="i === 0 && pageNumberArray.length > 6 && currentPage > 2"
+                      [hidden]="currentPage === 1" (click)="moveToPage(currentPage - 2)" tabindex="0">
+                    <a class="page-link" href="javascript:void(0);">...</a>
+                  </li>
+                  <li *ngIf="i === pageNumberArray.length - 2 && pageNumberArray.length > 6"
+                      [hidden]="
+                        currentPage >= pageNumberArray[pageNumberArray.length - 2] ||
+                        totalData < serialNumberArray[serialNumberArray.length - 1]"
+                      class="page-item" (click)="moveToPage(currentPage + 2)" tabindex="0">
+                    <a class="page-link" href="javascript:void(0);">...</a>
+                  </li>
+                </ng-container>
+              </ul>
+            </div>
+          </div>
+  
+  
         </div>
       </div>
     </div>

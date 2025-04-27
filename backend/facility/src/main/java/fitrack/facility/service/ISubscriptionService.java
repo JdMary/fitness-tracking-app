@@ -11,9 +11,6 @@ public interface ISubscriptionService {
     Subscription updateSubscription(Subscription subscription, String token);
     void deleteSubscription(Long id, String token);
     List<Subscription> getUserSubscriptions(String token);
-    //boolean canUserCancelSubscription(Long userId, Long subscriptionId);
-    //Subscription cancelSubscription(Long id);
-    //List<Subscription> getSubscriptionsByUser(Long userId);
-    //Subscription subscribeUserToFacility(Long userId, Long facilityId);
+
 }
 

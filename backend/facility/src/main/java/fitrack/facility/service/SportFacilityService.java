@@ -1,5 +1,7 @@
 package fitrack.facility.service;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fitrack.facility.client.AuthClient;
 import fitrack.facility.entity.FacilityDowntime;
@@ -13,10 +15,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import fitrack.facility.repository.FacilityDowntimeRepository;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.UUID;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -27,6 +30,7 @@ public class SportFacilityService implements ISportFacilityService {
     private final ObjectMapper objectMapper; //
     private final FacilityDowntimeRepository downtimeRepository;
     private final SubscriptionRepository subscriptionRepository;
+    private final Cloudinary cloudinary;
 
     @Override
     public List<SportFacility> retrieveAllFacilities() {
@@ -40,23 +44,19 @@ public class SportFacilityService implements ISportFacilityService {
         User user = objectMapper.convertValue(response, User.class);
 
         if (!"FACILITY_MANAGER".equals(user.getRole())) {
-            throw new RuntimeException("Seuls les FACILITY_MANAGER peuvent créer une facility.");
-        }
-        //generate id
-
-        if (facility.getFacilityId() == null || facility.getFacilityId().isEmpty()) {
-            String randomId = "FAC-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
-            facility.setFacilityId(randomId);
+            throw new RuntimeException("Only FACILITY_MANAGER users are allowed to create a facility.");
         }
 
         facility.setOwnerEmail(user.getUsername());
+        if (repository.existsByName(facility.getName())) {
+            throw new RuntimeException("Facility name already exists!");
+        }
 
         return repository.save(facility);
     }
 
     @Override
     public SportFacility updateFacility(SportFacility facility, String token) {
-        // 🔐 Authentification & vérification du rôle
         Object response = authClient.extractUserDetails(token).getBody();
         User user = objectMapper.convertValue(response, User.class);
 
@@ -64,13 +64,18 @@ public class SportFacilityService implements ISportFacilityService {
             throw new RuntimeException("Seuls les FACILITY_MANAGER peuvent modifier une facility.");
         }
 
+
+
         SportFacility existing = repository.findById(facility.getId())
                 .orElseThrow(() -> new RuntimeException("Facility non trouvée"));
 
-        // ✅ Gérer interruptions via méthode séparée
+        if (repository.existsByName(facility.getName()) && !existing.getName().equals(facility.getName())) {
+            throw new RuntimeException("Facility name already exists!");
+        }
+
+
         handleDowntimeLogic(existing, facility.isAvailability());
 
-        // ✅ Mise à jour des champs
         existing.setAvailability(facility.isAvailability());
         existing.setDescription(facility.getDescription());
         existing.setImage(facility.getImage());
@@ -83,6 +88,10 @@ public class SportFacilityService implements ISportFacilityService {
 
         return repository.save(existing);
     }
+    public SportFacility findById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Facility not found"));
+    }
 
     @Override
     public SportFacility retrieveFacility(Long id) {
@@ -91,9 +100,42 @@ public class SportFacilityService implements ISportFacilityService {
     }
 
     @Override
-    public void removeFacility(Long id) {
+    public void removeFacility(Long id,String token) {
+        Object response = authClient.extractUserDetails(token).getBody();
+        User user = objectMapper.convertValue(response, User.class);
+
+        if (!"FACILITY_MANAGER".equals(user.getRole())) {
+            throw new RuntimeException("Seuls les FACILITY_MANAGER peuvent supprimer une facility.");
+        }
+        SportFacility facility = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Facility not found"));
+
+        String imageUrl = facility.getImage();
+
+        if (imageUrl != null && !imageUrl.isEmpty()) {
+            String publicId = extractPublicIdFromUrl(imageUrl);
+            try {
+                Map result = cloudinary.uploader().destroy(publicId, ObjectUtils.emptyMap());
+                System.out.println("Cloudinary deletion result: " + result);
+            } catch (IOException e) {
+                System.err.println("Cloudinary deletion error: " + e.getMessage());
+            }
+        }
+
         repository.deleteById(id);
     }
+
+
+
+    private String extractPublicIdFromUrl(String url) {
+        String[] parts = url.split("/");
+        String fileName = parts[parts.length - 1];
+        return fileName.split("\\.")[0];
+    }
+
+
+
+
 
     @Override
 
@@ -102,7 +144,7 @@ public class SportFacilityService implements ISportFacilityService {
     }
     private void handleDowntimeLogic(SportFacility existing, boolean newAvailability) {
         if (!existing.isAvailability() && newAvailability) {
-            // Réactivation de la facility → on termine la coupure
+
             var downtimes = downtimeRepository.findByFacility(existing);
             var latest = downtimes.stream()
                     .filter(d -> d.getEndDate() == null)
@@ -123,7 +165,7 @@ public class SportFacilityService implements ISportFacilityService {
                     if (!sub.getEndDate().isBefore(latest.getStartDate())) {
                         sub.setEndDate(sub.getEndDate().plusDays(days));
                         subscriptionRepository.save(sub);
-                        // Décalage des abonnements suivants de ce user sur la même facility
+
                         List<Subscription> futureSubs = subscriptionRepository
                                 .findByOwnerEmailAndSportFacilityOrderByStartDateAsc(sub.getOwnerEmail(), existing);
 
@@ -143,7 +185,6 @@ public class SportFacilityService implements ISportFacilityService {
 
             }
         } else if (existing.isAvailability() && !newAvailability) {
-            // Mise en indisponibilité → nouvelle coupure
             var downtime = FacilityDowntime.builder()
                     .startDate(LocalDate.now())
                     .facility(existing)
@@ -163,6 +204,11 @@ public class SportFacilityService implements ISportFacilityService {
     public List<String> findDistinctSportTypes() {
         return repository.findDistinctSportTypes();
     }
+
+    public List<SportFacility> searchFacilitiesByName(String keyword) {
+        return repository.searchByNameContaining(keyword);
+    }
+
 
 
 }
