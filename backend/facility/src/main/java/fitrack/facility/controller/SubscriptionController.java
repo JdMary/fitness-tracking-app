@@ -57,11 +57,6 @@ public class SubscriptionController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/delete-by-email")
-        public ResponseEntity<?> deleteSubscriptionsByEmail(@RequestParam String ownerEmail) {
-            subscriptionService.deleteSubscriptionsByEmail(ownerEmail);
-            return ResponseEntity.ok().build();
-        }
 
     // ✅ Récupérer les abonnements de l'utilisateur courant
     @GetMapping("/my")
@@ -73,7 +68,7 @@ public class SubscriptionController {
             @PathVariable Long subId,
             @RequestHeader("Authorization") String token) {
         int refundedXP = subscriptionService.cancelSubscription(subId, token);
-        return ResponseEntity.ok("Statut de la souscription mis à jour en CANCELLED. XP remboursés : " + refundedXP);
+        return ResponseEntity.ok("Subscription status updated to CANCELLED. Refunded XP: " + refundedXP);
     }
 
     @DeleteMapping("/delete-by-email")

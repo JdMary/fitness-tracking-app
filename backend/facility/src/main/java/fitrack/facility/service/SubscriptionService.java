@@ -126,7 +126,7 @@ public class SubscriptionService implements ISubscriptionService {
         }
         repository.deleteById(id);
     }
-    public void deleteSubscriptionsByEmail(String ownerEmail) {
+    public void deleteSubscriptionssByEmail(String ownerEmail) {
         List<Subscription> subscriptions = repository.findByOwnerEmail(ownerEmail);
 
         if (subscriptions.isEmpty()) {
