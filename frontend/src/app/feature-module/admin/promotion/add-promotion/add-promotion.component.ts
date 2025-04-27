@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PromotionService, Promotion } from 'src/app/shared/services/promotion.service';
 import { SportFacilityService } from 'src/app/shared/services/sport-facility.service';
 import { routes } from 'src/app/shared/routes/routes';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-promotion',
@@ -24,11 +25,12 @@ export class AddPromotionComponent implements OnInit {
   };
 
   sportFacilities: any[] = []; 
-  token = localStorage.getItem('authToken') || ''; // Retrieve token from local storage
+  token = localStorage.getItem('authToken') || ''; 
   routes = routes;
 
   constructor(
     private promotionService: PromotionService,
+    private router: Router,
     private sportFacilityService: SportFacilityService
   ) {}
 
@@ -51,11 +53,16 @@ export class AddPromotionComponent implements OnInit {
     this.promotionService.addPromotion(this.promotion, this.token).subscribe({
       next: (response) => {
         alert('Promotion created successfully ');
+        this.router.navigate([routes.listPromotion]);
         this.resetForm();
       },
       error: (error) => {
         console.error('Error creating promotion', error);
-        alert('Error creating promotion ');
+        if (error.error && error.error.message) {
+          alert('❌ Error: ' + error.error.message);
+        } else {
+          alert('❌ An unexpected error occurred while creating the promotion.');
+        }
       }
     });
   }

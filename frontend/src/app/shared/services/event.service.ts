@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Event } from '../models/event.model';  // crée ce model selon ton backend
+import { Event } from '../models/event.model';  
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class EventService {
   constructor(private http: HttpClient) {}
 
   private getAuthHeaders(): HttpHeaders {
-    const token = localStorage.getItem('authToken'); // Retrieve token from local storage
+    const token = localStorage.getItem('authToken'); 
     return new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
@@ -38,13 +38,18 @@ export class EventService {
   }
 
   createEvent(event: Event): Observable<Event> {
-    const token = localStorage.getItem('authToken') || ''; // Retrieve token from local storage
+    const token = localStorage.getItem('authToken') || ''; 
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.post<Event>(`${this.baseUrl}/create`, event, { headers });
   }
 
   updateEvent(id: number, event: Event): Observable<Event> {
     return this.http.put<Event>(`${this.baseUrl}/update/${id}`, event, {
+      headers: this.getAuthHeaders()
+    });
+  }
+  searchEvents(keyword: string): Observable<Event[]> {
+    return this.http.get<Event[]>(`${this.baseUrl}/search?keyword=${encodeURIComponent(keyword)}` ,{
       headers: this.getAuthHeaders()
     });
   }

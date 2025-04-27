@@ -22,7 +22,8 @@ public class FacilityDowntime {
 
     private LocalDate endDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "facility_id")
+
     private SportFacility facility;
 }

@@ -23,9 +23,9 @@ public class EventRegistration {
     @Enumerated(EnumType.STRING)
     private RegistrationStatus status;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "event_id", nullable = false)
     private Event event;
 
-    private String userEmail; // Pour représenter le participant (via Feign plus tard)
+    private String userEmail;
 }

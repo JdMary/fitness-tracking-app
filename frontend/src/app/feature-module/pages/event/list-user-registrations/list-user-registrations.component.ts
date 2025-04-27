@@ -10,10 +10,14 @@ import Swal from 'sweetalert2';
   styleUrls: ['./list-user-registrations.component.css']
 })
 export class ListUserRegistrationsComponent implements OnInit {
-
+  paginatedRegistrations: EventRegistration[] = [];
   registrations: EventRegistration[] = [];
-  isClassAdded: boolean[] = [];
+  currentPage: number = 1;
+  pageSize: number = 1;
+  totalPages: number = 0;
   routes = routes;
+  isCollapsed = false;
+  searchKeyword: string = '';
 
   constructor(private eventRegistrationService: EventRegistrationService) {}
 
@@ -21,37 +25,85 @@ export class ListUserRegistrationsComponent implements OnInit {
     this.loadRegistrations();
   }
 
-  toggleClass(index: number): void {
-    this.isClassAdded[index] = !this.isClassAdded[index];
-  }
-
   loadRegistrations(): void {
     this.eventRegistrationService.getUserRegistrations().subscribe({
-      next: (data: EventRegistration[]) => this.registrations = data,
-      error: (err) => console.error('Erreur lors du chargement des inscriptions', err)
+      next: (data: EventRegistration[]) => {
+        this.registrations = data;
+        this.totalPages = Math.ceil(this.registrations.length / this.pageSize);
+        this.currentPage = 1;
+        this.updatePaginatedRegistrations();
+      },
+      error: (err) => console.error('Error loading registrations', err)
     });
   }
+
   cancelRegistration(registrationId: number): void {
     Swal.fire({
       title: 'Confirmation',
-      text: 'Souhaitez-vous vraiment annuler cette inscription ?',
+      text: 'Do you really want to cancel this registration ?',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Oui, annuler',
-      cancelButtonText: 'Non'
+      confirmButtonText: 'Yes, cancel',
+      cancelButtonText: 'No, keep it'
     }).then((result) => {
       if (result.isConfirmed) {
         this.eventRegistrationService.cancelRegistration(registrationId).subscribe({
           next: () => {
-            Swal.fire('Annulé', 'Votre inscription a été annulée.', 'success');
-            this.loadRegistrations(); // Recharge les inscriptions
+            Swal.fire('Canceled', 'Your registration has been canceled.', 'success');
+            this.loadRegistrations();
           },
-          error: err => {
-            Swal.fire('Erreur', err.error.message || 'Impossible d\'annuler l’inscription.', 'error');
+          error: (err) => {
+            Swal.fire('Erreur', err.error.message || 'Unable to cancel the registration.', 'error');
           }
         });
       }
     });
   }
-  
+
+  onSearch(event: any): void {
+    const input = event.target as HTMLInputElement;
+    const keyword = input.value.trim();
+    const token = localStorage.getItem('authToken') || '';
+
+    if (keyword) {
+      this.eventRegistrationService.searchEventRegistrations(token, undefined, keyword).subscribe({
+        next: (results) => {
+          this.registrations = results;
+          this.totalPages = Math.ceil(this.registrations.length / this.pageSize);
+          this.currentPage = 1;
+          this.updatePaginatedRegistrations();
+        },
+        error: (err) => {
+          console.error('Erreur recherche inscriptions', err);
+        }
+      });
+    } else {
+      this.loadRegistrations(); 
+    }
+  }
+
+  updatePaginatedRegistrations(): void {
+    const start = (this.currentPage - 1) * this.pageSize;
+    const end = start + this.pageSize;
+    this.paginatedRegistrations = this.registrations.slice(start, end);
+  }
+
+  goToPreviousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updatePaginatedRegistrations();
+    }
+  }
+
+  goToNextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updatePaginatedRegistrations();
+    }
+  }
+
+  goToPage(page: number): void {
+    this.currentPage = page;
+    this.updatePaginatedRegistrations();
+  }
 }

@@ -24,11 +24,30 @@
   <!-- Page Wrapper -->
   <div class="page-wrapper">
     <div class="content">
+      <div class="filter-buttons mb-4 d-flex justify-content-center">
+       
+        <button 
+          class="btn" 
+          [ngClass]="{'btn-primary': selectedFacility === 'All', 'btn-outline-primary': selectedFacility !== 'All'}"
+          (click)="filterByFacility('All')">
+          All
+        </button>
+      
+        
+        <button 
+          *ngFor="let facility of facilitiesnames" 
+          class="btn ms-2" 
+          [ngClass]="{'btn-primary': selectedFacility === facility, 'btn-outline-primary': selectedFacility !== facility}"
+          (click)="filterByFacility(facility)">
+          {{ facility }}
+        </button>
+      </div>
+      
+      
       <div class="container">
         <div class="row justify-content-center align-items-center">
   
-          <!-- 💡 Boucle dynamique Angular -->
-          <div class="col-xl-4 col-md-6" *ngFor="let promo of promotions">
+          <div class="col-xl-4 col-md-6" *ngFor="let promo of displayedPromotions; let i = index">
             <div class="card p-0">
               <div class="card-body p-0">
                 <div class="img-sec w-100">
@@ -79,20 +98,29 @@
   
         </div>
   
-        <!-- Pagination (optionnel, si besoin plus tard) -->
-        <div class="table-paginate d-flex justify-content-center align-items-center flex-wrap row-gap-3">
-          <div class="d-flex align-items-center justify-content-center">
-            <nav aria-label="Page navigation">
-              <ul class="paginations d-flex justify-content-center align-items-center">
-                <li class="page-item me-2"><a class="d-flex justify-content-center align-items-center" href="#"><i class="ti ti-arrow-left me-2"></i>Prev</a></li>
-                <li class="page-item me-2"><a class="page-link-1 active d-flex justify-content-center align-items-center " href="#">1</a></li>
-                <li class="page-item me-2"><a class="page-link-1 d-flex justify-content-center align-items-center" href="#">2</a></li>
-                <li class="page-item"><a class="page-link-1 d-flex justify-content-center align-items-center me-2" href="#">3</a></li>
-                <li class="page-item"><a class="d-flex justify-content-center align-items-center" href="#">Next <i class="ti ti-arrow-right ms-2"></i></a></li>
-              </ul>
-            </nav>
-          </div>
-        </div>
+        <!-- Pagination -->
+        <nav aria-label="Page navigation" *ngIf="totalPages > 1">
+          <ul class="paginations d-flex justify-content-center align-items-center">
+            <li class="page-item me-3" [class.disabled]="currentPage === 1">
+              <a class="page-link" (click)="goToPreviousPage()" href="javascript:void(0);">
+                <i class="ti ti-arrow-left me-2"></i>Prev
+              </a>
+            </li>
+        
+            <li *ngFor="let page of [].constructor(totalPages); let i = index" class="page-item me-2">
+              <a class="page-link-1" [class.active]="currentPage === (i + 1)" (click)="goToPage(i + 1)" href="javascript:void(0);">
+                {{ i + 1 }}
+              </a>
+            </li>
+        
+            <li class="page-item me-3" [class.disabled]="currentPage === totalPages">
+              <a class="page-link" (click)="goToNextPage()" href="javascript:void(0);">
+                Next<i class="ti ti-arrow-right ms-2"></i>
+              </a>
+            </li>
+          </ul>
+        </nav>
+        
   
       </div>
     </div>

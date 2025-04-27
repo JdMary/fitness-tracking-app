@@ -7,6 +7,7 @@ import { MatSelectModule } from '@angular/material/select'; // ✅ Pour mat-sele
 import { MatOptionModule } from '@angular/material/core'; // ✅ Pour mat-option
 import { MatTableModule } from '@angular/material/table'; // ✅ Pour table Material
 import { MatSortModule } from '@angular/material/sort'; // ✅ Si tu veux le tri
+import { NgxPaginationModule } from 'ngx-pagination';
 
 const routes: Routes = [
   { path: '', component: ListSportFacilityComponent }
@@ -23,7 +24,8 @@ const routes: Routes = [
     MatSelectModule,
     MatOptionModule,
     MatTableModule,
-    MatSortModule
+    MatSortModule,
+    NgxPaginationModule
   ]
 })
 export class ListSportFacilityModule { }

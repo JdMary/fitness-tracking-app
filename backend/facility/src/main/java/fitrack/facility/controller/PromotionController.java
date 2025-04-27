@@ -15,26 +15,30 @@ public class PromotionController {
 
     private final PromotionService service;
 
-    // Créer une promotion
+
     @PostMapping("/add")
     public ResponseEntity<Promotion> createPromotion(@RequestBody Promotion promotion,
                                                      @RequestHeader("Authorization") String token) {
         return ResponseEntity.ok(service.createPromotion(promotion, token));
     }
 
-    // Récupérer toutes les promotions
+
     @GetMapping("/all")
     public ResponseEntity<List<Promotion>> getAllPromotions() {
         return ResponseEntity.ok(service.getAllPromotions());
     }
 
-    //  Récupérer une promotion par ID
+    @GetMapping("/search")
+    public ResponseEntity<List<Promotion>> searchPromotions(@RequestParam String name) {
+        List<Promotion> results = service.searchPromotionsByFacilityName(name);
+        return ResponseEntity.ok(results);
+    }
     @GetMapping("/{id}")
     public ResponseEntity<Promotion> getPromotionById(@PathVariable Long id) {
         return ResponseEntity.ok(service.getPromotionById(id));
     }
 
-    // Modifier une promotion
+
     @PutMapping("/update/{id}")
     public ResponseEntity<Promotion> updatePromotion(@PathVariable Long id,
                                                      @RequestBody Promotion promotion,
@@ -43,7 +47,7 @@ public class PromotionController {
         return ResponseEntity.ok(service.updatePromotion(promotion, token));
     }
 
-    // Supprimer une promotion
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deletePromotion(@PathVariable Long id,
                                                 @RequestHeader("Authorization") String token) {
@@ -51,9 +55,20 @@ public class PromotionController {
         return ResponseEntity.noContent().build();
     }
 
-    // Récupérer uniquement les promotions actives
+
     @GetMapping("/active")
     public ResponseEntity<List<Promotion>> getActivePromotions() {
         return ResponseEntity.ok(service.getActivePromotions());
     }
+    @GetMapping("/facilitiesnames")
+    public ResponseEntity<List<String>> getFacilityNamesWithPromotions() {
+
+        return ResponseEntity.ok(service.getFacilityNamesWithPromotions());
+    }
+    @GetMapping("/by-facility")
+    public ResponseEntity<List<Promotion>> getPromotionsByFacility(@RequestParam String name) {
+        return ResponseEntity.ok(service.getPromotionsByFacility(name));
+    }
+
+
 }

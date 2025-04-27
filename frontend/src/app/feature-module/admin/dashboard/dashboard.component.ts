@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { routes } from 'src/app/shared/routes/routes';
+import { SubscriptionService } from 'src/app/shared/services/subscription.service';
+import { FacilityMonthlyRevenue } from 'src/app/shared/models/facility-monthly-revenue.model';
+
 import {
   ChartComponent,
   ApexAxisChartSeries,
@@ -67,7 +70,7 @@ export class DashboardComponent implements OnInit{
   public topServices : Array<topServices> = [];
   public topProviders : Array<topProviders> = [];
 
-  constructor(private data : DataService, private userService: UserService) {
+  constructor(private data : DataService, private userService: UserService, private subscriptionService: SubscriptionService) {
     this.chartOptionsOne = {
       series: [
         {
@@ -217,6 +220,7 @@ export class DashboardComponent implements OnInit{
       }
     }]
     };
+
     this.userActivityChartOptions = {
       series: [],
       chart: {
@@ -290,6 +294,7 @@ export class DashboardComponent implements OnInit{
     };
     this.fetchUserActivityStats();
     this.fetchUserSignupStats();
+    this.fetchMonthlyRevenue();
   }
 
   private fetchUserActivityStats(): void {
@@ -343,4 +348,67 @@ export class DashboardComponent implements OnInit{
       };
     });
   }
+  private fetchMonthlyRevenue(): void {
+    const token = localStorage.getItem('authToken');
+    if (!token) {
+      console.error('Token is missing!');
+      return;
+    }
+    
+    this.subscriptionService.getMonthlyRevenueByFacility(token).subscribe(data => {
+      const facilitiesMap: { [facilityName: string]: { [month: string]: number } } = {};
+  
+      // Organiser les données par facility
+      data.forEach(item => {
+        if (!facilitiesMap[item.facilityName]) {
+          facilitiesMap[item.facilityName] = {};
+        }
+        facilitiesMap[item.facilityName][item.month] = item.totalRevenue;
+      });
+  
+      const allMonths = [
+        "January", "February", "March", "April", "May", "June", "July",
+        "August", "September", "October", "November", "December"
+      ];
+  
+      const series = Object.keys(facilitiesMap).map(facilityName => {
+        return {
+          name: facilityName,
+          data: allMonths.map(month => facilitiesMap[facilityName][month] || 0)
+        };
+      });
+  
+      this.chartOptionsOne = {
+        series: series,
+        chart: {
+          height: 350,
+          type: "area",
+          toolbar: { show: false }
+        },
+        xaxis: {
+          categories: allMonths
+        },
+        stroke: {
+          curve: "smooth"
+        },
+        tooltip: {
+          x: { format: "dd/MM/yy HH:mm" }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        fill: {
+          type: "gradient",
+          gradient: {
+            shadeIntensity: 1,
+            opacityFrom: 0.7,
+            opacityTo: 0.9,
+            stops: [0, 90, 100]
+          }
+        }
+      };
+    });
+  }
+  
+  
 }

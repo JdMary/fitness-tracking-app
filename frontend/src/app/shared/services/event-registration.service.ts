@@ -13,51 +13,40 @@ export class EventRegistrationService {
   constructor(private http: HttpClient) {}
 
   private getAuthHeaders(): HttpHeaders {
-    const token = localStorage.getItem('authToken'); // Retrieve token from local storage
+    const token = localStorage.getItem('authToken'); 
     return new HttpHeaders({
       'Authorization': `Bearer ${token}`
     });
   }
 
-  /**
-   * Récupérer les inscriptions pour un événement spécifique
-   */
   getRegistrationsForEvent(eventId: number): Observable<EventRegistration[]> {
     return this.http.get<EventRegistration[]>(`${this.baseUrl}/event/${eventId}`, {
       headers: this.getAuthHeaders()
     });
   }
 
-  /**
-   * Inscription à un événement
-   */
+  
   registerToEvent(eventId: number): Observable<EventRegistration> {
     return this.http.post<EventRegistration>(`${this.baseUrl}/register/${eventId}`, {}, {
       headers: this.getAuthHeaders()
     });
   }
 
-  /**
-   * Annuler une inscription
-   */
+  
   cancelRegistration(registrationId: number): Observable<EventRegistration> {
     return this.http.put<EventRegistration>(`${this.baseUrl}/cancel/${registrationId}`, {}, {
       headers: this.getAuthHeaders()
     });
   }
 
-  /**
-   * Récupérer les événements auxquels l'utilisateur est inscrit
-   */
+ 
   getUserRegistrations(): Observable<EventRegistration[]> {
     return this.http.get<EventRegistration[]>(`${this.baseUrl}/user`, {
       headers: this.getAuthHeaders()
     });
   }
 
-  /**
-   * Supprimer une inscription (admin)
-   */
+
   deleteRegistrationByAdmin(registrationId: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/delete/${registrationId}`, {
       headers: this.getAuthHeaders()
@@ -67,6 +56,20 @@ export class EventRegistrationService {
     return this.http.get<EventRegistration[]>(`${this.baseUrl}/all`, {
       headers: this.getAuthHeaders()
     });
+  }
+  searchEventRegistrations(token: string, status?: string, keyword?: string): Observable<any[]> {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  
+    
+    let url = `${this.baseUrl}/search?`;
+    if (status) {
+      url += `status=${encodeURIComponent(status)}&`;
+    }
+    if (keyword) {
+      url += `keyword=${encodeURIComponent(keyword)}`;
+    }
+  
+    return this.http.get<any[]>(url, { headers });
   }
   
   

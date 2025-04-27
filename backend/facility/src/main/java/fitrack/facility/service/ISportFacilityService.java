@@ -9,7 +9,7 @@ public interface ISportFacilityService {
     SportFacility addFacility(SportFacility facility, String token);
     SportFacility updateFacility(SportFacility facility, String token);
     SportFacility retrieveFacility(Long id);
-    void removeFacility(Long id);
+     void removeFacility(Long id,String token);
     List<SportFacility> findAvailableFacilities();
 
     List<String> findDistinctLocations();

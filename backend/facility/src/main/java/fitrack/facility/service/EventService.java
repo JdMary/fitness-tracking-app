@@ -30,17 +30,14 @@ public class EventService implements IEventService {
 
     @Override
     public Event createEvent(Event event, String token) {
-        // Récupérer le propriétaire depuis le token
         Object response = authClient.extractUserDetails(token).getBody();
         User user = objectMapper.convertValue(response, User.class);
-
-        // Vérifier la facility
         SportFacility facility = facilityRepository.findById(event.getSportFacility().getId())
-                .orElseThrow(() -> new RuntimeException("Facility non trouvée"));
+                .orElseThrow(() -> new RuntimeException("Facility not found."));
 
-        // Vérifier que l'utilisateur est bien le propriétaire
+
         if (!facility.getOwnerEmail().equals(user.getUsername())) {
-            throw new RuntimeException("Seul le propriétaire de cette installation peut créer un événement.");
+            throw new RuntimeException("Only the owner of this facility can create an event.");
         }
         List<Event> existingEvents = repository.findBySportFacility_IdAndEventDate(
                 event.getSportFacility().getId(),
@@ -48,11 +45,14 @@ public class EventService implements IEventService {
         );
 
         if (!existingEvents.isEmpty()) {
-            throw new RuntimeException("Un événement existe déjà dans cette facility à cette date.");
+            throw new RuntimeException("An event already exists at this facility on this date.");
         }
         if (event.getStartTime() != null && event.getEndTime() != null
                 && !event.getEndTime().isAfter(event.getStartTime())) {
-            throw new RuntimeException("L'heure de fin doit être après l'heure de début.");
+            throw new RuntimeException("The end time must be after the start time.");
+        }
+        if (repository.existsByName(event.getName())) {
+            throw new RuntimeException("An event with this name already exists!");
         }
 
 
@@ -63,19 +63,20 @@ public class EventService implements IEventService {
 
     @Override
     public Event updateEvent(Event updatedEvent, Long id, String token) {
-        // Récupérer le propriétaire depuis le token
+
         Object response = authClient.extractUserDetails(token).getBody();
         User user = objectMapper.convertValue(response, User.class);
 
         Event existing = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Event non trouvé"));
+                .orElseThrow(() -> new RuntimeException("Event not found"));
 
-        // Vérifier que le propriétaire correspond
+
         if (!existing.getSportFacility().getOwnerEmail().equals(user.getUsername())) {
-            throw new RuntimeException("Seul le propriétaire de l'installation peut modifier cet événement.");
+            throw new RuntimeException("Only the owner of this event can update an event.");
         }
 
-        // Vérifier si un autre événement existe à la même date dans la même facility
+
+
         List<Event> sameDateEvents = repository.findBySportFacility_IdAndEventDate(
                 existing.getSportFacility().getId(),
                 updatedEvent.getEventDate()
@@ -85,16 +86,21 @@ public class EventService implements IEventService {
                 .anyMatch(e -> !e.getId().equals(id));
 
         if (duplicateFound) {
-            throw new RuntimeException("Un autre événement existe déjà dans cette facility à cette date.");
+            throw new RuntimeException("Another event already exists at this facility on this date.");
         }
 
-        // Vérifier que l'heure de fin est après l'heure de début
+        if (repository.existsByName(updatedEvent.getName()) && !existing.getName().equals(updatedEvent.getName())) {
+            throw new RuntimeException("An event with this name already exists!");
+        }
+
+
         if (updatedEvent.getStartTime() != null && updatedEvent.getEndTime() != null
                 && !updatedEvent.getEndTime().isAfter(updatedEvent.getStartTime())) {
-            throw new RuntimeException("L'heure de fin doit être après l'heure de début.");
+            throw new RuntimeException("The end time must be after the start time.");
         }
 
-        // Mise à jour des champs
+
+
         existing.setName(updatedEvent.getName());
         existing.setDescription(updatedEvent.getDescription());
         existing.setEventDate(updatedEvent.getEventDate());
@@ -110,7 +116,7 @@ public class EventService implements IEventService {
     @Override
     public Event retrieveEvent(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Event non trouvé"));
+                .orElseThrow(() -> new RuntimeException("Event nt found"));
     }
 
     @Override
@@ -119,10 +125,10 @@ public class EventService implements IEventService {
         User user = objectMapper.convertValue(response, User.class);
 
         Event event = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Event non trouvé"));
+                .orElseThrow(() -> new RuntimeException("Event not found"));
 
         if (!event.getSportFacility().getOwnerEmail().equals(user.getUsername())) {
-            throw new RuntimeException("Suppression refusée : vous n'êtes pas le propriétaire de cette installation.");
+            throw new RuntimeException("Deletion denied: you are not the owner of this event.");
         }
 
         repository.deleteById(id);
@@ -131,7 +137,7 @@ public class EventService implements IEventService {
     @Override
     public Event cancelEvent(Long id) {
         Event event = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Event non trouvé"));
+                .orElseThrow(() -> new RuntimeException("Event not found"));
 
         event.setStatus(EventStatus.CANCELLED);
         return repository.save(event);
@@ -140,7 +146,7 @@ public class EventService implements IEventService {
     @Override
     public List<Event> findEventsByFacility(Long facilityId) {
         SportFacility facility = facilityRepository.findById(facilityId)
-                .orElseThrow(() -> new RuntimeException("Facility non trouvée"));
+                .orElseThrow(() -> new RuntimeException("Facility not found"));
 
         return repository.findBySportFacility(facility);
     }
@@ -148,6 +154,9 @@ public class EventService implements IEventService {
     @Override
     public List<Event> findUpcomingEvents() {
         return repository.findByStatusAndEventDateAfter(EventStatus.UPCOMING, LocalDate.now());
+    }
+    public List<Event> searchEvents(String keyword) {
+        return repository.searchEventsByKeyword(keyword);
     }
 
 }

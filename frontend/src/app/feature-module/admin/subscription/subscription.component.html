@@ -1,128 +1,154 @@
 <div class="page-wrapper page-settings">
-    <div class="content">
-      <div class="content-page-header content-page-headersplit">
-        <h5>All Subscriptions</h5>
-        <div class="list-btn">
-          <ul>
-            <li>
-              <div class="filter-sorting">
-                <ul>
-                  <li>
-                    <a href="javascript:void(0);" class="filter-sets">
-                      <i class="feather icon-filter me-2"></i>Filter
+  <div class="content">
+    <div class="content-page-header content-page-headersplit">
+      <h5>All Subscriptions</h5>
+      <div class="list-btn">
+        <ul>
+          <li>
+            <div class="filter-sorting">
+              <ul>
+                <li>
+                  <a href="javascript:void(0);" class="filter-sets">
+                    <i class="feather icon-filter me-2"></i>Filter
+                  </a>
+                </li>
+                <li>
+                  <span><img src="assets/admin/img/icons/sort.svg" class="me-2" alt="sort icon"></span>
+                  <div class="custom-select">
+                    <mat-select
+                      [(ngModel)]="selectedValue"
+                      (selectionChange)="sortSubscriptions()"
+                      [ngModelOptions]="{ standalone: true }"
+                      class="select"
+                      placeholder="A - Z">
+                      <mat-option *ngFor="let data of selectedList" [value]="data.value">
+                        {{ data.value }}
+                      </mat-option>
+                    </mat-select>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </li>
+         
+              
+          <li>
+            <div class="input-group" style="max-width: 280px">
+              <span class="input-group-text bg-white border-end-0">
+                <i class="fa fa-search text-muted"></i>
+              </span>
+              <input
+                type="text"
+                class="form-control border-start-0"
+                placeholder="Search subscription..."
+                (input)="onSearch($event)"
+                style="box-shadow: none;" />
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12">
+        <div class="table-responsive table-div">
+          <table class="table datatable">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Owner Email</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Price Paid</th>
+                <th>Status</th>
+                <th>Sport Facility</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let sub of displayedSubscriptions; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ sub.ownerEmail }}</td>
+                <td>{{ sub.startDate | date: 'shortDate' }}</td>
+                <td>{{ sub.endDate | date: 'shortDate' }}</td>
+                <td>{{ sub.pricePaid }} TND</td>
+                <td>
+                  <span [ngClass]="{
+                    'badge bg-success': sub.status === 'ACTIVE',
+                    'badge bg-danger': sub.status === 'CANCELLED',
+                    'badge bg-warning': sub.status === 'PENDING'
+                  }">
+                    {{ sub.status }}
+                  </span>
+                </td>
+                <td>{{ sub.sportFacility?.name || 'N/A' }}</td>
+                <td>
+                  <div class="action-language">
+                    <a  class="table-delete" href="javascript:void(0);" (click)="deleteSubscription(sub.id)">
+                      <i class="fa-solid fa-trash-can"></i><span>Delete</span>
                     </a>
-                  </li>
-                </ul>
-              </div>
-            </li>
-            <li>
-              <a class="btn btn-primary" href="javascript:void(0);">
-                <i class="fa fa-plus me-2"></i>Create Subscription
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-  
-      <div class="row">
-        <div class="col-12">
-          <div class="table-resposnive table-div">
-            <table class="table datatable">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Owner Email</th>
-                  <th>Start Date</th>
-                  <th>End Date</th>
-                  <th>Price Paid</th>
-                  <th>Status</th>
-                  <th>Sport Facility</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let sub of subscriptions; let i = index">
-                  <td>{{ i + 1 }}</td>
-                  <td>{{ sub.ownerEmail }}</td>
-                  <td>{{ sub.startDate | date: 'shortDate' }}</td>
-                  <td>{{ sub.endDate | date: 'shortDate' }}</td>
-                  <td>{{ sub.pricePaid }} TND</td>
-                  <td>
-                    <span [ngClass]="{
-                      'badge bg-success': sub.status === 'ACTIVE',
-                      'badge bg-danger': sub.status === 'CANCELLED',
-                      'badge bg-warning': sub.status === 'PENDING'
-                    }">
-                      {{ sub.status }}
-                    </span>
-                  </td>
-                  <td>{{ sub.sportFacility?.name || 'N/A' }}</td>
-                  <td>
-                    <div class="action-language">
-                        <a *ngIf="canDelete(sub)" class="table-delete" href="javascript:void(0);" (click)="deleteSubscription(sub.id)">
-                          <i class="fa-solid fa-trash-can"></i><span>Delete</span>
-                        </a>
-                      </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
-    
-  </div>
-  <div class="row mt-5">
-    <!-- Revenue Monthly Chart -->
-    <div class="col-lg-6 col-sm-6 col-12 d-flex widget-path">
-      <div class="card w-100">
-        <div class="card-body">
-          <div class="home-user">
-            <div class="home-head-user">
-              <h2>Monthly Revenue</h2>
-            </div>
-            <div class="chartgraph">
-              <div id="monthly-chart">
-                <apx-chart
-                  [series]="chartOptionsOne.series"
-                  [chart]="chartOptionsOne.chart"
-                  [xaxis]="chartOptionsOne.xaxis"
-                  [dataLabels]="chartOptionsOne.dataLabels"
-                  [tooltip]="chartOptionsOne.tooltip"
-                  [fill]="chartOptionsOne.fill"
-                ></apx-chart>
-              </div>
+    <div class="pagination-main-class">
+      <div class="table_footer">
+        <div class="row">
+          <div class="col-sm-12 col-md-6">
+            <div class="dataTables_length">
+              <label>
+                <select [(ngModel)]="pageSize" (ngModelChange)="PageSize()" class="form-control form-control-sm">
+                  <option value="1">1</option>
+                  <option value="25">25</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                </select>
+              </label>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  
-    <!-- Revenue Quarterly Chart -->
-    <div class="col-lg-6 col-sm-6 col-12 d-flex widget-path">
-      <div class="card w-100">
-        <div class="card-body">
-          <div class="home-user">
-            <div class="home-head-user">
-              <h2>Quarterly Revenue</h2>
-            </div>
-            <div class="chartgraph">
-              <div id="quarterly-chart">
-                <apx-chart
-                  [series]="chartOptionsThree.series"
-                  [chart]="chartOptionsThree.chart"
-                  [xaxis]="chartOptionsThree.xaxis"
-                  [dataLabels]="chartOptionsThree.dataLabels"
-                  [tooltip]="chartOptionsThree.tooltip"
-                  [fill]="chartOptionsThree.fill"
-                ></apx-chart>
-              </div>
-            </div>
+      <div class="table_design">
+        <div>
+          <div class="dataTables_info">
+            {{ serialNumberArray[0] }} - {{ serialNumberArray[serialNumberArray.length - 1] }} of {{ totalData }} items
+          </div>
+        </div>
+        <div class="d-flex">
+          <div class="pagination_section">
+            <ul class="pagination">
+              <ng-container *ngFor="let item of pageNumberArray; let i = index">
+                <li class="page-item" [class.active]="item === currentPage"
+                    [ngClass]="
+                      (pageNumberArray[currentPage - 2] > item && item !== 1 && pageNumberArray.length > 6) ||
+                      (pageNumberArray[currentPage] < item && item !== 1 && pageNumberArray.length > 6 && pageNumberArray.length !== item)
+                      ? 'hide-page-no' : 'show-page-no'">
+                  <a (click)="moveToPage(item)" class="page-link" href="javascript:void(0);">
+                    {{ item }}
+                  </a>
+                </li>
+                <li class="page-item" *ngIf="i === 0 && pageNumberArray.length > 6 && currentPage > 2"
+                    [hidden]="currentPage === 1" (click)="moveToPage(currentPage - 2)" tabindex="0">
+                  <a class="page-link" href="javascript:void(0);">...</a>
+                </li>
+                <li *ngIf="i === pageNumberArray.length - 2 && pageNumberArray.length > 6"
+                    [hidden]="
+                      currentPage >= pageNumberArray[pageNumberArray.length - 2] ||
+                      totalData < serialNumberArray[serialNumberArray.length - 1]"
+                    class="page-item" (click)="moveToPage(currentPage + 2)" tabindex="0">
+                  <a class="page-link" href="javascript:void(0);">...</a>
+                </li>
+              </ng-container>
+            </ul>
           </div>
         </div>
       </div>
     </div>
   </div>
   
-  
+</div>
+

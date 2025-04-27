@@ -65,7 +65,12 @@ export class AddEventComponent implements OnInit {
       },
       error: err => {
         console.error('Error creating event:', err);
-        alert('❌ Failed to create event.');
+        
+        if (err.error && err.error.message) {
+          alert('❌ Error: ' + err.error.message);
+        } else {
+          alert('❌ An unexpected error occurred while deleting the subscription.');
+        }
       }
     });
   }

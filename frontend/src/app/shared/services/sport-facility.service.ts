@@ -14,27 +14,27 @@ export class SportFacilityService {
     return new HttpHeaders().set('Authorization', `Bearer ${token}`);
   }
 
-  // ✅ Créer une facility avec image
+  
   createFacility(facilityFormData: FormData, token: string): Observable<any> {
     return this.http.post(`${this.baseUrl}/add`, facilityFormData, { headers: this.getAuthHeaders(token) });
   }
 
-  // ✅ Récupérer toutes les facilities (public sans token)
+ 
   getAllFacilitiesPublic(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/all`);
   }
 
-  // ✅ Récupérer toutes les facilities avec token
+ 
   getAllFacilities(token: string): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/all`, { headers: this.getAuthHeaders(token) });
   }
 
-  // ✅ Supprimer une facility
+  
   deleteFacility(id: number, token: string): Observable<any> {
     return this.http.delete(`${this.baseUrl}/delete/${id}`, { headers: this.getAuthHeaders(token) });
   }
 
-  // ✅ Modifier une facility (plus tard, on pourra aussi passer un FormData si besoin d'image)
+  
   updateFacility(facility: any, token: string): Observable<any> {
     return this.http.put(`${this.baseUrl}/update/${facility.id}`, facility, { headers: this.getAuthHeaders(token) });
   }
@@ -80,20 +80,28 @@ export class SportFacilityService {
     if (filters.availability !== undefined) query.push(`availability=${filters.availability}`);
     const queryString = query.length ? `?${query.join('&')}` : '';
   
-    return this.http.get<any[]>(`http://localhost:8222/api/v1/facilities/search${queryString}`, { headers });
+    return this.http.get<any[]>(`${this.baseUrl}/search${queryString}`, { headers });
   }
   getAllLocations() {
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     
-    return this.http.get<string[]>(`http://localhost:8222/api/v1/facilities/locations`, { headers });
+    return this.http.get<string[]>(`${this.baseUrl}/locations`, { headers });
   }
   getAllSportTypes() {
     const token = localStorage.getItem('authToken');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     
-    return this.http.get<string[]>(`http://localhost:8222/api/v1/facilities/sport-types`, { headers });
+    return this.http.get<string[]>(`${this.baseUrl}/sport-types`, { headers });
   }
+  searchFacilities(keyword: string): Observable<any[]> {
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  
+    return this.http.get<any[]>(`${this.baseUrl}/searchback?q=${keyword}`, { headers });
+  }
+  
+  
     
   
 }

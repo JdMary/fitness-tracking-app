@@ -59,8 +59,21 @@ export class EditEventComponent implements OnInit {
 
   submitEvent(): void {
     this.eventService.updateEvent(this.event.id!, this.event).subscribe({
-      next: () => this.router.navigateByUrl(this.routes.listEvent),
-      error: (err) => console.error('Erreur lors de la mise à jour', err)
+      next: () => {
+        this.router.navigateByUrl(this.routes.listEvent);
+      },
+      error: (err) => {
+        console.error('Erreur lors de la mise à jour', err);
+  
+        if (err.error && err.error.message) {
+          alert('❌ Error: ' + err.error.message);
+        } else {
+          alert('❌ An unexpected error occurred while updating the event.');
+        }
+      }
     });
   }
+  
 }
+
+

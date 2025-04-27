@@ -13,9 +13,17 @@
                     </a>
                   </li>
                   <li>
-                    <span><img src="assets/admin/img/icons/sort.svg" class="me-2" alt="sort icon"></span>
+                    <span>
+                      <img src="assets/admin/img/icons/sort.svg" class="me-2" alt="sort icon">
+                    </span>
                     <div class="custom-select">
-                      <mat-select [(ngModel)]="selectedValue" [ngModelOptions]="{standalone: true}" class="select" placeholder="A - Z">
+                      <mat-select 
+                        [(ngModel)]="selectedValue" 
+                        (selectionChange)="sortEvents()" 
+                        [ngModelOptions]="{standalone: true}" 
+                        class="select" 
+                        placeholder="Sort by"
+                      >
                         <mat-option *ngFor="let data of selectedList" [value]="data.value">
                           {{ data.value }}
                         </mat-option>
@@ -25,6 +33,21 @@
                 </ul>
               </div>
             </li>
+            
+            <li>
+              <div class="input-group" style="max-width: 280px">
+                <span class="input-group-text bg-white border-end-0">
+                  <i class="fa fa-search text-muted"></i>
+                </span>
+                <input
+                  type="text"
+                  class="form-control border-start-0"
+                  placeholder="Search events..."
+                  (input)="onSearch($event)"
+                  style="box-shadow: none;" />
+              </div>
+            </li>
+            
             <li>
               <a class="btn btn-primary" [routerLink]="routes.addEvent">
                 <i class="fa fa-plus me-2"></i>Create Event
@@ -53,7 +76,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let event of events; let i = index">
+                <tr *ngFor="let event of displayedEvents; let i = index">
                   <td>{{ i + 1 }}</td>
                   <td>{{ event.name }}</td>
                   <td>{{ event.description }}</td>
@@ -89,6 +112,61 @@
               </tbody>
             </table>
           </div>
+        </div>
+      </div>
+      <div class="pagination-main-class">
+        <div class="table_footer">
+          <div class="row">
+            <div class="col-sm-12 col-md-6">
+              <div class="dataTables_length">
+                <label>
+                  <select [(ngModel)]="pageSize" (ngModelChange)="PageSize()" class="form-control form-control-sm">
+                    <option value="1">1</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                  </select>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="table_design">
+          <div>
+            <div class="dataTables_info">
+              {{ serialNumberArray[0] }} - {{ serialNumberArray[serialNumberArray.length - 1] }} of {{ totalData }} items
+            </div>
+          </div>
+          <div class="d-flex">
+            <div class="pagination_section">
+              <ul class="pagination">
+                <ng-container *ngFor="let item of pageNumberArray; let i = index">
+                  <li class="page-item" [class.active]="item === currentPage"
+                      [ngClass]="
+                        (pageNumberArray[currentPage - 2] > item && item !== 1 && pageNumberArray.length > 6) ||
+                        (pageNumberArray[currentPage] < item && item !== 1 && pageNumberArray.length > 6 && pageNumberArray.length !== item)
+                        ? 'hide-page-no' : 'show-page-no'">
+                    <a (click)="moveToPage(item)" class="page-link" href="javascript:void(0);">
+                      {{ item }}
+                    </a>
+                  </li>
+                  <li class="page-item" *ngIf="i === 0 && pageNumberArray.length > 6 && currentPage > 2"
+                      [hidden]="currentPage === 1" (click)="moveToPage(currentPage - 2)" tabindex="0">
+                    <a class="page-link" href="javascript:void(0);">...</a>
+                  </li>
+                  <li *ngIf="i === pageNumberArray.length - 2 && pageNumberArray.length > 6"
+                      [hidden]="
+                        currentPage >= pageNumberArray[pageNumberArray.length - 2] ||
+                        totalData < serialNumberArray[serialNumberArray.length - 1]"
+                      class="page-item" (click)="moveToPage(currentPage + 2)" tabindex="0">
+                    <a class="page-link" href="javascript:void(0);">...</a>
+                  </li>
+                </ng-container>
+              </ul>
+            </div>
+          </div>
+  
+  
         </div>
       </div>
     </div>
