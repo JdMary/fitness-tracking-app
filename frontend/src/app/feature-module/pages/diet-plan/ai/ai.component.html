@@ -1,0 +1,138 @@
+<!-- Breadcrumb -->
+<div _ngcontent-ng-c3201149761="" class="breadcrumb-bar text-center">
+  <div _ngcontent-ng-c3201149761="" class="container">
+    <div _ngcontent-ng-c3201149761="" class="row">
+      <div _ngcontent-ng-c3201149761="" class="col-md-12 col-12">
+        <h2 _ngcontent-ng-c3201149761="" class="breadcrumb-title mb-2">Nutrient Calculator</h2>
+        <nav _ngcontent-ng-c3201149761="" aria-label="breadcrumb">
+          <ol _ngcontent-ng-c3201149761="" class="breadcrumb justify-content-center mb-0">
+            <li _ngcontent-ng-c3201149761="" class="breadcrumb-item"><a _ngcontent-ng-c3201149761=""
+                ng-reflect-router-link="/home" href="/home"><i _ngcontent-ng-c3201149761=""
+                  class="ti ti-home-2"></i></a></li>
+            <li _ngcontent-ng-c3201149761="" aria-current="page" class="breadcrumb-item active">calculator</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+    <div _ngcontent-ng-c3201149761="" class="breadcrumb-bg"><img _ngcontent-ng-c3201149761=""
+        src="assets/img/bg/breadcrumb-bg-01.png" alt="Img" class="breadcrumb-bg-1"><img _ngcontent-ng-c3201149761=""
+        src="assets/img/bg/breadcrumb-bg-02.png" alt="Img" class="breadcrumb-bg-2"></div>
+  </div>
+</div>
+<!-- /Breadcrumb -->
+
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+  <div class="content py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-xxl-12 col-xl-12 mx-auto">
+          <div class="card border-0 mb-0">
+            <div class="card-body p-3 fieldset-wizard">
+              <!-- Image Upload Section -->
+              <div class="row mb-4">
+                <div class="col-12">
+                  <h4 class="text-primary mb-3">Upload Meal Image for Analysis</h4>
+                  <div class="form-group">
+                    <input type="file" class="form-control" (change)="onFileSelected($event)" accept="image/*" />
+                  </div>
+                  <div class="mt-3">
+                    <button class="btn btn-primary" (click)="submitImage()" [disabled]="!previewUrl || loading">
+                      Analyze Image
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Preview Section -->
+              <div class="row" *ngIf="previewUrl">
+                <div class="col-12">
+                  <h5 class="text-secondary mb-3">Image Preview</h5>
+                  <div class="preview">
+                    <img [src]="previewUrl" alt="Selected Meal" class="img-fluid rounded" width="300">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Loading State -->
+              <div class="row" *ngIf="loading">
+                <div class="col-12">
+                  <div class="alert alert-info">
+                    <i class="fas fa-spinner fa-spin me-2"></i> Analyzing your meal...
+                  </div>
+                </div>
+              </div>
+
+              <!-- Error Message -->
+              <div class="row" *ngIf="error">
+                <div class="col-12">
+                  <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-circle me-2"></i> {{ error }}
+                  </div>
+                </div>
+              </div>
+
+              <!-- Results Section -->
+              <div class="row" *ngIf="result">
+                <div class="col-12">
+                  <h4 class="text-primary mb-4">Analysis Results</h4>
+
+                  <!-- Individual Meals -->
+                  <div class="mb-4">
+                    <h5 class="text-secondary mb-3">Identified Items</h5>
+                    <div class="row">
+                      <div class="col-md-6" *ngFor="let meal of result.meal_analysis">
+                        <div class="meal-item">
+                          <h6 class="text-dark">{{ meal.name }}</h6>
+                          <p class="mb-2"><small>Portion: {{ meal.estimated_weight_grams }}g</small></p>
+                          <div class="nutrition-details">
+                            <div class="row">
+                              <div class="col-6">
+                                <p class="mb-1">Calories: {{ meal.nutrients.Calories }}</p>
+                                <p class="mb-1">Protein: {{ meal.nutrients.Protein }}g</p>
+                                <p class="mb-1">Fat: {{ meal.nutrients.TotalFat }}g</p>
+                                <p class="mb-1">Carbs: {{ meal.nutrients.Carbohydrates }}g</p>
+                              </div>
+                              <div class="col-6">
+                                <p class="mb-1">Fiber: {{ meal.nutrients.Fiber }}g</p>
+                                <p class="mb-1">Sugar: {{ meal.nutrients.Sugar }}g</p>
+                                <p class="mb-1">Sodium: {{ meal.nutrients.Sodium }}mg</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Total Nutrients Summary -->
+                  <div class="total-nutrients">
+                    <h5 class="text-secondary mb-3">Total Nutrition Summary</h5>
+                    <div class="card bg-light">
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-md-6">
+                            <p class="mb-2"><strong>Calories:</strong> {{ result.total_nutrients.Calories }}</p>
+                            <p class="mb-2"><strong>Protein:</strong> {{ result.total_nutrients.Protein }}g</p>
+                            <p class="mb-2"><strong>Total Fat:</strong> {{ result.total_nutrients.TotalFat }}g</p>
+                            <p class="mb-2"><strong>Carbohydrates:</strong> {{ result.total_nutrients.Carbohydrates }}g
+                            </p>
+                          </div>
+                          <div class="col-md-6">
+                            <p class="mb-2"><strong>Fiber:</strong> {{ result.total_nutrients.Fiber }}g</p>
+                            <p class="mb-2"><strong>Sugar:</strong> {{ result.total_nutrients.Sugar }}g</p>
+                            <p class="mb-2"><strong>Sodium:</strong> {{ result.total_nutrients.Sodium }}mg</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

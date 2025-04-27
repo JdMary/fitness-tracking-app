@@ -8,19 +8,25 @@ import { GenerateDietPlanModule } from './generate-diet-plan/generate-diet-plan.
 import { MealDetailsComponent } from './meal-details/meal-details.component';
 import { RouterModule } from '@angular/router';
 import { MealDetailsModule } from './meal-details/meal-details.module';
+import { AiModule } from './ai/ai.module';
+import { BrowserModule } from '@angular/platform-browser';
 
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
+    //BrowserModule,
+     MealDetailsModule,
+     AiModule,
     DietPlanRoutingModule,
     FormsModule, 
     RouterModule,
     GenerateDietPlanModule,
-    MealDetailsModule
+   
 
-  ]
+  ],
+  exports: [MealDetailsModule]
 })
 export class DietPlanModule { 
   

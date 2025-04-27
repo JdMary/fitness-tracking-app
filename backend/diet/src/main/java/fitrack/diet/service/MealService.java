@@ -6,9 +6,11 @@ import fitrack.diet.entity.DTO.EdamamPlanResponse;
 import fitrack.diet.entity.DTO.RecipeResponse;
 import fitrack.diet.entity.DietPlan;
 import fitrack.diet.entity.Meal;
+import fitrack.diet.entity.Preference;
 import fitrack.diet.entity.enumPreference.*;
 import fitrack.diet.repository.MealRepository;
 import fitrack.diet.repository.DietPlanRepository;
+import fitrack.diet.repository.PreferenceRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -37,6 +39,9 @@ public class MealService {
     private MealRepository mealRepository;
     @Autowired
     private DietPlanRepository dietPlanRepository;
+    @Autowired
+    private PreferenceRepository preferenceRepository;
+
     @Value("${edamam.app.id}")
     String edamamAppId;
     @Value("${edamam.app.key}")
@@ -355,7 +360,7 @@ public class MealService {
 /// ///2nd
     public List<Map<String, Object>> getDailyNutrientStats(String username) {
         List<Object[]> stats = mealRepository.getDailyCompletedNutrientStats(username);
-
+        Preference userPreference = preferenceRepository.findByUsername(username);
         List<Map<String, Object>> result = new ArrayList<>();
         for (Object[] row : stats) {
             Map<String, Object> dayStats = new HashMap<>();
@@ -364,9 +369,14 @@ public class MealService {
             dayStats.put("totalProtein", row[2]);
             dayStats.put("totalCarbs", row[3]);
             dayStats.put("totalFat", row[4]);
-            dayStats.put("calorieTarget", row[5]);
-            dayStats.put("targetProtein", row[6]);
-            dayStats.put("targetCarbs", row[7]);
+//            dayStats.put("calorieTarget", row[5]);
+//            dayStats.put("targetProtein", row[6]);
+//            dayStats.put("targetCarbs", row[7]);
+            dayStats.put("calorieTarget", userPreference.getMaxCalories());
+            dayStats.put("targetProtein", userPreference.getMaxProtein());
+            dayStats.put("targetCarbs", userPreference.getMaxCarbs());
+            dayStats.put("targetFat", userPreference.getMaxFat());
+            dayStats.put("targetFiber", userPreference.getMaxFiber());
             result.add(dayStats);
         }
         return result;

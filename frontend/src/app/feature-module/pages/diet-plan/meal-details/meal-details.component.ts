@@ -2,11 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DietService } from '../../../services/diet.service';
 import { Meal } from '../../../models/diet.interface';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-meal-details',
   templateUrl: './meal-details.component.html',
- // styleUrls: ['./meal-details.component.css']
+ // styleUrls: ['./meal-details.component.css'],
+
+  //  standalone: true,
+  //  imports: [CommonModule],
 })
 export class MealDetailsComponent implements OnInit {
   meal: Meal | null = null;

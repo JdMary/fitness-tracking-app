@@ -173,6 +173,12 @@ public class EdamamService {
             protein.setMax(preference.getMaxProtein());
             fit.put("PROCNT", protein);
         }
+        if (preference.getMinFat() > 0 && preference.getMaxFat() > 0) {
+            MealPlanRequest.NutrientRange fat = new MealPlanRequest.NutrientRange();
+            fat.setMin(preference.getMinFat());
+            fat.setMax(preference.getMaxFat());
+            fit.put("FAT", fat);
+        }
 
         return fit;
     }

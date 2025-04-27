@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PagesComponent } from './pages.component';
 import { MealDetailsComponent } from './diet-plan/meal-details/meal-details.component';
+import { AIComponent } from './diet-plan/ai/ai.component';
 
 const routes: Routes = [
   {
@@ -176,6 +177,7 @@ const routes: Routes = [
             (m) => m.DietPlanRoutingModule,
           ),
       },
+      { path: 'diet-plan/ai', component: AIComponent },
       {
         path: 'diet-plan/meal/:id',
         component: MealDetailsComponent,

@@ -721,8 +721,8 @@ export class DataService {
           ],
         },
         {
-          menuValue: 'Preferences',
-          routes: routes.dietPlan, // badalha 7asb l route mte3k
+          menuValue: 'Nutrients Calculator',
+          routes: routes.ai, // badalha 7asb l route mte3k
           hasSubRoute: false,
           showSubRoute: false,
           subMenus: [],

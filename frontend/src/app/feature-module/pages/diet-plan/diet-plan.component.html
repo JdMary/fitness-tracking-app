@@ -29,20 +29,23 @@
                     <div class="card border-0 mb-0">
                         <div class="card-body p-3 fieldset-wizard">
                             <div class="row">
-                                <!-- Sidebar -->
+                                <!-- Left Sidebar Navigation -->
                                 <div class="col-lg-3">
-                                    <!-- Dark Sidebar -->
-                                    <div class="card bg-dark text-white">
-                                        <div class="card-body">
-                                            <h6 class="text-white">Navigation</h6>
+                                    <div class="card bg-dark text-white shadow-sm rounded-lg">
+                                        <div class="card-body p-4">
+                                            <h6 class="text-white mb-3">Navigation</h6>
                                             <ul id="bokingwizard" class="wizard-progress">
                                                 <li class="pb-3" [class.active]="currentStep === 1">
-                                                    <span class="step-button" (click)="setStep(1)">1. Plan
-                                                        Duration</span>
+                                                    <span class="step-button d-flex align-items-center"
+                                                        (click)="setStep(1)">
+                                                        <i class="ti ti-calendar me-2"></i> 1. Plan Duration
+                                                    </span>
                                                 </li>
                                                 <li class="pb-3" [class.active]="currentStep === 2">
-                                                <li class="pb-3" [class.active]="currentStep === 2">
-                                                    <span class="step-button" (click)="setStep(2)">2. Preferences</span>
+                                                    <span class="step-button d-flex align-items-center"
+                                                        (click)="setStep(2)">
+                                                        <i class="ti ti-settings me-2"></i> 2. Preferences
+                                                    </span>
                                                     <!-- Preference Categories Submenu -->
                                                     <ul *ngIf="currentStep === 2" class="preference-submenu mt-2">
                                                         <li *ngFor="let category of preferenceCategories"
@@ -53,15 +56,17 @@
                                                         </li>
                                                     </ul>
                                                 </li>
-                                                <li class="pb-3" [class.active]="currentStep === 3">
-                                                    <span class="step-button" (click)="setStep(3)">3. Generated
-                                                        Plan</span>
+                                                <li [class.active]="currentStep === 3">
+                                                    <span class="step-button d-flex align-items-center"
+                                                        (click)="setStep(3)">
+                                                        <i class="ti ti-plate me-2"></i> 3. Generated Plan
+                                                    </span>
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- /Sidebar -->
+                                <!-- /Left Sidebar Navigation -->
 
                                 <!-- Main Content -->
                                 <div class="col-lg-6">
@@ -72,14 +77,14 @@
                                             [class.d-none]="currentStep !== 1">
                                             <div class="card shadow-sm rounded-lg">
                                                 <div class="card-header bg-light py-3">
-                                                    <h5 class="mb-0 fw-bold"><i
-                                                            class="ti ti-calendar me-2 text-primary"></i>Plan Duration
+                                                    <h5 class="mb-0 fw-bold">
+                                                        <i class="ti ti-calendar me-2 text-primary"></i>Plan Duration
                                                     </h5>
                                                 </div>
                                                 <div class="card-body p-4">
                                                     <!-- Number of Days -->
                                                     <div class="mb-4">
-                                                        <label class="form-label fw-medium">Number of Days</label>
+                                                        <label class="form-label fw-medium mb-2">Number of Days</label>
                                                         <div class="input-group shadow-sm rounded">
                                                             <button class="btn btn-outline-primary"
                                                                 (click)="decreaseDays()">
@@ -94,20 +99,20 @@
                                                                 <i class="ti ti-plus"></i>
                                                             </button>
                                                         </div>
-                                                        <div class="form-text text-muted">
+                                                        <div class="form-text text-muted mt-2">
                                                             Select between 1-30 days for your diet plan
                                                         </div>
                                                     </div>
 
                                                     <!-- Meal Types Selection -->
-                                                    <div class="mb-4">
-                                                        <h6>Select Meals</h6>
+                                                    <div class="mb-2">
+                                                        <h6 class="fw-medium mb-3">Select Meals</h6>
                                                         <div class="preferences-grid">
                                                             <div *ngFor="let type of allMealTypes"
                                                                 class="preference-item"
                                                                 [class.selected]="preferencesState.mealTypes[type]"
                                                                 (click)="togglePreference('mealTypes', type)">
-                                                                <i [class]="getMealTypeIcon(type)"></i>
+                                                                <i [class]="getMealTypeIcon(type)" class="me-2"></i>
                                                                 {{ formatLabel(type) }}
                                                             </div>
                                                         </div>
@@ -127,28 +132,28 @@
                                                     </h5>
                                                 </div>
                                                 <div class="card-body p-4">
-                                                    <!-- Meal Types -->
+                                                    <!-- Diet Labels -->
                                                     <div *ngIf="selectedCategory === 'Diet Types'"
                                                         class="preference-section">
-                                                        <h6 class="fw-medium mb-3">Select Diet Types</h6>
+                                                        <h6 class="fw-medium mb-3">Select Diet Type</h6>
                                                         <div class="preferences-grid row g-2 mb-3">
                                                             <div class="col-6 col-md-4"
-                                                                *ngFor="let type of allMealTypes">
+                                                                *ngFor="let label of allDietLabels">
                                                                 <button
                                                                     class="btn w-100 h-100 p-3 text-start d-flex align-items-center"
-                                                                    [class.btn-primary]="preferencesState.mealTypes[type]"
-                                                                    [class.btn-light]="!preferencesState.mealTypes[type]"
-                                                                    (click)="togglePreference('mealTypes', type)">
-                                                                    <i class="ti me-2"
-                                                                        [class]="getMealTypeIcon(type)"></i>
-                                                                    <span>{{ formatLabel(type) }}</span>
+                                                                    [class.btn-primary]="preferencesState.dietLabel === label"
+                                                                    [class.btn-light]="preferencesState.dietLabel !== label"
+                                                                    (click)="togglePreference('dietLabel', label)">
+                                                                    <i class="ti me-2 ti-bookmark"></i>
+                                                                    <span>{{ formatLabel(label) }}</span>
                                                                     <i class="ti ms-auto"
-                                                                        [class.ti-check]="preferencesState.mealTypes[type]"
-                                                                        [class.ti-plus]="!preferencesState.mealTypes[type]"></i>
+                                                                        [class.ti-check]="preferencesState.dietLabel === label"
+                                                                        [class.ti-plus]="preferencesState.dietLabel !== label"></i>
                                                                 </button>
                                                             </div>
                                                         </div>
                                                     </div>
+
 
                                                     <!-- Allergies Section -->
                                                     <div *ngIf="selectedCategory === 'Allergies'"
@@ -171,6 +176,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
+
                                                     <!-- Cuisines Section -->
                                                     <div *ngIf="selectedCategory === 'Cuisines'"
                                                         class="preference-section">
@@ -192,6 +198,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
+
                                                     <!-- Nutrients Section -->
                                                     <div *ngIf="selectedCategory === 'Nutrients'"
                                                         class="preference-section">
@@ -220,12 +227,12 @@
                                                                     [class.show]="i === 0"
                                                                     [attr.aria-labelledby]="'heading' + i"
                                                                     data-bs-parent="#nutrientAccordion">
-                                                                    <div class="accordion-body">
+                                                                    <div class="accordion-body p-4">
                                                                         <div class="row g-3">
                                                                             <!-- Min Value -->
                                                                             <div class="col-md-6">
-                                                                                <label class="form-label">Minimum {{
-                                                                                    nutrient.label }}</label>
+                                                                                <label class="form-label mb-2">Minimum
+                                                                                    {{ nutrient.label }}</label>
                                                                                 <div class="input-group">
                                                                                     <input type="number"
                                                                                         class="form-control"
@@ -238,8 +245,8 @@
                                                                             </div>
                                                                             <!-- Max Value -->
                                                                             <div class="col-md-6">
-                                                                                <label class="form-label">Maximum {{
-                                                                                    nutrient.label }}</label>
+                                                                                <label class="form-label mb-2">Maximum
+                                                                                    {{ nutrient.label }}</label>
                                                                                 <div class="input-group">
                                                                                     <input type="number"
                                                                                         class="form-control"
@@ -252,7 +259,7 @@
                                                                             </div>
                                                                         </div>
                                                                         <!-- Range Preview -->
-                                                                        <div class="mt-3"
+                                                                        <div class="mt-4"
                                                                             *ngIf="getNutrientValue(nutrient, 'min') || getNutrientValue(nutrient, 'max')">
                                                                             <div class="progress" style="height: 10px;">
                                                                                 <div class="progress-bar bg-info"
@@ -260,7 +267,7 @@
                                                                                     style="width: 100%"></div>
                                                                             </div>
                                                                             <div
-                                                                                class="d-flex justify-content-between mt-1">
+                                                                                class="d-flex justify-content-between mt-2">
                                                                                 <small>{{ getNutrientValue(nutrient,
                                                                                     'min') || '0' }} {{ nutrient.unit
                                                                                     }}</small>
@@ -284,8 +291,8 @@
                                             <div class="card shadow-sm rounded-lg">
                                                 <div class="card-header bg-light py-3">
                                                     <div class="d-flex align-items-center justify-content-between">
-                                                        <h5 class="mb-0 fw-bold"><i
-                                                                class="ti ti-plate me-2 text-primary"></i>Your Meal Plan
+                                                        <h5 class="mb-0 fw-bold">
+                                                            <i class="ti ti-plate me-2 text-primary"></i>Your Meal Plan
                                                         </h5>
                                                         <button class="btn btn-sm btn-outline-primary">
                                                             <i class="ti ti-refresh me-1"></i> Regenerate
@@ -333,23 +340,26 @@
                                                                                 <div
                                                                                     class="position-absolute top-0 end-0 p-2">
                                                                                     <span
-                                                                                        class="badge bg-primary py-2 px-3 rounded-pill fs-6">{{
-                                                                                        meal.mealType }}</span>
+                                                                                        class="badge bg-primary py-2 px-3 rounded-pill fs-6">
+                                                                                        {{ meal.mealType }}
+                                                                                    </span>
                                                                                 </div>
                                                                                 <div
                                                                                     class="position-absolute bottom-0 start-0 p-2 w-100 bg-gradient-dark">
                                                                                     <div
                                                                                         class="d-flex justify-content-between text-white">
-                                                                                        <span><i
-                                                                                                class="ti ti-flame me-1"></i>{{
-                                                                                            meal.calories |
-                                                                                            number:'1.0-0'
-                                                                                            }} kcal</span>
-                                                                                        <span><i
-                                                                                                class="ti ti-meat me-1"></i>{{
-                                                                                            meal.protein |
-                                                                                            number:'1.0-0'
-                                                                                            }}g protein</span>
+                                                                                        <span>
+                                                                                            <i
+                                                                                                class="ti ti-flame me-1"></i>
+                                                                                            {{ meal.calories |
+                                                                                            number:'1.0-0' }} kcal
+                                                                                        </span>
+                                                                                        <span>
+                                                                                            <i
+                                                                                                class="ti ti-meat me-1"></i>
+                                                                                            {{ meal.protein |
+                                                                                            number:'1.0-0' }}g protein
+                                                                                        </span>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -357,8 +367,9 @@
                                                                                 <h5 class="mb-2 text-truncate">
                                                                                     <a [href]="meal.recipeUrl"
                                                                                         target="_blank"
-                                                                                        class="text-dark">{{
-                                                                                        meal.name }}</a>
+                                                                                        class="text-dark">
+                                                                                        {{ meal.name }}
+                                                                                    </a>
                                                                                 </h5>
                                                                                 <div
                                                                                     class="d-flex justify-content-between align-items-center">
@@ -387,8 +398,6 @@
                                                                                             <span
                                                                                                 *ngIf="meal.completed">Completed</span>
                                                                                         </button>
-
-
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -396,245 +405,144 @@
                                                                     </div>
                                                                 </ng-container>
                                                             </div>
+
                                                             <!-- Daily Nutrition Comparison -->
                                                             <div class="card mt-4 border-0 bg-light shadow-sm">
                                                                 <div class="card-body p-3">
                                                                     <h6 class="card-title fw-bold">Daily Nutrient Stats
                                                                     </h6>
 
-                                                                    <div
-                                                                        *ngIf="dailyNutrientStats?.length > 0; else noStats">
-                                                                        <div class="row">
-                                                                            <div *ngFor="let stat of dailyNutrientStats"
-                                                                                class="col-md-6 mb-4">
-                                                                                <div
-                                                                                    class="card border-0 shadow-sm h-100">
-                                                                                    <div class="card-body">
-                                                                                        <h6 class="card-title mb-3">Day
-                                                                                            {{ stat.dayNumber }}</h6>
+                                                                    <ng-container
+                                                                        *ngIf="selectedDayStats; else noStats">
+                                                                        <div class="card border-0 shadow-sm h-100">
+                                                                            <div class="card-body">
+                                                                                <h6 class="card-title mb-3">Day {{
+                                                                                    selectedDayStats.dayNumber }}</h6>
 
-                                                                                        <!-- Calories -->
-                                                                                        <p class="mb-1">
-                                                                                            <strong>Calories:</strong>
-                                                                                            {{ stat.totalCalories |
-                                                                                            number:'1.0-0' }} / {{
-                                                                                            stat.calorieTarget }} kcal
-                                                                                        </p>
-                                                                                        <div class="progress mb-3">
-                                                                                            <div class="progress-bar bg-warning"
-                                                                                                role="progressbar"
-                                                                                                [style.width.%]="(stat.totalCalories / stat.calorieTarget) * 100">
-                                                                                            </div>
-                                                                                        </div>
+                                                                                <!-- Calories -->
+                                                                                <p class="mb-1">
+                                                                                    <strong>Calories:</strong>
+                                                                                    {{ selectedDayStats.totalCalories |
+                                                                                    number:'1.0-0' }} / {{
+                                                                                    selectedDayStats.calorieTarget }}
+                                                                                    kcal
+                                                                                </p>
+                                                                                <div class="progress mb-3">
+                                                                                    <div class="progress-bar bg-warning"
+                                                                                        role="progressbar"
+                                                                                        [style.width.%]="(selectedDayStats.totalCalories / selectedDayStats.calorieTarget) * 100">
+                                                                                    </div>
+                                                                                </div>
 
-                                                                                        <!-- Protein -->
-                                                                                        <p class="mb-1">
-                                                                                            <strong>Protein:</strong> {{
-                                                                                            stat.totalProtein |
-                                                                                            number:'1.0-0' }} / {{
-                                                                                            stat.targetProtein }} g
-                                                                                        </p>
-                                                                                        <div class="progress mb-3">
-                                                                                            <div class="progress-bar bg-info"
-                                                                                                role="progressbar"
-                                                                                                [style.width.%]="(stat.totalProtein / stat.targetProtein) * 100">
-                                                                                            </div>
-                                                                                        </div>
+                                                                                <!-- Protein -->
+                                                                                <p class="mb-1">
+                                                                                    <strong>Protein:</strong>
+                                                                                    {{ selectedDayStats.totalProtein |
+                                                                                    number:'1.0-0' }} / {{
+                                                                                    selectedDayStats.targetProtein }} g
+                                                                                </p>
+                                                                                <div class="progress mb-3">
+                                                                                    <div class="progress-bar bg-info"
+                                                                                        role="progressbar"
+                                                                                        [style.width.%]="(selectedDayStats.totalProtein / selectedDayStats.targetProtein) * 100">
+                                                                                    </div>
+                                                                                </div>
 
-                                                                                        <!-- Carbs -->
-                                                                                        <p class="mb-1">
-                                                                                            <strong>Carbs:</strong> {{
-                                                                                            stat.totalCarbs |
-                                                                                            number:'1.0-0' }} / {{
-                                                                                            stat.targetCarbs }} g
-                                                                                        </p>
-                                                                                        <div class="progress mb-3">
-                                                                                            <div class="progress-bar bg-success"
-                                                                                                role="progressbar"
-                                                                                                [style.width.%]="(stat.totalCarbs / stat.targetCarbs) * 100">
-                                                                                            </div>
-                                                                                        </div>
+                                                                                <!-- Carbs -->
+                                                                                <p class="mb-1">
+                                                                                    <strong>Carbs:</strong>
+                                                                                    {{ selectedDayStats.totalCarbs |
+                                                                                    number:'1.0-0' }} / {{
+                                                                                    selectedDayStats.targetCarbs }} g
+                                                                                </p>
+                                                                                <div class="progress mb-3">
+                                                                                    <div class="progress-bar bg-success"
+                                                                                        role="progressbar"
+                                                                                        [style.width.%]="(selectedDayStats.totalCarbs / selectedDayStats.targetCarbs) * 100">
+                                                                                    </div>
+                                                                                </div>
 
-                                                                                        <!-- Fat -->
-                                                                                        <p class="mb-1">
-                                                                                            <strong>Fat:</strong> {{
-                                                                                            stat.totalFat |
-                                                                                            number:'1.0-0' }} g
-                                                                                        </p>
-                                                                                        <div class="progress">
-                                                                                            <div class="progress-bar bg-danger"
-                                                                                                role="progressbar"
-                                                                                                [style.width.%]="(stat.totalFat / 70) * 100">
-                                                                                            </div>
-                                                                                        </div>
-
+                                                                                <!-- Fat -->
+                                                                                <p class="mb-1">
+                                                                                    <strong>Fat:</strong>
+                                                                                    {{ selectedDayStats.totalFat |
+                                                                                    number:'1.0-0' }} g
+                                                                                </p>
+                                                                                <div class="progress">
+                                                                                    <div class="progress-bar bg-danger"
+                                                                                        role="progressbar"
+                                                                                        [style.width.%]="(selectedDayStats.totalFat / 70) * 100">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
+                                                                    </ng-container>
 
                                                                     <ng-template #noStats>
                                                                         <p class="text-muted text-center">No nutrient
-                                                                            stats available.</p>
+                                                                            stats available for this day.</p>
                                                                     </ng-template>
                                                                 </div>
                                                             </div>
-
-
-                                                            <!-- Meal Completion Analytics -->
-                                                            <!--
-                                                            <div *ngIf="analytics">
-                                                                <p><strong>Completion Rate:</strong> {{
-                                                                    analytics.completionRate | number: '1.0-0' }}%</p>
-                                                                <p><strong>Completed Meals:</strong> {{
-                                                                    analytics.completedMeals }} / {{
-                                                                    analytics.totalMeals }}</p>
-
-                                                                <div class="mt-4">
-                                                                    <h6 class="fw-semibold mb-3">Nutrient Progress</h6>
-
-                                                                    <div class="mb-3">
-                                                                        <label
-                                                                            class="form-label d-flex justify-content-between">
-                                                                            <span>Calories</span>
-                                                                            <span>
-                                                                                {{ analytics.consumedNutrients?.calories
-                                                                                || 0 }} /
-                                                                                {{
-                                                                                (analytics.consumedNutrients?.calories
-                                                                                || 0) +
-                                                                                (analytics.remainingNutrients?.calories
-                                                                                || 0) }} kcal
-                                                                            </span>
-                                                                        </label>
-                                                                        <div class="progress">
-                                                                            <div class="progress-bar bg-warning"
-                                                                                role="progressbar"
-                                                                                [style.width.%]="(analytics.consumedNutrients?.calories / ((analytics.consumedNutrients?.calories || 0) + (analytics.remainingNutrients?.calories || 0))) * 100">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="mb-3">
-                                                                        <label
-                                                                            class="form-label d-flex justify-content-between">
-                                                                            <span>Protein</span>
-                                                                            <span>
-                                                                                {{ analytics.consumedNutrients?.protein
-                                                                                || 0 }} /
-                                                                                {{ (analytics.consumedNutrients?.protein
-                                                                                || 0) +
-                                                                                (analytics.remainingNutrients?.protein
-                                                                                || 0) }} g
-                                                                            </span>
-                                                                        </label>
-                                                                        <div class="progress">
-                                                                            <div class="progress-bar bg-info"
-                                                                                role="progressbar"
-                                                                                [style.width.%]="(analytics.consumedNutrients?.protein / ((analytics.consumedNutrients?.protein || 0) + (analytics.remainingNutrients?.protein || 0))) * 100">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="mb-3">
-                                                                        <label
-                                                                            class="form-label d-flex justify-content-between">
-                                                                            <span>Carbs</span>
-                                                                            <span>
-                                                                                {{ analytics.consumedNutrients?.carbs ||
-                                                                                0 }} /
-                                                                                {{ (analytics.consumedNutrients?.carbs
-                                                                                || 0) +
-                                                                                (analytics.remainingNutrients.carbs ||
-                                                                                0) }} g
-                                                                            </span>
-                                                                        </label>
-                                                                        <div class="progress">
-                                                                            <div class="progress-bar bg-success"
-                                                                                role="progressbar"
-                                                                                [style.width.%]="(analytics.consumedNutrients?.carbs / ((analytics.consumedNutrients?.carbs || 0) + (analytics.remainingNutrients?.carbs || 0))) * 100">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="mb-3">
-                                                                        <label
-                                                                            class="form-label d-flex justify-content-between">
-                                                                            <span>Fats</span>
-                                                                            <span>
-                                                                                {{ analytics.consumedNutrients?.fat || 0
-                                                                                }} /
-                                                                                {{ (analytics.consumedNutrients?.fat ||
-                                                                                0) + (analytics.remainingNutrients?.fat
-                                                                                || 0) }} g
-                                                                            </span>
-                                                                        </label>
-                                                                        <div class="progress">
-                                                                            <div class="progress-bar bg-danger"
-                                                                                role="progressbar"
-                                                                                [style.width.%]="(analytics.consumedNutrients?.fat / ((analytics.consumedNutrients?.fat || 0) + (analytics.remainingNutrients?.fat || 0))) * 100">
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            -->
 
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </fieldset>
-<!-- Navigation Bar -->
-<div class="navigation-bar sticky-bottom bg-white shadow p-3 rounded-3 mt-4 border-top">
-    <div class="d-flex justify-content-between align-items-center flex-wrap gap-2">
-  
-      <!-- Previous Button -->
-      <button *ngIf="currentStep > 1" class="btn btn-outline-primary px-4" (click)="previousStep()">
-        <i class="ti ti-arrow-left me-2"></i> Previous
-      </button>
-  
-      <!-- Step Dots -->
-      <div class="step-indicator mx-auto d-flex align-items-center gap-2">
-        <ng-container *ngFor="let step of [1, 2, 3]">
-          <div [ngClass]="{
-              'step-dot': true,
-              'active': currentStep === step,
-              'completed': currentStep > step
-            }">
-          </div>
-        </ng-container>
-      </div>
-  
-      <!-- Next / Generate Button -->
-      <button *ngIf="currentStep < 3" class="btn btn-primary px-4" (click)="nextStep()" [disabled]="!canProceedToNextStep()">
-        {{ currentStep === 2 ? 'Generate Plan' : 'Next' }}
-        <i class="ti ms-2" [class.ti-arrow-right]="currentStep !== 2" [class.ti-wand]="currentStep === 2"></i>
-      </button>
-  
-      <!-- Save Button -->
-      <button *ngIf="currentStep === 3" class="btn btn-success px-4" (click)="savePlan()">
-        <i class="ti ti-download me-2"></i> Save Plan
-      </button>
-  
-    </div>
-  </div>
-  
-                                    </div>
 
+                                        <!-- Navigation Bar -->
+                                        <div
+                                            class="navigation-bar sticky-bottom bg-white shadow-sm p-3 rounded-3 mt-4 border-top">
+                                            <div
+                                                class="d-flex justify-content-between align-items-center flex-wrap gap-2">
+
+                                                <!-- Previous Button -->
+                                                <button *ngIf="currentStep > 1" class="btn btn-outline-primary px-4"
+                                                    (click)="previousStep()">
+                                                    <i class="ti ti-arrow-left me-2"></i> Previous
+                                                </button>
+
+                                                <!-- Step Dots -->
+                                                <div class="step-indicator mx-auto d-flex align-items-center gap-2">
+                                                    <ng-container *ngFor="let step of [1, 2, 3]">
+                                                        <div [ngClass]="{
+                                  'step-dot': true,
+                                  'active': currentStep === step,
+                                  'completed': currentStep > step
+                                }">
+                                                        </div>
+                                                    </ng-container>
+                                                </div>
+
+                                                <!-- Next / Generate Button -->
+                                                <button *ngIf="currentStep < 3" class="btn btn-primary px-4"
+                                                    (click)="nextStep()" [disabled]="!canProceedToNextStep()">
+                                                    {{ currentStep === 2 ? 'Generate Plan' : 'Next' }}
+                                                    <i class="ti ms-2" [class.ti-arrow-right]="currentStep !== 2"
+                                                        [class.ti-wand]="currentStep === 2"></i>
+                                                </button>
+
+                                                <!-- Save Button -->
+                                                <button *ngIf="currentStep === 3" class="btn btn-success px-4"
+                                                    (click)="savePlan()">
+                                                    <i class="ti ti-download me-2"></i> Save Plan
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <!-- /Main Content -->
+
                                 <!-- Right Sidebar - Selected Preferences -->
                                 <div class="col-lg-3">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <div class="card-header bg-light py-3">
-                                                <h5 class="mb-0 fw-bold"><i
-                                                        class="ti ti-calendar me-2 text-primary"></i>Your Selections
-                                                </h5>
-                                            </div>
-
+                                    <div class="card shadow-sm rounded-lg">
+                                        <div class="card-header bg-light py-3">
+                                            <h5 class="mb-0 fw-bold">
+                                                <i class="ti ti-list-check me-2 text-primary"></i>Your Selections
+                                            </h5>
+                                        </div>
+                                        <div class="card-body p-4">
                                             <!-- Selected Meal Types -->
                                             <div class="preference-category mb-4">
                                                 <h6 class="text-muted mb-3">Selected Meals</h6>
@@ -682,7 +590,6 @@
                                     </div>
                                 </div>
                                 <!-- /Right Sidebar - Selected Preferences -->
-
                             </div>
                         </div>
                     </div>
@@ -691,8 +598,5 @@
         </div>
     </div>
 </div>
-
-
-
 
 <router-outlet></router-outlet>

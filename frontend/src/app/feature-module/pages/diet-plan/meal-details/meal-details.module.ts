@@ -6,6 +6,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MealRoutingModule } from './meal-details-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MealDetailsComponent } from './meal-details.component';
+import { AIComponent } from '../ai/ai.component';
 
 const routes: Routes = [
   { path: '', component: MealDetailsComponent }
@@ -14,9 +15,9 @@ const routes: Routes = [
 @NgModule({
   declarations: [MealDetailsComponent],
   imports: [
-    CommonModule, // Ensure CommonModule is imported here
+    CommonModule, 
     FormsModule,
-    RouterModule.forChild(routes),
+    //RouterModule.forChild(routes),
     MealRoutingModule,
     SharedModule,
   ]
