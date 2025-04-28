@@ -7,13 +7,16 @@ import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
-  declarations: [
-    CustomerDashboardComponent
-  ],
-  imports: [
-    CommonModule,
-    CustomerDashboardRoutingModule,
-    SharedModule
-  ]
+    declarations: [
+        CustomerDashboardComponent
+    ],
+    exports: [
+        CustomerDashboardComponent
+    ],
+    imports: [
+        CommonModule,
+        CustomerDashboardRoutingModule,
+        SharedModule
+    ]
 })
 export class CustomerDashboardModule { }

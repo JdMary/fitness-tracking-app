@@ -17,6 +17,9 @@ import { CustomersSidebarComponent } from './common/customers-sidebar/customers-
     CustomersSidebarComponent,
     CustomerFooterComponent
   ],
+  exports: [
+    CustomersHeaderComponent
+  ],
   imports: [
     CommonModule,
     CustomersRoutingModule

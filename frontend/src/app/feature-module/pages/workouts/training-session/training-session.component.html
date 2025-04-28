@@ -1,0 +1,54 @@
+<div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
+  <div class="d-flex align-items-center">
+    <span class="text-dark me-2">Sort</span>
+    
+    <a href="javascript:void(0);" class="tags d-flex justify-content-center align-items-center border rounded me-2">
+      <i class="ti ti-calendar"></i>
+    </a>
+    <a href="javascript:void(0);" class="tags d-flex justify-content-center align-items-center border rounded">
+      <i class="ti ti-adjustments-alt"></i>
+    </a>
+  </div>
+</div>
+
+<div class="container-service">
+  <div *ngIf="loading" class="text-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+  </div>
+
+  <div *ngIf="!loading && !error" class="row justify-content-center align-items-center">
+    <div class="col-xxl-4 col-md-6" *ngFor="let session of trainingSessions">
+      <div class="card p-0">
+        <div class="card-body p-0">
+          <div class="image-tag d-flex justify-content-end align-items-center">
+            <span class="trend-tag-2">{{ session.guided ? 'Guided' : 'Self-Training' }}</span>
+          </div>
+          <div class="img-content p-3">
+            <h6 class="fs-16 mb-3">
+              Training Session ID: {{ session.trainingSessionId }}
+            </h6>
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <div class="user-id">
+                <h6 class="fs-14">Entry Time: {{ session.entryTime }}</h6>
+                <h6 class="fs-14">Exit Time: {{ session.exitTime }}</h6>
+              </div>
+            </div>
+            <div class="d-flex justify-content-end">
+              <button class="btn btn-primary btn-sm me-2" (click)="showExercices(session.trainingSessionId)">Show Exercises</button>
+              <button class="btn btn-light btn-sm" (click)="goBack()">Go Back</button>
+              <button class="btn btn-sm btn-danger" (click)="onDelete(session.trainingSessionId)">
+                <i class="ti ti-trash"></i>
+          </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

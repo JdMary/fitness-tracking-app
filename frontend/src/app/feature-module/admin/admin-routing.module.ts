@@ -415,7 +415,7 @@ const routes: Routes = [
             (m) => m.GenerateChallengeModule
           ),
       }
-  ,  
+      ,  
       {
       path: 'liste-achievements',
       loadChildren: () =>
@@ -776,6 +776,11 @@ const routes: Routes = [
           path: 'diet-plan/meal-details/:id',
           component: MealDetailsComponent,
         },
+        {
+        path: 'workout',
+        loadChildren: () =>
+          import('./workout/workout.module').then((m) => m.WorkoutModule),
+        }
     ],
   },
 ];

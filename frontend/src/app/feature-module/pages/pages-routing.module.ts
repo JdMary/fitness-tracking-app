@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PagesComponent } from './pages.component';
 import { MealDetailsComponent } from './diet-plan/meal-details/meal-details.component';
+import {WorkoutsModule} from "./workouts/workouts.module";
 
 const routes: Routes = [
   {
@@ -180,6 +181,13 @@ const routes: Routes = [
         path: 'diet-plan/meal/:id',
         component: MealDetailsComponent,
       },
+      {
+        path: 'workouts',
+        loadChildren: () =>
+          import('./workouts/workouts.module').then(
+            m => m.WorkoutsModule
+          ),
+      }
     ],
   },
 ];

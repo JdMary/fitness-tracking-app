@@ -1,0 +1,23 @@
+<h2 class="mb-4 text-center">Progress Insights</h2>
+
+<div class="row">
+  <!-- Burned Calories Chart -->
+  <div class="col-md-6">
+    <h5>Burned Calories per Progress</h5>
+    <canvas baseChart
+      [data]="caloriesChartData"
+      [options]="caloriesChartOptions"
+      [type]="chartType">
+    </canvas>
+  </div>
+
+  <!-- Estimated Weight Chart -->
+  <div class="col-md-6">
+    <h5>Estimated Weight per Progress</h5>
+    <canvas baseChart
+      [data]="weightChartData"
+      [options]="weightChartOptions"
+      [type]="chartType">
+    </canvas>
+  </div>
+</div>

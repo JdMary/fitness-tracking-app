@@ -1,0 +1,47 @@
+<div class="container mt-4">
+    <h2 class="mb-4 text-center">Training Session Insights</h2>
+
+    <!-- Chart Section -->
+    <div class="mb-4">
+        <canvas baseChart
+            [data]="lineChartData"
+            [options]="lineChartOptions"
+            [type]="lineChartType">
+        </canvas>
+    </div>
+
+    <!-- Insights Section -->
+    <div class="row g-3">
+        <!-- Best Session Info -->
+        <div *ngIf="bestSession" class="col-md-4">
+            <div class="p-3 border rounded bg-light">
+                <h6 class="text-primary"><i class="ti ti-flame me-2"></i>Best Session</h6>
+                <p class="mb-2"><strong>Session ID:</strong> {{ bestSession.sessionId }}</p>
+                <p class="mb-2"><strong>Calories:</strong> {{ bestSession.calories }}</p>
+                <p class="mb-2"><strong>Duration:</strong> {{ bestSession.durationMinutes }} min</p>
+                <p class="mb-0"><strong>Efficiency:</strong> {{ bestSession.caloriesPerMinute | number:'1.2-2' }} cal/min</p>
+            </div>
+        </div>
+
+        <!-- Average Calories Info -->
+        <div class="col-md-4">
+            <div class="p-3 border rounded bg-light">
+                <h6 class="text-primary"><i class="ti ti-chart-arrows-vertical me-2"></i>Average Performance</h6>
+                <p class="mb-0" *ngIf="avgCaloriesPerMinute !== undefined && avgCaloriesPerMinute !== null">
+                    {{ avgCaloriesPerMinute | number:'1.2-2' }} calories/minute
+                </p>
+                <p class="mb-0" *ngIf="avgCaloriesPerMinute === undefined || avgCaloriesPerMinute === null">
+                    No data available
+                </p>
+            </div>
+        </div>
+
+        <!-- Recommendation -->
+        <div class="col-md-4">
+            <div class="p-3 border rounded bg-light">
+                <h6 class="text-primary"><i class="ti ti-bulb me-2"></i>Recommendation</h6>
+                <p class="mb-0">{{ recommendation }}</p>
+            </div>
+        </div>
+    </div>
+</div>

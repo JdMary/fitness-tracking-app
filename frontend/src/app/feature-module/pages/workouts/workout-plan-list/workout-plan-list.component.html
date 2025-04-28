@@ -1,0 +1,173 @@
+<!-- Breadcrumb -->
+<div class="breadcrumb-bar text-center py-4 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-12">
+                <h2 class="breadcrumb-title mb-3 text-primary">Workout Plans</h2>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center mb-0">
+                        <li class="breadcrumb-item"><a [routerLink]="['/']" class="text-decoration-none"><i class="ti ti-home-2"></i></a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Workout Plans</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Page Wrapper -->
+<div class="page-wrapper py-4">
+    <div class="content">
+        <div class="container">
+            <div class="row g-3">
+
+                <!-- Filters Section -->
+                <div class="col-xl-3 col-lg-4">
+                    <div class="sticky-top" style="top: 20px;">
+                        <div class="card shadow-sm mb-3">
+                            <div class="card-body">
+                                <form>
+                                    <div class="d-flex align-items-center justify-content-between mb-4">
+                                        <h5 class="mb-0"><i class="ti ti-filter-check me-2 text-primary"></i>Filters</h5>
+                                        <a href="javascript:void(0);" class="text-decoration-none text-muted small">Reset Filter</a>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="form-label text-muted">Search By Keyword</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light"><i class="ti ti-search"></i></span>
+                                            <input type="text" class="form-control" placeholder="Search workout plans...">
+                                        </div>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label class="form-label text-muted">Difficulty Level</label>
+                                        <select class="form-select">
+                                            <option value="">All Levels</option>
+                                            <option value="Beginner">Beginner</option>
+                                            <option value="Intermediate">Intermediate</option>
+                                            <option value="Advanced">Advanced</option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100"><i class="ti ti-filter me-2"></i>Apply Filters</button>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- Progress Tracker moved here -->
+                        <app-progress-tracker></app-progress-tracker>
+                    </div>
+                </div>
+
+                <!-- Workout Plans List -->
+                <div class="col-xl-9 col-lg-8">
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                            <h4 class="card-title mb-0 text-primary">Workout Plans</h4>
+                            <div class="btn-group">
+                                <a [routerLink]="['/workouts/plans/create']" class="btn btn-primary">
+                                    <i class="ti ti-plus me-2"></i>Create New Plan
+                                </a>
+                                <a [routerLink]="['/workouts/training-session']" class="btn btn-outline-secondary">
+                                    <i class="ti ti-list me-2"></i>View All Sessions
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <!-- Loading State -->
+                            <div *ngIf="loading" class="text-center p-5">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <p class="text-muted mt-3">Loading workout plans...</p>
+                            </div>
+
+                            <!-- Error State -->
+                            <div *ngIf="error" class="alert alert-danger d-flex align-items-center">
+                                <i class="ti ti-alert-circle me-2"></i>
+                                {{ error }}
+                            </div>
+
+                            <!-- Data Table -->
+                            <div *ngIf="!loading && !error" class="table-responsive">
+                                <table class="table table-hover align-middle">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Description</th>
+                                            <th>Duration (mins)</th>
+                                            <th>Start Date</th>
+                                            <th>Difficulty</th>
+                                            <th>Goal</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let plan of workoutPlans">
+                                            <td class="text-wrap">{{ plan.description }}</td>
+                                            <td>{{ plan.duration }}</td>
+                                            <td>{{ plan.startDate | date:'mediumDate' }}</td>
+                                            <td>
+                                                <span class="badge solid-badge" [ngClass]="{
+                                                    'bg-success-solid': plan.difficulty === 'Beginner',
+                                                    'bg-warning-solid': plan.difficulty === 'Intermediate',
+                                                    'bg-danger-solid': plan.difficulty === 'Advanced'
+                                                }">
+                                                    {{ plan.difficulty }}
+                                                </span>
+                                            </td>
+                                            <td>{{ plan.goal }}</td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <button class="btn btn-sm btn-outline-info" (click)="onEdit(plan.workoutPlanId)" title="Edit">
+                                                        <i class="ti ti-edit"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-danger" (click)="onDelete(plan.workoutPlanId)" title="Delete">
+                                                        <i class="ti ti-trash"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-success" (click)="onAddTrainingSession(plan.workoutPlanId)" title="Add Session">
+                                                        <i class="ti ti-plus"></i>
+                                                    </button>
+                                                    <button class="btn btn-sm btn-outline-primary" (click)="showTrainingSessions(plan.workoutPlanId)" title="Show Sessions">
+                                                        <i class="ti ti-list"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr *ngIf="workoutPlans.length === 0">
+                                            <td colspan="5" class="text-center py-5">
+                                                <i class="ti ti-clipboard-x text-muted fs-2 mb-3 d-block"></i>
+                                                <p class="text-muted mb-0">No workout plans found</p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Integrated Training Session Insights -->
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-white py-3">
+                            <h4 class="card-title mb-0 text-primary">
+                                <i class="ti ti-chart-line me-2"></i>Training Session Insights
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            <app-training-session-insights></app-training-session-insights>
+                        </div>
+                    </div>
+
+                    <!-- Progress Insights Integration -->
+                    <div class="card shadow-sm mt-4">
+                        <div class="card-header bg-white py-3">
+                            <h4 class="card-title mb-0 text-primary">
+                                <i class="ti ti-activity me-2"></i>Progress Insights
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            <app-progress-insights></app-progress-insights>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

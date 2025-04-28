@@ -1,0 +1,22 @@
+<div class="breadcrumb-bar text-center py-4 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-12">
+                <h2 class="breadcrumb-title mb-2">Workout</h2>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb justify-content-center mb-0">
+                        <li class="breadcrumb-item"><a [routerLink]="routes.homeOne"><i class="ti ti-home-2"></i></a></li>
+                        <li class="breadcrumb-item">Customer</li>
+                        <li class="breadcrumb-item active" aria-current="page">Workout</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="workouts-container py-5">
+    <div class="container">
+        <router-outlet></router-outlet>
+    </div>
+</div>

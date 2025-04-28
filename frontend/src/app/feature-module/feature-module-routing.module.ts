@@ -58,6 +58,13 @@ const routes: Routes = [
         loadChildren: () =>
           import('./home-seven/home-seven.module').then((m) => m.HomeSevenModule),
       },
+      /*{
+        path: 'workouts/plans',
+        loadChildren: () =>
+          import('./pages/workouts/workout-plan/workout-plan.module').then(
+            (m) => m.WorkoutPlanModule
+          ),
+      },*/
     ],
   },
   {

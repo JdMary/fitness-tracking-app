@@ -1,0 +1,96 @@
+<div class="page-wrapper page-settings">
+    <div class="content">
+      <div class="content-page-header content-page-headersplit">
+        <h5>All Exercises</h5>
+        <div class="list-btn">
+          <ul>
+            <li>
+              <div class="filter-sorting">
+                <ul>
+                  <li>
+                    <a href="javascript:void(0);" class="filter-sets"><i class="feather icon-filter me-2"></i>Filter</a>
+                  </li>
+                  <li>
+                    <a href="javascript:void(0);" class="filter-sets">
+                      <div class="form-group mb-0 d-flex">
+                        <input
+                          type="number"
+                          class="form-control"
+                          placeholder="Enter Session ID"
+                          [(ngModel)]="trainingSessionId"
+                        />
+                        <button class="btn btn-primary ms-2" (click)="applyFilter()">Filter</button>
+                      </div>
+                    </a>
+                  </li>
+                  <li>
+                    <span><img src="assets/admin/img/icons/sort.svg" class="me-2" alt="img" /></span>
+                    <div class="custom-select">
+                      <mat-select class="select" placeholder="Sort By">
+                        <mat-option value="exerciseId">Exercise ID</mat-option>
+                        <mat-option value="trainingSessionId">Session ID</mat-option>
+                      </mat-select>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li>
+              <a class="btn btn-primary"><i class="fa fa-plus me-2"></i>Create Exercise</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-12">
+          <div class="tab-contents-count">
+            <h6>Showing {{ filteredExercices.length }} exercises</h6>
+          </div>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-12">
+          <div class="table-resposnive table-div">
+            <table matSort class="table datatable">
+              <thead>
+                <tr>
+                  <th mat-sort-header="exerciseId">Exercise ID</th>
+                  <th mat-sort-header="sets">Sets</th>
+                  <th mat-sort-header="reps">Reps</th>
+                  <th mat-sort-header="trainingSessionId">Session ID</th>
+                  <th>Category</th>
+                  <th>Difficulty</th>
+                  <th>Username</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let ex of filteredExercices">
+                  <td>{{ ex.exerciseId }}</td>
+                  <td>{{ ex.sets }}</td>
+                  <td>{{ ex.reps }}</td>
+                  <td>{{ ex.trainingSessionId }}</td>
+                  <td>{{ ex.category }}</td>
+                  <td>{{ ex.difficulty }}</td>
+                  <td>{{ ex.username }}</td>
+                  <td>
+                    <div class="action-items">
+                      <a class="btn btn-sm bg-info-light me-2" title="View Instructions">
+                        <i class="far fa-eye me-1"></i>
+                      </a>
+                      <a class="btn btn-sm bg-danger-light" title="Delete">
+                        <i class="far fa-trash-alt me-1"></i>
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

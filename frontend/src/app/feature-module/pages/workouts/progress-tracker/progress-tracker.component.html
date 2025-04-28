@@ -1,0 +1,57 @@
+<div class="col-12">
+    <div class="w-100">
+        <div class="row g-3">
+            <div class="col-12">
+                <div class="card prov-widget mb-3">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div class="mb-2">
+                                <p class="mb-1">Upcoming Appointments</p>
+                                <h5><span class="counter" [countUp]="12"
+                                    [options]="{ enableScrollSpy: true }">12</span>+</h5>
+                            </div>
+                            <span class="prov-icon bg-info d-flex justify-content-center align-items-center rounded">
+                                <i class="ti ti-calendar-check"></i>
+                            </span>
+                        </div>
+                        <p class="fs-12"><span class="text-success me-2">12% <i class="ti ti-arrow-badge-up-filled"></i></span>from Last Week</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="card prov-widget mb-3">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div class="mb-2">
+                                <p class="mb-1">Completed Appointments</p>
+                                <h5><span class="counter" [countUp]="68"
+                                    [options]="{ enableScrollSpy: true }">68</span>+</h5>
+                            </div>
+                            <span class="prov-icon bg-success d-flex justify-content-center align-items-center rounded">
+                                <i class="ti ti-calendar-check"></i>
+                            </span>
+                        </div>
+                        <p class="fs-12"><span class="text-danger me-2">12% <i class="ti ti-arrow-badge-down-filled"></i></span>from Last Week</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="card prov-widget">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div class="mb-2">
+                                <p class="mb-1">Canceled Appointments</p>
+                                <h5><span class="counter"  [countUp]="8"
+                                    [options]="{ enableScrollSpy: true }">8</span>+</h5>
+                            </div>
+                            <span class="prov-icon bg-danger d-flex justify-content-center align-items-center rounded">
+                                <i class="ti ti-calendar-check"></i>
+                            </span>
+                        </div>
+                        <p class="fs-12"><span class="text-danger me-2">0%</span>from Last Week</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

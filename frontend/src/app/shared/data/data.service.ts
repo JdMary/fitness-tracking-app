@@ -664,21 +664,50 @@ export class DataService {
       menu: [
         {
           menuValue: 'Workout plans',
-          routes: routes.customerDashboard,
-          hasSubRoute: false,
+          routes: routes.workoutPlans,
+          hasSubRoute: true,
           showSubRoute: false,
-          subMenus: [],
+          subMenus: [
+            {
+              menuValue: 'View Plans',
+              routes: routes.workoutPlansList,
+              hasSubRoute: false,
+              showSubRoute: false,
+              subMenus: [],
+            },
+            {
+              menuValue: 'Create Plan',
+              routes: routes.createWorkoutPlan,
+              hasSubRoute: false,
+              showSubRoute: false,
+              subMenus: [],
+            }
+          ],
         },
         {
           menuValue: 'Training sessions',
-          routes: routes.customerBooking,
+          routes: routes.trainingSessions,
           hasSubRoute: false,
           showSubRoute: false,
           subMenus: [],
         },
         {
           menuValue: 'Exercices',
-          routes: routes.poseAi, // badalha 7asb l route mte3k
+          routes: routes.exercises, // badalha 7asb l route mte3k
+          hasSubRoute: false,
+          showSubRoute: false,
+          subMenus: [],
+        },
+        {
+          menuValue: 'Create Full Workout',
+          routes: routes.workoutWizard,
+          hasSubRoute: false,
+          showSubRoute: false,
+          subMenus: [],
+        },
+        {
+          menuValue: 'AI Excercices Helper',
+          routes: routes.poseAi,
           hasSubRoute: false,
           showSubRoute: false,
           subMenus: [],
@@ -919,7 +948,7 @@ export class DataService {
         },
       ],
     },
-    
+
     {
       tittle: 'Providers',
       showAsTab: false,
@@ -1533,20 +1562,20 @@ export class DataService {
           menuValue: 'Workout',
           hasSubRoute: true,
           showSubRoute: false,
-          route: routes.service, //badl 7asb l route mte3k
+          route: routes.adminWorkout, //badl 7asb l route mte3k
           icon: 'icon-briefcase',
           subMenus: [
             {
-              menuValue: 'Add Service',
-              route: routes. addServices, //badl 7asb l route mte3k
+              menuValue: 'Workout Plans List',
+              route: routes.adminWorkoutPlansList, //badl 7asb l route mte3k
             },
             {
-              menuValue: 'Services',
-              route: routes.service, //badl 7asb l route mte3k
+              menuValue: 'Training Sessions List',
+              route: routes.adminTrainingSessionList, //badl 7asb l route mte3k
             },
             {
-              menuValue: 'Service Settings',
-              route: routes.serviceSettings, //badl 7asb l route mte3k
+              menuValue: 'Exercices List',
+              route: routes.adminExercicesList, //badl 7asb l route mte3k
             },
           ],
         },

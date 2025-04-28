@@ -970,4 +970,39 @@ export class routes {
   // }
  
 
+  public static get workoutPlans(): string {
+    return this.baseUrl + '/workouts/workout-plan';
+  }
+    public static get workoutPlansList(): string {
+      return this.baseUrl + '/workouts/plans/list';
+    }
+  public static get createWorkoutPlan(): string {
+    return this.baseUrl + '/workouts/plans/create';
+  }
+  public static get workoutWizard(): string {
+    return this.baseUrl + '/workouts/wizard';
+  }
+  public static get trainingSessions(): string {
+    return this.baseUrl + '/workouts/training-session';
+  }
+  public static get exercises(): string {
+    return this.baseUrl + '/workouts/exercice';
+  }
+  public static get progressTracker(): string {
+
+    return this.baseUrl + '/workouts/progress-tracker';
+  }
+  public static get adminWorkout(): string {
+    return this.baseUrl + '/admin/workout';
+  }
+  public static get adminWorkoutPlansList(): string {
+    return this.baseUrl + '/admin/workout/workout-plans-list';
+  }
+  public static get adminTrainingSessionList(): string {
+    return this.baseUrl + '/admin/workout/training-session-list';
+  }
+  public static get adminExercicesList(): string {
+    return this.baseUrl + '/admin/workout/exercices-list';
+  }
 }
+  

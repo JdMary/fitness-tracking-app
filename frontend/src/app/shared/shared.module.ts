@@ -21,10 +21,13 @@ import { NgxMatIntlTelInputComponent } from 'ngx-mat-intl-tel-input';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { LightgalleryModule } from 'lightgallery/angular'; 
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
-
+import { BrowserModule } from '@angular/platform-browser';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({ declarations: [],
     exports: [
+    
+        
         CommonModule,
         NgxBootstrapModule,
         CarouselModule,
@@ -43,8 +46,10 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
         MatSliderModule,
         NgxMatIntlTelInputComponent,
         MatTooltipModule,
-        LightgalleryModule
-    ], imports: [CommonModule,
+        LightgalleryModule,
+        NgChartsModule,
+    ], imports: [
+        CommonModule,
         NgxBootstrapModule,
         CarouselModule,
         // NgxSliderModule,

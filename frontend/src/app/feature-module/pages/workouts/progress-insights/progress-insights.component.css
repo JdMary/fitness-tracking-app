@@ -1,0 +1,28 @@
+.container {
+    padding: 0;
+    margin: 0;
+    max-width: 100%;
+}
+
+canvas {
+    max-height: 250px;
+    width: 100% !important;
+}
+
+h2 {
+    display: none;
+}
+
+.mb-5 {
+    margin-bottom: 2rem !important;
+}
+
+h5 {
+    color: #6c757d;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.row {
+    margin: 0;
+}
