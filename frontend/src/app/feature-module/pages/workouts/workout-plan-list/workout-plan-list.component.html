@@ -95,6 +95,7 @@
                                             <th>Duration (mins)</th>
                                             <th>Start Date</th>
                                             <th>Difficulty</th>
+                                            <th>Goal</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -112,6 +113,7 @@
                                                     {{ plan.difficulty }}
                                                 </span>
                                             </td>
+                                            <td>{{ plan.goal }}</td>
                                             <td>
                                                 <div class="btn-group">
                                                     <button class="btn btn-sm btn-outline-info" (click)="onEdit(plan.workoutPlanId)" title="Edit">
@@ -150,6 +152,18 @@
                         </div>
                         <div class="card-body">
                             <app-training-session-insights></app-training-session-insights>
+                        </div>
+                    </div>
+
+                    <!-- Progress Insights Integration -->
+                    <div class="card shadow-sm mt-4">
+                        <div class="card-header bg-white py-3">
+                            <h4 class="card-title mb-0 text-primary">
+                                <i class="ti ti-activity me-2"></i>Progress Insights
+                            </h4>
+                        </div>
+                        <div class="card-body">
+                            <app-progress-insights></app-progress-insights>
                         </div>
                     </div>
                 </div>

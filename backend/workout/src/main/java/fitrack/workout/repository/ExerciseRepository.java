@@ -19,4 +19,13 @@ public interface ExerciseRepository extends JpaRepository<Exercise,Long> {
             @Param("username") String username
     );
     List<Exercise> findExercisesByUsername(String  username);
+
+    @Query("""
+    SELECT e
+    FROM Exercise e
+    JOIN e.trainingSession ts
+    WHERE ts.workoutPlan.workoutPlanId = :workoutPlanId
+    """)
+    List<Exercise> findExercisesByTrainingSessionWorkoutPlanId(@Param("workoutPlanId") Long workoutPlanId);
+
 }

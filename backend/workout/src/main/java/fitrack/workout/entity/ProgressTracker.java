@@ -28,6 +28,23 @@ public class ProgressTracker {
     @OneToOne(mappedBy = "progressTracker")
     @JsonIgnore
     private WorkoutPlan workoutPlan;
+    private double estimatedWeight;
+
+    public Integer getCompletionPercentage() {
+        return completionPercentage;
+    }
+
+    public void setCompletionPercentage(Integer completionPercentage) {
+        this.completionPercentage = completionPercentage;
+    }
+
+    public double getEstimatedWeight() {
+        return estimatedWeight;
+    }
+
+    public void setEstimatedWeight(double estimatedWeight) {
+        this.estimatedWeight = estimatedWeight;
+    }
 
     public Long getProgressId() {
         return progressId;

@@ -1,10 +1,12 @@
 package fitrack.workout.controller;
 
 import fitrack.workout.dto.entity.ExerciseDTO;
+import fitrack.workout.dto.entity.ExerciseDetailsDto;
 import fitrack.workout.entity.Exercise;
 import fitrack.workout.entity.WorkoutPlan;
 import fitrack.workout.service.ExerciseService;
 import fitrack.workout.service.IExercise;
+import fitrack.workout.service.WgerApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +19,34 @@ import java.util.List;
 public class ExerciseController {
     @Autowired
     private IExercise service;
+
+    @Autowired
+    private WgerApiService wgerApiService;
+
+    @GetMapping("/{name}")
+    public ResponseEntity<ExerciseDetailsDto> getExercise(@PathVariable String name) {
+        ExerciseDetailsDto exercise = wgerApiService.getExerciseDetails(name);
+        if (exercise != null) {
+            return ResponseEntity.ok(exercise);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+    @PutMapping("/{exerciseId}/complete")
+    public ResponseEntity<Exercise> markExerciseAsCompleted(
+            @PathVariable Long exerciseId,
+            @RequestParam boolean completed,
+            @RequestHeader("Authorization") String token) {
+
+        System.out.println("🌐 API Call received: Mark Exercise ID " + exerciseId + " as " + (completed ? "Completed" : "Not Completed"));
+
+        Exercise updatedExercise = service.markExerciseAsCompleted(exerciseId, completed, token);
+
+        System.out.println("🚀 API Response ready for Exercise ID: " + exerciseId);
+
+        return ResponseEntity.ok(updatedExercise);
+    }
+
     @PostMapping("/add")
     public ResponseEntity<Exercise> createExercise(@RequestBody Exercise exercise) {
         return new ResponseEntity<>(service.createExercise(exercise), HttpStatus.CREATED);

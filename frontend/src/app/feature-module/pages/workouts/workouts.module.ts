@@ -16,6 +16,7 @@ import { ExerciseFormModule } from './exercise-form/exercise-form.module';
 import { P } from '@angular/cdk/keycodes';
 import { ProgressTrackerComponent } from './progress-tracker/progress-tracker.component';
 import { TrainingSessionInsightsComponent } from './training-session-insights/training-session-insights.component';
+import { ProgressInsightsModule } from './progress-insights/progress-insights.module';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { TrainingSessionInsightsComponent } from './training-session-insights/tr
     WorkoutsRoutingModule,
     WorkoutWizardModule,
     SharedModule,
-    ExerciseFormModule
+    ExerciseFormModule,
+    ProgressInsightsModule
   ]
 })
 export class WorkoutsModule { }

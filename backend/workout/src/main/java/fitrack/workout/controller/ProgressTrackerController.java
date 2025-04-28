@@ -35,6 +35,10 @@ public class ProgressTrackerController {
     public ResponseEntity<ProgressTracker> getProgressTracker(@PathVariable Long id) {
         return ResponseEntity.ok(service.getTrackerById(id));
     }
+    @GetMapping("get-progresses")
+    public List<ProgressTracker> getUserProgressTracker(@RequestHeader("Authorization") String token) {
+        return service.findProgressTrackerByUsername(token);
+    }
 
     @GetMapping
     public ResponseEntity<List<ProgressTracker>> getAllProgressTrackers() {
@@ -63,12 +67,12 @@ public class ProgressTrackerController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
-    @PutMapping("/update-progress/{trainingSessionId}")
+   /* @PutMapping("/update-progress/{trainingSessionId}")
     public ResponseEntity<Void> updateProgress(@PathVariable Long trainingSessionId,
                                                @RequestHeader("Authorization") String token) {
         TrainingSession session = trainingSessionService.getSessionById(trainingSessionId,token);
-        service.updateProgressTrackerCompletion(session, token);
+        service.updateProgressTrackerWithCaloriesAndWeight(session);
         return ResponseEntity.ok().build();
-    }
+    }*/
 
 }

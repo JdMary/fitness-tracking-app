@@ -51,6 +51,10 @@ public class WorkoutPlanController {
     public ResponseEntity<List<WorkoutPlan>> getAllWorkoutPlans(@RequestHeader("Authorization") String token) {
         return ResponseEntity.ok(service.getAllPlans(token));
     }
+    @GetMapping("/get-progress-by-plans")
+    public ResponseEntity<List<ProgressTracker>> getProgressTrackersByWorkout(@RequestHeader("Authorization") String token,@PathVariable Long id) {
+        return ResponseEntity.ok(service.getProgressTrackersByWorkoutPlan(id,token));
+    }
     @GetMapping("/get-plans-admin")
     public ResponseEntity<List<WorkoutPlan>> getAllWorkoutPlansAdmin(@RequestHeader("Authorization") String token) {
         return ResponseEntity.ok(service.getAllPlansAdmin(token));

@@ -11,6 +11,8 @@ public interface IProgressTracker {
     List<ProgressTracker> getAllTrackers();
     ProgressTracker updateTracker(Long id, ProgressTracker tracker);
     void deleteTracker(Long id);
-    void updateProgressTrackerCompletion(TrainingSession session,String token);
-
+    void updateProgressTrackerWithCaloriesAndWeight(TrainingSession trainingSession, double caloriesBurned, String token);
+    void updateTotalExercicesCompleted(TrainingSession session);
+    List<ProgressTracker> getProgressTrackerByUsername(String username);
+    List<ProgressTracker> findProgressTrackerByUsername(String username);
 }

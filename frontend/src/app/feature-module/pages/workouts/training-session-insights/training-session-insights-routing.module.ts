@@ -4,7 +4,6 @@ import {WorkoutsComponent} from "../workouts.component";
 import { TrainingSessionInsightsComponent } from './training-session-insights.component';
 
 const routes: Routes = [
-  { path: 'insights', component: TrainingSessionInsightsComponent },
   { path: '', component: WorkoutsComponent }];
 
 @NgModule({

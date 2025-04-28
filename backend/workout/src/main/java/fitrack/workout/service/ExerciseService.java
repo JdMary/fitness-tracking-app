@@ -2,18 +2,15 @@ package fitrack.workout.service;
 
 import fitrack.workout.client.AuthClient;
 import fitrack.workout.dto.entity.ExerciseDTO;
-import fitrack.workout.dto.entity.TrainingSessionDTO;
+import fitrack.workout.dto.entity.ExerciseDetailsDto;
 import fitrack.workout.dto.mapper.ExerciseMapper;
-import fitrack.workout.dto.mapper.TrainingSessionMapper;
 import fitrack.workout.entity.Exercise;
-import fitrack.workout.entity.ProgressTracker;
 import fitrack.workout.entity.TrainingSession;
 import fitrack.workout.repository.ExerciseRepository;
 import fitrack.workout.repository.TrainingSessionRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,6 +28,16 @@ public class ExerciseService implements IExercise{
     private ExerciseMapper exerciseMapper;
     @Autowired
     private ProgressTrackerService progressTrackerService;
+
+    @Autowired
+    private ExerciseMapper mapper;
+
+
+    @Autowired
+    private WgerApiService wgerApiService;
+
+    @Autowired
+    private CaloriesCalculatorService caloriesCalculatorService;
 
     @Override
     public Exercise createExercise(Exercise exercise) {
@@ -107,7 +114,7 @@ public class ExerciseService implements IExercise{
                 .toList();
     }
 
-    @Override
+   /* @Override
     public Exercise markExerciseAsCompleted(Long exerciseId, boolean isCompleted, String token) {
         String username = String.valueOf(authClient.extractUsername(token).getBody());
         Exercise exercise = repository.findExercisesByExerciseIdAndUsername(exerciseId,username);
@@ -116,5 +123,47 @@ public class ExerciseService implements IExercise{
         progressTrackerService.updateProgressTrackerCompletion(exercise.getTrainingSession(),token);
        return savedExercise;
         //updateProgressTracker(exercise.getTrainingSession());
+    }*/
+
+
+    @Override
+    public Exercise markExerciseAsCompleted(Long exerciseId, boolean isCompleted, String token) {
+        String username = String.valueOf(authClient.extractUsername(token).getBody());
+        Exercise exercise = repository.findExercisesByExerciseIdAndUsername(exerciseId, username);
+
+        exercise.setStatus(isCompleted);
+        Exercise savedExercise = repository.save(exercise);
+
+
+            // Fetch exercise details
+            ExerciseDetailsDto details = wgerApiService.getExerciseDetails(exercise.getCategory());
+        System.out.printf("wgerApiService"+wgerApiService.toString());
+            if (details != null) {
+                System.out.println("✅ External exercise details fetched: " + details.getCategory());
+
+                double userWeight = 70.0;
+                String exerciseType = mapper.mapCategoryIdToType(details.getCategory());
+
+                double caloriesBurned = caloriesCalculatorService.calculateCalories(
+                        exerciseType, userWeight, exercise.getSets(), exercise.getReps()
+                );
+
+                if (isCompleted) {
+                    progressTrackerService.updateProgressTrackerWithCaloriesAndWeight(
+                            exercise.getTrainingSession(), caloriesBurned, token
+                    );
+                } else {
+                    progressTrackerService.updateProgressTrackerWithCaloriesAndWeight(
+                            exercise.getTrainingSession(), -caloriesBurned, token
+                    );
+                }
+
+        }
+        return savedExercise;
     }
+    public List<Exercise> getExercicesByWorkoutPlanId(Long workoutPlanId) {
+
+       return repository.findExercisesByTrainingSessionWorkoutPlanId(workoutPlanId);
+    }
+
 }

@@ -12,6 +12,16 @@ public class User {
     private String name;
     private String email;
     private UserRole role;
+    private double weight;
+
+
+    public double getWeight() {
+        return 70.0;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
 
     public String getId() {
         return id;

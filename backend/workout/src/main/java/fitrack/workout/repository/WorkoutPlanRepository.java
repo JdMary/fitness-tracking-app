@@ -23,4 +23,8 @@ public interface WorkoutPlanRepository extends JpaRepository<WorkoutPlan,Long> {
             @Param("username") String username
     );
     Optional<WorkoutPlan> findByWorkoutPlanIdAndUsername(Long workoutPlanId, String username);
+    @Query("SELECT pt FROM ProgressTracker pt WHERE pt.workoutPlan.workoutPlanId = :workoutPlanId AND pt.username = :username")
+   List<ProgressTracker> findProgressTrackerByWorkoutPlanIdAndUsername(@Param("workoutPlanId") Long workoutPlanId, @Param("username") String username);
+
+
 }

@@ -2,15 +2,14 @@ package fitrack.workout.service;
 
 import com.zaxxer.hikari.util.PropertyElf;
 import fitrack.workout.client.AuthClient;
-import fitrack.workout.entity.Exercise;
-import fitrack.workout.entity.ProgressTracker;
-import fitrack.workout.entity.TrainingSession;
-import fitrack.workout.entity.WorkoutPlan;
+import fitrack.workout.entity.*;
+import fitrack.workout.repository.ExerciseRepository;
 import fitrack.workout.repository.ProgressTrackerRepository;
 import fitrack.workout.repository.WorkoutPlanRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -22,6 +21,8 @@ import java.util.List;
 public class ProgressTrackerService implements IProgressTracker {
     @Autowired
     private ProgressTrackerRepository repository;
+    @Autowired
+    private ExerciseRepository exerciseRepository;
     @Autowired
     private AuthClient authClient;
     @Autowired
@@ -74,32 +75,15 @@ public class ProgressTrackerService implements IProgressTracker {
         progress.setTotalExercisesCompleted(
                 progress.getTotalExercisesCompleted() + trainingSession.getExercises().size()
         );
-        progress.setBurnedCalories(
+       /* progress.setBurnedCalories(
                 calculateCaloriesBurned(trainingSession, progress.getUsername())
-        );
+        );*/
         progress.setDate(LocalDate.now());
 
         repository.save(progress);
     }
-    private Integer calculateCaloriesBurned(TrainingSession session, String username) {
-        return session.getExercises().stream()
-                .mapToInt(exercise -> exercise.getReps() * exercise.getSets())
-                .sum() * 2;
-    }
-   /* public void updateProgressTrackerCompletion(TrainingSession session, String token) {
-        String username = String.valueOf(authClient.extractUsername(token).getBody());
-        WorkoutPlan workoutPlan=workoutPlanRepository.findByWorkoutPlanIdAndUsername(session.getWorkoutPlan().getWorkoutPlanId(),username).get();
 
-        ProgressTracker tracker = workoutPlan.getProgressTracker();
-        List<Exercise> exercises = session.getExercises();
-
-        long completedExercises = exercises.stream().filter(Exercise::isStatus).count();
-        int totalExercises = exercises.size();
-
-        tracker.setTotalExercisesCompleted((int) completedExercises);
-        tracker.setCompletionPercentage((int) ((completedExercises * 100) / totalExercises));
-        repository.save(tracker);
-    }*/
+/*
    public void updateProgressTrackerCompletion(TrainingSession session, String token) {
        String username = String.valueOf(authClient.extractUsername(token).getBody());
 
@@ -116,15 +100,80 @@ public class ProgressTrackerService implements IProgressTracker {
        int totalReps = exercises.stream().mapToInt(Exercise::getReps).sum();
        int totalSets = exercises.stream().mapToInt(Exercise::getSets).sum();
 
-       int burnedCalories = calculateCaloriesBurned(session, username);
+       //int burnedCalories = calculateCaloriesBurned(session, username);
 
        tracker.setTotalExercisesCompleted((int) completedExercises);
        tracker.setCompletionPercentage((int) ((completedExercises * 100) / totalExercises));
        tracker.setTotalRepsCompleted(totalReps);
        tracker.setTotalSetsCompleted(totalSets);
-       tracker.setBurnedCalories(burnedCalories);
+      // tracker.setBurnedCalories(burnedCalories);
 
        repository.save(tracker);
    }
+*/
+
+    public void updateProgressTrackerWithCaloriesAndWeight(TrainingSession trainingSession, double caloriesBurned, String token) {
+        String username = String.valueOf(authClient.extractUsername(token).getBody());
+
+        //ProgressTracker tracker = workoutPlanRepository.findProgressTrackerByWorkoutPlanIdAndUsername(trainingSession.getWorkoutPlan().getWorkoutPlanId(),username);
+        ProgressTracker tracker =trainingSession.getWorkoutPlan().getProgressTracker();
+        if (tracker == null) {
+            throw new RuntimeException("ProgressTracker not found for session " + trainingSession.getTrainingSessionId());
+        }
+
+        // Update total calories burned
+        int updatedCalories = tracker.getBurnedCalories() + (int) caloriesBurned;  // Add to the existing burned calories
+        tracker.setBurnedCalories(Math.max(0, updatedCalories));
+
+        // Get the user's WorkoutPlan and Goal
+        WorkoutPlan workoutPlan = trainingSession.getWorkoutPlan();
+        Goal goal = workoutPlan.getGoal();
+
+        // Update estimated weight
+        double currentWeight = 70.00; // Initialize estimated weight when creating tracker
+        double weightChange = caloriesBurned / 7700.0; // 7700 kcal = 1kg fat
+
+        if (goal == Goal.WEIGHT_LOSS) {
+            tracker.setEstimatedWeight(currentWeight - weightChange);
+        } else if (goal == Goal.MUSCLE_GAIN) {
+            tracker.setEstimatedWeight(currentWeight + (weightChange * 0.5));
+        } else if (goal == Goal.MAINTENANCE) {
+            tracker.setEstimatedWeight(currentWeight - (weightChange * 0.1));
+        }
+
+        this.updateTotalExercicesCompleted(trainingSession);
+        repository.save(tracker);
+    }
+
+    public List<ProgressTracker> getProgressTrackerByUsername(String token) {
+        String username = String.valueOf(authClient.extractUsername(token).getBody());
+
+        return repository.findByUsername(username);
+    }
+
+    @Override
+    public List<ProgressTracker> findProgressTrackerByUsername(String token) {
+        String username = String.valueOf(authClient.extractUsername(token).getBody());
+
+        return repository.findProgressTrackerByUsername(username);
+    }
+
+
+    public void updateTotalExercicesCompleted(TrainingSession session) {
+
+        ProgressTracker tracker = session.getWorkoutPlan().getProgressTracker();
+        List<Exercise> exercises = exerciseRepository.findExercisesByTrainingSessionWorkoutPlanId(session.getWorkoutPlan().getWorkoutPlanId());
+        long completedExercises = exercises.stream().filter(Exercise::isStatus).count();
+        int totalExercises = exercises.size();
+        int totalReps = exercises.stream().mapToInt(Exercise::getReps).sum();
+        int totalSets = exercises.stream().mapToInt(Exercise::getSets).sum();
+
+
+        tracker.setTotalExercisesCompleted((int) completedExercises);
+        tracker.setCompletionPercentage((int) ((completedExercises * 100) / totalExercises));
+        tracker.setTotalRepsCompleted(totalReps);
+        tracker.setTotalSetsCompleted(totalSets);
+
+    }
 
 }

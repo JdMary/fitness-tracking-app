@@ -27,18 +27,8 @@ public class WorkoutPlan {
     private String status;
     private String difficulty;
     private String username;
-   /* @Enumerated(EnumType.STRING)
-    private Goal goal;*/
-
-     /*public Goal getGoal() {
-        return goal;
-    }
-
-    public void setGoal(Goal goal) {
-        this.goal = goal;
-    }*/
-
-
+    @Enumerated(EnumType.STRING)
+    private Goal goal;
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private ProgressTracker progressTracker;
@@ -46,6 +36,19 @@ public class WorkoutPlan {
     @OneToMany(mappedBy = "workoutPlan", cascade = CascadeType.ALL,orphanRemoval = true)
     @JsonManagedReference
     private List<TrainingSession> trainingSessions;
+
+
+
+
+
+    public Goal getGoal() {
+        return goal;
+    }
+
+    public void setGoal(Goal goal) {
+        this.goal = goal;
+    }
+
 
     public void setProgressTracker(ProgressTracker progressTracker) {
         this.progressTracker = progressTracker;

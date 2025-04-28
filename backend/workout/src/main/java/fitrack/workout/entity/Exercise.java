@@ -23,6 +23,12 @@
         private String instructions;
         private boolean status;
         private String username;
+
+        @ManyToOne
+        @JoinColumn(name = "training_session_id")
+        @JsonBackReference
+        private TrainingSession trainingSession;
+
         public String getUsername() {
             return username;
         }
@@ -31,11 +37,6 @@
             this.username = username;
         }
 
-
-        @ManyToOne
-        @JoinColumn(name = "training_session_id")
-        @JsonBackReference
-        private TrainingSession trainingSession;
 
         public Long getExerciseId() {
             return exerciseId;

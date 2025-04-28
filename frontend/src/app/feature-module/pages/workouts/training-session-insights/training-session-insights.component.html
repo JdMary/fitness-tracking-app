@@ -27,7 +27,12 @@
         <div class="col-md-4">
             <div class="p-3 border rounded bg-light">
                 <h6 class="text-primary"><i class="ti ti-chart-arrows-vertical me-2"></i>Average Performance</h6>
-                <p class="mb-0">{{ avgCaloriesPerMinute | number:'1.2-2' }} calories/minute</p>
+                <p class="mb-0" *ngIf="avgCaloriesPerMinute !== undefined && avgCaloriesPerMinute !== null">
+                    {{ avgCaloriesPerMinute | number:'1.2-2' }} calories/minute
+                </p>
+                <p class="mb-0" *ngIf="avgCaloriesPerMinute === undefined || avgCaloriesPerMinute === null">
+                    No data available
+                </p>
             </div>
         </div>
 

@@ -18,5 +18,5 @@ public interface IWorkoutPlan {
     WorkoutPlan assignWorkoutPlanToTrainingSession(WorkoutPlan wp,String token);
     WorkoutPlan assignProgressToWorkoutPlanToUser(ProgressTracker progress, Long idWorkoutPlan ,String token);
     WorkoutPlan createFullWorkoutPlan(WorkoutPlan plan, String token);
-
+    List<ProgressTracker> getProgressTrackersByWorkoutPlan(Long workoutid,String token);
     }

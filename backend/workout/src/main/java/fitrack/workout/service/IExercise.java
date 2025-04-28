@@ -2,6 +2,7 @@ package fitrack.workout.service;
 
 import fitrack.workout.dto.entity.ExerciseDTO;
 import fitrack.workout.entity.Exercise;
+import fitrack.workout.entity.TrainingSession;
 
 import java.util.List;
 
@@ -17,8 +18,6 @@ public interface IExercise {
     List<Exercise> getExercisesByTrainingSessionId(Long trainingSessionId,String token);
     List<ExerciseDTO> getExercisesByTrainingSessionIdDTO(Long trainingSessionId,String token);
     Exercise markExerciseAsCompleted(Long exerciseId, boolean isCompleted,String token);
-
-
-
+    List<Exercise> getExercicesByWorkoutPlanId(Long workoutPlanId);
 
 }

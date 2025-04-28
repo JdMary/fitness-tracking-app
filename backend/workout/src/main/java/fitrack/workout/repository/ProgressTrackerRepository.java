@@ -9,5 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface ProgressTrackerRepository extends JpaRepository<ProgressTracker,Long> {
+    List<ProgressTracker> findByUsername(String username);
+    List<ProgressTracker> findProgressTrackerByUsername(@Param("username") String username);
 
 }

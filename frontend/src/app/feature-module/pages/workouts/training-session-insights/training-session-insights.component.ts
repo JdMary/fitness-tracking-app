@@ -57,22 +57,35 @@ export class TrainingSessionInsightsComponent implements OnInit {
         borderColor: 'rgba(153,102,255,1)',
         backgroundColor: 'rgba(153,102,255,0.2)',
         fill: true
+      },
+      {
+        data: [],
+        label: 'Calories Per Minute',
+        borderColor: 'rgba(255,99,132,1)',
+        backgroundColor: 'rgba(255,99,132,0.2)',
+        fill: true
       }
     ]
   };
 
   bestSession: SessionEfficiencyDto | null = null;
-  avgCaloriesPerMinute: number = 0;
+  avgCaloriesPerMinute: number | null = null;
   recommendation: string = '';
 
   constructor(private sessionService: TrainingSessionService) {}
 
   ngOnInit(): void {
-    this.sessionService.getSessionInsights().subscribe((data: SessionInsightsDto) => {
-      this.updateChart(data.sessions);
-      this.bestSession = data.bestSession;
-      this.avgCaloriesPerMinute = data.avgCaloriesPerMinute;
-      this.recommendation = data.recommendation;
+    this.sessionService.getSessionInsights().subscribe({
+      next: (data: SessionInsightsDto) => {
+        this.updateChart(data.sessions);
+        this.bestSession = data.bestSession;
+        this.avgCaloriesPerMinute = data.avgCaloriesPerMinute || null;
+        this.recommendation = data.recommendation;
+      },
+      error: (error) => {
+        console.error('Error fetching session insights:', error);
+        this.avgCaloriesPerMinute = null;
+      }
     });
   }
 
@@ -80,9 +93,11 @@ export class TrainingSessionInsightsComponent implements OnInit {
     const labels = sessions.map(session => `Session ${session.sessionId}`);
     const calories = sessions.map(session => session.calories);
     const durations = sessions.map(session => session.durationMinutes);
+    const caloriesPerMinute = sessions.map(session => session.caloriesPerMinute);
 
     this.lineChartData.labels = labels;
     this.lineChartData.datasets[0].data = calories;
     this.lineChartData.datasets[1].data = durations;
+    this.lineChartData.datasets[2].data = caloriesPerMinute;
   }
 }

@@ -27,10 +27,6 @@ import java.util.List;
             private String username;
             private boolean isCompleted;
 
-
-
-
-
             @ManyToOne
             @JoinColumn(name = "workplan_id")
             @JsonBackReference

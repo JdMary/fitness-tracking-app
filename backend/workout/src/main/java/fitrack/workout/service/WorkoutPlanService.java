@@ -158,5 +158,10 @@ public class WorkoutPlanService implements IWorkoutPlan {
         }
     }
 
+    public List<ProgressTracker> getProgressTrackersByWorkoutPlan(Long workoutid,String token){
+        String username = String.valueOf(authClient.extractUsername(token).getBody());
+
+        return repository.findProgressTrackerByWorkoutPlanIdAndUsername(workoutid,username);
+    }
 
 }

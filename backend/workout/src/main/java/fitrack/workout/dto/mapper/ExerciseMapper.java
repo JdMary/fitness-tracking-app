@@ -42,4 +42,21 @@ public class ExerciseMapper {
         dto.setUsername(exercise.getUsername());
         return dto;
     }
+
+    public String mapCategoryIdToType(int categoryId) {
+        switch (categoryId) {
+            case 8:
+                return "Cardio";
+            case 10:
+                return "Strength training";
+            case 9:
+                return "Stretching";
+            case 11:
+                return "Yoga";
+            case 14:
+                return "Bodyweight";
+            default:
+                return "Strength training"; // Default fallback
+        }
+    }
 }
