@@ -1,11 +1,16 @@
 package fitrack.achievement.entity.dtos;
 
 import fitrack.achievement.entity.ChallengeStatus;
+import jakarta.persistence.Column;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Data
+@Getter
+@Setter
 public class ChallengeUpdateRequest {
     private String title;
     private String description;
@@ -13,53 +18,9 @@ public class ChallengeUpdateRequest {
     private LocalDateTime endDate;
     private Integer xpPoints;
     private ChallengeStatus status;
+    private String userId;
+    private boolean validation;
+    private boolean reminder15;
+    private boolean participation;
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public LocalDateTime getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(LocalDateTime startDate) {
-        this.startDate = startDate;
-    }
-
-    public LocalDateTime getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(LocalDateTime endDate) {
-        this.endDate = endDate;
-    }
-
-    public Integer getXpPoints() {
-        return xpPoints;
-    }
-
-    public void setXpPoints(Integer xpPoints) {
-        this.xpPoints = xpPoints;
-    }
-
-    public ChallengeStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(ChallengeStatus status) {
-        this.status = status;
-    }
 }
-

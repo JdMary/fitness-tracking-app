@@ -23,6 +23,6 @@ public class User {
     private String fitnessGoals;
     private float height;
     private float weight;
-    private LocalDateTime schedule;
+
 
 }

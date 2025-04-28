@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { HttpErrorResponse } from '@angular/common/http';
 
 import { LeaderBoard } from 'src/app/feature-module/customers/achievements/models/customer-leaderboard.model';
-import { CustomerLeaderboardService } from 'src/app/feature-module/customers/achievements/services/customer-leaderboard.service';
+import { CustomerLeaderboardService } from 'src/app/shared/services/customer-leaderboard.service';
 
 @Component({
   selector: 'app-add-leaderboard',
@@ -12,51 +12,66 @@ import { CustomerLeaderboardService } from 'src/app/feature-module/customers/ach
 })
 export class AddLeaderboardComponent implements OnInit {
 
-  // On ne prend en compte que boardId, name et description
   newLeaderboard: LeaderBoard = {
     boardId: '',
     name: '',
     description: ''
   };
 
-  errorMessage: string = '';
   successMessage: string = '';
+  errors: { [key: string]: string } = {};
 
   constructor(
     private leaderboardService: CustomerLeaderboardService,
     private router: Router
   ) {}
 
-  ngOnInit(): void {
-    // Initialisation si nécessaire
-  }
+  ngOnInit(): void {}
 
   addLeaderboard(): void {
-    // Vérification additionnelle dans le TS (optionnelle car le formulaire empêche la soumission)
-    if (!this.newLeaderboard.name || this.newLeaderboard.name.trim().length < 10) {
-      this.errorMessage = 'Title must be at least 10 characters.';
-      return;
-    }
-    if (!this.newLeaderboard.description || this.newLeaderboard.description.trim().length < 10) {
-      this.errorMessage = 'Description must be at least 10 characters.';
-      return;
-    }
+    this.successMessage = '';
+    this.errors = {};
 
-    // Si la validation passe, on envoie la requête au backend
     this.leaderboardService.addLeaderboard(this.newLeaderboard).subscribe({
-      next: () => {
-        this.successMessage = 'Leaderboard added successfully!';
-        // Redirection vers la liste après 2 secondes
+      next: (savedLeaderboard) => {
+        this.successMessage = '✅ Leaderboard added successfully!';
         setTimeout(() => {
           this.router.navigate(['/admin/liste-leaderboard']);
         }, 2000);
       },
-      error: (error: HttpErrorResponse) => {
-        this.errorMessage = `❌ Failed to add leaderboard: ${error.message}`;
+      error: (errorResponse: HttpErrorResponse) => {
+        const msg = errorResponse.error;
+
+        // Si le message d'erreur est une chaîne de texte
+        if (typeof msg === 'string') {
+          const errorParts = msg.split('|');
+          errorParts.forEach((err: string) => {
+            const trimmed = err.trim();
+            if (trimmed.includes('title')) this.errors['name'] = trimmed;
+            if (trimmed.includes('description')) this.errors['description'] = trimmed;
+          });
+        }
+        // Gestion des erreurs générales
+        else {
+          this.errors['general'] = "An unexpected error occurred.";
+        }
       }
     });
   }
+
   navigateToList(): void {
     this.router.navigate(['/admin/liste-leaderboard']);
+  }
+
+  clearError(field: string): void {
+    if (this.errors[field]) {
+      delete this.errors[field];
+    }
+  }
+
+  titleCase(str: string): string {
+    return str.toLowerCase().split(' ').map((part: string): string => {
+      return part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
+    }).join(' ');
   }
 }

@@ -25,12 +25,15 @@ export class DataService {
     imageId?: string;
   } | undefined;
   constructor(private http: HttpClient) {}
+ 
+  
   public getProviderPayout(): Observable<apiResultFormat> {
     return this.http.get<apiResultFormat>('assets/json/provider-payout.json').pipe(
       map((res: apiResultFormat) => {
         return res;
       })
     );
+
   }
   public getEvents() {
     return this.http.get<apiResultFormat>('assets/json/calendar.json').pipe(
@@ -584,6 +587,9 @@ export class DataService {
       gallery: 'assets/admin/img/gallery/gallery-big-02.jpg',
     },
   ];
+  
+  
+
   public header = [ //lahni tnajm tbad l header (front office)
     {
       tittle: 'Facilities',
@@ -729,6 +735,7 @@ export class DataService {
         },
       ],
     },
+
     {
       tittle: 'Leaderboard',
       showAsTab: false,
@@ -736,28 +743,30 @@ export class DataService {
       menu: [
         {
           menuValue: 'View Leaderboard',
-          routes: routes.customerDashboard,
+          routes: routes.customerLeaderboardDetail, 
           hasSubRoute: false,
           showSubRoute: false,
           subMenus: [],
-        },
+        }
+,        
+        
         {
           menuValue: 'Rewards',
-          routes: '/customer/leaderboard', // badalha 7asb l route mte3k
+          routes:routes.customerReward,
           hasSubRoute: false,
           showSubRoute: false,
           subMenus: [],
         },
         {
           menuValue: 'Challenges',
-          routes:'/customers/customer-challenge', // badalha 7asb l route mte3k
+          routes:routes.customerChallenges, 
           hasSubRoute: false,
           showSubRoute: false,
           subMenus: [],
         },
         {
           menuValue: 'Achievements',
-          routes: '/customers/customer-achievements', 
+          routes: routes.customerAchievements, 
           hasSubRoute: false,
           showSubRoute: false,
           subMenus: [],
@@ -1575,16 +1584,16 @@ export class DataService {
           menuValue: 'Leaderboard',
           hasSubRoute: true,
           showSubRoute: false,
-          route: '/admin/liste-leaderboard', 
+          route:  routes.service, 
           icon: 'icon-briefcase',
           subMenus: [
             {
               menuValue: 'Add Leaderboard',
-              route:'/admin/add-leaderboard',
+              route:routes.adminAddBoard,
             },
             {
               menuValue: 'All Leaderboard',
-              route: '/admin/liste-leaderboard', 
+              route: routes.adminBoards, 
             },
             {
               menuValue: 'Service Settings',
@@ -1596,16 +1605,15 @@ export class DataService {
           menuValue: 'Challenges',
           hasSubRoute: true,
           showSubRoute: false,
-          route: '/admin/liste-challenges', 
-          icon: 'fa-solid fa-bolt', 
+          route: routes.service,
+          icon: 'icon-briefcase',
           subMenus: [
             {
               menuValue: 'Add Challenge',
-              route: '/admin/add-challenge',
-            },
+              route:routes.adminAddChallenge  ,          },
             {
               menuValue: 'All Challenges',
-              route: '/admin/liste-challenges',
+              route:routes.adminChallenges,
             },
             {
               menuValue: 'Challenge Settings',
@@ -1618,16 +1626,16 @@ export class DataService {
   menuValue: 'Achievements',
   hasSubRoute: true,
   showSubRoute: false,
-  route: '/admin/liste-achievements', 
-  icon: 'fa-solid fa-bolt', 
+  route:  routes.service,
+  icon: 'icon-briefcase', 
   subMenus: [
    
     {
       menuValue: 'All Achievements',
-      route: '/admin/liste-achievements',
+      route: routes.adminAchievements,
     },
     {
-      menuValue: 'Challenge Settings',
+      menuValue: 'Achievement Settings',
       route: '/admin/challenge-settings', // si t'as une page pour ça
     },
   ],

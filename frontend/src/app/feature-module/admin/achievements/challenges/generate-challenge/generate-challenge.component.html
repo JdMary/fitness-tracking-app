@@ -1,52 +1,51 @@
-<div class="container mt-4">
+<div class="container mt-4 d-flex flex-column align-items-center">
 
-    <h2 class="mb-3">🧠 Générer un Challenge Automatique</h2>
-  
-    <!-- ✅ Bouton pour générer -->
-    <button class="btn btn-primary mb-3" (click)="generateChallenge()">Générer le challenge</button>
-  
-    <!-- ✅ Si un challenge est généré -->
-    <div *ngIf="generatedChallenge" class="card p-3 shadow-sm">
-      <h4 class="mb-2">🎯 Challenge Généré :</h4>
-  
-      <div class="form-group">
-        <label>Titre :</label>
-        <input class="form-control" [value]="generatedChallenge.title" disabled />
-        <div class="text-danger" *ngIf="errors['title']">{{ errors['title'] }}</div>
-      </div>
-  
-      <div class="form-group mt-2">
-        <label>Description :</label>
-        <textarea class="form-control" rows="5" [value]="generatedChallenge.description" disabled></textarea>
-        <div class="text-danger" *ngIf="errors['description']">{{ errors['description'] }}</div>
-      </div>
-  
-      <div class="form-group mt-2">
-        <label>XP Points :</label>
-        <input class="form-control" [value]="generatedChallenge.xpPoints" disabled />
-        <div class="text-danger" *ngIf="errors['xpPoints']">{{ errors['xpPoints'] }}</div>
-      </div>
-  
-      <div class="form-group mt-2">
-        <label>Date de début :</label>
-        <input class="form-control" [value]="generatedChallenge.startDate | date:'yyyy-MM-dd'" disabled />
-        <div class="text-danger" *ngIf="errors['startDate']">{{ errors['startDate'] }}</div>
-      </div>
-  
-      <div class="form-group mt-2">
-        <label>Date de fin :</label>
-        <input class="form-control" [value]="generatedChallenge.endDate | date:'yyyy-MM-dd'" disabled />
-        <div class="text-danger" *ngIf="errors['endDate']">{{ errors['endDate'] }}</div>
-      </div>
-  
-      <!-- ✅ Bouton de confirmation -->
-      <button class="btn btn-success mt-3" (click)="saveChallenge()">✅ Confirmer & Sauvegarder</button>
+  <h2 class="mb-3 text-center">🧠 Générer un Challenge Automatique</h2>
+
+  <!-- ✅ Bouton pour générer -->
+  <button class="btn btn-primary mb-4" (click)="generateChallenge()">Générer le challenge</button>
+
+  <!-- ✅ Si un challenge est généré -->
+  <div *ngIf="generatedChallenge" class="card p-4 shadow-sm w-100" style="max-width: 600px;">
+    <h4 class="mb-3 text-center">🎯 Challenge Généré :</h4>
+
+    <div class="form-group">
+      <label>Titre :</label>
+      <input class="form-control" [value]="generatedChallenge.title" disabled />
+      <div class="text-danger" *ngIf="errors['title']">{{ errors['title'] }}</div>
     </div>
-  
-    <!-- ✅ Message succès -->
-    <div *ngIf="successMessage" class="alert alert-success mt-3">
-      {{ successMessage }}
+
+    <div class="form-group mt-3">
+      <label>Description :</label>
+      <textarea class="form-control" rows="5" [value]="generatedChallenge.description" disabled></textarea>
+      <div class="text-danger" *ngIf="errors['description']">{{ errors['description'] }}</div>
     </div>
-  
+
+    <div class="form-group mt-3">
+      <label>XP Points :</label>
+      <input class="form-control" [value]="generatedChallenge.xpPoints" disabled />
+      <div class="text-danger" *ngIf="errors['xpPoints']">{{ errors['xpPoints'] }}</div>
+    </div>
+
+    <div class="form-group mt-3">
+      <label>Date de début :</label>
+      <input class="form-control" [value]="generatedChallenge.startDate | date:'yyyy-MM-dd'" disabled />
+      <div class="text-danger" *ngIf="errors['startDate']">{{ errors['startDate'] }}</div>
+    </div>
+
+    <div class="form-group mt-3">
+      <label>Date de fin :</label>
+      <input class="form-control" [value]="generatedChallenge.endDate | date:'yyyy-MM-dd'" disabled />
+      <div class="text-danger" *ngIf="errors['endDate']">{{ errors['endDate'] }}</div>
+    </div>
+
+    <!-- ✅ Bouton de confirmation -->
+    <button class="btn btn-success mt-4 w-100" (click)="saveChallenge()">✅ Confirmer & Sauvegarder</button>
   </div>
-  
+
+  <!-- ✅ Message succès -->
+  <div *ngIf="successMessage" class="alert alert-success mt-3 text-center w-100" style="max-width: 600px;">
+    {{ successMessage }}
+  </div>
+
+</div>

@@ -2,7 +2,7 @@ import { Component, ElementRef, Renderer2, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { routes } from 'src/app/shared/routes/routes';
-import { CustomerChallengeService } from '../services/customer-challenge.service';
+import { CustomerChallengeService } from '../../../../shared/services/customer-challenge.service';
 import { Challenge } from '../models/challenge.model';
 import { ChallengeStatus } from '../models/challenge-status.enum';
 
@@ -41,8 +41,9 @@ alertShownChallenges: Set<string> = new Set();
 
   // ✅ Récupération des challenges depuis le service
   fetchChallenges(): void {
-    this.challengeService.getAllChallenges().subscribe(
+    this.challengeService.getMyChallenges().subscribe(
       (data: Challenge[]) => {
+        
         console.log('✅ Données challenges :', data);
         this.challenges = data;
         this.filteredChallenges = data;
@@ -55,6 +56,7 @@ alertShownChallenges: Set<string> = new Set();
       }
     );
   }
+  
 
   // ✅ Appliquer un filtre par statut
   applyFilter(selectedStatus: string): void {

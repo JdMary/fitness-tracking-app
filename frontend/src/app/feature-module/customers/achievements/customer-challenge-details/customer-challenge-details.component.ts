@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Challenge } from '../models/challenge.model';
-import { CustomerChallengeService } from '../services/customer-challenge.service';
+import { CustomerChallengeService } from '../../../../shared/services/customer-challenge.service';
 import { ChallengeStatus } from '../models/challenge-status.enum';
 
 @Component({
@@ -24,16 +24,23 @@ export class CustomerChallengeDetailsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.challengeId = this.route.snapshot.paramMap.get('challengeId')!;
-    this.fetchChallengeDetails();
-
+    const idFromRoute = this.route.snapshot.paramMap.get('challengeId');
+  
+    if (!idFromRoute) {
+      console.error('❌ Aucun ID de challenge trouvé dans l’URL.');
+      this.router.navigate(['/error']); // ou autre redirection
+      return;
+    }
+  
+    this.challengeId = idFromRoute; // ✅ assignation correcte
+    this.fetchChallengeDetails();   // ✅ ensuite, appel du service
+  
     this.intervalId = setInterval(() => {
       if (this.challenge && this.challenge.status === 'ACTIVE' && !this.challenge.participation) {
         this.remainingParticipationTime = this.calculateRemainingParticipationTime();
       }
     }, 1000);
   }
-
   ngOnDestroy(): void {
     clearInterval(this.intervalId);
   }
@@ -41,6 +48,7 @@ export class CustomerChallengeDetailsComponent implements OnInit, OnDestroy {
   fetchChallengeDetails(): void {
     this.challengeService.getChallengeById(this.challengeId).subscribe({
       next: (data: Challenge) => {
+        console.log('✅ Challenge chargé :', data);
         this.challenge = data;
         if (this.challenge.status === 'ACTIVE' && !this.challenge.participation) {
           this.remainingParticipationTime = this.calculateRemainingParticipationTime();
@@ -49,7 +57,7 @@ export class CustomerChallengeDetailsComponent implements OnInit, OnDestroy {
       error: (error) => console.error('❌ Erreur lors de la récupération du challenge :', error),
     });
   }
-
+  
   getBadgeClass(status: ChallengeStatus): string {
     switch (status) {
       case ChallengeStatus.ACTIVE:

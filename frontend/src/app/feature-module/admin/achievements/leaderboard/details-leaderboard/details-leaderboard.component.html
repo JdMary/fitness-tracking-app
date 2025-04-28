@@ -1,0 +1,88 @@
+<div class="page-wrapper page-leaderboard">
+    <div class="content container-fluid">
+  
+      <!-- ✅ Leaderboard Exists -->
+      <div *ngIf="boardDetails" class="row">
+        <div class="col-md-8 offset-md-2">
+          <div class="card">
+            <div class="card-body">
+              <h4 class="card-title text-center mb-4 fw-bold">Leaderboard Details</h4>
+  
+              <!-- Message d'erreur -->
+              <div *ngIf="errorMessage" class="alert alert-danger text-center mb-4">
+                {{ errorMessage }}
+              </div>
+  
+              <!-- Loading spinner -->
+              <div *ngIf="isLoading" class="alert alert-info text-center mb-4">
+                ⏳ Loading leaderboard...
+              </div>
+  
+              <!-- Affichage des détails du leaderboard -->
+              <div *ngIf="boardDetails && !isLoading">
+                <ul class="list-group mb-4">
+                  <li class="list-group-item">
+                    <strong>🏆 Leaderboard Name:</strong> {{ boardDetails.name }}
+                  </li>
+                  <li class="list-group-item">
+                    <strong>📄 Description:</strong> {{ boardDetails.description }}
+                  </li>
+  
+                  <!-- Participants -->
+                  <li class="list-group-item">
+                    <h5>Participants:</h5>
+                    <div *ngIf="boardDetails.users && boardDetails.users.length > 0">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>XP Points</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let user of boardDetails.users; index as i">
+                            <td>{{ i + 1 }}</td>
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.xpPoints }}</td>
+                            <td>
+                                <button (click)="removeUserFromBoard(user.id)" class="btn btn-danger btn-sm">
+                                  ❌
+                                </button>
+                              </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div *ngIf="!boardDetails.users || boardDetails.users.length === 0">
+                      <p>No participants found.</p>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+  
+              <!-- Bouton retour -->
+              <div class="d-flex justify-content-center mt-4">
+                <button (click)="goBack()" class="btn btn-outline-secondary">
+                  🔙 Back
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- ❗ Leaderboard Not Found -->
+      <div *ngIf="!boardDetails" class="row">
+        <div class="col-md-8 offset-md-2">
+          <div class="alert alert-warning text-center">
+            Leaderboard not found.
+          </div>
+        </div>
+      </div>
+  
+    </div>
+  </div>
+  

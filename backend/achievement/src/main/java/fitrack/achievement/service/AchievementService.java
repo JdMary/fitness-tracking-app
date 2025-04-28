@@ -1,27 +1,25 @@
 package fitrack.achievement.service;
 
+import fitrack.achievement.client.AuthClient;
 import fitrack.achievement.entity.Achievement;
 import fitrack.achievement.entity.dtos.ExerciseDTO;
 import fitrack.achievement.repository.AchievementRepository;
-
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class AchievementService {
 
-    @Autowired
-    private AchievementRepository repository;
-    //private   ExerciseClient exerciseClient;
 
-    public AchievementService(AchievementRepository repository) {
-        this.repository = repository;
-       // this.exerciseClient = exerciseClient;
-    }
+    private final AchievementRepository repository;
+    //private   ExerciseClient exerciseClient;
+    private final AuthClient authClient;
+
 
     public void createAchievementFromExerciseId(String exerciseId) {
 
@@ -47,11 +45,8 @@ public class AchievementService {
         };
         achievement.setXpPoints(xpPoints);
 
-        repository.save(achievement);}
-
-
-
-
+        repository.save(achievement);
+    }
 
 
     public List<Achievement> findAllAchivements() {
@@ -71,12 +66,40 @@ public class AchievementService {
         Achievement existingAchievement = repository.findById(achieveId)
                 .orElseThrow(() -> new RuntimeException("Achievement not found with ID: " + achieveId));
 
+        List<String> errors = new ArrayList<>();
+
+        if (achievementDetails.getTitle() == null || achievementDetails.getTitle().trim().length() < 5) {
+            errors.add("title: Title must be at least 5 characters long and not null.");
+        }
+
+        if (achievementDetails.getCriteria() == null || achievementDetails.getCriteria().trim().length() < 5) {
+            errors.add("criteria: Criteria must be at least 5 characters long and not null.");
+        }
+
+        if (achievementDetails.getXpPoints()   < 0||achievementDetails.getXpPoints() ==0) {
+            errors.add("xpPoints:Xp Points must be positive.");
+        }
+
+        if (achievementDetails.getProgress()< 0) {
+            errors.add("progress: Progress must be zero or positive.");
+        }
+        if (achievementDetails.getProgress()>100) {
+            errors.add("progress: Progress must <100.");
+        }
+
+
+
+
+        if (!errors.isEmpty()) {
+            throw new IllegalArgumentException(String.join(" | ", errors));
+        }
+
+
         existingAchievement.setTitle(achievementDetails.getTitle());
         existingAchievement.setXpPoints(achievementDetails.getXpPoints());
         existingAchievement.setCriteria(achievementDetails.getCriteria());
+        existingAchievement.setProgress(achievementDetails.getProgress());
         existingAchievement.setExerciseId(achievementDetails.getExerciseId());
-
-        // ⚠️ On ne touche pas à progress ici, il est automatique.
 
         return repository.save(existingAchievement);
     }
@@ -87,18 +110,17 @@ public class AchievementService {
     }
 
 
-
     public String updateProgress(String exerciseId, int totalSets) {
-        
+
 
         Achievement achievement = repository.findByExerciseId(exerciseId)
-                .orElseThrow(() -> new RuntimeException("Achievement non trouvé pour cet exercice"));
+                .orElseThrow(() -> new RuntimeException("Achievement not found for this exercise"));
 
         float progress = achievement.getProgress();
         StringBuilder message = new StringBuilder();
 
         if (progress >= 100) {
-            message.append("🎉 Félicitations ! Vous avez déjà terminé cet exercice.\n");
+            message.append("🎉Congratulations ! You have already completed this exercise.\n");
         } else {
             float setsCompleted = (progress / 100) * totalSets;
             int roundedSetsCompleted = Math.round(setsCompleted);
@@ -107,12 +129,13 @@ public class AchievementService {
 
             if (progress >= 100) {
                 progress = 100;
-                message.append("🎉 Félicitations ! Vous avez terminé cet exercice !\n");
-                message.append("Vous avez gagné ").append(achievement.getXpPoints()).append(" points.\n");
+
+                message.append("🎉 Congratulations ! You have completed this exercise !\n");
+                message.append("You won ").append(achievement.getXpPoints()).append(" points.\n");
             } else {
                 int remainingSets = totalSets - roundedSetsCompleted;
-                message.append("⏳ Il vous reste ").append(remainingSets).append(" sets à compléter. ");
-                message.append("Progression actuelle : ").append(progress).append("%.\n");
+                message.append("⏳ You still have ").append(remainingSets).append(" sets to complete. ");
+                message.append("Current progress : ").append(progress).append("%.\n");
             }
         }
 
@@ -123,6 +146,4 @@ public class AchievementService {
     }
 
 
-    private void gagnerBade() {
-    }
 }

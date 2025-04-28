@@ -1,64 +1,74 @@
 <div class="page-wrapper">
   <div class="content container-fluid">
 
-    <!-- Alerte d'erreur globale -->
-    <div *ngIf="errorMessage" class="alert alert-danger text-center" role="alert">
-      <i class="fa fa-exclamation-circle me-2"></i>
-      {{ errorMessage }}
-    </div>
-
-    <!-- Alerte de succès globale -->
-    <div *ngIf="successMessage" class="alert alert-success text-center" role="alert">
+    <!-- ✅ Message de succès -->
+    <div *ngIf="successMessage" class="alert alert-success text-center">
       {{ successMessage }}
     </div>
 
     <div class="row">
-      <!-- Formulaire centré : col-md-8 + offset-md-2 -->
       <div class="col-md-8 offset-md-2">
-        <h3 class="mb-4 text-center">Add Leaderboard</h3>
-
         <div class="card">
           <div class="card-body">
-            <!-- Title -->
-            <div class="mb-3">
-              <label class="form-label">Title</label>
-              <input
-                type="text"
-                [(ngModel)]="newLeaderboard.name"
-                class="form-control"
-                placeholder="Enter title"
-                name="title"
-              />
-            </div>
+            <h4 class="card-title text-center mb-4">Add New Leaderboard</h4>
 
-            <!-- Description -->
-            <div class="mb-3">
-              <label class="form-label">Description</label>
-              <textarea
-                [(ngModel)]="newLeaderboard.description"
-                class="form-control"
-                placeholder="Enter description"
-                rows="4"
-                name="description"
-              ></textarea>
-            </div>
+            <div class="row">
+              <!-- 🔹 Title -->
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Title</label>
+                  <input
+                    type="text"
+                    [(ngModel)]="newLeaderboard.name"
+                    name="name"
+                    class="form-control"
+                    [class.is-invalid]="errors['name']"
+                    (input)="clearError('name')"
+                    placeholder="Enter title"
+                    [ngModelOptions]="{ standalone: true }"
+                  />
+                  <div *ngIf="errors['name']" class="invalid-feedback">
+                    {{ errors['name'] }}
+                  </div>
+                </div>
+              </div>
 
-            <!-- Boutons -->
-            <div class="d-flex justify-content-between">
-              <!-- Bouton Cancel à gauche -->
-              <button type="button" class="btn btn-secondary" (click)="navigateToList()">
-                Cancel
-              </button>
+              <!-- 🔹 Description -->
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Description</label>
+                  <textarea
+                    [(ngModel)]="newLeaderboard.description"
+                    name="description"
+                    class="form-control"
+                    [class.is-invalid]="errors['description']"
+                    (input)="clearError('description')"
+                    placeholder="Enter description"
+                    rows="4"
+                    [ngModelOptions]="{ standalone: true }"
+                  ></textarea>
+                  <div *ngIf="errors['description']" class="invalid-feedback">
+                    {{ errors['description'] }}
+                  </div>
+                </div>
+              </div>
 
-              <!-- Bouton Add LeaderBoard à droite -->
-              <button type="button" class="btn btn-primary" (click)="addLeaderboard()">
-                Add LeaderBoard
-              </button>
-            </div>
+              <!-- 🔹 Buttons -->
+              <div class="col-md-12 mt-3">
+                <div class="d-flex justify-content-between">
+                  <button type="button" class="btn btn-secondary" (click)="navigateToList()">
+                    Cancel
+                  </button>
+                  <button type="button" class="btn btn-primary" (click)="addLeaderboard()">
+                    Add Leaderboard
+                  </button>
+                </div>
+              </div>
+
+            </div> <!-- end row -->
 
           </div>
         </div>
-
       </div>
     </div>
 

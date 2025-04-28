@@ -1,7 +1,7 @@
 <div class="page-wrapper page-settings">
   <div class="content">
 
-    <!-- ✅ Messages de succès ou d'erreur -->
+    <!-- ✅ Messages -->
     <div *ngIf="deleteMessage" class="alert alert-success text-center" role="alert">
       {{ deleteMessage }}
     </div>
@@ -9,40 +9,31 @@
       {{ errorMessage }}
     </div>
 
-    <!-- ✅ Filtres et actions alignés à gauche -->
+    <!-- ✅ Filtres -->
     <div class="content-page-header mb-4">
       <div class="d-flex flex-wrap align-items-center gap-3">
-
-        <!-- Filtre par Status -->
         <div>
           <select [(ngModel)]="selectedStatus" (change)="applyFilter(selectedStatus)" class="form-select">
             <option *ngFor="let status of statusOptions" [value]="status.value">{{ status.label }}</option>
           </select>
         </div>
-
-        <!-- Tri par XP -->
         <div>
           <select [(ngModel)]="selectedSort" (change)="applySort(selectedSort)" class="form-select">
             <option *ngFor="let option of sortOptions" [value]="option">{{ option }}</option>
           </select>
         </div>
-
-        <!-- Recherche -->
         <div>
           <input [(ngModel)]="searchValue" (input)="searchChallenges()" placeholder="Search by title..." class="form-control" />
         </div>
-
-        <!-- Bouton Ajouter Challenge -->
         <div>
           <a [routerLink]="'/admin/add-challenge'" class="btn btn-primary">
             <i class="fa fa-plus me-2"></i> Add Challenge
           </a>
         </div>
-
       </div>
     </div>
 
-    <!-- ✅ Table -->
+    <!-- ✅ Tableau -->
     <div class="row">
       <div class="col-12">
         <div class="table-responsive table-div">
@@ -63,17 +54,16 @@
             <tbody>
               <tr *ngFor="let challenge of displayedChallenges; let i = index">
                 <td>{{ serialNumberArray[i] }}</td>
-                <td [title]="challenge.title">
+                <td class="text-dark fw-normal" [title]="challenge.title">
                   {{ challenge.title.length > 10 ? (challenge.title | slice:0:10) + '...' : challenge.title }}
                 </td>
-                <td [title]="challenge.description">
+                <td  class="text-dark fw-normal" [title]="challenge.description">
                   {{ challenge.description.length > 10 ? (challenge.description | slice:0:10) + '...' : challenge.description }}
                 </td>
-                
-                <td>{{ challenge.xpPoints }}</td>
-                <td>{{ challenge.startDate | date: 'dd/MM/yyyy hh:mm a' }}</td>
-                <td>{{ challenge.endDate | date: 'dd/MM/yyyy hh:mm a' }}</td>
-                <td>
+                <td class="text-dark fw-normal">{{ challenge.xpPoints }}</td>
+                <td class="text-dark fw-normal">{{ challenge.startDate | date: 'dd/MM/yyyy hh:mm a' }}</td>
+                <td class="text-dark fw-normal">{{ challenge.endDate | date: 'dd/MM/yyyy hh:mm a' }}</td>
+                <td >
                   <h6 [ngClass]="{
                     'badge-pending': challenge.status === 'PENDING',
                     'badge-active': challenge.status === 'ACTIVE',
@@ -83,46 +73,33 @@
                     {{ challenge.status }}
                   </h6>
                 </td>
-                <td>{{ challenge.userId }}</td>
-                <!-- ✅ Action column (HTML modifié) -->
-                <td>
-                  <div class="action-language">
-                    <a 
-                    [routerLink]="['/admin/challenges/details', challenge.challengeId]" 
-                    class="btn-action-icon view" 
-                    title="Details"
-                  >
-                    <i class="fa-solid fa-eye"></i>
-                  </a>
-                  
-                    <a 
-                      [routerLink]="['/admin/edit-challenge', challenge.challengeId]" 
-                      class="btn-action-icon edit" 
-                      title="Edit"
-                    >
-                      <i class="fa-regular fa-pen-to-square"></i>
-                    </a>
-            
-                    <a 
-                      href="javascript:void(0);" 
-                      (click)="openDeleteModal(challenge)" 
-                      class="btn-action-icon delete" 
-                      title="Delete"
-                    >
-                      <i class="fa-solid fa-trash-can"></i>
-                    </a>
-              
-                   
-                  </div>
+                <td class="text-dark fw-normal">
+                  {{ challenge.name }}
                 </td>
                 
-
-
+                <td>
+                  <div class="action-language">
+                    <a [routerLink]="['/admin/challenges/details', challenge.challengeId]"
+                       class="btn-action-icon view" title="Details">
+                      <i class="fa-solid fa-eye"></i>
+                    </a>
+                    <a [routerLink]="['/admin/edit-challenge', challenge.challengeId]"
+                       class="btn-action-icon edit" title="Edit">
+                      <i class="fa-regular fa-pen-to-square"></i>
+                    </a>
+                    <a href="javascript:void(0);"
+                       (click)="openDeleteModal(challenge)"
+                       class="btn-action-icon delete" title="Delete">
+                      <i class="fa-solid fa-trash-can"></i>
+                    </a>
+                  </div>
+                </td>
               </tr>
             </tbody>
           </table>
         </div>
 
+        <!-- ✅ Pagination -->
         <div class="pagination-main-class mt-4">
           <div class="table_footer">
             <div class="row align-items-center">
@@ -159,7 +136,7 @@
       </div>
     </div>
 
-    <!-- ✅ Modal de confirmation suppression -->
+    <!-- ✅ Modal suppression -->
     <div class="modal fade" id="deleteChallengeModal" tabindex="-1" aria-labelledby="deleteChallengeModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">

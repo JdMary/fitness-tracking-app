@@ -62,11 +62,14 @@ const routes: Routes = [
     import('./achievements/customer-leaderboard-detail/customer-leaderboard-detail.module').then(
       (m) => m.CustomerLeaderboardDetailModule
     )
+},
+{
+  path: 'customer-reward',
+  loadChildren: () =>
+    import('./achievements/customer-reward/customer-reward.module')
+      .then(m => m.CustomerRewardModule)
 }
-
 ,
-
-
 {
   path: 'share-on-facebook',
   loadChildren: () =>

@@ -7,79 +7,127 @@ import fitrack.achievement.entity.ChallengeStatus;
 import fitrack.achievement.entity.User;
 import fitrack.achievement.entity.dtos.AIChallengeReponse;
 import fitrack.achievement.entity.dtos.ChallengeUpdateRequest;
+import fitrack.achievement.entity.dtos.ChallengeWithUserDTO;
 import fitrack.achievement.repository.ChallengeRepository;
 import fitrack.achievement.utils.FitnessGoalMuscleMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class ChallengeService {
 
+    private final ChallengeRepository repository;
+    private final ChallengeRepository challengeRepository;
+    private final AuthClient authClient;
+    private final ExerciseApiService exerciseApiService;
 
-    @Autowired
-    private ChallengeRepository repository;
-    private AuthClient authClient;
-
-    @Autowired
-    private ChallengeRepository challengeRepository;
-
-    public Challenge addChallenge(Challenge challenge, String token) {
+    public Challenge addChallenge(Challenge challenge) {
         List<String> errors = new ArrayList<>();
         LocalDateTime now = LocalDateTime.now();
 
-        // Validation du titre
         if (challenge.getTitle() == null || challenge.getTitle().trim().isEmpty()) {
-            errors.add("The title is required.");
+            errors.add("title: The title is required.");
         }
-
-        // Validation de la description
         if (challenge.getDescription() == null || challenge.getDescription().trim().isEmpty()) {
-            errors.add("The description is required.");
+            errors.add("description: The description is required.");
         }
-
-        // Validation des points d'XP
         if (challenge.getXpPoints() <= 0) {
-            errors.add("The number of XP points must be greater than 0.");
+            errors.add("xpPoints: The number of XP points must be greater than 0.");
         }
-
-        // Validation des dates
-        if (challenge.getStartDate().isBefore(now)) {
-            errors.add("The start date must be greater than the current date.");
+        if (challenge.getStartDate() == null) {
+            errors.add("startDate: The start date is required.");
+        } else if (challenge.getStartDate().isBefore(now)) {
+            errors.add("startDate: The start date must be greater than the current date.");
         }
+        if (challenge.getEndDate() == null ) {
+            errors.add("endDate: The end date is required.");
 
-        if (challenge.getEndDate() != null && challenge.getEndDate().isBefore(challenge.getStartDate())) {
-            errors.add("The end date must be greater than the start date.");
+    } else if (challenge.getStartDate() != null && challenge.getEndDate().isBefore(challenge.getStartDate())) {
+            errors.add("endDate: The end date must be greater than the start date.");
         }
+        System.out.println("Received endDate: " + challenge.getEndDate());
 
-
+        if (challenge.getUserId() == null || challenge.getUserId().trim().isEmpty()) {
+            errors.add("userId: You must choose a user.");
+        }
         if (!errors.isEmpty()) {
             throw new IllegalArgumentException(String.join(" | ", errors));
         }
-        User u = authClient.extractUserDetails(token).getBody();
-        // Sinon on continue
-        challenge.setUserId(u.getId());
         challenge.setStatus(ChallengeStatus.PENDING);
+        challenge.setParticipation(false);
+        challenge.setReminder15(false);
+        challenge.setValidation(false);
         return challengeRepository.save(challenge);
     }
 
     public List<Challenge> findAllChallenge() {
         return repository.findAll();
+    }public List<ChallengeWithUserDTO> getAllChallengesWithUserNames() {
+        List<Challenge> challenges = challengeRepository.findAll();
+
+        return challenges.stream().map(challenge -> {
+            ChallengeWithUserDTO dto = new ChallengeWithUserDTO();
+
+
+            String cleanUserId = challenge.getUserId() != null ? challenge.getUserId().trim() : null;
+
+
+            dto.setChallengeId(challenge.getChallengeId());
+            dto.setTitle(challenge.getTitle());
+            dto.setDescription(challenge.getDescription());
+            dto.setXpPoints(challenge.getXpPoints());
+            dto.setStatus(challenge.getStatus());
+            dto.setStartDate(challenge.getStartDate());
+            dto.setEndDate(challenge.getEndDate());
+            dto.setUserId(cleanUserId);
+            dto.setParticipation(challenge.isParticipation());
+            dto.setReminder15(challenge.isReminder15());
+            dto.setValidation(challenge.isValidation());
+            dto.setName("Inconnu");
+
+
+            try {
+                if (cleanUserId != null) {
+                    ResponseEntity<User> response = authClient.getUserById(cleanUserId);
+                    if (response.getBody() != null) {
+                        dto.setName(response.getBody().getName());
+                    }
+                }
+            } catch (Exception e) {
+                System.err.println("❌ Erreur récupération utilisateur pour ID " + cleanUserId);
+            }
+
+            return dto;
+        }).toList();
     }
 
-    public List<Challenge> findByUserId(String userId) {
-        return challengeRepository.findByUserId(userId);
+
+    public List<Challenge> getChallengesByUser(String token) {
+        if (!token.startsWith("Bearer ")) {
+            token = "Bearer " + token;
+        }
+
+        ResponseEntity<User> response = authClient.extractUserDetails(token);
+
+        if (response.getBody() == null) {
+            throw new RuntimeException("Impossible de récupérer l'utilisateur depuis le token !");
+        }
+
+        User user = response.getBody();
+        System.out.println("✅ Utilisateur connecté : " + user.getEmail());
+
+        return challengeRepository.findByUserId(user.getId());
     }
+
+
     public Challenge findChallengeById(String challengeId) {
         return challengeRepository.findById(challengeId)
                 .orElseThrow(() -> new RuntimeException("❌ Défi avec l'ID " + challengeId + " introuvable."));
@@ -97,57 +145,80 @@ public class ChallengeService {
         return "✅ Challenge supprimé avec succès.";
     }
 
-
     public void updateChallenge(String challengeId, ChallengeUpdateRequest request) {
+        LocalDateTime now = LocalDateTime.now();
+        List<String> errors = new ArrayList<>();
+
         Challenge existing = challengeRepository.findById(challengeId)
-                .orElseThrow(() -> new RuntimeException("❌ Challenge introuvable."));
+                .orElseThrow(() -> new RuntimeException("❌ Challenge not found."));
 
-        boolean datesModified = request.getStartDate() != null && request.getEndDate() != null;
-
-        if (existing.getStatus() == ChallengeStatus.COMPLETED) {
-            throw new RuntimeException("⛔ Ce défi est terminé et ne peut plus être modifié.");
+        if (request.getTitle() == null || request.getTitle().trim().isEmpty()) {
+            errors.add("title: The title is required.");
+        }
+        if (request.getDescription() == null || request.getDescription().trim().isEmpty()) {
+            errors.add("description: The description is required.");
         }
 
-        // Dates obligatoires ensemble
-        if (request.getStartDate() != null || request.getEndDate() != null) {
-            if (!datesModified) {
-                throw new RuntimeException("⚠️ Si tu modifies la date de début ou de fin, tu dois spécifier les deux dates !");
-            }
-            if (request.getEndDate().isBefore(request.getStartDate())) {
-                throw new RuntimeException("⚠️ La date de fin doit être après la date de début !");
-            }
+        if (request.getXpPoints() == null || request.getXpPoints() <= 0) {
+            errors.add("xpPoints: XP points must be greater than 0.");
+        }
 
-            existing.setStartDate(request.getStartDate());
-            existing.setEndDate(request.getEndDate());
+        if (request.getUserId() == null || request.getUserId().trim().isEmpty()) {
+            errors.add("userId: You must select a user.");
+        }
+
+    if(request.getStatus()==ChallengeStatus.PENDING){
+        if (request.getStartDate() == null) {
+            errors.add("startDate: The start date is required.");
+        } else if (request.getStartDate().isBefore(now)) {
+            errors.add("startDate: The start date must be in the future.");
+        }
+
+        if (request.getEndDate() == null) {
+            errors.add("endDate: The end date is required.");
+        } else if (request.getEndDate().isBefore(now)) {
+            errors.add("endDate: The end date must be in the future.");
+        }
+
+        if (request.getStartDate() != null && request.getEndDate() != null && 
+            request.getEndDate().isBefore(request.getStartDate())) {
+            errors.add("endDate: The end date must be after the start date.");
+        }
+    request.setParticipation(false);
+    request.setValidation(false);
+    request.setReminder15(false);}
 
 
-            if (existing.getStatus() == ChallengeStatus.CANCELED || existing.getStatus() == ChallengeStatus.FAILED) {
-                existing.setStatus(ChallengeStatus.PENDING);
-                existing.setReminder15(false);
-                existing.setParticipation(false);
-                existing.setValidation(false);
+        if (request.getStatus() == ChallengeStatus.ACTIVE) {
+            errors.add("status: Manual activation is not allowed. Activation happens automatically based on dates.");
+        }
+
+
+        if (request.getStatus() == ChallengeStatus.CANCELED || request.getStatus() == ChallengeStatus.FAILED) {
+            boolean modified =
+                    !Objects.equals(existing.getTitle(), request.getTitle()) ||
+                    !Objects.equals(existing.getDescription(), request.getDescription()) ||
+                    !Objects.equals(existing.getStartDate(), request.getStartDate()) ||
+                    !Objects.equals(existing.getEndDate(), request.getEndDate()) ||
+                    !Objects.equals(existing.getXpPoints(), request.getXpPoints()) ||
+                    !Objects.equals(existing.getUserId(), request.getUserId());
+
+            if (modified) {
+                errors.add("status: You cannot modify anything else when setting a challenge to canceled or failed.");
             }
         }
 
-        if (request.getTitle() != null) existing.setTitle(request.getTitle());
-        if (request.getDescription() != null) existing.setDescription(request.getDescription());
-
-        if (request.getXpPoints() != null) {
-            if (existing.getStatus() == ChallengeStatus.COMPLETED) {
-                throw new RuntimeException("🎯 XP déjà attribué, tu ne peux plus modifier les points d'XP après la complétion.");
-            }
-            existing.setXpPoints(request.getXpPoints());
+        if (!errors.isEmpty()) {
+            throw new IllegalArgumentException(String.join(" | ", errors));
         }
 
-        if (request.getStatus() != null) {
-            if (request.getStatus() == ChallengeStatus.ACTIVE) {
-                throw new RuntimeException("🚫 Le statut 'ACTIVE' est géré automatiquement par le système.");
-            }
-            if (request.getStatus() == ChallengeStatus.PENDING && !datesModified) {
-                throw new RuntimeException("🚫 Tu ne peux pas modifier le statut vers 'PENDING' sans changer les dates !");
-            }
-            existing.setStatus(request.getStatus());
-        }
+        existing.setTitle(request.getTitle());
+        existing.setDescription(request.getDescription());
+        existing.setStartDate(request.getStartDate());
+        existing.setEndDate(request.getEndDate());
+        existing.setXpPoints(request.getXpPoints());
+        existing.setUserId(request.getUserId());
+        existing.setStatus(request.getStatus());
 
         challengeRepository.save(existing);
     }
@@ -155,14 +226,10 @@ public class ChallengeService {
 
     public List<Challenge> findBy(String keyword, LocalDateTime startDate) {
         List<Challenge> results = challengeRepository.findby(keyword, startDate);
-
-        // Essayons de parser le keyword en date
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             LocalDate parsedDate = LocalDate.parse(keyword, formatter);
             LocalDateTime startOfDay = parsedDate.atStartOfDay();
-
-            // Recherche supplémentaire par date
             List<Challenge> dateResults = challengeRepository.findByStartDate(startOfDay);
 
             results.addAll(dateResults);
@@ -178,25 +245,26 @@ public class ChallengeService {
     public Challenge participate(String challengeId, String userId) {
 
         Challenge challenge = challengeRepository.findById(challengeId)
-                .orElseThrow(() -> new RuntimeException("Défi introuvable"));
+                .orElseThrow(() -> new RuntimeException("Challenge not found"));
 
         if (!challenge.getUserId().equals(userId)) {
-            throw new RuntimeException("Ce défi ne vous appartient pas !");
+            throw new RuntimeException("This challenge is not yours !");
         }
 
         if (challenge.getStatus() == ChallengeStatus.CANCELED || challenge.getStatus() == ChallengeStatus.FAILED) {
-            throw new RuntimeException("❌ Ce défi est annulé ou échoué, vous ne pouvez pas y participer.");
+            throw new RuntimeException("❌\n" +
+                    "This challenge is canceled or failed, you cannot participate.");
         }
         if (challenge.getStatus() == ChallengeStatus.COMPLETED) {
-            throw new RuntimeException("✅ Vous avez déjà Completé  !");
+            throw new RuntimeException("✅ You have already completed  !");
         }
 
         if (challenge.getStatus() != ChallengeStatus.ACTIVE) {
-            throw new RuntimeException("⏱️ Ce défi n’est pas encore actif !");
+            throw new RuntimeException("⏱️ This challenge is not yet active!");
         }
 
         if (challenge.isParticipation()) {
-            throw new RuntimeException("✅ Vous avez déjà participé !");
+            throw new RuntimeException("✅ You have already participated !");
         }
 
         challenge.setParticipation(true);
@@ -205,22 +273,25 @@ public class ChallengeService {
 
     public Challenge validateChallenge(String challengeId, String userId) {
         Challenge challenge = challengeRepository.findById(challengeId)
-                .orElseThrow(() -> new RuntimeException("Défi introuvable"));
+                .orElseThrow(() -> new RuntimeException("Challenge not found"));
 
         if (!challenge.getUserId().equals(userId)) {
-            throw new RuntimeException("Ce défi ne vous appartient pas !");
+            throw new RuntimeException("This challenge is not yours !");
         }
 
         if (!challenge.getStatus().equals(ChallengeStatus.ACTIVE)) {
-            throw new RuntimeException("⛔ Le défi n’est pas actif.");
+            throw new RuntimeException("⛔ The challenge is not active.");
         }
 
         if (!challenge.isParticipation()) {
-            throw new RuntimeException("⛔ Tu dois participer avant de valider !");
+            throw new RuntimeException("⛔ You must participate before validating !");
         }
 
 
         challenge.setStatus(ChallengeStatus.COMPLETED);
+        ResponseEntity<User>  response = authClient.getUserById(challenge.getUserId());
+        User user = response.getBody();
+        user.setXpPoints(user.getXpPoints()+challenge.getXpPoints());
         return challengeRepository.save(challenge);
     }
 
@@ -229,15 +300,12 @@ public class ChallengeService {
         return challengeRepository.findByUserId(userId);
     }
 
-    @Autowired
-    private ExerciseApiService exerciseApiService;
+
 
     private List<String> inferMusclesFromUser(User user) {
         List<String> muscles = FitnessGoalMuscleMapper.getMusclesForGoal(user.getFitnessGoals());
-
-        // S'il n'y a pas de muscles associés à ce goal, on retourne une valeur par défaut
         if (muscles == null || muscles.isEmpty()) {
-            return List.of("abdominals"); // Par défaut : muscle "centre du corps"
+            return List.of("abdominals");
         }
 
         return muscles;
@@ -260,7 +328,7 @@ public class ChallengeService {
 
     public AIChallengeReponse generateChallenge(User user) {
         List<String> muscles = inferMusclesFromUser(user);
-        Collections.shuffle(muscles); // Pour ne pas toujours choisir le même
+        Collections.shuffle(muscles);
         String[] difficulties = {"beginner", "intermediate", "expert"};
         String userLevel = inferDifficultyFromXpPoints(user.getXpPoints());
 
@@ -268,7 +336,6 @@ public class ChallengeService {
         String selectedMuscle = null;
         String usedDifficulty = null;
 
-        // Essai avec le niveau de l'utilisateur d'abord
         for (String muscle : muscles) {
             JsonNode exercises = exerciseApiService.getExercises(muscle, userLevel);
             if (exercises != null && !exercises.isEmpty()) {
@@ -279,7 +346,6 @@ public class ChallengeService {
             }
         }
 
-        // Si aucun résultat, on essaye avec d'autres niveaux
         if (selectedExercise == null) {
             for (String diff : difficulties) {
                 if (diff.equals(userLevel)) continue;
@@ -298,20 +364,16 @@ public class ChallengeService {
         }
 
         if (selectedExercise == null) {
-            throw new RuntimeException("Aucun exercice trouvé pour " + muscles + " à tous niveaux.");
+            throw new RuntimeException("No exercises found for " + muscles + " at all levels.");
         }
-
-        // Description + XP
         String name = selectedExercise.get("name").asText();
         String instructions = selectedExercise.has("instructions") ? selectedExercise.get("instructions").asText() : "";
         String description = FitnessGoalMuscleMapper.formatChallengeDescription(selectedMuscle, usedDifficulty, instructions);
 
         int xp = calculateXpFromDifficulty(usedDifficulty);
-
-        // Construction du challenge
         AIChallengeReponse challenge = new AIChallengeReponse();
         challenge.setTitle(name + " - " + selectedMuscle.toUpperCase());
-
+challenge.setStatus(ChallengeStatus.PENDING);
         challenge.setDescription(description);
         challenge.setXpPoints(xp);
         challenge.setStartDate(LocalDate.now().plusDays(1).toString());
@@ -321,6 +383,12 @@ public class ChallengeService {
         return challenge;
     }
     private JsonNode selectBestExercise(JsonNode exercises) {
-        return exercises.get(0);
+        int size = exercises.size();
+        int randomIndex = new Random().nextInt(size);
+        return exercises.get(randomIndex);
     }
+
+
+
+
 }

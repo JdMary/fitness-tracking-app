@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CustomerLeaderboardService } from 'src/app/feature-module/customers/achievements/services/customer-leaderboard.service';
+import { CustomerLeaderboardService } from 'src/app/shared/services/customer-leaderboard.service';
 import { LeaderBoard } from 'src/app/feature-module/customers/achievements/models/customer-leaderboard.model';
 
 @Component({
@@ -10,76 +10,89 @@ import { LeaderBoard } from 'src/app/feature-module/customers/achievements/model
 })
 export class EditLeaderboardComponent implements OnInit {
 
-  boardId: string | null = null;
+  boardId!: string;
   leaderboard: LeaderBoard = {
     boardId: '',
     name: '',
     description: ''
   };
 
-  errorMessage: string = '';
   successMessage: string = '';
+  errors: { [key: string]: string } = {};
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
-    private leaderboardService: CustomerLeaderboardService
+    private leaderboardService: CustomerLeaderboardService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    // Récupérer le paramètre boardId depuis l'URL
-    this.boardId = this.route.snapshot.paramMap.get('boardId');
-    console.log('boardId:', this.boardId);
-    
-    if (!this.boardId) {
-      this.errorMessage = 'No Leaderboard ID provided.';
-      return;
-    }
-    
+    this.boardId = this.route.snapshot.paramMap.get('boardId')!;
     this.fetchLeaderboardDetails();
   }
 
+  // Charger les détails du leaderboard
   fetchLeaderboardDetails(): void {
-    this.leaderboardService.getLeaderboardById(this.boardId!).subscribe({
+    this.leaderboardService.getLeaderboardById(this.boardId).subscribe({
       next: (data: LeaderBoard) => {
         this.leaderboard = { ...data };
       },
-      error: (err) => {
-        this.errorMessage = `Failed to load leaderboard: ${err.message}`;
+      error: () => {
+        this.errors['general'] = '❌ Échec du chargement des détails du leaderboard.';
       }
     });
   }
 
+  // Mettre à jour le leaderboard
   updateLeaderboard(): void {
-    // Réinitialiser les messages
-    this.errorMessage = '';
+    this.errors = {};
     this.successMessage = '';
-
-    // Validation : vérifier que name et description ne sont pas vides et ont au moins 10 caractères.
-    if (!this.leaderboard.name || this.leaderboard.name.trim().length < 10) {
-      this.errorMessage = 'Name is required and must be at least 10 characters.';
-      return;
-    }
-    if (!this.leaderboard.description || this.leaderboard.description.trim().length < 10) {
-      this.errorMessage = 'Description is required and must be at least 10 characters.';
-      return;
-    }
-
-    // Si les validations passent, appel du service pour la mise à jour
-    this.leaderboardService.updateLeaderboard(this.leaderboard).subscribe({
-      next: (updated: LeaderBoard) => {
-        this.successMessage = 'Leaderboard updated successfully!';
-        setTimeout(() => {
-          this.router.navigate(['/admin/liste-leaderboard']);
-        }, 1500);
+  
+    this.leaderboardService.updateLeaderboard(this.boardId, this.leaderboard).subscribe({
+      next: () => {
+        this.successMessage = '✅ Challenge mis à jour avec succès ! Redirection...';
+        setTimeout(() => this.router.navigate(['/admin/liste-challenges']), 1500);
       },
-      error: (err) => {
-        this.errorMessage = `Failed to update leaderboard: ${err.error?.message || err.message}`;
+      error: (errorResponse) => {
+        console.error('❌ Erreurs reçues :', errorResponse);
+        
+        if (errorResponse.error && typeof errorResponse.error === 'string') {
+          try {
+            // Essayer de parser le message d'erreur JSON
+            const errorObj = JSON.parse(errorResponse.error);
+            if (errorObj.errors) {
+              errorObj.errors.forEach((error: string) => {
+                if (error.includes('name:')) this.errors['name'] = error.split('name:')[1].trim();
+                else if (error.includes('description:')) this.errors['description'] = error.split('description:')[1].trim();
+             
+              });
+            }
+          } catch (e) {
+            // Si le parsing échoue, traiter comme une erreur simple
+            const errorParts = errorResponse.error.split('|');
+            errorParts.forEach((part: string) => {
+              const [field, message] = part.split(':').map((s: string) => s.trim());
+              if (field && message) {
+                const cleanField = field.toLowerCase();
+                if (cleanField.includes('name')) this.errors['name'] = message;
+                else if (cleanField.includes('description')) this.errors['description'] = message;
+              
+              }
+            });
+          }
+        }
       }
     });
   }
 
-  cancel(): void {
+  navigateToList(): void {
     this.router.navigate(['/admin/liste-leaderboard']);
   }
+
+  clearError(field: string): void {
+    if (this.errors[field]) {
+      delete this.errors[field];
+    }
+  }
+
 }

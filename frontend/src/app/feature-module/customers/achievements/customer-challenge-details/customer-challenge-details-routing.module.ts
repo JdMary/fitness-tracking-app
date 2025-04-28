@@ -10,8 +10,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class CustomerChallengeDetailsRoutingModule {
-  constructor() {
-    console.log('✅ CustomerChallengeDetailsRoutingModule chargé');
-  }
-}
+export class CustomerChallengeDetailsRoutingModule {}

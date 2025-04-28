@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CustomerChallengeService } from 'src/app/feature-module/customers/achievements/services/customer-challenge.service';
+import { CustomerChallengeService } from 'src/app/shared/services/customer-challenge.service';
 import { Challenge } from 'src/app/feature-module/customers/achievements/models/challenge.model';
 import { formatDate } from '@angular/common';
 import { Router } from '@angular/router'; // ✅ Ajout de l'import
@@ -24,11 +24,17 @@ export class GenerateChallengeComponent {
 
   generateChallenge() {
     const user = {
-      fitnessGoals: 'perte de poids',
+      id: '0f9e973e-f4d1-4f3b-9806-d62074ab831a',
+      email: 'farah.addad@gmail.com',
+      name: 'user',
+      boardId: 'temp-board',
+      xpPoints: 0,
+      rank: 0,
+      fitnessGoals: 'gain de poids',
       height: 160,
       weight: 55,
-      xpPoints: 0,
     };
+    
 
     this.challengeService.generateChallengeFromUser(user).subscribe({
       next: (challenge) => {

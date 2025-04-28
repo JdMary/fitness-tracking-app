@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CustomerLeaderboardService } from '../services/customer-leaderboard.service';
-import { FullBoardResponse } from './board-response.model';
+import { Router } from '@angular/router';
+import { CustomerLeaderboardService } from '../../../../shared/services/customer-leaderboard.service';
+import { FullBoardResponse } from '../models/board-response.model';
 
 @Component({
   selector: 'app-customer-leaderboard-detail',
@@ -11,47 +11,48 @@ import { FullBoardResponse } from './board-response.model';
 export class CustomerLeaderboardDetailComponent implements OnInit {
   boardDetails: FullBoardResponse | null = null;
   errorMessage: string = '';
-  userId: string = '';
   currentUserRank: number | null = null;
   currentUserXP: number | null = null;
+  currentUserEmail: string = '';
 
   constructor(
-    private route: ActivatedRoute,
     private leaderboardService: CustomerLeaderboardService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.userId = this.route.snapshot.paramMap.get('userId') || '';
-
-    if (this.userId) {
-      this.fetchLeaderboardDetails(this.userId);
-    } else {
-      this.errorMessage = '❌ No user ID provided in the URL.';
-    }
+    this.fetchMyLeaderboard();
   }
 
-  fetchLeaderboardDetails(userId: string): void {
-    this.leaderboardService.getBoardByUserId(userId).subscribe({
+  fetchMyLeaderboard(): void {
+    this.leaderboardService.getMyLeaderboard().subscribe({
       next: (data) => {
         this.boardDetails = data;
-        console.log('Board Details:', this.boardDetails.users);
+        console.log('📊 Board Details:', this.boardDetails.users);
+
         if (this.boardDetails.users && this.boardDetails.users.length > 0) {
           // ✅ Trie par XP décroissant
           this.boardDetails.users.sort((a, b) => b.xpPoints - a.xpPoints);
 
-          // ✅ Attribue les rangs
-          this.boardDetails.users.forEach((user, index) => {
-            user.rank = index + 1;
-            if (user.id === this.userId) {
-              this.currentUserRank = user.rank;
-              this.currentUserXP = user.xpPoints;
-            }
-          });
+          // ✅ Récupère l'email depuis le token
+          const token = localStorage.getItem('authToken');
+          if (token) {
+            const payload = JSON.parse(atob(token.split('.')[1]));
+            const email = payload.sub;
+            this.currentUserEmail = email;
+
+            this.boardDetails.users.forEach((user, index) => {
+              user.rank = index + 1;
+              if (user.email === email) {
+                this.currentUserRank = user.rank;
+                this.currentUserXP = user.xpPoints;
+              }
+            });
+          }
         }
       },
       error: (error) => {
-        this.errorMessage = '❌ Failed to load leaderboard details.';
+        this.errorMessage = '❌ Failed to load your leaderboard.';
         console.error(error);
       }
     });

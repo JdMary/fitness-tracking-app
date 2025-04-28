@@ -1,0 +1,51 @@
+<div class="container mt-4">
+  <h2 class="text-center mb-4" style="color: #28a745"> My Rewards</h2>
+
+
+
+  
+    <div class="row" *ngIf="rewards.length > 0; else noRewards">
+      <div class="col-md-4 mb-4" *ngFor="let reward of rewards">
+        <div class="card shadow-sm h-100 border-primary">
+          <div class="card-body text-center">
+  
+            <h5 class="card-title mb-3">Rank: {{ reward.rankAwarded }}</h5>
+            <p class="text-muted mb-2">{{ reward.description }}</p>
+  
+            <div class="mb-3">
+              <span class="badge" [ngClass]="reward.used ? 'bg-secondary' : 'bg-success'">
+                {{ reward.used ? '⛔ Already Used' : '✅ Active Code' }}
+              </span>
+            </div>
+  
+            <!-- ✅ Promo Code + Copy button -->
+            <div class="d-flex justify-content-center align-items-center gap-2">
+              <input
+                class="form-control text-center"
+                style="max-width: 170px"
+                type="text"
+                [value]="reward.promoCode"
+                readonly
+              />
+              <button class="btn btn-outline-primary btn-sm" (click)="copyCode(reward.promoCode)">
+                <i class="fa fa-copy"></i>
+              </button>
+            </div>
+  
+            <!-- ✅ Date attribuée -->
+            <small class="text-muted d-block mt-2">
+              Attributed on: {{ reward.createdAt | date:'mediumDate' }}
+            </small>
+  
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <ng-template #noRewards>
+      <div class="alert alert-info text-center">
+        You don't have any rewards yet.
+      </div>
+    </ng-template>
+  </div>
+  

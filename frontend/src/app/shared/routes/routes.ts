@@ -1,9 +1,61 @@
 export class routes {
   private static Url = '';
 
+
+  public static get customerLeaderboardDetail(): string {
+    return '/customers/customer-leaderboard-detail';
+  }
+  
+  
+  public static get customerReward(): string {
+    return'/customers/customer-reward';
+  }
+
+  public static get customerChallenges(): string {
+    return  '/customers/customer-challenge';
+  }
+  public static get customerAchievements(): string {
+    return  '/customers/customer-achievements';
+  }
+
+
+  public static get adminAchievements(): string {
+    return  '/admin/liste-achievements';
+  }
+
+ public static get adminChallenges(): string {
+    return  '/admin/liste-challenges';
+  }
+  public static get adminBoards(): string {
+    return  '/admin/liste-leaderboard';
+  }
+  public static get adminAddBoard(): string {
+    return  '/admin/add-leaderboard';
+  }
+  public static get adminAddChallenge(): string {
+    return  '/admin/add-challenge';
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   public static get adminRequestList(): string {
     return this.baseUrl + '/admin/buddy/requests-list';
   }
+
   public static get adminMatchList(): string {
     return this.baseUrl + '/admin/buddy/matches-list';
   }

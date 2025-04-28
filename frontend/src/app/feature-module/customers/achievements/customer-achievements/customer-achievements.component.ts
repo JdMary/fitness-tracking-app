@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CustomerAchievementService } from '../services/customer-achievement.service';
+import { CustomerAchievementService } from '../../../../shared/services/customer-achievement.service';
 import { Achievement } from '../models/achievement.model';
 
 @Component({

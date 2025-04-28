@@ -1,12 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterModule, Routes } from '@angular/router';
 import { EditAchievementComponent } from './edit-achievement.component';
-
-const routes: Routes = [
-  { path: '', component: EditAchievementComponent }
-];
+import { EditAchievementRoutingModule } from './edit-achievement-routing.module'; 
 
 @NgModule({
   declarations: [
@@ -14,8 +10,8 @@ const routes: Routes = [
   ],
   imports: [
     CommonModule,
+    EditAchievementRoutingModule, 
     FormsModule,
-    RouterModule.forChild(routes) // lazy loading routing
   ]
 })
-export class EditAchievementModule { }
+export class EditAchievementModule {}

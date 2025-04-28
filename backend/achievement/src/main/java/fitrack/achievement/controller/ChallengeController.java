@@ -4,9 +4,8 @@ import fitrack.achievement.entity.Challenge;
 import fitrack.achievement.entity.User;
 import fitrack.achievement.entity.dtos.AIChallengeReponse;
 import fitrack.achievement.entity.dtos.ChallengeUpdateRequest;
+import fitrack.achievement.entity.dtos.ChallengeWithUserDTO;
 import fitrack.achievement.scheduler.ChallengeScheduler;
-
-
 
 import fitrack.achievement.service.ChallengeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,19 +18,20 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/api/v1/challenges")
 
 public class ChallengeController {
-
+    private  final ChallengeService service;
     @GetMapping("/test")
     public String test() {
         return "Service Challenge fonctionne";
     }
-    @Autowired
-    private  final ChallengeService service;
+
+
 
     private final ChallengeScheduler challengeScheduler;
 
@@ -43,10 +43,10 @@ public class ChallengeController {
     }
 
     @PostMapping("/addChallenge")
-    public ResponseEntity<?> save(@RequestBody Challenge challenge, @RequestHeader("Authorization") String token) {
+    public ResponseEntity<?> save(@RequestBody Challenge challenge) {
         try {
             System.out.println("Received Challenge: " + challenge);
-            Challenge savedChallenge = service.addChallenge(challenge, token);
+            Challenge savedChallenge = service.addChallenge(challenge);
             return ResponseEntity.status(HttpStatus.CREATED).body(savedChallenge);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body( e.getMessage());
@@ -61,6 +61,18 @@ public class ChallengeController {
             return ResponseEntity.badRequest().body("❌ Erreur lors de la récupération des défis : " + e.getMessage());
         }
     }
+    @GetMapping("/admin/all")
+    public ResponseEntity<List<ChallengeWithUserDTO>> getAllChallengesWithUserNames() {
+        return ResponseEntity.ok(service.getAllChallengesWithUserNames());
+    }
+
+
+    @GetMapping("/my-challenges")
+    public ResponseEntity<List<Challenge>> getChallengesByUserToken(@RequestHeader("Authorization") String token) {
+        List<Challenge> challenges = service.getChallengesByUser(token);
+        return ResponseEntity.ok(challenges);
+    }
+
 
     @GetMapping("/getById/{challengeId}")
     public ResponseEntity<?> getChallengeById(@PathVariable String challengeId) {
@@ -86,9 +98,20 @@ public class ChallengeController {
     ) {
         try {
             service.updateChallenge(challengeId, updatedChallenge);
-            return ResponseEntity.ok("✅ Défi mis à jour avec succès !");
+            return ResponseEntity.ok("✅Challenge updated successfully !");
+        } catch (IllegalArgumentException e) {
+
+            String errorMessage = e.getMessage();
+
+            String[] errors = errorMessage.split(" \\| ");
+            return ResponseEntity.badRequest().body(Map.of(
+                "errors", errors,
+                "message", "❌ Erreurs de validation détectées"
+            ));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("❌ Erreur lors de la mise à jour du défi : " + e.getMessage());
+            return ResponseEntity.badRequest().body(Map.of(
+                "message", "❌ Erreur lors de la mise à jour du défi : " + e.getMessage()
+            ));
         }
     }
 

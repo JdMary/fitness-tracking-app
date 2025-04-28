@@ -4,6 +4,7 @@ export interface User {
     boardId: string;
     xpPoints: number;
     rank: number;
+    email: string;
   }
   
   export interface FullBoardResponse {
