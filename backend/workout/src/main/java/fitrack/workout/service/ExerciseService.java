@@ -6,6 +6,7 @@ import fitrack.workout.dto.entity.ExerciseDetailsDto;
 import fitrack.workout.dto.mapper.ExerciseMapper;
 import fitrack.workout.entity.Exercise;
 import fitrack.workout.entity.TrainingSession;
+import fitrack.workout.entity.User;
 import fitrack.workout.repository.ExerciseRepository;
 import fitrack.workout.repository.TrainingSessionRepository;
 import lombok.AllArgsConstructor;
@@ -134,14 +135,15 @@ public class ExerciseService implements IExercise{
         exercise.setStatus(isCompleted);
         Exercise savedExercise = repository.save(exercise);
 
-
+        User u = authClient.extractUserDetails(token).getBody();
             // Fetch exercise details
             ExerciseDetailsDto details = wgerApiService.getExerciseDetails(exercise.getCategory());
         System.out.printf("wgerApiService"+wgerApiService.toString());
             if (details != null) {
                 System.out.println("✅ External exercise details fetched: " + details.getCategory());
-
-                double userWeight = 70.0;
+                System.out.println(u);
+                float userWeight = u.getWeight();
+                System.out.println("User weight: " + userWeight);
                 String exerciseType = mapper.mapCategoryIdToType(details.getCategory());
 
                 double caloriesBurned = caloriesCalculatorService.calculateCalories(

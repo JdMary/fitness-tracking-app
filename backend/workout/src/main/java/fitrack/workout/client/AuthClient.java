@@ -1,5 +1,6 @@
 package fitrack.workout.client;
 
+import fitrack.workout.entity.User;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,5 +12,5 @@ public interface AuthClient {
     public ResponseEntity<String> extractUsername(@RequestHeader("Authorization") String bearerToken);
 
     @GetMapping("/extract-user-details")
-    public ResponseEntity<?> extractUserDetails(@RequestHeader("Authorization") String bearerToken);
+    public ResponseEntity<User> extractUserDetails(@RequestHeader("Authorization") String bearerToken);
 }

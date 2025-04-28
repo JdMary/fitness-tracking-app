@@ -48,19 +48,19 @@ export interface TrainingSessionRequest {
 })
 export class WorkoutPlanService {
   private baseUrl = 'http://localhost:8222/api/v1/workouts';
-  private readonly authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im1haGRpQGdtYWlsLnRuIiwiZXhwIjoxNzQ1NjY4NTg4fQ.-PcVTypxy62KdJx5qqFuvwx0RxMcU_E1nqQzPr46UnY';
 
   constructor(private http: HttpClient) { }
 
   private getHeaders(): HttpHeaders {
-    return new HttpHeaders().set('Authorization', `Bearer ${this.authToken}`);
+    const token = localStorage.getItem('authToken'); // Retrieve token from local storage
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
   }
 
 
-
-
   getAllPlans(): Observable<WorkoutPlan[]> {
-    return this.http.get<WorkoutPlan[]>(`${this.baseUrl}/plan/get-plans`, { headers: this.getHeaders() });
+    return this.http.get<WorkoutPlan[]>(`${this.baseUrl}/plan/get-plans-admin`, { headers: this.getHeaders() });
   }
 
   updateWorkoutPlan(id: number, plan: WorkoutPlan): Observable<WorkoutPlan> {

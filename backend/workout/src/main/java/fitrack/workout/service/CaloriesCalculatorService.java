@@ -14,7 +14,7 @@ public class CaloriesCalculatorService {
             "Bodyweight", 5.0
     );
 
-    public double calculateCalories(String exerciseType, double weightKg, int sets, int reps) {
+    public double calculateCalories(String exerciseType, float weightKg, int sets, int reps) {
         //A metabolic equivalent of task (MET)
         double met = MET_VALUES.getOrDefault(exerciseType, 5.0);
         int totalReps = sets * reps;

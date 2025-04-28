@@ -25,6 +25,7 @@ import java.util.List;
             private LocalDateTime entryTime;
             private LocalDateTime exitTime;
             private String username;
+            private String trainerusername;
             private boolean isCompleted;
 
             @ManyToOne

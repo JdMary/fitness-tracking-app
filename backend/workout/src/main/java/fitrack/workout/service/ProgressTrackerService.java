@@ -128,17 +128,17 @@ public class ProgressTrackerService implements IProgressTracker {
         // Get the user's WorkoutPlan and Goal
         WorkoutPlan workoutPlan = trainingSession.getWorkoutPlan();
         Goal goal = workoutPlan.getGoal();
-
+        User u = authClient.extractUserDetails(token).getBody();
         // Update estimated weight
-        double currentWeight = 70.00; // Initialize estimated weight when creating tracker
-        double weightChange = caloriesBurned / 7700.0; // 7700 kcal = 1kg fat
+        float currentWeight = u.getWeight(); // Initialize estimated weight when creating tracker
+        float weightChange = (float)(caloriesBurned / 7700.0); // 7700 kcal = 1kg fat
 
         if (goal == Goal.WEIGHT_LOSS) {
             tracker.setEstimatedWeight(currentWeight - weightChange);
         } else if (goal == Goal.MUSCLE_GAIN) {
-            tracker.setEstimatedWeight(currentWeight + (weightChange * 0.5));
+            tracker.setEstimatedWeight((float) (currentWeight + (weightChange * 0.5)));
         } else if (goal == Goal.MAINTENANCE) {
-            tracker.setEstimatedWeight(currentWeight - (weightChange * 0.1));
+            tracker.setEstimatedWeight((float) (currentWeight - (weightChange * 0.1)));
         }
 
         this.updateTotalExercicesCompleted(trainingSession);

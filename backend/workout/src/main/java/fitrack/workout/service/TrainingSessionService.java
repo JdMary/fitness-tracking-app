@@ -1,6 +1,7 @@
 package fitrack.workout.service;
 
 import fitrack.workout.client.AuthClient;
+import fitrack.workout.client.UserClient;
 import fitrack.workout.dto.entity.SessionEfficiencyDto;
 import fitrack.workout.dto.entity.SessionEfficiencyRawProjection;
 import fitrack.workout.dto.entity.SessionInsightsDto;
@@ -8,6 +9,7 @@ import fitrack.workout.dto.entity.TrainingSessionDTO;
 import fitrack.workout.dto.mapper.TrainingSessionMapper;
 import fitrack.workout.entity.Exercise;
 import fitrack.workout.entity.TrainingSession;
+import fitrack.workout.entity.User;
 import fitrack.workout.entity.WorkoutPlan;
 import fitrack.workout.repository.ExerciseRepository;
 import fitrack.workout.repository.TrainingSessionRepository;
@@ -35,6 +37,10 @@ public class TrainingSessionService implements ITrainingSession{
     private ExerciseRepository exerciseRepository;
     @Autowired
     private AuthClient authClient;
+
+    @Autowired
+    private UserClient userClient;
+
     @Autowired
     private TrainingSessionMapper trainingSessionMapper;
 
@@ -127,14 +133,55 @@ public class TrainingSessionService implements ITrainingSession{
         return repository.save(session);
     }
 
+//    @Override
+//    public List<TrainingSession> createBulkTrainingSessions(List<TrainingSession> trainingSessions, Long workoutPlanId, String token) {
+//        String username = String.valueOf(authClient.extractUsername(token).getBody());
+//        WorkoutPlan workoutPlan = workoutPlanRepository.findById(workoutPlanId).get();
+//        return trainingSessions.stream()
+//                .peek(session -> {
+//                    session.setWorkoutPlan(workoutPlan);
+//                    session.setUsername(username);
+//                    if (session.getExercises() != null) {
+//                        session.getExercises().forEach(exercise -> {
+//                            exercise.setTrainingSession(session);
+//                            exercise.setUsername(username);
+//                        });
+//                    }
+//                })
+//                .map(repository::save)
+//                .collect(Collectors.toList());
+//    }
     @Override
     public List<TrainingSession> createBulkTrainingSessions(List<TrainingSession> trainingSessions, Long workoutPlanId, String token) {
         String username = String.valueOf(authClient.extractUsername(token).getBody());
-        WorkoutPlan workoutPlan = workoutPlanRepository.findById(workoutPlanId).get();
+        System.out.println("Authenticated user: " + username);
+        WorkoutPlan workoutPlan = workoutPlanRepository.findById(workoutPlanId).orElseThrow(() ->
+                new RuntimeException("Workout plan not found with ID: " + workoutPlanId));
+        System.out.println("Workout plan: " + workoutPlan);
+        // Fetch all trainers from UserClient
+        List<User> trainers = userClient.getAllTrainers().getBody();
+        System.out.println("Trainers: " + trainers);
         return trainingSessions.stream()
                 .peek(session -> {
                     session.setWorkoutPlan(workoutPlan);
                     session.setUsername(username);
+                    if (session.isGuided()){
+                    // Find a suitable trainer
+                    String assignedTrainer = trainers.stream()
+                            .map(User::getEmail)
+                            .filter(email ->
+                                    repository.findByTrainerAndTimeConflict(email, session.getEntryTime(), session.getExitTime()).isEmpty()
+                            )
+                            .findFirst()
+                            .orElse(null);
+
+                    if (assignedTrainer == null) {
+                        throw new RuntimeException("No trainer found for session starting at: " + session.getEntryTime());
+                    }
+
+                    session.setTrainerusername(assignedTrainer);
+                    }
+
                     if (session.getExercises() != null) {
                         session.getExercises().forEach(exercise -> {
                             exercise.setTrainingSession(session);

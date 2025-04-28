@@ -20,10 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -217,5 +214,15 @@ public class UserController {
         }
 
         return ResponseEntity.ok(orders);
+    }
+    @GetMapping("/retrieve-all-trainers")
+    public ResponseEntity<List<User>> getAllTrainers() {
+        List<User> trainers = new ArrayList<>();
+        for (User user : userRepository.findAll()) {
+            if ("TRAINER".equalsIgnoreCase(String.valueOf(user.getRole()))) {
+                trainers.add(user);
+            }
+        }
+        return ResponseEntity.ok(trainers);
     }
 }

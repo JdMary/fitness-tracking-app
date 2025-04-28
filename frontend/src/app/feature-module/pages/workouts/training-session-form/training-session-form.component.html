@@ -114,6 +114,11 @@
               <i class="fa fa-plus-circle me-2"></i>Add Training Session
             </a>
 
+            <!-- Error Message Section -->
+            <div *ngIf="errorMessage" class="alert alert-danger mt-3">
+              {{ errorMessage }}
+            </div>
+
             <!-- Form Actions -->
             <div class="text-end mt-4">
               <button type="button" class="btn btn-secondary me-2" (click)="onCancel()">Cancel</button>

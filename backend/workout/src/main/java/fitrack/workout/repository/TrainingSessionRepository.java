@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,5 +35,17 @@ public interface TrainingSessionRepository extends JpaRepository<TrainingSession
     AND ts.username = :username
 """)
     List<SessionEfficiencyRawProjection> findSessionRawData(@Param("username") String username);
+
+
+
+
+    @Query("SELECT ts FROM TrainingSession ts WHERE ts.trainerusername = :trainerUsername AND " +
+            "((:entryTime BETWEEN ts.entryTime AND ts.exitTime) OR " +
+            "(:exitTime BETWEEN ts.entryTime AND ts.exitTime) OR " +
+            "(ts.entryTime BETWEEN :entryTime AND :exitTime))")
+    List<TrainingSession> findByTrainerAndTimeConflict(@Param("trainerUsername") String trainerUsername,
+                                                       @Param("entryTime") LocalDateTime entryTime,
+                                                       @Param("exitTime") LocalDateTime exitTime);
+
 
 }

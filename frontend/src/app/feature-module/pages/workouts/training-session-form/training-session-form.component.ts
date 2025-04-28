@@ -11,6 +11,7 @@ import { TrainingSessionService } from '../services/training-session.service';
 export class TrainingSessionFormComponent implements OnInit {
   sessionForm: FormGroup = this.createForm();
   workoutPlanId: number = 0;
+  errorMessage: string = ''; // Add a property to store the error message
 
   constructor(
     private fb: FormBuilder,
@@ -127,6 +128,11 @@ export class TrainingSessionFormComponent implements OnInit {
           },
           error: (error) => {
             console.error('Error adding training sessions:', error);
+            if (error.status === 500 && error.error?.startsWith('Erreur interne')) {
+                this.errorMessage = error.error.replace('Erreur interne : ', ''); // Show anything after 'Erreur interne:'
+            } else {
+              this.errorMessage = 'An unexpected error occurred. Please try again.';
+            }
           }
         });
     } else {

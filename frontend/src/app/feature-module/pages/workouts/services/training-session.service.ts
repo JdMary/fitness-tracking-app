@@ -9,12 +9,14 @@ import { TrainingSession } from '../models/entities';
 export class TrainingSessionService {
  
   private baseUrl = 'http://localhost:8222/api/v1/workouts';
-  private readonly authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhdXRoLWFwaSIsInN1YiI6Im1haGRpQGdtYWlsLnRuIiwiZXhwIjoxNzQ1ODc0ODA2fQ.OiWGL3swaiEetu8Wq4ba8exD1Con0zvp_YHOzIB8cq8';
 
   constructor(private http: HttpClient) { }
 
   private getHeaders(): HttpHeaders {
-    return new HttpHeaders().set('Authorization', `Bearer ${this.authToken}`);
+    const token = localStorage.getItem('authToken'); // Retrieve token from local storage
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
   }
   createBulkTrainingSession(id: number, trainingSessions: any[]): Observable<any> {
     return this.http.post<any>(`${this.baseUrl}/training-session/bulk/${id}`, trainingSessions, { headers: this.getHeaders() });

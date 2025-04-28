@@ -1,15 +1,13 @@
-package fitrack.buddy.client;
+package fitrack.workout.client;
 
-import fitrack.buddy.entity.UserDTO;
+import fitrack.workout.entity.User;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.List;
 @FeignClient(name = "user-service", url = "${application.config.users-url}")
 public interface UserClient {
-    @GetMapping("/retrieve-user-email/{email}")
-    ResponseEntity<UserDTO> retrieveUserByEmail(@PathVariable String email);
-
-
+    @GetMapping("/retrieve-all-trainers")
+    public ResponseEntity<List<User>> getAllTrainers();
 }
