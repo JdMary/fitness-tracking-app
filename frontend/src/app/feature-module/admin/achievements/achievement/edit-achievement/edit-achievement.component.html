@@ -1,97 +1,142 @@
-<div class="d-flex justify-content-center align-items-center min-vh-100">
-
-    <div class="container" style="max-width: 800px;">
-  
-      <h2 class="text-center mb-4 fw-bold">Edit Achievement</h2>
-  
-      <!-- ✅ Message de succès -->
-      <div *ngIf="successMessage" class="alert alert-success text-center" role="alert">
-        {{ successMessage }}
-      </div>
-  
-      <!-- ❌ Message d'erreur -->
-      <div *ngIf="errorMessage" class="alert alert-danger text-center" role="alert">
-        {{ errorMessage }}
-      </div>
-  
-      <form #achievementForm="ngForm" (ngSubmit)="onSubmit()">
-  
-        <!-- Title -->
-        <div class="mb-3">
-          <label class="form-label fw-bold">Title</label>
-          <input
-            type="text"
-            [(ngModel)]="achievement.title"
-            name="title"
-            class="form-control"
-            required
-            minlength="10"
-            [ngModelOptions]="{standalone: true}"
-          />
-        </div>
-  
-        <!-- XP Points -->
-        <div class="mb-3">
-          <label class="form-label fw-bold">XP Points</label>
-          <input
-            type="number"
-            [(ngModel)]="achievement.xpPoints"
-            name="xpPoints"
-            class="form-control"
-            required
-            min="0"
-            [ngModelOptions]="{standalone: true}"
-          />
-        </div>
-  
-        <!-- Criteria -->
-        <div class="mb-3">
-          <label class="form-label fw-bold">Criteria</label>
-          <input
-            type="text"
-            [(ngModel)]="achievement.criteria"
-            name="criteria"
-            class="form-control"
-            required
-            minlength="10"
-            [ngModelOptions]="{standalone: true}"
-          />
-        </div>
-  
-        <!-- Exercise ID (non modifiable) -->
-        <div class="mb-3">
-          <label class="form-label fw-bold">Exercise ID</label>
-          <input
-            type="text"
-            [value]="achievement.exerciseId"
-            class="form-control"
-            disabled
-          />
-        </div>
-  
-        <!-- Progress (modifiable) -->
-        <div class="mb-3">
-          <label class="form-label fw-bold">Progress (%)</label>
-          <input
-            type="number"
-            [(ngModel)]="achievement.progress"
-            name="progress"
-            class="form-control"
-            required
-            min="0"
-            max="100"
-            [ngModelOptions]="{standalone: true}"
-          />
-        </div>
-  
-        <!-- Buttons -->
-        <div class="d-flex justify-content-between mt-4">
-          <button type="button" class="btn btn-secondary" (click)="navigateToList()">Cancel</button>
-          <button type="submit" class="btn btn-primary">Save Changes</button>
-        </div>
-  
-      </form>
-  
+<div class="page-wrapper">
+  <div class="content container-fluid">
+    <!-- ✅ Success message -->
+    <div *ngIf="successMessage" class="alert alert-success text-center" role="alert">
+      {{ successMessage }}
     </div>
+
+    <!-- ❌ General error message -->
+    <div *ngIf="errors['general']" class="alert alert-danger text-center" role="alert">
+      {{ errors['general'] }}
+    </div>
+
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title text-center mb-4 fw-bold">Edit Achievement</h4>
+
+            <form (ngSubmit)="updateAchievement()" #achievementForm="ngForm">
+              <div class="row">
+                <!-- Title -->
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="fw-bold">Title</label>
+                    <textarea
+                      [(ngModel)]="achievement.title"
+                      name="title"
+                      class="form-control"
+                      required
+                      minlength="10"
+                      [class.is-invalid]="errors['title']"
+                      [ngModelOptions]="{ standalone: true }"
+                      (input)="clearError('title')"
+                      placeholder="Enter title"
+                      rows="3"
+                      style="white-space: pre-wrap; resize: vertical; font-family: Arial, sans-serif;"
+                    ></textarea>
+                    <div *ngIf="errors['title']" class="invalid-feedback">
+                      {{ errors['title'] }}
+                    </div>
+                  </div>
+                </div>
+
+                <!-- XP Points -->
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="fw-bold">XP Points</label>
+                    <input
+                      type="number"
+                      [(ngModel)]="achievement.xpPoints"
+                      name="xpPoints"
+                      class="form-control"
+                      required
+                      min="0"
+                      [class.is-invalid]="errors['xpPoints']"
+                      [ngModelOptions]="{ standalone: true }"
+                      (input)="clearError('xpPoints')"
+                      placeholder="Enter XP Points"
+                    />
+                    <div *ngIf="errors['xpPoints']" class="invalid-feedback">
+                      {{ errors['xpPoints'] }}
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Criteria -->
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="fw-bold">Criteria</label>
+                    <textarea
+                      [(ngModel)]="achievement.criteria"
+                      name="criteria"
+                      class="form-control"
+                      required
+                      minlength="10"
+                      [class.is-invalid]="errors['criteria']"
+                      [ngModelOptions]="{ standalone: true }"
+                      (input)="clearError('criteria')"
+                      placeholder="Enter criteria"
+                      rows="6"
+                      style="white-space: pre-wrap; resize: vertical; font-family: Arial, sans-serif;"
+                    ></textarea>
+                    <div *ngIf="errors['criteria']" class="invalid-feedback">
+                      {{ errors['criteria'] }}
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Exercise ID (non-modifiable) -->
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="fw-bold">Exercise ID</label>
+                    <input
+                      type="text"
+                      [value]="achievement.exerciseId"
+                      class="form-control"
+                      disabled
+                    />
+                  </div>
+                </div>
+
+                <!-- Progress (modifiable) -->
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="fw-bold">Progress (%)</label>
+                    <input
+                      type="number"
+                      [(ngModel)]="achievement.progress"
+                      name="progress"
+                      class="form-control"
+                      required
+                      min="0"
+                      max="100"
+                      [class.is-invalid]="errors['progress']"
+                      [ngModelOptions]="{ standalone: true }"
+                      (input)="clearError('progress')"
+                      placeholder="Enter progress"
+                    />
+                    <div *ngIf="errors['progress']" class="invalid-feedback">
+                      {{ errors['progress'] }}
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="col-md-12 mt-4">
+                  <div class="d-flex justify-content-between">
+                    <button type="button" class="btn btn-secondary" (click)="navigateToList()">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                  </div>
+                </div>
+
+              </div> <!-- end row -->
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
-  
+</div>

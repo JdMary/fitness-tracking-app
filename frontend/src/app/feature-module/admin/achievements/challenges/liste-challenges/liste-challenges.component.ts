@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { CustomerChallengeService } from 'src/app/feature-module/customers/achievements/services/customer-challenge.service';
-import { Challenge } from 'src/app/feature-module/customers/achievements/models/challenge.model';
+import { CustomerChallengeService } from 'src/app/shared/services/customer-challenge.service';
+
+import { ChallengeWithUserDTO } from 'src/app/feature-module/customers/achievements/models/ChallengeWithUserDTO.model';
+
+
 
 // Bootstrap declaration
 declare var bootstrap: any;
@@ -14,15 +17,14 @@ declare var bootstrap: any;
 })
 export class ListeChallengesComponent implements OnInit {
 
-  // 🔢 Données
-  challenges: Challenge[] = [];
-  filteredChallenges: Challenge[] = [];
-  displayedChallenges: Challenge[] = [];
-  dataSource!: MatTableDataSource<Challenge>;
+  challenges: ChallengeWithUserDTO[] = [];
+  filteredChallenges: ChallengeWithUserDTO[] = [];
+  displayedChallenges: ChallengeWithUserDTO[] = [];
+  dataSource!: MatTableDataSource<ChallengeWithUserDTO>;
+  selectedChallenge?: ChallengeWithUserDTO;
 
-  // 🎛️ Filtres et pagination
   selectedStatus = '';
-  selectedSort = 'XP Décroissant'; // ✅ Valeur par défaut ici
+  selectedSort = 'XP Décroissant';
   searchValue = '';
   pageSize = 10;
   currentPage = 1;
@@ -30,7 +32,6 @@ export class ListeChallengesComponent implements OnInit {
   pageNumberArray: number[] = [];
   serialNumberArray: number[] = [];
 
-  // Options tri / filtre
   sortOptions = ['XP Croissant', 'XP Décroissant'];
   statusOptions = [
     { label: 'All', value: '' },
@@ -41,12 +42,8 @@ export class ListeChallengesComponent implements OnInit {
     { label: 'Canceled', value: 'CANCELED' },
   ];
 
-  // Messages
   deleteMessage = '';
   errorMessage = '';
-
-  // Pour la suppression
-  selectedChallenge?: Challenge;
 
   constructor(
     private challengeService: CustomerChallengeService,
@@ -57,24 +54,20 @@ export class ListeChallengesComponent implements OnInit {
     this.loadChallenges();
   }
 
-  // 🧩 Charge tous les challenges
   loadChallenges(): void {
-    this.challengeService.getAllChallenges().subscribe({
+    this.challengeService.getAllChallengesWithUsers().subscribe({
       next: (data) => {
         this.challenges = data;
         this.filteredChallenges = data;
         this.totalChallenges = data.length;
         this.currentPage = 1;
-
-        // ✅ Applique le tri par défaut
         this.applySort(this.selectedSort);
         this.updateDisplayedChallenges();
       },
-      error: (error) => console.error('Error loading challenges:', error)
+      error: (error) => console.error('❌ Erreur chargement challenges :', error)
     });
   }
 
-  // 📊 Met à jour l'affichage paginé
   updateDisplayedChallenges(): void {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
@@ -84,64 +77,53 @@ export class ListeChallengesComponent implements OnInit {
     this.calculatePages();
   }
 
-  // 🔢 Pagination
   calculatePages(): void {
     const totalPages = Math.ceil(this.filteredChallenges.length / this.pageSize);
     this.pageNumberArray = Array.from({ length: totalPages }, (_, i) => i + 1);
   }
 
-  // 🎛️ Filtrer par status
   applyFilter(status: string): void {
     this.selectedStatus = status;
     this.filteredChallenges = status
       ? this.challenges.filter(challenge => challenge.status === status)
       : this.challenges;
-
-    // ✅ Applique le tri après filtrage
     this.applySort(this.selectedSort);
     this.currentPage = 1;
     this.updateDisplayedChallenges();
   }
 
-  // 🧩 Applique le tri
   applySort(sortType: string): void {
     this.selectedSort = sortType;
     if (sortType === 'XP Croissant') {
       this.filteredChallenges.sort((a, b) => a.xpPoints - b.xpPoints);
-    } else if (sortType === 'XP Décroissant') {
+    } else {
       this.filteredChallenges.sort((a, b) => b.xpPoints - a.xpPoints);
     }
-
     this.updateDisplayedChallenges();
   }
 
-  // 🔍 Recherche
   searchChallenges(): void {
     const search = this.searchValue.trim().toLowerCase();
     this.filteredChallenges = this.challenges.filter(challenge =>
-      challenge.title.toLowerCase().includes(search)
+      challenge.title.toLowerCase().includes(search) ||
+      challenge.name.toLowerCase().includes(search) // ✅ recherche aussi par nom utilisateur
     );
-
-    // ✅ Applique tri après recherche
     this.applySort(this.selectedSort);
     this.currentPage = 1;
     this.updateDisplayedChallenges();
   }
 
-  // 📄 Changement de taille de page
   changePageSize(): void {
     this.currentPage = 1;
     this.updateDisplayedChallenges();
   }
 
-  // ➡️ Changement de page
   moveToPage(pageNumber: number): void {
     this.currentPage = pageNumber;
     this.updateDisplayedChallenges();
   }
 
-  // 🗑️ Ouvre le modal de suppression
-  openDeleteModal(challenge: Challenge): void {
+  openDeleteModal(challenge: ChallengeWithUserDTO): void {
     this.selectedChallenge = challenge;
     const modalElement = document.getElementById('deleteChallengeModal');
     if (modalElement) {
@@ -150,14 +132,13 @@ export class ListeChallengesComponent implements OnInit {
     }
   }
 
-  // ✅ Confirme la suppression
   confirmDelete(): void {
     if (!this.selectedChallenge) return;
 
     this.challengeService.deleteChallenge(this.selectedChallenge.challengeId).subscribe({
       next: () => {
         this.loadChallenges();
-        this.deleteMessage = '✅ Challenge successfully deleted.';
+        this.deleteMessage = '✅ Challenge supprimé.';
         setTimeout(() => this.deleteMessage = '', 3000);
         this.closeDeleteModal();
       },
@@ -165,20 +146,19 @@ export class ListeChallengesComponent implements OnInit {
         const errorText = error.error?.message || error.error || '';
         if (typeof errorText === 'string') {
           if (errorText.includes('completed')) {
-            this.errorMessage = '⛔ This challenge is completed and cannot be deleted.';
+            this.errorMessage = '⛔ Ce challenge est complété et ne peut pas être supprimé.';
           } else if (errorText.includes('not found')) {
-            this.errorMessage = '❌ Challenge not found.';
+            this.errorMessage = '❌ Challenge introuvable.';
           } else {
-            this.errorMessage = '❌ An error occurred while deleting the challenge.';
+            this.errorMessage = '❌ Une erreur est survenue lors de la suppression.';
           }
-        } 
+        }
         setTimeout(() => this.errorMessage = '', 3000);
         this.closeDeleteModal();
       }
     });
   }
 
-  // ❌ Ferme le modal proprement
   closeDeleteModal(): void {
     const modalElement = document.getElementById('deleteChallengeModal');
     if (modalElement) {
@@ -186,11 +166,27 @@ export class ListeChallengesComponent implements OnInit {
       modal?.hide();
     }
     this.selectedChallenge = undefined;
-    this.loadChallenges(); // ✅ Recharge la liste pour être toujours à jour
+    this.loadChallenges();
   }
 
-  // 🔙 Navigation vers la liste
   navigateToList(): void {
     this.router.navigate(['/admin/liste-challenges']);
+  }
+
+
+
+  canEditChallenge(challenge: any): boolean {
+    return challenge.status !== 'COMPLETED';
+  }
+
+  // Gérer le clic sur le bouton d'édition
+  onEditChallenge(challenge: any): void {
+    if (challenge.status === 'COMPLETED') {
+      // Si le challenge est complété, on empêche l'édition et affiche un message d'erreur
+      this.errorMessage = '⛔ Ce challenge est complété et ne peut pas être modifié.';
+    } else {
+      // Si le challenge n'est pas complété, on permet l'édition
+      this.router.navigate(['/admin/edit-challenge', challenge.challengeId]);
+    }
   }
 }

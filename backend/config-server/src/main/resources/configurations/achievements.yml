@@ -35,8 +35,8 @@ management:
       probability: 1.0
 twilio:
   account:
-    sid: ACafeb20f23fbac1262050285872977c84
+    sid: ACfad6e54a6227cd722094dcea971fb324
   auth:
-    token: 05f9dd09fa8148b2175ba5414654b767
+    token: bc0038bc04eb35ef7ca2f822c2a16ab0
   phone:
-    number: "+18509205916"
+    number: "+12315986974"

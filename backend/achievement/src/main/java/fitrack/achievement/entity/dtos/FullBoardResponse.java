@@ -1,7 +1,6 @@
 package fitrack.achievement.entity.dtos;
 
 import fitrack.achievement.entity.User;
-import fitrack.achievement.entity.dtos.UserRegularDTO;
 import lombok.*;
 
 import java.util.List;

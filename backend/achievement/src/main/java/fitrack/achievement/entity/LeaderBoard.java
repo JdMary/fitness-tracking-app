@@ -18,8 +18,6 @@ public class LeaderBoard {
     @GeneratedValue(strategy = GenerationType.UUID)
 
     @JsonProperty("boardId")
-
-
     private String boardId;
 
     @JsonProperty("name")
@@ -29,27 +27,4 @@ public class LeaderBoard {
     private String description;
 
 
-    public void setBoardId(String boardId) {
-        this.boardId = boardId;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getBoardId() {
-        return boardId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
 }

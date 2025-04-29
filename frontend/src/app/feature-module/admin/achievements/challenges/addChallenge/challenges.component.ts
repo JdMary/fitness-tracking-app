@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CustomerChallengeService } from 'src/app/feature-module/customers/achievements/services/customer-challenge.service';
-import { Challenge } from 'src/app/feature-module/customers/achievements/models//challenge.model';
+import { CustomerChallengeService } from 'src/app/shared/services/customer-challenge.service';
+import { Challenge } from 'src/app/feature-module/customers/achievements/models/challenge.model';
 import { ChallengeStatus } from 'src/app/feature-module/customers/achievements/models/challenge-status.enum';
+import { User } from'src/app/feature-module/customers/achievements/models/user.model';
 
 @Component({
   selector: 'app-add-challenge',
@@ -19,26 +20,39 @@ export class ChallengesComponent implements OnInit {
     endDate: new Date().toISOString(),
     description: '',
     xpPoints: 0,
-    userId: 'userId',
+    userId: '',
     status: ChallengeStatus.PENDING,
     reminder15: false,
     participation: false,
     validation: false
   };
 
-  // ✅ Messages
+  // ✅ Messages et données supplémentaires
   successMessage: string = '';
   errors: { [key: string]: string } = {};
+  users: User[] = []; // Liste des utilisateurs
 
   constructor(
     private challengeService: CustomerChallengeService,
     private router: Router
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loadUsers();
+  }
+
+  loadUsers(): void {
+    this.challengeService.getAllUsers().subscribe({
+      next: (data) => {
+        this.users = data;
+      },
+      error: (err) => {
+        console.error('❌ Erreur lors du chargement des utilisateurs :', err);
+      }
+    });
+  }
 
   saveChallenge(): void {
-    // ✅ Reset messages
     this.errors = {};
     this.successMessage = '';
 
@@ -47,41 +61,40 @@ export class ChallengesComponent implements OnInit {
         console.log('✅ Challenge créé avec succès', response);
         this.successMessage = '✅ Challenge successfully created! Redirecting...';
 
-        // ✅ Option : Attendre un peu pour que l'utilisateur voit le message
         setTimeout(() => {
           this.router.navigate(['/admin/liste-challenges']);
-        }, 1500); // 1.5 seconde de délai
+        }, 1500);
       },
       error: (errorResponse) => {
         const errorMessage = errorResponse.error;
         console.error('❌ Erreurs reçues :', errorMessage);
 
         if (typeof errorMessage === 'string') {
-          const errorsArray = errorMessage.split('|'); // ✅ Split des erreurs multiples
-
+          const errorsArray = errorMessage.split('|');
           errorsArray.forEach((error: string) => {
             const trimmedError = error.trim();
-            if (trimmedError.includes('title')) {
-              this.errors['title'] = trimmedError;
-            }
-            if (trimmedError.includes('description')) {
-              this.errors['description'] = trimmedError;
-            }
-            if (trimmedError.includes('points')) {
-              this.errors['xpPoints'] = trimmedError;
-            }
-            if (trimmedError.includes('start')) {
-              this.errors['startDate'] = trimmedError;
-            }
-            if (trimmedError.includes('end')) {
-              this.errors['endDate'] = trimmedError;
-            }
+            const [key, message] = trimmedError.split(':').map(e => e.trim());
+        
+            if (key.includes('title')) this.errors['title'] = message;
+            else if (key.includes('description')) this.errors['description'] = message;
+            else if (key.includes('xpPoints') || key.includes('xp') || key.includes('points')) this.errors['xpPoints'] = message;
+            else if (key.includes('start')) this.errors['startDate'] = message;
+            else if (key.includes('end')) this.errors['endDate'] = message;
+            else if (key.includes('user')) this.errors['userId'] = message;
+            else this.errors['general'] = message;
           });
         }
-      }
+        }
     });
   }
+
   navigateToList(): void {
     this.router.navigate(['/admin/liste-challenges']);
+  }
+
+  clearError(field: string): void {
+    if (this.errors[field]) {
+      delete this.errors[field];
+    }
   }
 }

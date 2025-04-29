@@ -163,15 +163,20 @@ public class UserService implements IUserService {
         return users;
     }
 
-    public User findUserByBoardId(String boardId) {
-        User user = repository.findByBoardId(boardId);
-        if (user == null) {
-            throw new RuntimeException("No user found for board ID: " + boardId);
-        }
-        return user;
+
+    public List<User> findUserByBoardId(String boardId) {
+        return repository.findUsersByBoardId(boardId);
     }
+
 
     public String findBoardIdByUserId(String userId) {
         return repository.findBoardIdByUserId(userId);
     }
+    @Override
+    public User getUserById(String id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("❌ User not found for ID: " + id));
+    }
+
+
 }

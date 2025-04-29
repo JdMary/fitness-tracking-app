@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { CustomerChallengeService } from 'src/app/feature-module/customers/achievements/services/customer-challenge.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CustomerChallengeService } from 'src/app/shared/services/customer-challenge.service';
 import { Challenge } from 'src/app/feature-module/customers/achievements/models/challenge.model';
 import { ChallengeStatus } from 'src/app/feature-module/customers/achievements/models/challenge-status.enum';
 
+declare var bootstrap: any; 
 
 @Component({
   selector: 'app-details-challenge',
@@ -15,8 +16,13 @@ export class DetailsChallengeComponent implements OnInit {
   challenge?: Challenge;
   showFullDescription: boolean = false;
 
+  selectedChallenge?: Challenge;
+  deleteMessage: string = '';
+  errorMessage: string = '';
+
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private challengeService: CustomerChallengeService
   ) {}
 
@@ -39,4 +45,10 @@ export class DetailsChallengeComponent implements OnInit {
   toggleDescription(): void {
     this.showFullDescription = !this.showFullDescription;
   }
+
+
+  navigateToList(): void {
+    this.router.navigate(['/admin/liste-challenges']);
+  }
+  
 }

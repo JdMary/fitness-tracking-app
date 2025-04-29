@@ -3,11 +3,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { CustomerLeaderboardDetailComponent } from './customer-leaderboard-detail.component';
 
 const routes: Routes = [
-  { path: ':userId', component: CustomerLeaderboardDetailComponent }
+  {
+    path: '',
+    component: CustomerLeaderboardDetailComponent
+  }
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class CustomerLeaderboardDetailRoutingModule {}

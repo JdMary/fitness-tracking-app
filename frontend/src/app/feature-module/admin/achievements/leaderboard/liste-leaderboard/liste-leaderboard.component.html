@@ -40,15 +40,22 @@
             <tbody>
               <tr *ngFor="let board of displayedLeaderboards; let i = index">
                 <td>{{ serialNumberArray[i] }}</td>
-                <td class="text-start" [title]="board.name">
-                  {{ board.name.length > 30 ? (board.name | slice:0:20) + '...' : board.name }}
-                </td>
-                <td class="text-start" [title]="board.description">
-                  {{ board.description.length > 30 ? (board.description | slice:0:20) + '...' : board.description }}
+                <td class="text-dark fw-normal text-start" [title]="board.name">
+                  {{ board.name.length > 15 ? (board.name | slice:0:20) + '...' : board.name }}
+                </td >
+                <td class="text-dark fw-normal text-start" [title]="board.description">
+                  {{ board.description.length > 15 ? (board.description | slice:0:20) + '...' : board.description }}
                 </td>
                 
                 <td>
                   <div class="action-language">
+                    <a 
+  [routerLink]="['/admin/details-leaderboard', board.boardId]" 
+  class="btn-action-icon view" 
+  title="View Details">
+  <i class="fa-solid fa-eye"></i>
+</a>
+
                     <a [routerLink]="['/admin/edit-leaderboard', board.boardId]" class="btn-action-icon edit" title="Edit">
                       <i class="fa-regular fa-pen-to-square"></i>
                     </a>

@@ -1,101 +1,190 @@
-<div class="container mt-5" style="max-width: 700px;">
-  <h2 class="text-center mb-4 fw-bold">Edit Challenge</h2>
+<div class="page-wrapper">
+  <div class="content container-fluid">
 
-  <div *ngIf="successMessage" class="alert alert-success text-center" role="alert">
-    {{ successMessage }}
+    <!-- ✅ Success message -->
+    <div *ngIf="successMessage" class="alert alert-success text-center" role="alert">
+      {{ successMessage }}
+    </div>
+
+    <!-- ❌ General error message -->
+    <div *ngIf="errors['general']" class="alert alert-danger text-center" role="alert">
+      {{ errors['general'] }}
+    </div>
+
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title text-center mb-4 fw-bold">Edit Challenge</h4>
+
+            <form (ngSubmit)="updateChallenge()" #challengeForm="ngForm">
+              <div class="row">
+
+                <!-- Title -->
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="fw-bold">Title</label>
+                    <textarea
+                      [(ngModel)]="challenge.title"
+                      name="title"
+                      class="form-control"
+                      [class.is-invalid]="errors['title']"
+                      [ngModelOptions]="{ standalone: true }"
+                      (input)="clearError('title')"
+                      placeholder="Enter title"
+                      rows="3"
+                      style="white-space: pre-wrap; resize: vertical; font-family: Arial, sans-serif;"
+                    ></textarea>
+                    <div *ngIf="errors['title']" class="invalid-feedback">
+                      {{ errors['title'] }}
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Description -->
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label class="fw-bold">Description</label>
+                    <textarea
+                      [(ngModel)]="challenge.description"
+                      name="description"
+                      class="form-control"
+                      [class.is-invalid]="errors['description']"
+                      [ngModelOptions]="{ standalone: true }"
+                      (input)="clearError('description')"
+                      placeholder="Enter description"
+                      rows="6"
+                      style="white-space: pre-wrap; resize: vertical; font-family: Arial, sans-serif;"
+                    ></textarea>
+                    <div *ngIf="errors['description']" class="invalid-feedback">
+                      {{ errors['description'] }}
+                    </div>
+                  </div>
+                </div>
+
+                <!-- XP Points -->
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="fw-bold">XP Points</label>
+                    <input
+                      type="number"
+                      [(ngModel)]="challenge.xpPoints"
+                      name="xpPoints"
+                      class="form-control"
+                      [class.is-invalid]="errors['xpPoints']"
+                      [ngModelOptions]="{ standalone: true }"
+                      (input)="clearError('xpPoints')"
+                      placeholder="Enter XP Points"
+                    />
+                    <div *ngIf="errors['xpPoints']" class="invalid-feedback">
+                      {{ errors['xpPoints'] }}
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Start Date -->
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="fw-bold">Start Date</label>
+                    <input
+                      type="datetime-local"
+                      [(ngModel)]="challenge.startDate"
+                      name="startDate"
+                      class="form-control"
+                      [class.is-invalid]="errors['startDate']"
+                      [ngModelOptions]="{ standalone: true }"
+                      (input)="clearError('startDate')"
+                    />
+                    <div *ngIf="errors['startDate']" class="invalid-feedback">
+                      {{ errors['startDate'] }}
+                    </div>
+                  </div>
+                </div>
+
+                <!-- End Date -->
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="fw-bold">End Date</label>
+                    <input
+                      type="datetime-local"
+                      [(ngModel)]="challenge.endDate"
+                      name="endDate"
+                      class="form-control"
+                      [class.is-invalid]="errors['endDate']"
+                      [ngModelOptions]="{ standalone: true }"
+                      (input)="clearError('endDate')"
+                    />
+                    <div *ngIf="errors['endDate']" class="invalid-feedback">
+                      {{ errors['endDate'] }}
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Status -->
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="fw-bold">Status</label>
+                    <select
+                      [(ngModel)]="challenge.status"
+                      name="status"
+                      class="form-select"
+                      [class.is-invalid]="errors['status']"
+                      [ngModelOptions]="{ standalone: true }"
+                      (change)="clearError('status')"
+                    >
+                      <option [ngValue]="null">-- Select a status --</option>
+                      <option *ngFor="let option of statusOptions" [ngValue]="option.value">
+                        {{ option.label }}
+                      </option>
+                    </select>
+                    <div *ngIf="errors['status']" class="invalid-feedback">
+                      {{ errors['status'] }}
+                    </div>
+                  </div>
+                </div>
+
+                <!-- User -->
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="fw-bold">Assign User</label>
+                    <select
+                      [(ngModel)]="challenge.userId"
+                      name="userId"
+                      class="form-select"
+                      [class.is-invalid]="errors['userId']"
+                      [ngModelOptions]="{ standalone: true }"
+                      (change)="clearError('userId')"
+                    >
+                      <option value="">-- Select a user --</option>
+                      <option *ngFor="let user of users" [value]="user.id">
+                        {{ user.name }}
+                      </option>
+                    </select>
+                    <div *ngIf="errors['userId']" class="invalid-feedback">
+                      {{ errors['userId'] }}
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="col-md-12 mt-4">
+                  <div class="d-flex justify-content-between">
+                    <button type="button" class="btn btn-secondary" (click)="navigateToList()">
+                      Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                      Save Changes
+                    </button>
+                  </div>
+                </div>
+
+              </div> <!-- end row -->
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
-
-  <div *ngIf="errorMessage" class="alert alert-danger text-center" role="alert">
-    {{ errorMessage }}
-  </div>
-
-  <form (ngSubmit)="updateChallenge()" #challengeForm="ngForm">
-
-   
-    <div class="mb-3">
-      <label class="form-label fw-bold">Title</label>
-      <input
-        type="text"
-        [(ngModel)]="challenge.title"
-        name="title"
-        class="form-control"
-        required
-        [ngModelOptions]="{ standalone: true }"
-      />
-    </div>
-
-    <div class="mb-3">
-      <label class="form-label fw-bold">Description</label>
-      <textarea
-        [(ngModel)]="challenge.description"
-        name="description"
-        class="form-control"
-        rows="6"
-        required
-        [ngModelOptions]="{ standalone: true }"
-        style="white-space: pre-wrap; resize: vertical; font-family: Arial, sans-serif;"
-      ></textarea>
-    </div>
-
-  
-    <div class="mb-3">
-      <label class="form-label fw-bold">XP Points</label>
-      <input
-        type="number"
-        [(ngModel)]="challenge.xpPoints"
-        name="xpPoints"
-        class="form-control"
-        min="1"
-        required
-        [ngModelOptions]="{ standalone: true }"
-      />
-    </div>
-
-   
-    <div class="mb-3">
-      <label class="form-label fw-bold">Start Date</label>
-      <input
-        type="datetime-local"
-        [(ngModel)]="challenge.startDate"
-        name="startDate"
-        class="form-control"
-        required
-        [ngModelOptions]="{ standalone: true }"
-      />
-    </div>
-
-    <div class="mb-3">
-      <label class="form-label fw-bold">End Date</label>
-      <input
-        type="datetime-local"
-        [(ngModel)]="challenge.endDate"
-        name="endDate"
-        class="form-control"
-        required
-        [ngModelOptions]="{ standalone: true }"
-      />
-    </div>
-
-    <div class="mb-3">
-      <label class="form-label fw-bold">Status</label>
-      <select
-        [(ngModel)]="challenge.status"
-        name="status"
-        class="form-select"
-        required
-        (change)="onStatusChange(challenge.status)"
-        [ngModelOptions]="{ standalone: true }"
-      >
-        <option *ngFor="let option of statusOptions" [value]="option.value">
-          {{ option.label }}
-        </option>
-      </select>
-    </div>
-
-    <div class="d-flex justify-content-between mt-4">
-      <button type="button" class="btn btn-secondary px-4" (click)="navigateToList()">Cancel</button>
-      <button type="submit" class="btn btn-primary px-4">Save Changes</button>
-    </div>
-
-  </form>
 </div>

@@ -19,10 +19,11 @@ public class User {
     private String name;
     private String boardId;
     private int xpPoints;
+    private int number;
     private int rank;
     private String fitnessGoals;
     private float height;
     private float weight;
-    private LocalDateTime schedule;
+
 
 }

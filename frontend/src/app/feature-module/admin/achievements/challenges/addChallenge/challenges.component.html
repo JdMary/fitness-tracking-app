@@ -20,11 +20,13 @@
                   <input
                     type="text"
                     [(ngModel)]="challenge.title"
-                    (input)="errors['title'] = ''"
+                    name="title"
                     class="form-control"
+                    [class.is-invalid]="errors['title']"
+                    (input)="clearError('title')"
                     placeholder="Enter title"
                   />
-                  <div *ngIf="errors['title']" class="text-danger" style="font-size: 0.75rem">
+                  <div *ngIf="errors['title']" class="invalid-feedback">
                     {{ errors['title'] }}
                   </div>
                 </div>
@@ -36,17 +38,18 @@
                   <label>Description</label>
                   <textarea
                     [(ngModel)]="challenge.description"
-                    (input)="errors['description'] = ''"
+                    name="description"
                     class="form-control"
+                    [class.is-invalid]="errors['description']"
+                    (input)="clearError('description')"
                     placeholder="Enter description"
+                    rows="4"
                   ></textarea>
-                  <div *ngIf="errors['description']" class="text-danger" style="font-size: 0.75rem">
+                  <div *ngIf="errors['description']" class="invalid-feedback">
                     {{ errors['description'] }}
                   </div>
                 </div>
               </div>
-
-             
 
               <!-- Start Date -->
               <div class="col-md-6">
@@ -55,10 +58,12 @@
                   <input
                     type="datetime-local"
                     [(ngModel)]="challenge.startDate"
-                    (input)="errors['startDate'] = ''"
+                    name="startDate"
                     class="form-control"
+                    [class.is-invalid]="errors['startDate']"
+                    (input)="clearError('startDate')"
                   />
-                  <div *ngIf="errors['startDate']" class="text-danger" style="font-size: 0.75rem">
+                  <div *ngIf="errors['startDate']" class="invalid-feedback">
                     {{ errors['startDate'] }}
                   </div>
                 </div>
@@ -71,32 +76,57 @@
                   <input
                     type="datetime-local"
                     [(ngModel)]="challenge.endDate"
-                    (input)="errors['endDate'] = ''"
+                    name="endDate"
                     class="form-control"
+                    [class.is-invalid]="errors['endDate']"
+                    (input)="clearError('endDate')"
                   />
-                  <div *ngIf="errors['endDate']" class="text-danger" style="font-size: 0.75rem">
+                  <div *ngIf="errors['endDate']" class="invalid-feedback">
                     {{ errors['endDate'] }}
                   </div>
                 </div>
               </div>
-               <!-- XP Points -->
-               <div class="col-md-6">
+
+              <!-- Assign User -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Assign User</label>
+                  <select
+                    [(ngModel)]="challenge.userId"
+                    name="userId"
+                    class="form-control"
+                    [class.is-invalid]="errors['userId']"
+                    (change)="clearError('userId')"
+                  >
+                    <option value="">-- Select a user --</option>
+                    <option *ngFor="let user of users" [value]="user.id">{{ user.name }}</option>
+                  </select>
+                  <div *ngIf="errors['userId']" class="invalid-feedback">
+                    {{ errors['userId'] }}
+                  </div>
+                </div>
+              </div>
+
+              <!-- XP Points -->
+              <div class="col-md-6">
                 <div class="form-group">
                   <label>XP Points</label>
                   <input
                     type="number"
                     [(ngModel)]="challenge.xpPoints"
-                    (input)="errors['xpPoints'] = ''"
+                    name="xpPoints"
                     class="form-control"
+                    [class.is-invalid]="errors['xpPoints']"
+                    (input)="clearError('xpPoints')"
                     placeholder="Enter XP Points"
                   />
-                  <div *ngIf="errors['xpPoints']" class="text-danger" style="font-size: 0.75rem">
+                  <div *ngIf="errors['xpPoints']" class="invalid-feedback">
                     {{ errors['xpPoints'] }}
                   </div>
                 </div>
               </div>
 
-              <!-- Boutons : Cancel à gauche, Add Challenge à droite -->
+              <!-- Buttons -->
               <div class="col-md-12 mt-3">
                 <div class="d-flex justify-content-between">
                   <button type="button" class="btn btn-secondary" (click)="navigateToList()">
@@ -107,8 +137,8 @@
                   </button>
                 </div>
               </div>
-              
             </div> <!-- end row -->
+
           </div>
         </div>
       </div>

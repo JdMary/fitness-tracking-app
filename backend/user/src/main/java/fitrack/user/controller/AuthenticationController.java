@@ -26,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -172,19 +173,23 @@ public class AuthenticationController {
         }
     }
     @GetMapping("/users-by-board/{boardId}")
-    public ResponseEntity<?> getUsersByBoardId(@PathVariable String boardId) {
+    public ResponseEntity<List<User>> getUsersByBoardId(@PathVariable String boardId) {
         try {
+            System.out.println("🔎 Requête reçue pour boardId: " + boardId);
             List<User> users = userService.findAllUsersByBoardId(boardId);
+            System.out.println("✅ Utilisateurs trouvés : " + users.size());
             return ResponseEntity.ok(users);
-        } catch (Exception ex) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
+        } catch (Exception e) {
+            System.err.println("❌ Erreur serveur : " + e.getMessage());
+            e.printStackTrace(); // <-- essentiel pour voir le stacktrace complet dans la console
+            return ResponseEntity.status(500).body(Collections.emptyList());
         }
     }
 
     @GetMapping("/user-by-board/{boardId}")
     public ResponseEntity<?> getUserByBoardId(@PathVariable String boardId) {
         try {
-            User user = userService.findUserByBoardId(boardId);
+            List<User> user = userService.findUserByBoardId(boardId);
             return ResponseEntity.ok(user);
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
@@ -230,4 +235,39 @@ public class AuthenticationController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
         }
     }
+    @PostMapping("/updat-xp")
+    public ResponseEntity<String> updatUserXp(@RequestParam String id, @RequestParam int xpPoints) {
+        try {
+            Optional<User> userOptional = userRepository.findById(id);
+            if (userOptional.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+            }
+            User user = userOptional.get();
+            user.setXpPoints(user.getXpPoints() - xpPoints);
+            userRepository.save(user);
+            return ResponseEntity.ok("User XP updated successfully");
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
+        }
+    }
+    @GetMapping("/user/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable String id) {
+        return ResponseEntity.ok(userService.getUserById(id));
+    }
+    @PostMapping("/update-board")
+    public ResponseEntity<String> updateUserboard(@RequestParam String id, @RequestParam(required = false) String boardId) {
+        try {
+            Optional<User> userOptional = userRepository.findById(id);
+            if (userOptional.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+            }
+            User user = userOptional.get();
+            user.setBoardId(boardId);
+            userRepository.save(user);
+            return ResponseEntity.ok("User BoardId updated successfully");
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
+        }
+    }
+
 }

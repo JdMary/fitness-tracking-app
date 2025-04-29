@@ -23,7 +23,8 @@ public interface UserRepository extends JpaRepository<User, String> {
 
 
     List<User> findUsersByBoardId(String boardId);
-    User findByBoardId(String boardId);
+
+
     @Query("SELECT u.boardId FROM User u WHERE u.id = :userId")
     String findBoardIdByUserId(@Param("userId") String userId);
 

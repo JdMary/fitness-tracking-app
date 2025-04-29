@@ -415,7 +415,16 @@ const routes: Routes = [
             (m) => m.GenerateChallengeModule
           ),
       }
-      ,  
+  ,  
+  {
+    path: 'challenges/details',
+    loadChildren: () =>
+      import('./achievements/challenges/details-challenge/details-challenge.module')
+        .then(m => m.DetailsChallengeModule)
+  }
+  
+  
+     ,//ACHIEVEMNTS
       {
       path: 'liste-achievements',
       loadChildren: () =>
@@ -425,21 +434,15 @@ const routes: Routes = [
     },
     
     {
-      path: 'edit-achievement/:challengeId',
+      path: 'edit-achievement',
       loadChildren: () =>
         import('./achievements/achievement/edit-achievement/edit-achievement.module').then(
           (m) => m.EditAchievementModule
         )
     },  
-    {
-      path: 'challenges/details',
-      loadChildren: () =>
-        import('./achievements/challenges/details-challenge/details-challenge.module')
-          .then(m => m.DetailsChallengeModule)
-    }
+  
+        //LEADERBOARD
     
-    
-       ,
     {
       path: 'liste-leaderboard',
       loadChildren: () =>
@@ -447,8 +450,8 @@ const routes: Routes = [
           (m) => m.ListeLeaderboardModule
         ),
     },
-    {
-      path: 'edit-leaderboard/:boardId',
+   
+      {path: 'edit-leaderboard/:boardId',
       loadChildren: () =>
         import('./achievements/leaderboard/edit-leaderboard/edit-leaderboard.module').then(m => m.EditLeaderboardModule)
     }
@@ -459,6 +462,13 @@ const routes: Routes = [
         loadChildren: () =>
           import('./achievements/leaderboard/add-leaderboard/add-leaderboard.module').then(
             (m) => m.AddLeaderboardModule
+          ),
+      },
+      {
+        path: 'details-leaderboard/:boardId',
+        loadChildren: () =>
+          import('./achievements/leaderboard/details-leaderboard/details-leaderboard.module').then(
+            (m) => m.DetailsLeaderboardModule
           ),
       },
       

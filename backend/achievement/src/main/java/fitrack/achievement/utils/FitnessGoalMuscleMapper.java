@@ -45,21 +45,36 @@ public class FitnessGoalMuscleMapper {
                 .distinct()
                 .collect(Collectors.toList());
     }
-    public static  String formatChallengeDescription( String muscle, String difficulty, String instructions) {
+    public static String formatChallengeDescription(String muscle, String difficulty, String instructions) {
         String formatted =
-                "🎯 Muscle ciblé : " + muscle +
-                "\n⚡ Niveau : " + capitalize(difficulty) +
-                "\n🔁 3 séries de 12 répétitions";
+                "🎯 Targeted muscle: " + muscle +
+                        "\n⚡ Level: " + capitalize(difficulty);
+        String setsAndReps;
+        switch (difficulty.toLowerCase()) {
+            case "beginner":
+                setsAndReps = "🔁3 sets of 20repetitions";
+                break;
+            case "intermediate":
+                setsAndReps = "🔁4 sets of 15 repetitions";
+                break;
+            case "expert":
+                setsAndReps = "🔁3 sets of 12 repetitions";
+                break;
+            default:
+                setsAndReps = "🔁 3 séries de 12 répétitions";
+                break;
+        }
 
+        formatted += "\n" + setsAndReps;
         if (instructions != null && !instructions.isBlank()) {
-            String trimmed = instructions.length() > 400 ? instructions.substring(0, 400) + "..." : instructions;
-            formatted += "\n📝 Instructions : " + trimmed;
+            formatted += "\n📝 Instructions: " + instructions;
         } else {
-            formatted += "\n📝 Instructions : Effectue l'exercice avec concentration et bonne forme !";
+            formatted += "\n📝 Instructions: Perform the exercise with concentration and good form!";
         }
 
         return formatted;
     }
+
 
     private static String capitalize(String str) {
         return str.substring(0, 1).toUpperCase() + str.substring(1);

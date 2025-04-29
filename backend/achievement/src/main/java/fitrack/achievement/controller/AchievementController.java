@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -18,7 +19,6 @@ import java.util.List;
 @RequestMapping("/api/v1/achievements")
 public class AchievementController {
 
-    @Autowired
     private  final AchievementService service;
 
     public AchievementController(AchievementService service) {
@@ -59,11 +59,26 @@ public class AchievementController {
 
 
     @PutMapping("/update/{achieveId}")
-    public ResponseEntity<Achievement> updateAchievement(@PathVariable String achieveId, @RequestBody Achievement achievementDetails) {
-        Achievement updatedAchievement = service.updateAchievement(achieveId, achievementDetails);
-        return ResponseEntity.ok(updatedAchievement);
-    }
+    public ResponseEntity<?>updateAchievement(@PathVariable String achieveId, @RequestBody Achievement achievementDetails) {
 
+            try {
+                service.updateAchievement(achieveId, achievementDetails);
+                return ResponseEntity.ok("✅achievement updated successfully !");
+            } catch (IllegalArgumentException e) {
+
+                String errorMessage = e.getMessage();
+
+                String[] errors = errorMessage.split(" \\| ");
+                return ResponseEntity.badRequest().body(Map.of(
+                        "errors", errors,
+                        "message", "Erreurs de validation détectées"
+                ));
+            } catch (Exception e) {
+                return ResponseEntity.badRequest().body(Map.of(
+                        "message",   e.getMessage()
+                ));
+            }
+        }
 
 
 

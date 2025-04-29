@@ -28,13 +28,12 @@ public class Challenge {
 
 
     @Column(name = "end_date")
-    private LocalDateTime  endDate;
+    private LocalDateTime endDate;
 
 
     @JsonProperty("description")
     @Column(name = "description", length = 2000)
     private String description;
-
 
 
     @JsonProperty("xpPoints")
@@ -54,95 +53,8 @@ public class Challenge {
     @Column(name = "participation")
     private boolean participation = false;
     @Column(name = "validation")
-    private boolean validation=false;
+    private boolean validation = false;
 
 
-    public boolean isParticipation() {
-        return participation;
-    }
 
-    public void setParticipation(boolean participation) {
-        this.participation = participation;
-    }
-
-    public String getChallengeId() {
-        return challengeId;
-    }
-
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public LocalDateTime getStartDate() {
-        return startDate;
-    }
-
-    public LocalDateTime getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(LocalDateTime endDate) {
-        this.endDate = endDate;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public ChallengeStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(ChallengeStatus status) {
-        this.status = status;
-    }
-
-    public void setStartDate(LocalDateTime startDate) {
-        this.startDate = startDate;
-    }
-
-    public int getXpPoints() {
-        return xpPoints;
-    }
-
-    public void setXpPoints(int xpPoints) {
-        this.xpPoints = xpPoints;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public boolean isReminder15() {
-        return reminder15;
-    }
-
-    public void setReminder15(boolean reminder15) {
-        this.reminder15 = reminder15;
-    }
-
-    public void setChallengeId(String challengeId) {
-        this.challengeId = challengeId;
-    }
-
-    public boolean isValidation() {
-        return validation;
-    }
-
-    public void setValidation(boolean validation) {
-        this.validation = validation;
-    }
 }

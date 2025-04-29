@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CustomerChallengeService } from 'src/app/feature-module/customers/achievements/services/customer-challenge.service';
+import { CustomerChallengeService } from 'src/app/shared/services/customer-challenge.service';
 import { Challenge } from 'src/app/feature-module/customers/achievements/models/challenge.model';
 import { ChallengeStatus } from 'src/app/feature-module/customers/achievements/models/challenge-status.enum';
+import { User } from 'src/app/feature-module/customers/achievements/models/user.model';
 
 @Component({
   selector: 'app-edit-challenge',
@@ -15,160 +16,115 @@ export class EditChallengeComponent implements OnInit {
   challenge: Challenge = {
     challengeId: '',
     title: '',
+    startDate: new Date().toISOString(),
+    endDate: new Date().toISOString(),
     description: '',
-    startDate: '',
-    endDate: '',
     xpPoints: 0,
-    status: ChallengeStatus.PENDING,
     userId: '',
-    participation: false,
+    status: ChallengeStatus.PENDING,
     reminder15: false,
+    participation: false,
     validation: false
   };
 
-  originalChallenge?: Challenge;
-
+  users: User[] = [];
+  successMessage: string = '';
+  errors: { [key: string]: string } = {};
   statusOptions = [
-    { label: 'Pending', value: ChallengeStatus.PENDING },
-    { label: 'Failed', value: ChallengeStatus.FAILED },
-    { label: 'Canceled', value: ChallengeStatus.CANCELED },
+    { label: 'Active',   value: ChallengeStatus.ACTIVE   },
+    { label: 'Pending',  value: ChallengeStatus.PENDING  },
+    { label: 'Completed',   value: ChallengeStatus.COMPLETED   },
+    { label: 'Canceled', value: ChallengeStatus.CANCELED }
   ];
-
-  successMessage = '';
-  errorMessage = '';
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
-    private challengeService: CustomerChallengeService
+    private challengeService: CustomerChallengeService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     this.challengeId = this.route.snapshot.paramMap.get('challengeId')!;
+    this.loadUsers();
     this.fetchChallengeDetails();
   }
 
-  // ✅ Fetch initial challenge details
+  loadUsers(): void {
+    this.challengeService.getAllUsers().subscribe({
+      next: data => this.users = data,
+      error: err => console.error('❌ Erreur lors du chargement des utilisateurs :', err)
+    });
+  }
+
   fetchChallengeDetails(): void {
     this.challengeService.getChallengeById(this.challengeId).subscribe({
-      next: (data) => {
-        this.challenge = { ...data };
-        this.originalChallenge = { ...data };
-      },
-      error: () => {
-        this.errorMessage = '❌ Failed to load challenge details.';
-      }
+      next: data => this.challenge = { ...data },
+      error: () => this.errors['general'] = '❌ Échec du chargement des détails du challenge.'
     });
   }
 
-  // ✅ Form validation
-  isFormValid(): boolean {
-    const now = new Date();
-    const startDate = new Date(this.challenge.startDate);
-    const endDate = new Date(this.challenge.endDate);
-
-    if (!this.challenge.title.trim() || !this.challenge.description.trim()) return false;
-    if (this.challenge.xpPoints === null || this.challenge.xpPoints <= 0) return false;
-    if (this.challenge.status === ChallengeStatus.PENDING && (startDate < now || endDate < now)) return false;
-    if (startDate >= endDate) return false;
-
-    return true;
-  }
-
-  // ✅ Update challenge method
   updateChallenge(): void {
+    this.errors = {};
     this.successMessage = '';
-    this.errorMessage = '';
 
-    const now = new Date();
-    const startDate = new Date(this.challenge.startDate);
-    const endDate = new Date(this.challenge.endDate);
-
-    // Required fields check
-    if (!this.challenge.title.trim() || !this.challenge.description.trim() ||
-        !this.challenge.startDate || !this.challenge.endDate ||
-        this.challenge.xpPoints === undefined || this.challenge.xpPoints === null) {
-      this.errorMessage = '🚫 All fields are required.';
-      return;
-    }
-
-    // XP Points minimum check
-    if (this.challenge.xpPoints < 1) {
-      this.errorMessage = '🚫 XP Points must be at least 1.';
-      return;
-    }
-
-    // Dates in future only for PENDING
-    if (this.challenge.status === ChallengeStatus.PENDING && (startDate < now || endDate < now)) {
-      this.errorMessage = '🚫 For pending status, dates must be in the future.';
-      return;
-    }
-
-    // Start date before end date
-    if (endDate <= startDate) {
-      this.errorMessage = '🚫 End date must be after start date.';
-      return;
-    }
-
-    const originalStatus = this.originalChallenge?.status;
-    const originalStartDate = new Date(this.originalChallenge!.startDate).getTime();
-    const originalEndDate = new Date(this.originalChallenge!.endDate).getTime();
-    const datesChanged = startDate.getTime() !== originalStartDate || endDate.getTime() !== originalEndDate;
-
-    // Change to Pending requires date change
-    if (
-      this.challenge.status === ChallengeStatus.PENDING &&
-      ['FAILED', 'CANCELED', 'ACTIVE'].includes(originalStatus || '') &&
-      !datesChanged
-    ) {
-      this.errorMessage = '🚫 To switch to Pending, you must change the dates.';
-      return;
-    }
-
-    // Build object to send
-    const updatedChallenge = {
-      title: this.challenge.title.trim(),
-      description: this.challenge.description.trim(),
-      startDate: this.challenge.startDate,
-      endDate: this.challenge.endDate,
-      xpPoints: this.challenge.xpPoints,
-      status: this.challenge.status,
-      participation: ['FAILED', 'CANCELED', 'PENDING'].includes(this.challenge.status) ? false : this.challenge.participation,
-      reminder15: ['FAILED', 'CANCELED', 'PENDING'].includes(this.challenge.status) ? false : this.challenge.reminder15,
-      validation: ['FAILED', 'CANCELED', 'PENDING'].includes(this.challenge.status) ? false : this.challenge.validation,
-    };
-
-    // ✅ API call
-    this.challengeService.updateChallenge(this.challengeId, updatedChallenge).subscribe({
+    this.challengeService.updateChallenge(this.challengeId, this.challenge).subscribe({
       next: () => {
-        this.successMessage = '✅ Challenge successfully updated.';
+        this.successMessage = '✅ Challenge mis à jour avec succès ! Redirection...';
         setTimeout(() => this.router.navigate(['/admin/liste-challenges']), 1500);
       },
-      error: (error) => {
-        const errorText = error.error?.message || error.error || 'An error occurred while updating the challenge.';
-        this.errorMessage = errorText;
+      error: (errorResponse) => {
+        console.error('❌ Erreurs reçues :', errorResponse);
+        
+        if (errorResponse.error && typeof errorResponse.error === 'string') {
+          try {
+            // Essayer de parser le message d'erreur JSON
+            const errorObj = JSON.parse(errorResponse.error);
+            if (errorObj.errors) {
+              errorObj.errors.forEach((error: string) => {
+                if (error.includes('title:')) this.errors['title'] = error.split('title:')[1].trim();
+                else if (error.includes('description:')) this.errors['description'] = error.split('description:')[1].trim();
+                else if (error.includes('xpPoints:')) this.errors['xpPoints'] = error.split('xpPoints:')[1].trim();
+                else if (error.includes('startDate:')) this.errors['startDate'] = error.split('startDate:')[1].trim();
+                else if (error.includes('endDate:')) this.errors['endDate'] = error.split('endDate:')[1].trim();
+                else if (error.includes('userId:')) this.errors['userId'] = error.split('userId:')[1].trim();
+                else if (error.includes('status:')) this.errors['status'] = error.split('status:')[1].trim();
+              });
+            }
+          } catch (e) {
+            // Si le parsing échoue, traiter comme une erreur simple
+            const errorParts = errorResponse.error.split('|');
+            errorParts.forEach((part: string) => {
+              const [field, message] = part.split(':').map((s: string) => s.trim());
+              if (field && message) {
+                const cleanField = field.toLowerCase();
+                if (cleanField.includes('title')) this.errors['title'] = message;
+                else if (cleanField.includes('description')) this.errors['description'] = message;
+                else if (cleanField.includes('xppoints')) this.errors['xpPoints'] = message;
+                else if (cleanField.includes('startdate')) this.errors['startDate'] = message;
+                else if (cleanField.includes('enddate')) this.errors['endDate'] = message;
+                else if (cleanField.includes('userid')) this.errors['userId'] = message;
+                else if (cleanField.includes('status')) this.errors['status'] = message;
+              }
+            });
+          }
+        }
       }
-      
     });
   }
 
-  // ✅ Navigation
   navigateToList(): void {
     this.router.navigate(['/admin/liste-challenges']);
   }
 
-  // ✅ Status change handler
-  onStatusChange(newStatus: ChallengeStatus): void {
-    this.challenge.status = newStatus;
-
-    if (
-      newStatus === ChallengeStatus.FAILED ||
-      newStatus === ChallengeStatus.CANCELED ||
-      newStatus === ChallengeStatus.PENDING
-    ) {
-      this.challenge.participation = false;
-      this.challenge.reminder15 = false;
-      this.challenge.validation = false;
+  clearError(field: string): void {
+    if (this.errors[field]) {
+      delete this.errors[field];
     }
+  }
+
+  titleCase(str: string): string {
+    return str.toLowerCase().split(' ').map((part: string): string => {
+      return part.charAt(0).toUpperCase() + part.slice(1).toLowerCase();
+    }).join(' ');
   }
 }

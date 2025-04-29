@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
-import { Achievement } from '../models/achievement.model';
+import { Achievement } from '../../feature-module/customers/achievements/models/achievement.model';
 
 @Injectable({
   providedIn: 'root',
@@ -37,10 +37,14 @@ export class CustomerAchievementService {
     return this.http.delete<void>(`${this.apiUrl}/delete/${achieveId}`, { headers: this.getHeaders() });
   }
 
-  updateAchievement(achievement: Achievement): Observable<Achievement> {
-    return this.http.put<Achievement>(`${this.apiUrl}/update/${achievement.achieveId}`, achievement, { headers: this.getHeaders() });
+  //updateAchievement:
+  updateAchievement(achieveId: string, achievement: any): Observable<any> {
+    return this.http.put<any>(
+        `${this.apiUrl}/update/${achieveId}`,
+        achievement,
+        {headers: this.getHeaders() , responseType: 'text' as 'json' }
+    );
   }
-  
   getAchievementById(achieveId: string): Observable<Achievement> {
     return this.http.get<Achievement>(`${this.apiUrl}/getById/${achieveId}`,  { headers: this.getHeaders() });
   }

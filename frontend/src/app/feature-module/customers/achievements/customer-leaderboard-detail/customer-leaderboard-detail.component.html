@@ -34,13 +34,16 @@
       <tr>
         <th class="text-center">Rank</th>
         <th>User ID</th>
+        
         <th>XP Points</th>
       </tr>
     </thead>
     <tbody>
       <tr
         *ngFor="let user of boardDetails?.users"
-        [class.table-active]="user.id === userId"
+        [class.table-active]="user.email === currentUserEmail"
+
+
         class="table-row-hover"
       >
         <td class="text-center">
