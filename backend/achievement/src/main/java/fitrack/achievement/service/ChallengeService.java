@@ -134,7 +134,7 @@ public class ChallengeService {
                 .orElseThrow(() -> new RuntimeException("❌ Défi avec l'ID " + challengeId + " introuvable."));
     }
 
-    public String deleteChallenge(String challengeId) {
+        public String deleteChallenge(String challengeId) {
         Challenge existing = challengeRepository.findById(challengeId)
                 .orElseThrow(() -> new RuntimeException("❌ Challenge introuvable."));
 
