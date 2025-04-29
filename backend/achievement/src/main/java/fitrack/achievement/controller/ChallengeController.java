@@ -129,36 +129,43 @@ public class ChallengeController {
 
 
     @PutMapping("/participate/{challengeId}")
-    public ResponseEntity<String> participate(@PathVariable String challengeId) {
-        String userId = "98df1738-1a67-4166-80cf-0b78c992f9bdvd";
+    public ResponseEntity<Map<String, String>> participate(@PathVariable String challengeId) {
         try {
-            service.participate(challengeId, userId);
-            return ResponseEntity.ok(Collections.singletonMap("message", "🚀 Tu es en train de participer au défi maintenant !").toString());
+            service.participate(challengeId);
+
+            // Renvoi d'un objet JSON avec le message
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "🚀 Tu es en train de participer au défi maintenant !");
+
+            return ResponseEntity.ok(response);
 
         } catch (RuntimeException e) {
             return ResponseEntity
                     .badRequest()
-                    .body("❌ Erreur : " + e.getMessage());
+                    .body(Collections.singletonMap("error", "❌ Erreur : " + e.getMessage()));
         }
     }
 
 
+
     @PutMapping("/validate/{challengeId}")
-    public ResponseEntity<String> validateChallenge(@PathVariable String challengeId) {
-
-        String userId = "98df1738-1a67-4166-80cf-0b78c992f9bdvd";
+    public ResponseEntity<Map<String, String>> validateChallenge(@PathVariable String challengeId) {
         try {
-        Challenge validated = service.validateChallenge(challengeId, userId);
+            service.validateChallenge(challengeId);
 
-        return ResponseEntity.ok("🎉 Félicitations ! Tu as terminé le défi \"" + validated.getTitle() + "\" avec succès ! tu a gangé "+validated.getXpPoints());
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "🎉 Félicitations ! Tu as validé le défi avec succès !");
+
+            return ResponseEntity.ok(response);
 
         } catch (RuntimeException e) {
             return ResponseEntity
                     .badRequest()
-                    .body("❌ Erreur : " + e.getMessage());
+                    .body(Collections.singletonMap("error", "❌ Erreur : " + e.getMessage()));
         }
+    }
 
-        }
+
     @GetMapping("/byUser/{userId}")
     public List<Challenge> getChallengesByUserId(@PathVariable String userId) {
         return service.getChallengesByUserId(userId);

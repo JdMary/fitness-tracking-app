@@ -33,6 +33,8 @@ public interface AuthClient {
     public ResponseEntity<String> updateUserRank(@RequestParam String id, @RequestParam int rank);
     @PostMapping("/update-xp")
     public ResponseEntity<String> updateUserXp(@RequestParam String id, @RequestParam int xpPoints);
+    @PostMapping("/updat-xp")
+    public ResponseEntity<String> updatUserXp(@RequestParam String id, @RequestParam int xpPoints);
     @GetMapping("/user/{id}")
     ResponseEntity<User> getUserById(@PathVariable String id);
     @GetMapping("/retrieve-all-users")

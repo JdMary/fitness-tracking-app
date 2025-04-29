@@ -71,6 +71,7 @@ export class CustomerChallengeService {
     return this.http.put(`${this.apiUrl}/participate/${challengeId}`, {}, { headers: this.getHeaders() });
 }
 
+
   //  Valider un challenge
 validateChallenge(challengeId: string): Observable<any> {
   return this.http.put(`${this.apiUrl}/validate/${challengeId}`, {}, { headers: this.getHeaders() });

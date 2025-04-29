@@ -58,18 +58,18 @@ public class LeaderBoardService {
         }
 
         if (users.isEmpty()) {
-            // Si la liste des utilisateurs est vide, on crée une réponse indiquant qu'il n'y a pas de participants
+
             FullBoardResponse response = new FullBoardResponse();
             response.setBoardId(board.getBoardId());
             response.setName(board.getName());
             response.setDescription(board.getDescription());
-            response.setUsers(List.of());  // Aucune participation
+            response.setUsers(List.of());
 
             System.out.println("👥 No users for board " + boardId + ".");
             return response;
         }
 
-        // Si la liste des utilisateurs n'est pas vide, on trie et on met à jour le classement
+
         users.sort((u1, u2) -> Integer.compare(u2.getXpPoints(), u1.getXpPoints()));
 
         for (int i = 0; i < users.size(); i++) {
@@ -80,7 +80,7 @@ public class LeaderBoardService {
             try {
                 authClient.updateUserRank(user.getId(), rank);
 
-                if (rank <= 3) {
+                if (rank <= 3 && user.getXpPoints() > 1000) {
                     rewardService.createRewardIfEligible(user.getId(), rank);
                 }
 

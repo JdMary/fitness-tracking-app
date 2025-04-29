@@ -235,6 +235,21 @@ public class AuthenticationController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
         }
     }
+    @PostMapping("/updat-xp")
+    public ResponseEntity<String> updatUserXp(@RequestParam String id, @RequestParam int xpPoints) {
+        try {
+            Optional<User> userOptional = userRepository.findById(id);
+            if (userOptional.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+            }
+            User user = userOptional.get();
+            user.setXpPoints(user.getXpPoints() - xpPoints);
+            userRepository.save(user);
+            return ResponseEntity.ok("User XP updated successfully");
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred");
+        }
+    }
     @GetMapping("/user/{id}")
     public ResponseEntity<User> getUserById(@PathVariable String id) {
         return ResponseEntity.ok(userService.getUserById(id));

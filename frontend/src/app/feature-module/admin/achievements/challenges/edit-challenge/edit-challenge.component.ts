@@ -33,7 +33,7 @@ export class EditChallengeComponent implements OnInit {
   statusOptions = [
     { label: 'Active',   value: ChallengeStatus.ACTIVE   },
     { label: 'Pending',  value: ChallengeStatus.PENDING  },
-    { label: 'Failed',   value: ChallengeStatus.FAILED   },
+    { label: 'Completed',   value: ChallengeStatus.COMPLETED   },
     { label: 'Canceled', value: ChallengeStatus.CANCELED }
   ];
 

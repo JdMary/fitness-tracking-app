@@ -83,10 +83,12 @@
                        class="btn-action-icon view" title="Details">
                       <i class="fa-solid fa-eye"></i>
                     </a>
-                    <a [routerLink]="['/admin/edit-challenge', challenge.challengeId]"
-                       class="btn-action-icon edit" title="Edit">
-                      <i class="fa-regular fa-pen-to-square"></i>
-                    </a>
+                    <a href="javascript:void(0);"
+                    (click)="onEditChallenge(challenge)"
+                    class="btn-action-icon edit" 
+                    title="Edit">
+                    <i class="fa-regular fa-pen-to-square"></i>
+                 </a>
                     <a href="javascript:void(0);"
                        (click)="openDeleteModal(challenge)"
                        class="btn-action-icon delete" title="Delete">

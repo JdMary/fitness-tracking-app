@@ -47,10 +47,13 @@ export class CustomerChallengeDetailsComponent implements OnInit, OnDestroy {
 
   fetchChallengeDetails(): void {
     this.challengeService.getChallengeById(this.challengeId).subscribe({
-      next: (data: Challenge) => {
-        console.log('✅ Challenge chargé :', data);
-        this.challenge = data;
-        if (this.challenge.status === 'ACTIVE' && !this.challenge.participation) {
+      next: (data: any) => {
+        console.log('✅ Challenge brut chargé :', data);
+        this.challenge = {
+          ...data,
+          challengeId: data.challenge_id, // 🔥 Correction ici
+        };
+        if (this.challenge && this.challenge.status === 'ACTIVE' && !this.challenge.participation) {
           this.remainingParticipationTime = this.calculateRemainingParticipationTime();
         }
       },
@@ -76,22 +79,38 @@ export class CustomerChallengeDetailsComponent implements OnInit, OnDestroy {
   }
 
   validateChallenge(): void {
-    if (!this.challenge) return;
-
+    if (!this.challenge || !this.challenge.challengeId) { 
+      console.error('❌ challengeId is missing or undefined');
+      return;
+    }
+  
     this.challengeService.validateChallenge(this.challenge.challengeId).subscribe({
       next: () => this.fetchChallengeDetails(),
-      error: (error) => console.error('❌ Erreur lors de la validation :', error),
+      error: (error) => {
+        console.error('❌ Erreur lors de la participation :', error);
+        
+        }
     });
   }
-
+  
   participate(): void {
-    if (!this.challenge) return;
-
+    if (!this.challenge || !this.challenge.challengeId) { 
+      console.error('❌ challengeId is missing or undefined');
+      return;
+    }
+    
+    console.log('🚀 Participating with challengeId:', this.challenge.challengeId);
+    
     this.challengeService.participate(this.challenge.challengeId).subscribe({
-      next: () => this.fetchChallengeDetails(),
-      error: (error) => console.error('❌ Erreur lors de la participation :', error),
+      next: () => this.fetchChallengeDetails(), 
+      error: (error) => {
+        console.error('❌ Erreur lors de la participation :', error);
+        
+        }
     });
   }
+  
+  
 
   goBack(): void {
     this.router.navigate(['/customers/customer-challenge', this.challenge?.userId]);
@@ -117,8 +136,9 @@ export class CustomerChallengeDetailsComponent implements OnInit, OnDestroy {
     const days = Math.floor(totalSeconds / (3600 * 24));
     const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
   
-    return `${days}d ${hours}h ${minutes}m`;
+    return `${days}d ${hours}h ${minutes}m ${seconds}s`;
   }
   
 

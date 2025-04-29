@@ -4,7 +4,7 @@ import { CustomerChallengeService } from 'src/app/shared/services/customer-chall
 import { Challenge } from 'src/app/feature-module/customers/achievements/models/challenge.model';
 import { ChallengeStatus } from 'src/app/feature-module/customers/achievements/models/challenge-status.enum';
 
-declare var bootstrap: any; // 👈 Important pour que TypeScript accepte 'bootstrap.Modal'
+declare var bootstrap: any; 
 
 @Component({
   selector: 'app-details-challenge',

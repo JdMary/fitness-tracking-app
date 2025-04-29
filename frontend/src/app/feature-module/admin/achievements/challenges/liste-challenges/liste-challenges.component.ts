@@ -172,4 +172,21 @@ export class ListeChallengesComponent implements OnInit {
   navigateToList(): void {
     this.router.navigate(['/admin/liste-challenges']);
   }
+
+
+
+  canEditChallenge(challenge: any): boolean {
+    return challenge.status !== 'COMPLETED';
+  }
+
+  // Gérer le clic sur le bouton d'édition
+  onEditChallenge(challenge: any): void {
+    if (challenge.status === 'COMPLETED') {
+      // Si le challenge est complété, on empêche l'édition et affiche un message d'erreur
+      this.errorMessage = '⛔ Ce challenge est complété et ne peut pas être modifié.';
+    } else {
+      // Si le challenge n'est pas complété, on permet l'édition
+      this.router.navigate(['/admin/edit-challenge', challenge.challengeId]);
+    }
+  }
 }
