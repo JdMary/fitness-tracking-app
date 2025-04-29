@@ -35,10 +35,10 @@
               </div>
             </div>
             <div class="col-md-6 mb-3">
-              <label class="form-label">Duration (minutes)</label>
-              <input type="number" class="form-control" formControlName="duration">
+              <label class="form-label">Duration (days)</label>
+              <input type="number" class="form-control" formControlName="duration" min="1">
               <div class="invalid-feedback" *ngIf="workoutForm.get('duration')?.invalid && workoutForm.get('duration')?.touched">
-                Duration is required
+                Duration must be at least 1 day
               </div>
             </div>
             <div class="col-md-6 mb-3">

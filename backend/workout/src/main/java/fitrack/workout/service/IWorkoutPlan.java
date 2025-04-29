@@ -4,6 +4,7 @@ import fitrack.workout.dto.entity.ProgressTrackerDTO;
 import fitrack.workout.dto.entity.WorkoutPlanDTO;
 import fitrack.workout.entity.ProgressTracker;
 import fitrack.workout.entity.TrainingSession;
+import fitrack.workout.entity.Video;
 import fitrack.workout.entity.WorkoutPlan;
 
 import java.util.List;

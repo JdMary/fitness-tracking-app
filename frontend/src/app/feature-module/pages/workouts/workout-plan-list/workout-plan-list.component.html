@@ -92,7 +92,7 @@
                                     <thead class="table-light">
                                         <tr>
                                             <th>Description</th>
-                                            <th>Duration (mins)</th>
+                                            <th>Duration (days)</th>
                                             <th>Start Date</th>
                                             <th>Difficulty</th>
                                             <th>Goal</th>
@@ -113,7 +113,17 @@
                                                     {{ plan.difficulty }}
                                                 </span>
                                             </td>
-                                            <td>{{ plan.goal }}</td>
+                                            <td>
+                                                <span class="badge" [ngClass]="{
+                                                    'bg-info': plan.goal === 'WEIGHT_LOSS',
+                                                    'bg-success': plan.goal === 'MUSCLE_GAIN',
+                                                    'bg-warning': plan.goal === 'ENDURANCE',
+                                                    'bg-primary': plan.goal === 'FLEXIBILITY',
+                                                    'bg-secondary': plan.goal === 'MAINTENANCE'
+                                                }">
+                                                    {{ plan.goal.replace('_', ' ') | titlecase }}
+                                                </span>
+                                            </td>
                                             <td>
                                                 <div class="btn-group">
                                                     <button class="btn btn-sm btn-outline-info" (click)="onEdit(plan.workoutPlanId)" title="Edit">
@@ -155,6 +165,9 @@
                         </div>
                     </div>
 
+                    <!-- Video Upload Component -->
+                    <app-video-upload></app-video-upload>
+
                     <!-- Progress Insights Integration -->
                     <div class="card shadow-sm mt-4">
                         <div class="card-header bg-white py-3">
@@ -171,4 +184,3 @@
         </div>
     </div>
 </div>
-<app-video-upload></app-video-upload>

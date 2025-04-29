@@ -1,12 +1,25 @@
-<h2>Upload a Video to Cloudinary</h2>
+<div class="card shadow-sm mt-4">
+    <div class="card-header bg-white py-3">
+        <h4 class="card-title mb-0 text-primary">
+            <i class="ti ti-video me-2"></i>Video Upload
+        </h4>
+    </div>
+    <div class="card-body">
+        <div class="video-upload-container">
+            <div class="mb-3">
+                <label class="form-label">Select workout video to upload</label>
+                <input type="file" class="form-control upload-input" (change)="onFileSelected($event)" accept="video/*" />
+            </div>
 
-<input type="file" (change)="onFileSelected($event)" accept="video/*" />
+            <div *ngIf="progress > 0" class="progress-bar">
+                <div class="progress-bar-fill" [style.width.%]="progress"></div>
+                <small class="text-muted">Upload Progress: {{ progress }}%</small>
+            </div>
 
-<div *ngIf="progress > 0">
-  Upload Progress: {{ progress }}%
+            <video *ngIf="videoUrl" controls class="video-preview">
+                <source [src]="videoUrl" type="video/mp4" />
+                Your browser does not support HTML5 video.
+            </video>
+        </div>
+    </div>
 </div>
-
-<video *ngIf="videoUrl" controls width="400">
-  <source [src]="videoUrl" type="video/mp4" />
-  Your browser does not support HTML5 video.
-</video>

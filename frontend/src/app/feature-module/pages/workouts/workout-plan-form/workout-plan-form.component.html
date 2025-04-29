@@ -1,51 +1,103 @@
-<div class="row">
-  <!-- Sidebar -->
-  <div class="col-md-3">
-    <div class="card">
-      <div class="card-body">
-        <h4 class="card-title">Create Workout Plan</h4>
-        <p class="text-muted">Fill in the basic workout plan details</p>
-      </div>
+<div class="breadcrumb-bar">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-12">
+                <h2 class="breadcrumb-title">Create Workout Plan</h2>
+                <nav aria-label="breadcrumb" class="page-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/workouts/plans">Workout Plans</a></li>
+                        <li class="breadcrumb-item active">Create Plan</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
     </div>
-  </div>
+</div>
 
-  <!-- Form Content -->
-  <div class="col-md-9">
-    <div class="card">
-      <div class="card-body">
-        <!-- Workout Plan Form -->
-        <form [formGroup]="workoutForm" (ngSubmit)="onSubmit()">
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <label class="form-label">Description</label>
-              <input type="text" class="form-control" formControlName="description">
-            </div>
-            <div class="col-md-6 mb-3">
-              <label class="form-label">Duration (minutes)</label>
-              <input type="number" class="form-control" formControlName="duration">
-            </div>
-            <div class="col-md-6 mb-3">
-              <label class="form-label">Start Date</label>
-              <input type="date" class="form-control" formControlName="startDate">
-            </div>
-            <div class="col-md-6 mb-3">
-              <label class="form-label">Difficulty Level</label>
-              <select class="form-control" formControlName="difficulty">
-                <option value="Beginner">Beginner</option>
-                <option value="Intermediate">Intermediate</option>
-                <option value="Advanced">Advanced</option>
-              </select>
-            </div>
-          </div>
+<div class="content">
+    <div class="container">
+        <div class="card">
+            <div class="card-body">
+                <form [formGroup]="workoutForm" (ngSubmit)="onSubmit()" class="needs-validation">
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label fw-bold">Description</label>
+                            <input type="text" 
+                                class="form-control" 
+                                formControlName="description"
+                                [ngClass]="{'is-invalid': workoutForm.get('description')?.invalid && workoutForm.get('description')?.touched}">
+                            <div class="invalid-feedback">
+                                Please provide a description
+                            </div>
+                        </div>
 
-          <!-- Navigation Buttons -->
-          <div class="d-flex justify-content-end mt-3">
-            <button type="submit" class="btn btn-primary">
-              Create Workout Plan
-            </button>
-          </div>
-        </form>
-      </div>
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label fw-bold">Duration (days)</label>
+                            <input type="number" 
+                                class="form-control" 
+                                formControlName="duration"
+                                min="1"
+                                [ngClass]="{'is-invalid': workoutForm.get('duration')?.invalid && workoutForm.get('duration')?.touched}">
+                            <div class="invalid-feedback">
+                                Duration must be at least 1 day
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label fw-bold">Start Date</label>
+                            <input type="date" 
+                                class="form-control" 
+                                formControlName="startDate"
+                                [ngClass]="{'is-invalid': workoutForm.get('startDate')?.invalid && workoutForm.get('startDate')?.touched}">
+                            <div class="invalid-feedback">
+                                Please select a start date
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label fw-bold">Difficulty Level</label>
+                            <select class="form-select" 
+                                formControlName="difficulty"
+                                [ngClass]="{'is-invalid': workoutForm.get('difficulty')?.invalid && workoutForm.get('difficulty')?.touched}">
+                                <option value="">Select difficulty</option>
+                                <option value="Beginner">Beginner</option>
+                                <option value="Intermediate">Intermediate</option>
+                                <option value="Advanced">Advanced</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select a difficulty level
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label fw-bold">Goal</label>
+                            <select class="form-select" 
+                                formControlName="goal"
+                                [ngClass]="{'is-invalid': workoutForm.get('goal')?.invalid && workoutForm.get('goal')?.touched}">
+                                <option value="">Select a goal</option>
+                                <option *ngFor="let goal of goals" [value]="goal">
+                                    {{goal.replace('_', ' ') | titlecase}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Please select a goal
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-end mt-4">
+                        <button type="button" class="btn btn-secondary me-2" routerLink="/workouts/plans">
+                            Cancel
+                        </button>
+                        <button type="submit" 
+                            class="btn btn-primary" 
+                            [disabled]="workoutForm.invalid">
+                            Create Workout Plan
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-  </div>
 </div>

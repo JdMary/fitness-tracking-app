@@ -42,6 +42,7 @@ public class WorkoutPlanController {
         return new ResponseEntity<>(createdPlan, HttpStatus.CREATED);
     }
 
+
     @GetMapping("/{id}")
     public ResponseEntity<WorkoutPlan> getWorkoutPlan(@PathVariable Long id) {
         return ResponseEntity.ok(service.getWorkoutPlanById(id));

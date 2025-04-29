@@ -8,7 +8,8 @@ export interface WorkoutPlan {
   duration: number;
   startDate: Date;
   difficulty: string;
-  goal: string;
+  goal: 'WEIGHT_LOSS' | 'MUSCLE_GAIN' | 'ENDURANCE' | 'FLEXIBILITY' | 'MAINTENANCE';
+
 }
 
 export interface Exercise {

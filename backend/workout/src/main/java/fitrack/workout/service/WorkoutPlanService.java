@@ -4,14 +4,8 @@ package fitrack.workout.service;
 import fitrack.workout.client.AuthClient;
 import fitrack.workout.dto.mapper.ProgressTrackerMapper;
 import fitrack.workout.dto.mapper.WorkoutPlanMapper;
-import fitrack.workout.entity.Exercise;
-import fitrack.workout.entity.ProgressTracker;
-import fitrack.workout.entity.TrainingSession;
-import fitrack.workout.entity.WorkoutPlan;
-import fitrack.workout.repository.ExerciseRepository;
-import fitrack.workout.repository.ProgressTrackerRepository;
-import fitrack.workout.repository.TrainingSessionRepository;
-import fitrack.workout.repository.WorkoutPlanRepository;
+import fitrack.workout.entity.*;
+import fitrack.workout.repository.*;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
@@ -39,6 +33,7 @@ public class WorkoutPlanService implements IWorkoutPlan {
     private ExerciseRepository exerciseRepository;
     @Autowired
     private AuthClient authClient;
+
 
 
     @Override
@@ -163,5 +158,8 @@ public class WorkoutPlanService implements IWorkoutPlan {
 
         return repository.findProgressTrackerByWorkoutPlanIdAndUsername(workoutid,username);
     }
+
+
+
 
 }
