@@ -12,6 +12,7 @@ import { ExerciseFormComponent } from './exercise-form/exercise-form.component';
 import { ProgressTrackerComponent } from './progress-tracker/progress-tracker.component';
 import { TrainingSessionInsightsComponent } from './training-session-insights/training-session-insights.component';
 import { ProgressInsightsComponent } from './progress-insights/progress-insights.component';
+import { VideoUploadComponent } from './video-upload/video-upload.component';
 const routes: Routes = [
   {
     path: '',
@@ -51,6 +52,10 @@ const routes: Routes = [
 
         path: 'training-session-insights',
         component: TrainingSessionInsightsComponent
+      },
+      {
+        path: 'video-upload',
+        component: VideoUploadComponent
       },
       {
         path: 'progress-insights',

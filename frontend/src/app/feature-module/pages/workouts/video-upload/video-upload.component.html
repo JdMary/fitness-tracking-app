@@ -1,0 +1,12 @@
+<h2>Upload a Video to Cloudinary</h2>
+
+<input type="file" (change)="onFileSelected($event)" accept="video/*" />
+
+<div *ngIf="progress > 0">
+  Upload Progress: {{ progress }}%
+</div>
+
+<video *ngIf="videoUrl" controls width="400">
+  <source [src]="videoUrl" type="video/mp4" />
+  Your browser does not support HTML5 video.
+</video>

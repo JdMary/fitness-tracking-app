@@ -13,10 +13,11 @@ import { WorkoutPlanFormComponent } from './workout-plan-form/workout-plan-form.
 import { TrainingSessionFormComponent } from './training-session-form/training-session-form.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { ExerciseFormModule } from './exercise-form/exercise-form.module';
-import { P } from '@angular/cdk/keycodes';
 import { ProgressTrackerComponent } from './progress-tracker/progress-tracker.component';
 import { TrainingSessionInsightsComponent } from './training-session-insights/training-session-insights.component';
 import { ProgressInsightsModule } from './progress-insights/progress-insights.module';
+import { VideoUploadModule } from './video-upload/video-upload.module';
+import { VideoUploadComponent } from './video-upload/video-upload.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { ProgressInsightsModule } from './progress-insights/progress-insights.mo
     WorkoutPlanFormComponent,
     TrainingSessionFormComponent,
     ProgressTrackerComponent,
-    TrainingSessionInsightsComponent
+    TrainingSessionInsightsComponent,
+    VideoUploadComponent
   ],
   imports: [
     CommonModule,
@@ -39,7 +41,8 @@ import { ProgressInsightsModule } from './progress-insights/progress-insights.mo
     WorkoutWizardModule,
     SharedModule,
     ExerciseFormModule,
-    ProgressInsightsModule
+    ProgressInsightsModule,
+    
   ]
 })
 export class WorkoutsModule { }
