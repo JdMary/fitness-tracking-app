@@ -34,6 +34,12 @@ export interface Meal {
   vitaminA?: number;
   vitaminC?: number;
   vitaminK?: number;
+  zinc?: number;
+    selenium?: number;
+    vitaminD?: number;
+    vitaminE?: number;
+    phosphorus?: number;
+    sodium?: number;
 }
 
 export interface Preference {

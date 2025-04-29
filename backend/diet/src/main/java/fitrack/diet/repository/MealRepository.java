@@ -15,20 +15,17 @@ public interface MealRepository extends JpaRepository<Meal, Long> {
     List<Meal> findMealsByUsernameAndDay(@Param("username") String username, @Param("dayNumber") int dayNumber);
 
     @Query("""
-           SELECT m.dayNumber,
-                  SUM(m.calories) AS totalCalories,
-                  SUM(m.protein) AS totalProtein,
-                  SUM(m.carbs) AS totalCarbs,
-                  SUM(m.fat) AS totalFat,
-                  dp.calorieTarget,
-                  dp.targetProtein,
-                  dp.targetCarbs
-           FROM Meal m
-           JOIN m.dietPlan dp
-           WHERE m.dietPlan.username = :username
-             AND m.completed = true
-           GROUP BY m.dayNumber, dp.calorieTarget, dp.targetProtein, dp.targetCarbs
-           ORDER BY m.dayNumber
-           """)
+   SELECT m.dayNumber,
+          SUM(m.calories) AS totalCalories,
+          SUM(m.protein) AS totalProtein,
+          SUM(m.carbs) AS totalCarbs,
+          SUM(m.fat) AS totalFat
+   FROM Meal m
+   WHERE m.dietPlan.username = :username
+     AND m.completed = true
+   GROUP BY m.dayNumber
+   ORDER BY m.dayNumber
+""")
     List<Object[]> getDailyCompletedNutrientStats(@Param("username") String username);
+
 }

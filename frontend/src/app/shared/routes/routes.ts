@@ -1000,8 +1000,9 @@ export class routes {
   
   ////// diet plan routes ////////////////////////////
   public static get dietPlan(): string {
-    return this.baseUrl + '/diet-plan/generate-diet-plan';
+    return this.baseUrl + '/diet-plan';
   }
+ 
  
   ///////////// diet plan   admin dashboard ///////////// 
   

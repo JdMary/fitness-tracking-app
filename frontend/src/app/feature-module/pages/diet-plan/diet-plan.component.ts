@@ -39,7 +39,7 @@ export class DietPlanComponent implements OnInit {
   // Add these properties
   allHealthLabels = Object.keys(HealthLabel);
   allMealTypes = Object.values(MealType);
-
+  allDietLabels = Object.values(DietLabel);
   // Preferences State
   preferencesState: PreferencesState = {
     dietLabel: DietLabel.BALANCED,
@@ -81,6 +81,7 @@ export class DietPlanComponent implements OnInit {
 },} | null = null;
 
   dailyNutrientStats: any; 
+  
 
   private initializeEnumRecord<T extends string>(enumValues: T[]): Record<T, boolean> {
     return enumValues.reduce((acc, val) => ({
@@ -347,11 +348,9 @@ updateSelectedDayStats(): void {
     console.log(`Toggling ${type}: ${value}`);
     
     if (type === 'healthLabels') {
-      // If already selected, remove it
       if (this.preferencesState.healthLabels[value]) {
         delete this.preferencesState.healthLabels[value];
       } else {
-        // If not selected, add it
         this.preferencesState.healthLabels[value] = true;
       }
       console.log('Updated healthLabels:', this.preferencesState.healthLabels);
@@ -363,8 +362,18 @@ updateSelectedDayStats(): void {
       }
       console.log('Updated mealTypes:', this.preferencesState.mealTypes);
       this.updateSelectedMeals();
+    } else if (type === 'dietLabel') {
+      if (this.preferencesState.dietLabel === value) {
+        // If already selected, deselect it
+        this.preferencesState.dietLabel = DietLabel.BALANCED;
+      } else {
+        // Otherwise, select it
+        this.preferencesState.dietLabel = value as DietLabel;
+      }
+      console.log('Updated dietLabel:', this.preferencesState.dietLabel);
     }
   }
+  
 
   toggleCuisine(cuisineId: string): void {
     const index = this.selectedCuisines.indexOf(cuisineId);
@@ -533,8 +542,8 @@ updateSelectedDayStats(): void {
   viewMealDetails(mealId: string): void {
     console.log('Navigating to meal:', mealId);
     if (mealId) {
-      this.router.navigate(['diet-plan', 'meal', mealId])
-        .then(success => console.log('Navigation result:', success))
+      this.router.navigate(['diet-plan', 'meal-details', mealId]) // Ensure this matches the route structure
+      .then(success => console.log('Navigation result:', success))
         .catch(error => console.error('Navigation error:', error));
     } else {
       console.warn('No meal ID provided');

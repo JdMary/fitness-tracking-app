@@ -46,15 +46,7 @@ Also include a top-level key "total_nutrients" with the sum of each nutrient for
 If you cannot identify the food items or estimate their nutritional content, please respond with a JSON object containing an "error" key with a descriptive message.
 """
 
-model = genai.GenerativeModel('gemini-pro-vision')  # Use 'gemini-pro-vision' for image analysis
-
-# Load the image
-image_path = "./images/image.png"  # Adjust path if needed
-try:
-    image = Image.open(image_path)
-except FileNotFoundError:
-    print(f"Error: Image not found at {image_path}")
-    image = None
+model = genai.GenerativeModel('gemini-2.0-flash')  # or 'gemini-pro-vision' for image-specific tasks
 
 
 class ImageRequest(BaseModel):
@@ -62,31 +54,23 @@ class ImageRequest(BaseModel):
 
 @app.post("/process-image/")
 async def process_image(request: ImageRequest):
-    if image is None:
-        return JSONResponse(
-            status_code=400,
-            content={"error": "Could not load the image."}
-        )
     try:
-        # Decode Base64 and convert to bytes for Gemini
+        # Decode Base64 and convert to PIL Image
         image_data = base64.b64decode(request.image)
+        image = Image.open(BytesIO(image_data))
 
         # Process with Gemini Vision
         response = model.generate_content(
             [
                 encadrement_nutrition.strip(),
-                {"mime_type": "image/png", "data": image_data} # Adjust mime_type if needed
+                image  
             ]
         )
         res = response.text.replace("```json", "").replace("```", "")
+        print(res)
         return JSONResponse(
             status_code=200,
             content=json.loads(res)
-        )
-    except json.JSONDecodeError:
-        return JSONResponse(
-            status_code=500,
-            content={"error": f"Could not decode JSON response: {response.text}"}
         )
     except Exception as e:
         raise HTTPException(

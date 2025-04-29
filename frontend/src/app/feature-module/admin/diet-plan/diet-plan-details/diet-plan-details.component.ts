@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DietService } from '../../../services/diet.service';
-import { DietPlan, Meal } from '../../../models/diet.interface';
+import { DietPlan, Meal, Preference } from '../../../models/diet.interface';
 
 @Component({
   selector: 'app-diet-plan-details',
@@ -17,6 +17,10 @@ export class DietPlanDetailsComponent implements OnInit {
     targetCarbs: 0,
     meals: []
   };
+  preference : Preference = {
+    maxCarbs: 0,
+    maxProtein: 0,  
+  maxCalories: 0,};
 
   constructor(private route: ActivatedRoute, private dietService: DietService) {}
 

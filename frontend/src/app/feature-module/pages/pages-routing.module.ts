@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { PagesComponent } from './pages.component';
 import { MealDetailsComponent } from './diet-plan/meal-details/meal-details.component';
 import {WorkoutsModule} from "./workouts/workouts.module";
+import { AIComponent } from './diet-plan/ai/ai.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,11 @@ const routes: Routes = [
         path: 'buddy',
         loadChildren: () =>
           import('./buddy/buddy.module').then((m) => m.BuddyModule),
+      },
+      {
+        path: 'diet-plan',
+        loadChildren: () =>
+          import('./diet-plan/diet-plan.module').then((m) => m.DietPlanModule),
       },
       {
         path: 'about-us',
@@ -153,33 +159,15 @@ const routes: Routes = [
       ///////////////add
       {
         path: 'sport-facility',
-        loadChildren: () => import('./sport-facility/sport-facility.module').then(m => m.SportFacilityModule)
-
-      },
-      {
-        path: 'promotion',
-        loadChildren: () => import('./promotion/promotion.module').then(m => m.PromotionModule)
-      },
-      {
-        path: 'subscription',
-        loadChildren: () => import('./subscription/subscription.module').then(m => m.SubscriptionModule)
-      },
-      {
-        path: 'events',
-        loadChildren: () => import('./event/event.module').then(m => m.EventModule)
-      }
-      ,
-      
-      {
-        path: 'diet-plan',
         loadChildren: () =>
-          import('./diet-plan/diet-plan-routing.module').then(
-            (m) => m.DietPlanRoutingModule,
+          import('./sport-facility/sport-facility.module').then(
+            (m) => m.SportFacilityModule
           ),
       },
       {
-        path: 'diet-plan/meal/:id',
-        component: MealDetailsComponent,
+        path: 'promotion',
+        loadChildren: () =>
+          import('./promotion/promotion.module').then((m) => m.PromotionModule),
       },
       {
         path: 'workouts',
@@ -187,7 +175,32 @@ const routes: Routes = [
           import('./workouts/workouts.module').then(
             m => m.WorkoutsModule
           ),
-      }
+      },
+      {
+        path: 'subscription',
+        loadChildren: () =>
+          import('./subscription/subscription.module').then(
+            (m) => m.SubscriptionModule
+          ),
+      },
+      {
+        path: 'events',
+        loadChildren: () =>
+          import('./event/event.module').then((m) => m.EventModule),
+      },
+
+      // {
+      //   path: 'diet-plan',
+      //   loadChildren: () =>
+      //     import('./diet-plan/diet-plan-routing.module').then(
+      //       (m) => m.DietPlanRoutingModule,
+      //     ),
+      // },
+      // { path: 'diet-plan/ai', component: AIComponent },
+      // {
+      //   path: 'diet-plan/meal/:id',
+      //   component: MealDetailsComponent,
+      // },
     ],
   },
 ];

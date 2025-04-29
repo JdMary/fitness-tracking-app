@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DietService } from '../../../services/diet.service';
 import { Meal } from '../../../models/diet.interface';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-meal-details',
   templateUrl: './meal-details.component.html',
- // styleUrls: ['./meal-details.component.css']
 })
 export class MealDetailsComponent implements OnInit {
   meal: Meal | null = null;
@@ -28,7 +28,7 @@ export class MealDetailsComponent implements OnInit {
   private loadMealDetails(mealId: string): void {
     this.dietService.getMealById(mealId).subscribe({
       next: (meal) => {
-        console.log('Meal data:', meal); // Debug log to verify meal data
+        console.log('Meal data:', meal);
         this.meal = meal;
         this.isLoading = false;
       },

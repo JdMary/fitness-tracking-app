@@ -6,17 +6,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { MealRoutingModule } from './meal-details-routing.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MealDetailsComponent } from './meal-details.component';
-
-const routes: Routes = [
-  { path: '', component: MealDetailsComponent }
-];
+import { AIComponent } from '../ai/ai.component';
 
 @NgModule({
-  declarations: [MealDetailsComponent],
+  declarations: [MealDetailsComponent, AIComponent], // Ensure AIComponent is declared
   imports: [
-    CommonModule, // Ensure CommonModule is imported here
+    CommonModule, 
     FormsModule,
-    RouterModule.forChild(routes),
     MealRoutingModule,
     SharedModule,
   ]
