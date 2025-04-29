@@ -1,26 +1,3 @@
-<!-- Breadcrumb -->
-<div _ngcontent-ng-c3201149761="" class="breadcrumb-bar text-center">
-  <div _ngcontent-ng-c3201149761="" class="container">
-    <div _ngcontent-ng-c3201149761="" class="row">
-      <div _ngcontent-ng-c3201149761="" class="col-md-12 col-12">
-        <h2 _ngcontent-ng-c3201149761="" class="breadcrumb-title mb-2">Nutrient Calculator</h2>
-        <nav _ngcontent-ng-c3201149761="" aria-label="breadcrumb">
-          <ol _ngcontent-ng-c3201149761="" class="breadcrumb justify-content-center mb-0">
-            <li _ngcontent-ng-c3201149761="" class="breadcrumb-item"><a _ngcontent-ng-c3201149761=""
-                ng-reflect-router-link="/home" href="/home"><i _ngcontent-ng-c3201149761=""
-                  class="ti ti-home-2"></i></a></li>
-            <li _ngcontent-ng-c3201149761="" aria-current="page" class="breadcrumb-item active">calculator</li>
-          </ol>
-        </nav>
-      </div>
-    </div>
-    <div _ngcontent-ng-c3201149761="" class="breadcrumb-bg"><img _ngcontent-ng-c3201149761=""
-        src="assets/img/bg/breadcrumb-bg-01.png" alt="Img" class="breadcrumb-bg-1"><img _ngcontent-ng-c3201149761=""
-        src="assets/img/bg/breadcrumb-bg-02.png" alt="Img" class="breadcrumb-bg-2"></div>
-  </div>
-</div>
-<!-- /Breadcrumb -->
-
 <!-- Page Wrapper -->
 <div class="page-wrapper">
   <div class="content py-4">
@@ -127,6 +104,46 @@
                       </div>
                     </div>
                   </div>
+
+                  <!-- Smart Nutrient Comparison -->
+                  <div class="mb-4">
+                    <h5 class="text-secondary mb-3">Smart Nutrient Comparison</h5>
+                    <button class="btn btn-info mb-3" (click)="toggleComparison()">Toggle Comparison</button>
+
+                    <div *ngIf="showComparison" class="table-responsive">
+                      <table class="table table-bordered align-middle text-center">
+                        <thead class="table-light">
+                          <tr>
+                            <th>Nutrient</th>
+                            <th>Planned Meal</th>
+                            <th>Gemini Analysis</th>
+                            <th>Status</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let nutrient of nutrientsList">
+                            <td><strong>{{ nutrient.label }}</strong></td>
+                            <td>{{ plannedMeal[nutrient.key] || 0 }} {{ nutrient.unit }}</td>
+                            <td>{{ result.total_nutrients[nutrient.key] || 0 }} {{ nutrient.unit }}</td>
+                            <td>
+                              <span [ngClass]="{
+              'badge bg-success': isWithinTolerance(plannedMeal[nutrient.key], result.total_nutrients[nutrient.key]),
+              'badge bg-danger': !isWithinTolerance(plannedMeal[nutrient.key], result.total_nutrients[nutrient.key])
+            }">
+                                {{
+                                isWithinTolerance(plannedMeal[nutrient.key], result.total_nutrients[nutrient.key])
+                                ? '✓ Enough'
+                                : '✗ Not Enough'
+                                }}
+                              </span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+
                 </div>
               </div>
             </div>

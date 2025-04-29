@@ -20,6 +20,11 @@ const routes: Routes = [
           import('./buddy/buddy.module').then((m) => m.BuddyModule),
       },
       {
+        path: 'diet-plan',
+        loadChildren: () =>
+          import('./diet-plan/diet-plan.module').then((m) => m.DietPlanModule),
+      },
+      {
         path: 'about-us',
         loadChildren: () =>
           import('./about-us/about-us.module').then((m) => m.AboutUsModule),
@@ -153,35 +158,41 @@ const routes: Routes = [
       ///////////////add
       {
         path: 'sport-facility',
-        loadChildren: () => import('./sport-facility/sport-facility.module').then(m => m.SportFacilityModule)
-
+        loadChildren: () =>
+          import('./sport-facility/sport-facility.module').then(
+            (m) => m.SportFacilityModule
+          ),
       },
       {
         path: 'promotion',
-        loadChildren: () => import('./promotion/promotion.module').then(m => m.PromotionModule)
+        loadChildren: () =>
+          import('./promotion/promotion.module').then((m) => m.PromotionModule),
       },
       {
         path: 'subscription',
-        loadChildren: () => import('./subscription/subscription.module').then(m => m.SubscriptionModule)
+        loadChildren: () =>
+          import('./subscription/subscription.module').then(
+            (m) => m.SubscriptionModule
+          ),
       },
       {
         path: 'events',
-        loadChildren: () => import('./event/event.module').then(m => m.EventModule)
-      }
-      ,
-      
-      {
-        path: 'diet-plan',
         loadChildren: () =>
-          import('./diet-plan/diet-plan-routing.module').then(
-            (m) => m.DietPlanRoutingModule,
-          ),
+          import('./event/event.module').then((m) => m.EventModule),
       },
-      { path: 'diet-plan/ai', component: AIComponent },
-      {
-        path: 'diet-plan/meal/:id',
-        component: MealDetailsComponent,
-      },
+
+      // {
+      //   path: 'diet-plan',
+      //   loadChildren: () =>
+      //     import('./diet-plan/diet-plan-routing.module').then(
+      //       (m) => m.DietPlanRoutingModule,
+      //     ),
+      // },
+      // { path: 'diet-plan/ai', component: AIComponent },
+      // {
+      //   path: 'diet-plan/meal/:id',
+      //   component: MealDetailsComponent,
+      // },
     ],
   },
 ];

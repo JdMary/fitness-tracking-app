@@ -9,9 +9,7 @@ import { DietPlanComponent } from './pages/diet-plan/diet-plan.component';
 
 @NgModule({
   declarations: [
-    FeatureModuleComponent,
-    DietPlanComponent,
-  
+    FeatureModuleComponent,  
   ],
   imports: [
     CommonModule,

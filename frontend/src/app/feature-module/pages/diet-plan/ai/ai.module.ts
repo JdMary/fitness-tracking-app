@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { AiRoutingModule } from './ai-routing.module';
 
 @NgModule({
-  declarations: [AIComponent],
+  declarations: [],
   imports: [
     CommonModule,
     FormsModule,

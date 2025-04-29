@@ -1,61 +1,75 @@
-.container {
-    max-width: 600px;
-    margin: auto;
-    padding: 20px;
-}
-  
-.preview {
-    margin: 20px 0;
+/* Card and Section Styles */
+.upload-section {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 1.5rem;
 }
 
+.preview-section {
+  padding: 1rem 0;
+}
+
+.result-section {
+  padding-top: 1rem;
+}
+
+/* Image Preview */
 .preview img {
-    max-width: 100%;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-top: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+  max-height: 300px;
+  object-fit: contain;
+  border: 1px solid #ddd;
+  padding: 0.25rem;
 }
-  
-.error {
-    color: red;
-    margin-top: 10px;
-}
-  
+
+/* Meal Items */
 .meal-item {
-    background-color: #ffffff;
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    border: 1px solid #e5e5e5;
+  background-color: #f8f9fa;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
+
+/* Nutrient Comparison */
+.nutrient-comparison .card-body {
+  padding: 1.25rem;
+}
+
+/* Animation for loading state */
+.fa-spin {
+  animation: fa-spin 2s infinite linear;
+}
+
+@keyframes fa-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.nutrients-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
   
-.meal-item h4 {
-    margin-top: 0;
-}
-
-.nutrition-details {
-    font-size: 0.9rem;
-    color: #666;
-}
-
-.total-nutrients {
-    margin-top: 30px;
-}
-
-.alert {
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 20px;
-}
-
-.form-control {
-    border-radius: 8px;
-    border: 1px solid #ddd;
+  .nutrients-table th,
+  .nutrients-table td {
     padding: 8px 12px;
-}
-
-.btn-primary {
-    padding: 10px 20px;
-    border-radius: 8px;
-}
+    border: 1px solid #ddd;
+    text-align: center;
+  }
+  
+  .nutrients-table thead {
+    background-color: #f8f9fa;
+    font-weight: bold;
+  }
+  
+  .nutrients-table tbody tr:nth-child(even) {
+    background-color: #f1f1f1;
+  }
+  
+  .nutrients-table tbody tr:hover {
+    background-color: #e9ecef;
+  }
+  

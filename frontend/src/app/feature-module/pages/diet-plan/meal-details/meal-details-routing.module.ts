@@ -4,9 +4,9 @@ import { MealDetailsComponent } from './meal-details.component';
 
 const routes: Routes = [
   { path: '', component: MealDetailsComponent },
-  { path: 'meal-details/:id', component: MealDetailsComponent }  
-
+  //{ path: 'meal-details/:id', component: MealDetailsComponent },
 ];
+
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

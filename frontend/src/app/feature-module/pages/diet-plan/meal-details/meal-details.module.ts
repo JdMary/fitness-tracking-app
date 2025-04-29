@@ -8,16 +8,11 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { MealDetailsComponent } from './meal-details.component';
 import { AIComponent } from '../ai/ai.component';
 
-const routes: Routes = [
-  { path: '', component: MealDetailsComponent }
-];
-
 @NgModule({
-  declarations: [MealDetailsComponent],
+  declarations: [MealDetailsComponent, AIComponent], // Ensure AIComponent is declared
   imports: [
     CommonModule, 
     FormsModule,
-    //RouterModule.forChild(routes),
     MealRoutingModule,
     SharedModule,
   ]

@@ -107,6 +107,12 @@ export interface Meal {
   healthLabels?: HealthLabel[];
   cuisineTypes?: CuisineType[];
   dishTypes?: DishType[];
+  zinc?: number; // Added zinc field
+  selenium?: number; // Added selenium field
+  vitaminD?: number; // Added vitamin D field
+  vitaminE?: number; // Added vitamin E field
+  phosphorus?: number; // Added phosphorus field
+  sodium?: number; // Added sodium field
 }
 
 export interface Preference {

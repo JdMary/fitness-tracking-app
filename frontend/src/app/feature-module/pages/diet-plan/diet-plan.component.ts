@@ -542,8 +542,8 @@ updateSelectedDayStats(): void {
   viewMealDetails(mealId: string): void {
     console.log('Navigating to meal:', mealId);
     if (mealId) {
-      this.router.navigate(['diet-plan', 'meal', mealId])
-        .then(success => console.log('Navigation result:', success))
+      this.router.navigate(['diet-plan', 'meal-details', mealId]) // Ensure this matches the route structure
+      .then(success => console.log('Navigation result:', success))
         .catch(error => console.error('Navigation error:', error));
     } else {
       console.warn('No meal ID provided');

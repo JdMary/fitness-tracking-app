@@ -948,11 +948,9 @@ export class routes {
   
   ////// diet plan routes ////////////////////////////
   public static get dietPlan(): string {
-    return this.baseUrl + '/diet-plan/generate-diet-plan';
+    return this.baseUrl + '/diet-plan';
   }
-  public static get ai(): string {
-    return this.baseUrl + '/diet-plan/ai';
-  }
+ 
  
   ///////////// diet plan   admin dashboard ///////////// 
   

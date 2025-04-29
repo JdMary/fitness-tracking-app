@@ -696,37 +696,9 @@ export class DataService {
           hasSubRoute: false,
           showSubRoute: false,
           subMenus: [
-           /* {
-              menuValue: 'Generate',
-              routes: routes.serviceDetails,
-              hasSubRoute: false,
-              showSubRoute: false,
-              subMenus: [],
-            },
-            {
-              menuValue: 'Log',
-              routes: routes.serviceDetailstwo,
-              hasSubRoute: false,
-              showSubRoute: false,
-              subMenus: [],
-            },
-            {
-              menuValue: 'Nutrition Analysis',
-              routes: routes.serviceDetailstwo,
-              hasSubRoute: false,
-              showSubRoute: false,
-              subMenus: [],
-            }*/
-
           ],
         },
-        {
-          menuValue: 'Nutrients Calculator',
-          routes: routes.ai, // badalha 7asb l route mte3k
-          hasSubRoute: false,
-          showSubRoute: false,
-          subMenus: [],
-        },
+        
       ],
     },
     {
