@@ -78,6 +78,8 @@ export class ProgressInsightsComponent implements OnInit {
     this.workoutPlanService.getProgressTracking().subscribe({
       next: (progresses: ProgressTracker[]) => {
         this.updateCharts(progresses);
+        console.log('Progress tracking data:', progresses);
+        console.log('Calories chart data:', this.caloriesChartData);
       },
       error: (error) => {
         console.error('Error fetching progress tracking data:', error);

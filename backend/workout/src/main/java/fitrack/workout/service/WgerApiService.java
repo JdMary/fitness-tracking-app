@@ -16,11 +16,12 @@ public class WgerApiService {
 
     public ExerciseDetailsDto getExerciseDetails(String exerciseName) {
         String url = BASE_URL + "exercise/?language=2&name=" + exerciseName;
-
+        System.out.println("url: " + url);
         ResponseEntity<WgerExerciseResponse> response = restTemplate.getForEntity(url, WgerExerciseResponse.class);
         System.out.printf("WgerExerciseResponse "+url, WgerExerciseResponse.class);
         if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null && !response.getBody().getResults().isEmpty()) {
-            return response.getBody().getResults().get(0); // get the first match
+            System.out.println(response.getBody().getResults().get(0));
+                return response.getBody().getResults().get(0); // get the first match
         }
         return null;
     }

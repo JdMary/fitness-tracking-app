@@ -136,9 +136,10 @@ public class ExerciseService implements IExercise{
         Exercise savedExercise = repository.save(exercise);
 
         User u = authClient.extractUserDetails(token).getBody();
+        System.out.println(u);
             // Fetch exercise details
             ExerciseDetailsDto details = wgerApiService.getExerciseDetails(exercise.getCategory());
-        System.out.printf("wgerApiService"+wgerApiService.toString());
+            System.out.printf("wgerApiService"+wgerApiService.toString());
             if (details != null) {
                 System.out.println("✅ External exercise details fetched: " + details.getCategory());
                 System.out.println(u);
